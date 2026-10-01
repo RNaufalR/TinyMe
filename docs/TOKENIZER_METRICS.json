@@ -1,0 +1,64 @@
+{
+  "tokenizer_version": "tok-v1",
+  "algorithm": "byte-level BPE (Rust `tokenizers`), ByteLevel pre-tokenizer, ByteLevel decoder",
+  "vocab_size": 4096,
+  "special_tokens": [
+    "<|pad|>",
+    "<|bos|>",
+    "<|eos|>",
+    "<|unk|>",
+    "<|system|>",
+    "<|user|>",
+    "<|thought|>",
+    "<|answer|>",
+    "<|assistant|>",
+    "<|code|>",
+    "<|endcode|>",
+    "<|endoftext|>"
+  ],
+  "file_size_bytes": 265896,
+  "domains": {
+    "all": {
+      "vocab_size": 4096,
+      "samples": 937,
+      "total_tokens": 135545,
+      "total_chars": 511927,
+      "avg_tokens_per_sample": 144.658,
+      "avg_chars_per_token": 3.7768,
+      "chars_per_token": 3.7768,
+      "median_tokens_per_sample": 64,
+      "p95_tokens_per_sample": 516,
+      "max_tokens_per_sample": 6587,
+      "unk_token_count": 0,
+      "unk_rate": 0.0
+    },
+    "code": {
+      "vocab_size": 4096,
+      "samples": 427,
+      "total_tokens": 105416,
+      "total_chars": 364662,
+      "avg_tokens_per_sample": 246.876,
+      "avg_chars_per_token": 3.4593,
+      "chars_per_token": 3.4593,
+      "median_tokens_per_sample": 99,
+      "p95_tokens_per_sample": 904,
+      "max_tokens_per_sample": 6583,
+      "unk_token_count": 0,
+      "unk_rate": 0.0
+    },
+    "math_logic": {
+      "vocab_size": 4096,
+      "samples": 375,
+      "total_tokens": 21434,
+      "total_chars": 80154,
+      "avg_tokens_per_sample": 57.157,
+      "avg_chars_per_token": 3.7396,
+      "chars_per_token": 3.7396,
+      "median_tokens_per_sample": 49,
+      "p95_tokens_per_sample": 85,
+      "max_tokens_per_sample": 300,
+      "unk_token_count": 0,
+      "unk_rate": 0.0
+    }
+  }
+}

@@ -1,0 +1,1 @@
+{"experiment_id": "EXP-001", "name": "baseline-cpu", "arch": "nano", "params": 2557632, "dataset": "dataset_v1", "seed": 1234, "steps": 400, "train_loss": 1.3778193831443786, "val_loss": 0.8981849551200867, "val_ppl": 2.4551428701167373, "wall_clock_s": 200.96, "tokens_per_sec": 4044.5, "timestamp": "2026-10-01T14:01:41"}

@@ -1,0 +1,341 @@
+{
+  "dataset_version": "dataset_v1",
+  "created": "2026-10-01T13:57:28",
+  "train_samples": 514,
+  "eval_samples": 25,
+  "categories": {
+    "code_gen": 62,
+    "code_repair": 41,
+    "language": 82,
+    "math": 72,
+    "logic": 51,
+    "algorithm": 62,
+    "code_explain": 41,
+    "programming": 82,
+    "instruction": 21
+  },
+  "sources": {
+    "huggingface": 79,
+    "synthetic": 323,
+    "python_stdlib": 89,
+    "github": 23
+  },
+  "licenses": {
+    "CC-BY-4.0": 35,
+    "Synthetic-Verified": 323,
+    "PSF-2.0": 89,
+    "MIT": 34,
+    "CDLA-Sharing-1.0": 33
+  },
+  "verified_samples": 369,
+  "tokenizer": {
+    "tokenizer": "tok-v1",
+    "total_tokens": 55508,
+    "avg_tokens_per_sample": 107.99221789883268
+  },
+  "stage_stats": {
+    "ingestion": {
+      "input": 937,
+      "valid": 937
+    },
+    "license_check": {
+      "kept": 937,
+      "license_distribution": {
+        "CDLA-Sharing-1.0": 15,
+        "MIT": 55,
+        "CC-BY-4.0": 15,
+        "PSF-2.0": 192,
+        "Synthetic-Verified": 660
+      }
+    },
+    "quality_filter": {
+      "kept": 937,
+      "dropped_by_reason": {}
+    },
+    "dedup": {
+      "total": 937,
+      "exact_duplicates": 295,
+      "normalized_duplicates": 0,
+      "similar_duplicates": 99,
+      "code_similar_duplicates": 0,
+      "kept": 543,
+      "duplicate_examples": [
+        "92296a8b037b517fa7cfc78c53ecd35c",
+        "5a4d4e3a8e6d539d89b91bbe2bd6390f",
+        "627d40537aea51cbb5b84e9df19e19cb",
+        "81854e1c6ead5e70b1e3b00695ecbf56",
+        "358ef33a331154af9598befc56c18814",
+        "ffb3a97ff7945a5db99f47fdaa1c6355",
+        "0454987711da502190e151f3f0b6f660",
+        "fcfd0d034ad0503aa1c1cbf65916faee",
+        "6a287c626d995dea8c741009d5b8965c",
+        "215f0510a2625b3bb899916cd4daf164"
+      ],
+      "duplicate_percentage": 42.0491
+    },
+    "contamination": {
+      "eval_samples": 25,
+      "train_samples": 513,
+      "exact_overlap": 0,
+      "normalized_overlap": 0,
+      "code_shingle_overlap": 0,
+      "contaminated_record_ids": [],
+      "contamination_free": true,
+      "eval_samples_removed_for_contamination": 0,
+      "heldout_eval_samples": 15
+    },
+    "tokenization": {
+      "tokenizer": "tok-v1",
+      "total_tokens": 55508,
+      "avg_tokens_per_sample": 107.99221789883268
+    },
+    "shards": [
+      "/home/user/TinnyMe/datasets/processed/dataset_v1/shards/shard_0000.npy"
+    ]
+  },
+  "provenance": [
+    {
+      "source": "huggingface",
+      "dataset_or_repo_name": "roneneldan/TinyStories",
+      "url": "https://huggingface.co/datasets/roneneldan/TinyStories",
+      "retrieval_date": "2026-10-01",
+      "license": "CDLA-Sharing-1.0",
+      "license_url": "https://cdla.dev/sharing-1-0/",
+      "source_type": "text/math/code",
+      "language": "en",
+      "approximate_size_bytes": 10658,
+      "sample_count": 15,
+      "retrieval_mode": "cached-verified-slice",
+      "preprocessing_performed": [
+        "license_check",
+        "content_extraction",
+        "unicode_normalization",
+        "structured_prompt_wrapping",
+        "quality_scoring",
+        "deduplication"
+      ],
+      "inclusion_status": "INCLUDED",
+      "inclusion_reason": "open license (CDLA-Sharing-1.0) and high educational value for tiny-model curriculum"
+    },
+    {
+      "source": "huggingface",
+      "dataset_or_repo_name": "openai/gsm8k",
+      "url": "https://huggingface.co/datasets/openai/gsm8k",
+      "retrieval_date": "2026-10-01",
+      "license": "MIT",
+      "license_url": "https://opensource.org/licenses/MIT",
+      "source_type": "text/math/code",
+      "language": "en",
+      "approximate_size_bytes": 8655,
+      "sample_count": 15,
+      "retrieval_mode": "cached-verified-slice",
+      "preprocessing_performed": [
+        "license_check",
+        "content_extraction",
+        "unicode_normalization",
+        "structured_prompt_wrapping",
+        "quality_scoring",
+        "deduplication"
+      ],
+      "inclusion_status": "INCLUDED",
+      "inclusion_reason": "open license (MIT) and high educational value for tiny-model curriculum"
+    },
+    {
+      "source": "huggingface",
+      "dataset_or_repo_name": "google-research-datasets/mbpp",
+      "url": "https://huggingface.co/datasets/google-research-datasets/mbpp",
+      "retrieval_date": "2026-10-01",
+      "license": "CC-BY-4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_type": "text/math/code",
+      "language": "en",
+      "approximate_size_bytes": 4398,
+      "sample_count": 15,
+      "retrieval_mode": "cached-verified-slice",
+      "preprocessing_performed": [
+        "license_check",
+        "content_extraction",
+        "unicode_normalization",
+        "structured_prompt_wrapping",
+        "quality_scoring",
+        "deduplication"
+      ],
+      "inclusion_status": "INCLUDED",
+      "inclusion_reason": "open license (CC-BY-4.0) and high educational value for tiny-model curriculum"
+    },
+    {
+      "source": "github",
+      "dataset_or_repo_name": "TheAlgorithms/Python",
+      "url": "https://github.com/TheAlgorithms/Python",
+      "retrieval_date": "2026-10-01",
+      "license": "MIT",
+      "license_url": "https://api.github.com/licenses/mit",
+      "source_type": "code",
+      "language": "multi",
+      "approximate_size_bytes": 8380,
+      "sample_count": 8,
+      "preprocessing_performed": [
+        "license_check",
+        "content_extraction",
+        "secret_redaction",
+        "binary_filter",
+        "vendored_dependency_filter",
+        "quality_scoring",
+        "deduplication"
+      ],
+      "inclusion_status": "INCLUDED",
+      "inclusion_reason": "license MIT permits ML use"
+    },
+    {
+      "source": "github",
+      "dataset_or_repo_name": "keon/algorithms",
+      "url": "https://github.com/keon/algorithms",
+      "retrieval_date": "2026-10-01",
+      "license": "MIT",
+      "license_url": "https://api.github.com/licenses/mit",
+      "source_type": "code",
+      "language": "multi",
+      "approximate_size_bytes": 34569,
+      "sample_count": 10,
+      "preprocessing_performed": [
+        "license_check",
+        "content_extraction",
+        "secret_redaction",
+        "binary_filter",
+        "vendored_dependency_filter",
+        "quality_scoring",
+        "deduplication"
+      ],
+      "inclusion_status": "INCLUDED",
+      "inclusion_reason": "license MIT permits ML use"
+    },
+    {
+      "source": "github",
+      "dataset_or_repo_name": "openai/grade-school-math",
+      "url": "https://github.com/openai/grade-school-math",
+      "retrieval_date": "2026-10-01",
+      "license": "MIT",
+      "license_url": "https://github.com/openai/grade-school-math/blob/master/LICENSE",
+      "source_type": "code",
+      "language": "multi",
+      "approximate_size_bytes": 13794,
+      "sample_count": 7,
+      "preprocessing_performed": [
+        "license_check",
+        "content_extraction",
+        "secret_redaction",
+        "binary_filter",
+        "vendored_dependency_filter",
+        "quality_scoring",
+        "deduplication"
+      ],
+      "inclusion_status": "INCLUDED",
+      "inclusion_reason": "license MIT permits ML use"
+    },
+    {
+      "source": "github",
+      "dataset_or_repo_name": "TheAlgorithms/Go",
+      "url": "https://github.com/TheAlgorithms/Go",
+      "retrieval_date": "2026-10-01",
+      "license": "MIT",
+      "license_url": "https://api.github.com/licenses/mit",
+      "source_type": "code",
+      "language": "multi",
+      "approximate_size_bytes": 6253,
+      "sample_count": 7,
+      "preprocessing_performed": [
+        "license_check",
+        "content_extraction",
+        "secret_redaction",
+        "binary_filter",
+        "vendored_dependency_filter",
+        "quality_scoring",
+        "deduplication"
+      ],
+      "inclusion_status": "INCLUDED",
+      "inclusion_reason": "license MIT permits ML use"
+    },
+    {
+      "source": "github",
+      "dataset_or_repo_name": "TheAlgorithms/Rust",
+      "url": "https://github.com/TheAlgorithms/Rust",
+      "retrieval_date": "2026-10-01",
+      "license": "MIT",
+      "license_url": "https://api.github.com/licenses/mit",
+      "source_type": "code",
+      "language": "multi",
+      "approximate_size_bytes": 8812,
+      "sample_count": 8,
+      "preprocessing_performed": [
+        "license_check",
+        "content_extraction",
+        "secret_redaction",
+        "binary_filter",
+        "vendored_dependency_filter",
+        "quality_scoring",
+        "deduplication"
+      ],
+      "inclusion_status": "INCLUDED",
+      "inclusion_reason": "license MIT permits ML use"
+    },
+    {
+      "source": "python_stdlib",
+      "dataset_or_repo_name": "CPython 3.11 standard library",
+      "url": "https://github.com/python/cpython",
+      "retrieval_date": "2026-10-01",
+      "license": "PSF-2.0",
+      "license_url": "https://docs.python.org/3/license.html",
+      "source_type": "code + documentation",
+      "language": "python",
+      "approximate_size_bytes": 270657,
+      "sample_count": 192,
+      "modules_ingested": 21,
+      "preprocessing_performed": [
+        "license_check",
+        "content_extraction",
+        "ast_function_extraction",
+        "docstring_pairing",
+        "quality_scoring",
+        "deduplication"
+      ],
+      "inclusion_status": "INCLUDED",
+      "inclusion_reason": "PSF-2.0 permits ML use; deterministic offline extraction of documented algorithms"
+    },
+    {
+      "source": "synthetic",
+      "dataset_or_repo_name": "TinnyMe deterministic synthetic curriculum",
+      "url": "generated locally by data_sources/synthetic_adapter.py",
+      "retrieval_date": "2026-10-01",
+      "license": "Synthetic-Verified",
+      "license_url": "",
+      "source_type": "synthetic (math/logic/code/reasoning)",
+      "language": "en/python",
+      "approximate_size_bytes": 145871,
+      "sample_count": 660,
+      "seed": 1234,
+      "generators": {
+        "language": 60,
+        "logic": 60,
+        "logic_deduction": 60,
+        "logic_pattern": 60,
+        "math": 60,
+        "math_sequence": 60,
+        "algorithm": 60,
+        "code_gen": 60,
+        "code_repair": 60,
+        "code_explain": 60,
+        "instruction": 60
+      },
+      "preprocessing_performed": [
+        "deterministic_generation",
+        "independent_recomputation",
+        "subprocess_execution_verification",
+        "reject_unverified"
+      ],
+      "inclusion_status": "INCLUDED",
+      "inclusion_reason": "first-party generated data with independently verified answers"
+    }
+  ],
+  "elapsed_seconds": 1.11,
+  "dataset_dir": "/home/user/TinnyMe/datasets/versions/dataset_v1"
+}

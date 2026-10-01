@@ -1,0 +1,24 @@
+# GPU configuration (NOT EXECUTED in this sandbox: no GPU is present).
+# Kept for reproducibility on GPU hardware. On a GPU machine raise the batch
+# size and sequence length and switch architecture to `base`.
+experiment_id: EXP-GPU
+experiment_name: gpu-run
+architecture: base
+dataset_version: dataset_v1
+tokenizer_version: tok-v1
+seed: 1234
+seq_len: 256
+micro_batch_size: 32
+grad_accum_steps: 2
+learning_rate: 0.001
+min_lr_ratio: 0.05
+warmup_steps: 200
+weight_decay: 0.01
+grad_clip_norm: 1.0
+max_steps: 4000
+eval_every: 250
+checkpoint_every: 250
+keep_last_checkpoints: 3
+label_smoothing: 0.0
+compute_dtype: bfloat16
+notes: GPU configuration - documented but NOT executed in the CPU-only sandbox
