@@ -1,0 +1,22 @@
+# TinyMe — pinned runtime dependencies (audit §15, §25)
+#
+# Two dependency sets are declared on purpose:
+#
+#   * "runtime" — everything the *released* model needs.  A clean environment
+#     installing only this file can run release/inference.py (audit §14).
+#   * "training" — the full research stack used to build the model.  The release
+#     does not import any of it.
+#
+# Versions are the exact versions measured in the build environment
+# (docs/ENVIRONMENT_REPORT.md); they are pinned with == so a rebuild is
+# reproducible.
+
+# ---------------------------------------------------------------- runtime (release)
+numpy==2.4.6
+tokenizers==0.23.2
+safetensors==0.8.0
+
+# ---------------------------------------------------------------- training / research
+# jax==0.10.2          # optional accelerated backend; NumPy backend is the default
+# optax==0.2.8         # optimizer; NumPy fallback in src/training/optim.py
+pytest==9.1.1

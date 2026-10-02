@@ -1,0 +1,8 @@
+head_dim=4 seq_len=7: max|delta| = 2.292e-07
+head_dim=4 seq_len=33: max|delta| = 2.636e-07
+head_dim=6 seq_len=7: max|delta| = 2.532e-07
+head_dim=6 seq_len=33: max|delta| = 4.287e-07
+head_dim=8 seq_len=7: max|delta| = 2.043e-07
+head_dim=8 seq_len=33: max|delta| = 3.133e-07
+norm preservation: max|delta| = 1.471e-07
+worst-case parity vs independent reference: 4.287e-07 (tolerance 1e-5)

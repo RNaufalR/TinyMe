@@ -16,6 +16,7 @@ from src.sandbox.policy import SandboxPolicy
 from src.sandbox.runner import run_python
 from src.sandbox.workspace import Workspace, WorkspaceError
 
+ROOT = Path(__file__).resolve().parents[1]
 CAPS = detect_isolation()
 HAS_NS = CAPS.unshare_net
 
@@ -31,7 +32,8 @@ def test_isolation_is_detected_and_labelled_honestly():
     caps = detect_isolation()
     summary = detected_summary()
     assert summary["capabilities"]["level"] == caps.level
-    assert summary["honest_label"] in {"bwrap", "namespace(net+mount)", "netns-only", "rlimit-only"}
+    assert summary["honest_label"] in {"bwrap", "namespace(net+mount+pid)", "namespace(net+mount)",
+                                      "netns-only", "rlimit-only"}
     if caps.unshare_net:
         assert "namespace" in caps.level or caps.level == "bwrap"
 
@@ -190,3 +192,36 @@ def test_result_records_policy_and_limits(policy):
     assert limits_report(policy)["RLIMIT_CPU"] == policy.cpu_timeout_s
     report = json.loads(json.dumps(result.to_dict()))
     assert report["ok"] is True and report["duration_s"] >= 0
+
+
+def test_escape_suite_covers_the_declared_matrix_and_reproduces():
+    """Recorded evidence must be reproducible and cover all required categories.
+
+    Audit §8 requires >= 14 adversarial cases with attack/expected/observed/verdict
+    evidence, and forbids reporting "allowed by design" as "blocked".
+    """
+    from src.sandbox import detected_summary, run_escape_suite
+
+    probes = run_escape_suite()
+    summary = probes.pop("_summary")
+    assert summary["cases"] >= 14, summary
+    assert summary["passed"] == summary["cases"], summary
+    required_categories = {
+        "network_egress", "read_host_repo", "write_outside_workspace", "path_traversal_read",
+        "symlink_escape", "read_env_secrets", "fork_bomb_capped", "cpu_burn", "memory_bomb",
+        "output_flood", "file_flood", "descriptor_abuse", "temp_dir_outside_run",
+        "process_visibility", "workspace_confinement"}
+    missing = required_categories - set(probes)
+    assert not missing, f"escape matrix is missing {sorted(missing)}"
+    for name, probe in probes.items():
+        assert probe["expectation"] in ("blocked", "contained", "allowed", "visible"), name
+        assert probe["observed"] in ("blocked", "contained", "allowed", "visible"), name
+        # "allowed by design" cases must be declared as such, never as blocked
+        if probe["observed"] == "allowed":
+            assert probe["expectation"] == "allowed", (name, probe)
+    # the recorded evidence file must quote the same isolation level
+    recorded = (ROOT / "docs" / "audit_evidence" / "sandbox_escape_suite.out.txt")
+    if recorded.exists():
+        text = recorded.read_text(encoding="utf-8")
+        assert detected_summary()["honest_label"] in text, "recorded evidence is stale"
+        assert f'"cases": {summary["cases"]}' in text, "recorded evidence count is stale"

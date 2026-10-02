@@ -1,0 +1,255 @@
+{
+  "experiment": "CURRIC-A-STAGED",
+  "split": "validation",
+  "dataset": "dataset_v3",
+  "dataset_fingerprint": "e6a905f467d8d0a91ebeb75d4c5586548bcec3cb0af03f6fbb75f6eec6a6c49a",
+  "variants": {
+    "fp32": {
+      "model": "CURRIC-A-STAGED:fp32",
+      "dataset_version": "dataset_v3",
+      "split": "validation",
+      "overall": {
+        "domains_evaluated": 11,
+        "mean_accuracy": 0.0,
+        "total_samples": 24
+      },
+      "domains": {
+        "language": {
+          "samples": 1,
+          "metric": "perplexity",
+          "accuracy": null,
+          "perplexity": 750.853,
+          "note": "perplexity on held-out text (never mixed into answer accuracy)"
+        },
+        "code_explanation": {
+          "samples": 2,
+          "metric": "perplexity",
+          "accuracy": null,
+          "perplexity": 139.5472,
+          "note": "perplexity on held-out text (never mixed into answer accuracy)"
+        },
+        "math": {
+          "samples": 2,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 0,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe, a precise reasoning assistant. Show concise work.\n<|user|>\nWhat is 22 to the power of 4?\n<|assistant|>\n",
+              "generation": "<|thought|>\n<|assistant|>\n<|answer|>\n\n\n\n\n\n\n\n\n",
+              "reference": "234256",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe, a precise reasoning assistant. Show concise work.\n<|user|>\nWhat is 9 to the power of 2?\n<|assistant|>\n",
+              "generation": "<|thought|>\n<|assistant|>\n<|answer|>\n\n\n\n\n\n\n\n\n\n",
+              "reference": "81",
+              "correct": false
+            }
+          ]
+        },
+        "logic": {
+          "samples": 2,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 2,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate logic expressions exactly.\n<|user|>\nEvaluate the boolean expression: (not p or r) and (q xor s)\nValues: p=true, r=false, q=false, s=true\n<|assistant|>\n",
+              "generation": "<|thought|>\n",
+              "reference": "true",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate logic expressions exactly.\n<|user|>\nEvaluate the boolean expression: (not s and r) and (not p or q)\nValues: s=false, r=false, p=true, q=false\n<|assistant|>\n",
+              "generation": "<|thought|>\n",
+              "reference": "false",
+              "correct": false
+            }
+          ]
+        },
+        "instruction_following": {
+          "samples": 1,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 1,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Convert the word 'golf' to uppercase.\nInput: golf\n<|assistant|>\n",
+              "generation": "<|thought|>\n",
+              "reference": "GOLF",
+              "correct": false
+            }
+          ]
+        },
+        "code_generation": {
+          "samples": 2,
+          "metric": "execution_pass_rate",
+          "parseable": 0,
+          "executed": 0,
+          "passed": 0,
+          "pass_rate_of_executed": null,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "m of the even numbers in a list.\n\nVerified examples:\n- sum_even([51, 12, -15, 33, -12, 55])  ->  0\n- sum_even([58, 9, 23])  ->  58\n- sum_even([55, 39, 58, 18, 32, 28, -11, 53])  ->  136\n<|assistant|>\n",
+              "generated_code": "<|thought|>",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def sum_even(numbers):\n    return sum(n for n in numbers if n % 2 == 0)\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "the even numbers in a list.\n\nVerified examples:\n- sum_even([1, 2, 1, 21, 6])  ->  8\n- sum_even([53, 13, 51, -5, 58, 55, -3])  ->  58\n- sum_even([43, 12, 58, 37, 39, 53, 55, 10])  ->  80\n<|assistant|>\n",
+              "generated_code": "<|thought|>",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def sum_even(numbers):\n    return sum(n for n in numbers if n % 2 == 0)\n<|endcode|>",
+              "passed": false
+            }
+          ]
+        },
+        "code_repair": {
+          "samples": 2,
+          "metric": "execution_pass_rate",
+          "parseable": 0,
+          "executed": 0,
+          "passed": 0,
+          "pass_rate_of_executed": null,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "-1, 1, 4, 5, 25, 36, 44, 60]\n- unique_sorted([19, 2, 0, -4, -11, -15, 15, 2])  ->  [-15, -11, -4, 0, 2, 15, 19]\n- unique_sorted([23, 25, -12, -13, -6, 2])  ->  [-13, -12, -6, 2, 23, 25]\n<|assistant|>\n",
+              "generated_code": "<|thought|>",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def unique_sorted(values):\n    return sorted(set(values))\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "18, 23, 36, 55, 59]\n- unique_sorted([8, 0, 53, 54, 55, 39, 44, -5])  ->  [-5, 0, 8, 39, 44, 53, 54, 55]\n- unique_sorted([55, 28, 38, 5, -15, 23, -16])  ->  [-16, -15, 5, 23, 28, 38, 55]\n<|assistant|>\n",
+              "generated_code": "<|thought|>",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def unique_sorted(values):\n    return sorted(set(values))\n<|endcode|>",
+              "passed": false
+            }
+          ]
+        },
+        "code": {
+          "samples": 2,
+          "metric": "execution_pass_rate",
+          "parseable": 0,
+          "executed": 0,
+          "passed": 0,
+          "pass_rate_of_executed": null,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "      return False\n    try:\n        with socket(AF_INET6, SOCK_STREAM) as sock:\n            sock.setsockopt(IPPROTO_IPV6, IPV6_V6ONLY, 0)\n            return True\n    except error:\n        return False",
+              "generated_code": "= return the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "",
+              "passed": false
+            },
+            {
+              "prompt_tail": "class DistutilsSetupError (DistutilsError):\n    \"\"\"For errors that can be definitely blamed on the setup script,\n    such as invalid keyword arguments to 'setup()'.\"\"\"\n    pass",
+              "generated_code": ", the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "",
+              "passed": false
+            }
+          ]
+        },
+        "tool_syntax": {
+          "samples": 2,
+          "metric": "syntax_rate",
+          "valid": 0,
+          "accuracy": 0.0
+        },
+        "tool_selection": {
+          "samples": 2,
+          "metric": "tool_name_accuracy",
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "tool_arguments": {
+          "samples": 2,
+          "metric": "argument_match_accuracy",
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "tool_execution": {
+          "samples": 2,
+          "metric": "tool_call_success_rate",
+          "succeeded": 0,
+          "accuracy": 0.0
+        },
+        "grounding": {
+          "samples": 2,
+          "metric": "grounded_answer_accuracy",
+          "correct": 0,
+          "accuracy": 0.0,
+          "note": "answer after feeding the real tool result back"
+        }
+      },
+      "examples": [
+        {
+          "record_id": "27636a7fa40854309f433b6581452f50",
+          "expected_tool": "search",
+          "generation": "<|thought|>\n<|assistant|>\n<|answer|>\n",
+          "tool_name_ok": false,
+          "arguments_ok": null,
+          "executed_ok": null
+        },
+        {
+          "record_id": "66fa153287d159ed802bdef355f415bf",
+          "expected_tool": "search",
+          "generation": "<|thought|>\n",
+          "tool_name_ok": false,
+          "arguments_ok": null,
+          "executed_ok": null
+        }
+      ],
+      "started_at": "2026-10-02T13:03:16",
+      "duration_s": 0.61,
+      "environment": {
+        "generation": {
+          "calls": 13,
+          "gen_tokens": 179,
+          "seconds": 0.267,
+          "tokens_per_sec": 670.78,
+          "latency_mean_s": 0.0205,
+          "latency_p50_s": 0.0113,
+          "latency_p95_s": 0.0812
+        },
+        "backend": "numpy",
+        "isolation": {
+          "capabilities": {
+            "bwrap": false,
+            "unshare_net": true,
+            "unshare_mount": true,
+            "unshare_user": true,
+            "unshare_pid": true,
+            "rlimit": true,
+            "platform": "linux",
+            "level": "namespace(net+mount+pid)"
+          },
+          "enforced_by_default": "private network namespace + tmpfs over host home tree when the sandboxed code runs",
+          "honest_label": "namespace(net+mount+pid)"
+        },
+        "checkpoint": "CURRIC-A-STAGED/best",
+        "checkpoint_bytes": 30703744,
+        "max_new_tokens": 64,
+        "max_samples": 16,
+        "held_out_records": 16,
+        "started_at": "2026-10-02T13:03:17"
+      }
+    }
+  }
+}

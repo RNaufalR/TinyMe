@@ -45,7 +45,9 @@ def main() -> int:
     ap.add_argument("--config", default=None, help="YAML base config")
     ap.add_argument("--experiment", required=True, help="experiment id (never reuse)")
     ap.add_argument("--experiment-name", default="")
-    ap.add_argument("--stage", default="pretrain", choices=["pretrain", "sft"])
+    ap.add_argument("--stage", default="pretrain", choices=["pretrain", "sft", "mixed"],
+                    help=("pretrain = plain documents, sft = structured (loss-masked) records, "
+                          "mixed = both shuffled together (curriculum-B control)"))
     ap.add_argument("--arch", default=None, choices=["nano", "base", "medium"])
     ap.add_argument("--dataset", default=None)
     ap.add_argument("--seq-len", type=int, default=None)
@@ -106,21 +108,35 @@ def main() -> int:
              val_data["input_ids"].shape[0], val_stats["active_target_tokens"])
 
     trainer = Trainer(cfg, model_cfg=model_cfg, tokenizer=tokenizer)
+    init_fingerprints = None
     if args.init_from:
         ckpt_dir = REPO_ROOT / "checkpoints" / args.init_from
         if not ckpt_dir.exists():
             log.error("--init-from experiment %s has no checkpoints", args.init_from)
             return 4
         name = "best" if (ckpt_dir / "best.safetensors").exists() else "latest"
+        # Deliberate transfer: architecture, tokenizer and sequence length must
+        # match exactly; the *dataset* fingerprint is allowed to differ (that is
+        # the point of a controlled transfer to a revised data revision) but the
+        # difference is reported, never hidden.
         params, _, meta = load_checkpoint(
             ckpt_dir, name, trainer.params, None,
             expected_fingerprints={"model_config_hash": model_cfg.model_hash(),
                                    "tokenizer_hash": manifest.get("tokenizer_hash", ""),
-                                   "dataset_fingerprint": manifest.get("dataset_fingerprint", ""),
                                    "seq_len": cfg.seq_len},
             require_optimizer=False)
+        if not meta.get("experiment_id"):
+            raise SystemExit("init-from checkpoint has no experiment identity")
+        if meta.get("dataset_fingerprint") != manifest.get("dataset_fingerprint"):
+            log.warning("transfer learning: init checkpoint was trained on dataset fingerprint %s, "
+                        "this run uses %s (recorded in run_config.json)",
+                        str(meta.get("dataset_fingerprint"))[:16],
+                        str(manifest.get("dataset_fingerprint"))[:16])
         trainer.params = params
         trainer.param_count = count_parameters(params)
+        init_fingerprints = {k: meta.get(k) for k in
+                             ("experiment_id", "step", "dataset_fingerprint", "tokenizer_hash",
+                              "model_config_hash", "best_val_loss")}
         log.info("initialised weights from %s/%s (step %s) — new experiment id %s",
                  args.init_from, name, meta.get("step"), cfg.experiment_id)
 
@@ -132,6 +148,7 @@ def main() -> int:
         "model_config": model_cfg.to_dict(), "train_config": cfg.to_dict(),
         "train_stats": train_stats, "val_stats": val_stats,
         "environment": environment_report(), "init_from": args.init_from,
+        "init_from_fingerprints": (init_fingerprints if args.init_from else None),
         "started_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
     }
     exp_dir = REPO_ROOT / "experiments" / cfg.experiment_id

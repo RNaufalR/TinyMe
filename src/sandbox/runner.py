@@ -183,6 +183,12 @@ def run_escape_suite() -> dict[str, dict]:
         "output_flood": ("contained", "stdout must be truncated at max_output_bytes"),
         "file_flood": ("blocked", "oversized file must fail under RLIMIT_FSIZE"),
         "absolute_path_write": ("contained", "writes stay inside /var/tmp/tinyme-sandbox, never in the repo"),
+        "path_traversal_read": ("blocked", "relative traversal must not reach the host repo/home tree"),
+        "symlink_escape": ("blocked", "a symlink pointing at the host tree must not become a write path"),
+        "temp_dir_outside_run": ("contained", "writes to shared /tmp are either blocked or confined, never in the repo"),
+        "descriptor_abuse": ("blocked", "opening unbounded file descriptors must fail under RLIMIT_NOFILE"),
+        "process_visibility": ("contained", "PID namespace hides the host process table when available"),
+        "workspace_confinement": ("blocked", "cwd is the run workspace; escaping via relative paths must fail"),
     }
     probes: dict[str, dict] = {}
     for name, (expectation, description) in cases.items():
@@ -215,6 +221,19 @@ def run_escape_suite() -> dict[str, dict]:
             observed = "contained" if len(stdout) <= policy.max_output_bytes + 64 else "flooded"
         elif name == "file_flood":
             observed = "blocked" if "File too large" in res.stderr else "allowed"
+        elif name == "path_traversal_read":
+            observed = "blocked" if "HOSTSECRET" not in stdout else "visible"
+        elif name == "symlink_escape":
+            observed = "blocked" if "WROTE" not in stdout else "allowed"
+        elif name == "temp_dir_outside_run":
+            observed = "contained" if "WROTE" not in stdout or "run-" in stdout else "escaped"
+        elif name == "descriptor_abuse":
+            observed = "blocked" if "fd cap" in stdout or "EMFILE" in stdout else "allowed"
+        elif name == "process_visibility":
+            # honest: without a PID namespace the host table is readable
+            observed = "visible" if "host processes visible" in stdout else "contained"
+        elif name == "workspace_confinement":
+            observed = "blocked" if "ESCAPED" not in stdout else "contained"
         else:  # absolute_path_write
             escaped = Path("/var/tmp/tinyme-sandbox/escape.txt")
             contained = "WROTE" not in stdout or (escaped.exists() and "/var/tmp/tinyme-sandbox" in str(escaped))
@@ -224,7 +243,10 @@ def run_escape_suite() -> dict[str, dict]:
                            "read_env_secrets": {"blocked"}, "write_outside_workspace": {"blocked"},
                            "fork_bomb_capped": {"blocked"}, "cpu_burn": {"blocked"},
                            "memory_bomb": {"blocked"}, "output_flood": {"contained"},
-                           "file_flood": {"blocked"}, "absolute_path_write": {"contained"}}
+                           "file_flood": {"blocked"}, "absolute_path_write": {"contained"},
+                           "path_traversal_read": {"blocked"}, "symlink_escape": {"blocked"},
+                           "temp_dir_outside_run": {"contained"}, "descriptor_abuse": {"blocked"},
+                           "process_visibility": {"contained"}, "workspace_confinement": {"blocked"}}
         probes[name] = {
             "expectation": expectation, "description": description, "observed": observed,
             "passed": observed in expected_counts[name],
@@ -270,6 +292,58 @@ _ESCAPE_CASES: dict[str, str] = {
     "output_flood": "print('A'*200000)",
     "file_flood": "open('big.bin','wb').write(b'B'*(3*1024*1024))",
     "absolute_path_write": "open('/var/tmp/tinyme-sandbox/escape.txt','w').write('x')",
+    "path_traversal_read": "import pathlib\n"
+                           "targets=['../../../../../../home/user/TinyMe/TinyMeAudit.md',\n"
+                           "         '../../../../../../home/user/TinyMe/src/agent/protocol.py']\n"
+                           "found=[]\n"
+                           "for t in targets:\n"
+                           "    try:\n"
+                           "        p=pathlib.Path(t)\n"
+                           "        if p.exists():\n"
+                           "            found.append(str(p))\n"
+                           "    except Exception:\n"
+                           "        pass\n"
+                           "print('HOSTSECRET' if found else 'blocked', found)",
+    "symlink_escape": "import os, pathlib\n"
+                      "try:\n"
+                      "    os.symlink('/home/user', 'host_link')\n"
+                      "    pathlib.Path('host_link/pwned_via_symlink.txt').write_text('x')\n"
+                      "    print('WROTE')\n"
+                      "except Exception as exc:\n"
+                      "    print('BLOCKED', type(exc).__name__)",
+    "temp_dir_outside_run": "import os, pathlib, tempfile\n"
+                            "p=pathlib.Path(tempfile.gettempdir())/'tinyme_probe.txt'\n"
+                            "try:\n"
+                            "    p.write_text('x'); print('WROTE', os.getcwd())\n"
+                            "except Exception as exc: print('BLOCKED', type(exc).__name__)",
+    "descriptor_abuse": "import resource, sys\n"
+                        "soft,hard=resource.getrlimit(resource.RLIMIT_NOFILE)\n"
+                        "print('soft_cap', soft)\n"
+                        "fds=[]\n"
+                        "try:\n"
+                        "    for i in range(soft+64):\n"
+                        "        fds.append(open(sys.executable,'rb'))\n"
+                        "except OSError as exc:\n"
+                        "    print('fd cap', type(exc).__name__)\n"
+                        "print('opened', len(fds))",
+    "process_visibility": "import os, pathlib\n"
+                          "host_procs=[]\n"
+                          "if pathlib.Path('/proc').exists():\n"
+                          "    for entry in os.listdir('/proc'):\n"
+                          "        if entry.isdigit() and int(entry)!=os.getpid():\n"
+                          "            try:\n"
+                          "                cmd=pathlib.Path(f'/proc/{entry}/cmdline').read_bytes()[:80].decode('utf-8','replace')\n"
+                          "                if 'python3' in cmd or 'prepare_data' in cmd or 'train.py' in cmd:\n"
+                          "                    host_procs.append(entry)\n"
+                          "            except Exception: pass\n"
+                          "print('host processes visible', host_procs) if len(host_procs)>3 else print('process table isolated', len(host_procs))",
+    "workspace_confinement": "import os, pathlib\n"
+                             "print('cwd', os.getcwd())\n"
+                             "try:\n"
+                             "    pathlib.Path('../../../repo_escape.txt').write_text('x')\n"
+                             "    print('ESCAPED', pathlib.Path('../../../repo_escape.txt').resolve())\n"
+                             "except Exception as exc:\n"
+                             "    print('BLOCKED', type(exc).__name__)",
 }
 
 

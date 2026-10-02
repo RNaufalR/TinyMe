@@ -93,11 +93,36 @@ def load_split(version: str, split: str, seq_len: int = 256, tokenizer=None,
     ``stage`` selects the pre-built shard family (``pretrain``/``sft``); when
     shards exist they are memory-mapped instead of re-tokenising JSONL.
     """
-    shard_stage = f"{split}_{stage}"
+    if stage == "mixed":
+        # Curriculum-B control: a single shuffled pool of plain documents *and*
+        # structured records, so the schedule cannot present them in an order.
+        try:
+            plain = load_split_arrays(version, split, "pretrain")
+            structured = load_split_arrays(version, split, "sft")
+        except FileNotFoundError:
+            plain = structured = None
+        if plain is not None and structured is not None:
+            data = {k: np.concatenate([plain[k], structured[k]], axis=0)
+                    for k in ("input_ids", "labels", "loss_mask", "doc_ids")}
+            order = np.random.default_rng(0).permutation(data["input_ids"].shape[0])
+            data = {k: v[order] for k, v in data.items()}
+            stats = {"split": split, "version": version, "stage": stage, "source": "shards(mixed)",
+                     "blocks": int(data["input_ids"].shape[0]),
+                     "active_target_tokens": int(data["loss_mask"].sum()),
+                     "padding_ratio": round(float((~data["loss_mask"]).mean()), 6)}
+            return data, stats
     try:
         data = load_split_arrays(version, split, stage)
         stats = {"split": split, "version": version, "stage": stage,
                  "source": "shards", "blocks": int(data["input_ids"].shape[0])}
+        # never train on shards built by a different sequence contract
+        recorded = load_manifest(version).get("shards_fingerprint")
+        actual = shard_fingerprint(PROCESSED_DIR / version / "shards")
+        if recorded and recorded != actual:
+            raise RuntimeError(
+                f"{version}: packed shards are stale (manifest {recorded[:12]}… != disk {actual[:12]}…). "
+                "Rebuild with scripts/prepare_data_v2.py — refusing to train on shards that do not "
+                "match the recorded data contract.")
         stats["active_target_tokens"] = int(data["loss_mask"].sum())
         stats["padding_ratio"] = round(float((~data["loss_mask"]).mean()), 6)
         return data, stats
@@ -130,10 +155,13 @@ def shard_fingerprint(shard_dir: str | Path) -> str:
     shard_dir = Path(shard_dir)
     h = hashlib.sha256()
     for p in sorted(shard_dir.glob("*.npy")):
+        if p.name.endswith(".meta.json"):
+            continue
         arr = np.load(p, allow_pickle=False, mmap_mode="r")
         h.update(p.name.encode())
         h.update(str(arr.shape).encode())
-        h.update(np.asarray(arr[: min(64, arr.shape[0])]).tobytes())
+        h.update(str(arr.dtype).encode())
+        h.update(np.ascontiguousarray(arr).tobytes())   # full content, not a sample
     return h.hexdigest()
 
 

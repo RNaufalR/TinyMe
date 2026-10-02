@@ -1,6 +1,6 @@
 {
   "dataset_version": "dataset_v2",
-  "created": "2026-10-02T04:15:30",
+  "created": "2026-10-02T10:08:09",
   "seq_len": 256,
   "splits": {
     "train": 4227,
@@ -578,6 +578,7 @@
   },
   "verified_samples": 5705,
   "malformed_code_rate": 0.0,
-  "elapsed_seconds": 61.83,
-  "dataset_fingerprint": "a8f5c37a251d1a4200bdd5392a7582b4500645bcb3e01de4ed8e41fb45f74b8d"
+  "elapsed_seconds": 50.83,
+  "dataset_fingerprint": "a8f5c37a251d1a4200bdd5392a7582b4500645bcb3e01de4ed8e41fb45f74b8d",
+  "shards_fingerprint": "fa7543419de39fe4433fdf7ca3b8db122b7dc891ec41fd04b3629239b12926b3"
 }

@@ -1,0 +1,396 @@
+{
+  "experiment": "EXP-004-TOOL-SFT-V3",
+  "split": "test",
+  "dataset": "dataset_v3",
+  "dataset_fingerprint": "e6a905f467d8d0a91ebeb75d4c5586548bcec3cb0af03f6fbb75f6eec6a6c49a",
+  "variants": {
+    "fp32": {
+      "model": "EXP-004-TOOL-SFT-V3:fp32",
+      "dataset_version": "dataset_v3",
+      "split": "test",
+      "overall": {
+        "domains_evaluated": 11,
+        "mean_accuracy": 0.186,
+        "total_samples": 2158
+      },
+      "domains": {
+        "language": {
+          "samples": 18,
+          "metric": "perplexity",
+          "accuracy": null,
+          "perplexity": 812.4003,
+          "note": "perplexity on held-out text (never mixed into answer accuracy)"
+        },
+        "code_explanation": {
+          "samples": 92,
+          "metric": "perplexity",
+          "accuracy": null,
+          "perplexity": 113.9042,
+          "note": "perplexity on held-out text (never mixed into answer accuracy)"
+        },
+        "math": {
+          "samples": 407,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 407,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Identify the rule, then answer.\n<|user|>\nWhat is the next term? Sequence: 4, 7, 11, 18, 29, 47, 76, ?\n<|assistant|>\n",
+              "generation": "<|thought|>\nRule: each term increases by 3.\n<|answer|>\n-9\n",
+              "reference": "123",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Identify the rule, then answer.\n<|user|>\nWhat is the next term? Sequence: 3, 8, 11, 19, 30, 49, 79, ?\n<|assistant|>\n",
+              "generation": "<|thought|>\nRule: each term is multiplied by 3.\n<|answer|>\n978\n",
+              "reference": "128",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Identify the rule, then answer.\n<|user|>\nWhat is the next term? Sequence: 1, 6, 7, 13, 20, 33, 53, ?\n<|assistant|>\n",
+              "generation": "<|thought|>\nRule: each term is multiplied by 3.\n<|answer|>\n975\n",
+              "reference": "86",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Identify the rule, then answer.\n<|user|>\nWhat is the next term? Sequence: 2, 4, 6, 10, 16, 26, 42, ?\n<|assistant|>\n",
+              "generation": "<|thought|>\nRule: each term is multiplied by 3.\n<|answer|>\n978\n",
+              "reference": "68",
+              "correct": false
+            }
+          ]
+        },
+        "logic": {
+          "samples": 218,
+          "metric": "accuracy",
+          "correct": 161,
+          "answered": 218,
+          "accuracy": 0.7385,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate logic expressions exactly.\n<|user|>\nEvaluate the boolean expression: (r or q) or (p or s)\nValues: r=true, q=false, p=false, s=true\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the algorithm step by step and report the result. Left group with or, right group with and, then combine with xor.\n<|answer|>\ntrue\n",
+              "reference": "true",
+              "correct": true
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate logic expressions exactly.\n<|user|>\nEvaluate the boolean expression: (not p xor r) or (s and q)\nValues: p=false, r=false, s=true, q=true\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the algorithm step by step and report the result. Left group with or, right group with xor, then combine with xor.\n<|answer|>\ntrue\n",
+              "reference": "true",
+              "correct": true
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate logic expressions exactly.\n<|user|>\nEvaluate the boolean expression: (p or s) or (not r xor q)\nValues: p=true, s=true, r=true, q=true\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the algorithm step by step and report the result. Left group with or, right group with xor, then combine with xor.\n<|answer|>\ntrue\n",
+              "reference": "true",
+              "correct": true
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate logic expressions exactly.\n<|user|>\nEvaluate the boolean expression: (not r or s) or (not p and q)\nValues: r=false, s=false, p=false, q=false\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the algorithm step by step and report the result. Left group with or, right group with and, then combine with xor.\n<|answer|>\ntrue\n",
+              "reference": "false",
+              "correct": false
+            }
+          ]
+        },
+        "instruction_following": {
+          "samples": 142,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 142,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "system|>\nYou are TinyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Replace every hyphen in the input with an underscore.\nInput: lima-quebec-kilo-bravo-lima-delta\n<|assistant|>\n",
+              "generation": "<|final|>\n-3\n",
+              "reference": "lima_quebec_kilo_bravo_lima_delta",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Replace every hyphen in the input with an underscore.\nInput: alpha-oscar-oscar-quebec-oscar\n<|assistant|>\n",
+              "generation": "<|final|>\n-3\n",
+              "reference": "alpha_oscar_oscar_quebec_oscar",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Replace every hyphen in the input with an underscore.\nInput: november-india-delta-alpha\n<|assistant|>\n",
+              "generation": "<|final|>\n{\"apairuce the problem step and report the value.\n",
+              "reference": "november_india_delta_alpha",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Replace every hyphen in the input with an underscore.\nInput: india-oscar-echo\n<|assistant|>\n",
+              "generation": "<|final|>\n-3-aan the value.\n",
+              "reference": "india_oscar_echo",
+              "correct": false
+            }
+          ]
+        },
+        "code_generation": {
+          "samples": 200,
+          "metric": "execution_pass_rate",
+          "parseable": 200,
+          "executed": 200,
+          "passed": 0,
+          "pass_rate_of_executed": 0.0,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": " b) returning the greatest common divisor of two positive integers using the Euclidean algorithm.\n\nVerified examples:\n- gcd(17, 533)  ->  1\n- gcd(354, 871)  ->  1\n- gcd(256, 212)  ->  4\n<|assistant|>\n",
+              "generated_code": "def caesar(text, x):\n    out = []\n    for ch in text:\n        if ch.isalpha():\n            base = ord('a') if ch.islower() else ord('A')\n            out.append(chr((ord(ch) - base + shift) % 26 + base))\n        else:\n            out.append(ch)\n    return ''.join(out)",
+              "syntax_ok": true,
+              "execution": {
+                "ok": false,
+                "exit_code": 1,
+                "timed_out": false,
+                "stderr": "Traceback (most recent call last):\n  File \"/var/tmp/tinyme-sandbox/run-20bcc74ca256a2a3/main.py\", line 11, in <module>\n    assert gcd(12, 18) == 6\n           ^^^\nNameError: name 'gcd' is not defined\n",
+                "isolation_level": "namespace(net+mount+pid)",
+                "duration_s": 0.0392
+              },
+              "reference_final": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": ", b) returning the greatest common divisor of two positive integers using the Euclidean algorithm.\n\nVerified examples:\n- gcd(74, 788)  ->  2\n- gcd(67, 472)  ->  1\n- gcd(389, 984)  ->  1\n<|assistant|>\n",
+              "generated_code": "def caesar(text, shift):\n    out = []\n    for ch in text:\n        if ch.isalpha():\n            base = ord('a') if ch.islower() else ord('A')\n            out.append(chr((ord(ch) - base + shift) % 26 + base))\n        else:\n            out.append(ch)\n    return ''.join(out)",
+              "syntax_ok": true,
+              "execution": {
+                "ok": false,
+                "exit_code": 1,
+                "timed_out": false,
+                "stderr": "Traceback (most recent call last):\n  File \"/var/tmp/tinyme-sandbox/run-4c64f180d95fb7e1/main.py\", line 11, in <module>\n    assert gcd(12, 18) == 6\n           ^^^\nNameError: name 'gcd' is not defined\n",
+                "isolation_level": "namespace(net+mount+pid)",
+                "duration_s": 0.0373
+              },
+              "reference_final": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "b) returning the greatest common divisor of two positive integers using the Euclidean algorithm.\n\nVerified examples:\n- gcd(668, 130)  ->  2\n- gcd(266, 103)  ->  1\n- gcd(577, 963)  ->  1\n<|assistant|>\n",
+              "generated_code": "def caesar(text, x):\n    out = []\n    for ch in text:\n        if ch.isalpha():\n            base = ord('a') if ch.islower() else ord('A')\n            out.append(chr((ord(ch) - base + shift) % 26 + base))\n        else:\n            out.append(ch)\n    return ''.join(out)",
+              "syntax_ok": true,
+              "execution": {
+                "ok": false,
+                "exit_code": 1,
+                "timed_out": false,
+                "stderr": "Traceback (most recent call last):\n  File \"/var/tmp/tinyme-sandbox/run-e9c07bb2cc63ad22/main.py\", line 11, in <module>\n    assert gcd(12, 18) == 6\n           ^^^\nNameError: name 'gcd' is not defined\n",
+                "isolation_level": "namespace(net+mount+pid)",
+                "duration_s": 0.0363
+              },
+              "reference_final": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": " b) returning the greatest common divisor of two positive integers using the Euclidean algorithm.\n\nVerified examples:\n- gcd(77, 507)  ->  1\n- gcd(616, 496)  ->  8\n- gcd(554, 511)  ->  1\n<|assistant|>\n",
+              "generated_code": "def caesar(text, shift):\n    out = []\n    for ch in text:\n        if ch.isalpha():\n            base = ord('a') if ch.islower() else ord('A')\n            out.append(chr((ord(ch) - base + shift) % 26 + base))\n        else:\n            out.append(ch)\n    return ''.join(out)",
+              "syntax_ok": true,
+              "execution": {
+                "ok": false,
+                "exit_code": 1,
+                "timed_out": false,
+                "stderr": "Traceback (most recent call last):\n  File \"/var/tmp/tinyme-sandbox/run-c5c877be0ea29494/main.py\", line 11, in <module>\n    assert gcd(12, 18) == 6\n           ^^^\nNameError: name 'gcd' is not defined\n",
+                "isolation_level": "namespace(net+mount+pid)",
+                "duration_s": 0.04
+              },
+              "reference_final": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a\n<|endcode|>",
+              "passed": false
+            }
+          ]
+        },
+        "code_repair": {
+          "samples": 191,
+          "metric": "execution_pass_rate",
+          "parseable": 126,
+          "executed": 126,
+          "passed": 18,
+          "pass_rate_of_executed": 0.1429,
+          "accuracy": 0.0942,
+          "examples": [
+            {
+              "prompt_tail": "\n- binary_search([4, 29, 30, 66, 97, 144, 159, 170, 191], 4)  ->  0\n- binary_search([20, 50, 61, 175, 189], 20)  ->  0\n- binary_search([42, 80, 103, 117, 120, 141, 154, 198], 80)  ->  1\n<|assistant|>\n",
+              "generated_code": "def binary_search(a, x):\n    return sum(n for n in numbers if n % 2\n        lo = (lo + hi)\n<|assistant|>\n<|thought|>\nTurn the specification into a function and verify it.\n<|code|>\ndef sum_search(a, x)",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def binary_search(a, x):\n    lo, hi = 0, len(a) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if a[mid] == x:\n            return mid\n        if a[mid] < x:\n            lo = mid + 1\n    ",
+              "passed": false
+            },
+            {
+              "prompt_tail": "behaviour (verified):\n- binary_search([3, 11, 25, 56, 93, 109, 195], 25)  ->  2\n- binary_search([47, 82, 107, 150, 167, 189], 107)  ->  2\n- binary_search([35, 81, 149, 159], 159)  ->  3\n<|assistant|>\n",
+              "generated_code": "def sum_search(a, x):\n    return sum(n for n in numbers if n % 2 == 0)",
+              "syntax_ok": true,
+              "execution": {
+                "ok": false,
+                "exit_code": 1,
+                "timed_out": false,
+                "stderr": "Traceback (most recent call last):\n  File \"/var/tmp/tinyme-sandbox/run-2edd64f1c55bf796/main.py\", line 4, in <module>\n    assert binary_search([1, 3, 5, 7], 5) == 2\n           ^^^^^^^^^^^^^\nNameError: name 'binary_search' is not defined\n",
+                "isolation_level": "namespace(net+mount+pid)",
+                "duration_s": 0.0379
+              },
+              "reference_final": "def binary_search(a, x):\n    lo, hi = 0, len(a) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if a[mid] == x:\n            return mid\n        if a[mid] < x:\n            lo = mid + 1\n    ",
+              "passed": false
+            },
+            {
+              "prompt_tail": "xpected behaviour (verified):\n- binary_search([9, 12, 74, 166], 9)  ->  0\n- binary_search([39, 116, 164, 166], 116)  ->  1\n- binary_search([20, 82, 108, 114, 117, 139, 172], 139)  ->  5\n<|assistant|>\n",
+              "generated_code": "def 0, best, 3, running_search, v, 0, 4, 5, 0, 2, 4, - 1, -4, -8, -9, -2, 3) -1",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def binary_search(a, x):\n    lo, hi = 0, len(a) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if a[mid] == x:\n            return mid\n        if a[mid] < x:\n            lo = mid + 1\n    ",
+              "passed": false
+            },
+            {
+              "prompt_tail": "d behaviour (verified):\n- binary_search([5, 66, 76, 129, 182], 76)  ->  2\n- binary_search([35, 70, 82, 139, 177], 177)  ->  4\n- binary_search([29, 35, 43, 47, 120, 141, 149], 47)  ->  3\n<|assistant|>\n",
+              "generated_code": "def binary_search(a, x):\n    lo, hi = 0, len(a) - 1\n    return sum(n for n in numbers.",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def binary_search(a, x):\n    lo, hi = 0, len(a) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if a[mid] == x:\n            return mid\n        if a[mid] < x:\n            lo = mid + 1\n    ",
+              "passed": false
+            }
+          ]
+        },
+        "code": {
+          "samples": 140,
+          "metric": "execution_pass_rate",
+          "parseable": 12,
+          "executed": 0,
+          "passed": 0,
+          "pass_rate_of_executed": null,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "e(pathname)\n    if isinstance(pathname, bytes):\n        pathname = magic_check_bytes.sub(br'[\\1]', pathname)\n    else:\n        pathname = magic_check.sub(r'[\\1]', pathname)\n    return drive + pathname",
+              "generated_code": ".append(a')",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "",
+              "passed": false
+            },
+            {
+              "prompt_tail": "e form e.g. \"firefox.desktop\".\n        if preferred or (_os_preferred_browser and name in _os_preferred_browser):\n            _tryorder.insert(0, name)\n        else:\n            _tryorder.append(name)",
+              "generated_code": "else:\n            return ''.w]\nThe string.get_set(item)",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "",
+              "passed": false
+            },
+            {
+              "prompt_tail": "(required for relative module names)')\n    level = 0\n    for character in name:\n        if character != '.':\n            break\n        level += 1\n    return _resolve_name(name[level:], package, level)",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "",
+              "passed": false
+            },
+            {
+              "prompt_tail": "arser=None):\n    from io import StringIO\n\n    bufsize = len(string)\n    buf = StringIO(string)\n    if not parser:\n        parser = xml.sax.make_parser()\n    return DOMEventStream(buf, parser, bufsize)",
+              "generated_code": "<|thought|>\nThe implementation runs in None\n    return return if a list of the same for a list of a sequence of\n    return sum(set)\n<|assistant|>\nReturn a function for its input in a list of the same.\n\nThe same.\n\n Left group with a list of the list of the list of the list of the list of the list.",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "",
+              "passed": false
+            }
+          ]
+        },
+        "tool_syntax": {
+          "samples": 150,
+          "metric": "syntax_rate",
+          "valid": 148,
+          "accuracy": 0.9867
+        },
+        "tool_selection": {
+          "samples": 150,
+          "metric": "tool_name_accuracy",
+          "correct": 3,
+          "accuracy": 0.02
+        },
+        "tool_arguments": {
+          "samples": 150,
+          "metric": "argument_match_accuracy",
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "tool_execution": {
+          "samples": 150,
+          "metric": "tool_call_success_rate",
+          "succeeded": 31,
+          "accuracy": 0.2067
+        },
+        "grounding": {
+          "samples": 150,
+          "metric": "grounded_answer_accuracy",
+          "correct": 0,
+          "accuracy": 0.0,
+          "note": "answer after feeding the real tool result back"
+        }
+      },
+      "examples": [
+        {
+          "record_id": "f0a1183b25b05d31adbd5206f2c12da4",
+          "expected_tool": "fetch",
+          "generation": "<|tool_call|>\n{\"arguments\": {\"expression\": \"(numbers97 + shift) * 5\"}, \"name\": \"compute\"}<|end_tool_call|>1]\n<|assistant|>\n<|final|>\nPlan the proced\n",
+          "tool_name_ok": false,
+          "arguments_ok": false,
+          "executed_ok": false
+        },
+        {
+          "record_id": "16c5540327c9521aae97ac3226d9e107",
+          "expected_tool": "fetch",
+          "generation": "<|tool_call|>\n{\"arguments\": {\"expression\": \"(numbers97 + shift) * 5\"}, \"name\": \"compute\"}<|end_tool_call|>0 + 4\"}, \"compute\"}<|end_tool_call|>1]\nThe matching index is - flatten([3, 13, 35, 12])  ->  [8, 10, 54, 38, 46, 41], [calc-52d1, [calc-bf4c]a]\n<|assistant|>\n<|thought|>\nTurn the specification i",
+          "tool_name_ok": false,
+          "arguments_ok": false,
+          "executed_ok": false
+        },
+        {
+          "record_id": "145ee6f70f6a50b682d2db951ec2bf8e",
+          "expected_tool": "fetch",
+          "generation": "<|tool_call|>\n{\"arguments\": {\"expression\": \"(numbers9 + shift) * 5\"}, \"name\": \"compute\"}<|end_tool_call|>0 + 4\"}, \"compute\"}<|end_tool_call|>1]\n<|assistant|>\n<|final|>\n-314 hi, 3, 6, 10, 8, -6, -5, -6, -6, -6], [8, [7, -6, -6, [7, [9, -4, [9, [2, -",
+          "tool_name_ok": false,
+          "arguments_ok": false,
+          "executed_ok": false
+        },
+        {
+          "record_id": "ee2c6b51ab9f5e48893b4c9250be505b",
+          "expected_tool": "fetch",
+          "generation": "<|final|>\nA\n",
+          "tool_name_ok": false,
+          "arguments_ok": null,
+          "executed_ok": null
+        }
+      ],
+      "started_at": "2026-10-02T12:22:56",
+      "duration_s": 953.23,
+      "environment": {
+        "generation": {
+          "calls": 1491,
+          "gen_tokens": 57127,
+          "seconds": 316.841,
+          "tokens_per_sec": 180.3,
+          "latency_mean_s": 0.2125,
+          "latency_p50_s": 0.042,
+          "latency_p95_s": 1.5466
+        },
+        "backend": "numpy",
+        "isolation": {
+          "capabilities": {
+            "bwrap": false,
+            "unshare_net": true,
+            "unshare_mount": true,
+            "unshare_user": true,
+            "unshare_pid": true,
+            "rlimit": true,
+            "platform": "linux",
+            "level": "namespace(net+mount+pid)"
+          },
+          "enforced_by_default": "private network namespace + tmpfs over host home tree when the sandboxed code runs",
+          "honest_label": "namespace(net+mount+pid)"
+        },
+        "checkpoint": "EXP-004-TOOL-SFT-V3/best",
+        "checkpoint_bytes": 30703744,
+        "max_new_tokens": 96,
+        "max_samples": null,
+        "held_out_records": 1558,
+        "started_at": "2026-10-02T12:38:49"
+      }
+    }
+  }
+}

@@ -92,7 +92,7 @@ def test_parameters_frozen_within_accumulation(tmp_path, monkeypatch, fake_token
     trainer = _make_trainer(tmp_path, monkeypatch, fake_tokenizer)
     cfg = trainer.model_cfg
     rng = np.random.default_rng(1)
-    B, T = 6, 16
+    T = 16
     batch = (jnp.asarray(rng.integers(0, cfg.vocab_size, size=(3, 2, T)).astype(np.int32)),
              jnp.asarray(rng.integers(0, cfg.vocab_size, size=(3, 2, T)).astype(np.int32)),
              jnp.asarray(rng.random((3, 2, T)) > 0.3),

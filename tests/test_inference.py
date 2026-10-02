@@ -29,7 +29,21 @@ def test_sampled_generation_is_seed_reproducible(engine):
 
 def test_generation_respects_the_token_budget(engine):
     out = engine.generate("<|user|>\nwrite a long text", max_new_tokens=7, temperature=0.0)
-    assert len(engine.encode(out)) <= 7
+    # the budget counts *generated tokens*, not re-encoded text (protocol markers
+    # are now preserved in the decoded string, so a re-encode can be longer)
+    assert engine.last_generated_tokens <= 7, engine.last_generated_tokens
+    assert out
+
+
+def test_generation_stops_at_eos_or_the_budget(engine):
+    out = engine.generate("<|user|>\nhi", max_new_tokens=32, temperature=0.0)
+    assert engine.last_generated_tokens <= 32
+    assert "<|eos|>" not in out, "EOS must terminate generation, never be emitted as text"
+
+
+def test_generation_never_deadlocks_on_an_empty_prompt(engine):
+    out = engine.generate("", max_new_tokens=8, temperature=0.0)
+    assert isinstance(out, str) and engine.last_generated_tokens <= 8
 
 
 def test_cache_and_no_cache_agree(engine):

@@ -8,6 +8,7 @@ refuses anything that is not a closed numeric expression.
 from __future__ import annotations
 
 import ast
+import hashlib
 import math
 import operator
 from fractions import Fraction
@@ -94,6 +95,15 @@ def _as_json(value):
     return value
 
 
+def compute_citation(expression: str) -> str:
+    """Stable, content-derived citation id for a computed value.
+
+    The id depends only on the expression, so the same call always yields the
+    same citation and the runtime can verify a citation the model emits.
+    """
+    return "calc-" + hashlib.sha1(expression.encode("utf-8")).hexdigest()[:8]
+
+
 def compute(expression: str) -> dict:
     """Tool entrypoint: exact evaluation with an auditable trace."""
     try:
@@ -104,4 +114,4 @@ def compute(expression: str) -> dict:
         return {"ok": False, "error": f"syntax_error: {exc.msg}", "expression": expression}
     exact = repr(value) if not isinstance(value, float) else repr(value)
     return {"ok": True, "expression": expression, "value": _as_json(value), "exact": exact,
-            "method": "python-ast-exact"}
+            "method": "python-ast-exact", "citation": compute_citation(expression)}

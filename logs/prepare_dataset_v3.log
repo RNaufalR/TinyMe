@@ -1,0 +1,17 @@
+2026-10-02 10:38:55,613 | INFO     | ingested 192 stdlib records from 21 modules
+2026-10-02 10:39:01,642 | INFO     | stdlib v2: 2422 records from 480 files (438 modules); skipped={'skipped_safety': 4}
+2026-10-02 10:49:58,827 | INFO     | assembled 9519 raw records from 16 provenance entries
+2026-10-02 10:50:20,962 | INFO     | splits: {'train': 6144, 'validation': 1204, 'test': 1196, 'challenge': 60}
+2026-10-02 10:50:20,980 | INFO     | tokenizer frozen from dataset_v2 (vocab=4096, sha256=d2d47152426e0a9b)
+2026-10-02 10:50:27,098 | INFO     | DONE 692.2s | train=6144 val=1204 test=1196 challenge=60 | active target tokens=668457 | tokens.json=259.49 KB
+{
+  "dataset_version": "dataset_v3",
+  "splits": {
+    "train": 6144,
+    "validation": 1204,
+    "test": 1196,
+    "challenge": 60
+  },
+  "train_tokens_active": 668457,
+  "train_validation_test_contamination": "PASS"
+}

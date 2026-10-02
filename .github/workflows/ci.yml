@@ -1,0 +1,125 @@
+name: CI
+
+# Audit §27: lint/static checks → unit tests → integration tests → evaluation
+# smoke → packaging smoke.  No full training run is attempted in CI (it needs
+# hours of CPU); the smoke stages use tiny configs so the *code paths* are
+# exercised without pretending to reproduce the published experiments.
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+  workflow_dispatch:
+
+env:
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+  PYTHONHASHSEED: "0"
+
+jobs:
+  lint:
+    name: lint / static checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install pinned tooling
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install ruff==0.14.2
+      - name: Byte-compile every module
+        run: python -m compileall -q src scripts tests
+      - name: Ruff (lint subset, no style bikeshedding)
+        # §17: a gate that cannot fail is a false pass. The selection is the
+        # error-class subset (real bugs: syntax, undefined names, dead locals);
+        # F401 (unused import) is reported but not fatal.
+        run: ruff check --select E9,F63,F7,F82,F811,F841 src scripts tests
+      - name: Validate test suite is not empty and imports
+        run: python -c "import pathlib,sys; mods=list(pathlib.Path('tests').glob('test_*.py')); print(len(mods),'test modules'); sys.exit(0 if len(mods)>=20 else 1)"
+
+  unit:
+    name: unit tests
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Unit tests (no heavy dataset artifacts required)
+        run: pytest -q --no-header -m "not slow" --ignore=tests/test_package_size.py
+
+  integration:
+    name: integration (data + train 2 steps + eval smoke)
+    runs-on: ubuntu-latest
+    needs: unit
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Build a tiny dataset end-to-end
+        run: python scripts/prepare_data_v2.py --version ci_smoke --scale 0.05 --seq-len 64
+      - name: Train 2 steps on the tiny dataset
+        run: |
+          python scripts/train.py --experiment CI-SMOKE --dataset ci_smoke --max-steps 2 \
+            --seq-len 64 --micro-batch 2 --grad-accum 1 --eval-every 2
+      - name: Inference smoke + tool runtime
+        run: |
+          python - <<'PY'
+          from src.agent.executor import AgentRuntime, scripted_policy
+          from src.inference.engine import InferenceEngine
+          runtime = AgentRuntime()
+          traj = runtime.solve("2+2?", scripted_policy(["<|final|>4"]))
+          assert traj.final == "4", traj.final
+          runtime.close()
+          print("agent loop smoke OK")
+          PY
+
+  eval_smoke:
+    name: evaluation smoke
+    runs-on: ubuntu-latest
+    needs: integration
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Independent tool-eval suite runs (scripted policy, no model needed)
+        run: python -m pytest tests/test_tool_registry.py tests/test_evidence.py tests/test_retrieval_quality.py -q
+      - name: Per-domain evaluator smoke on a 1-domain synthetic suite
+        run: python -m pytest tests/test_evaluation.py -q
+
+  package_smoke:
+    name: packaging + release smoke
+    runs-on: ubuntu-latest
+    needs: eval_smoke
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Package a tiny random model into a release directory
+        run: python -m pytest tests/test_package_size.py -q
+      - name: Release directory contract (files, manifest, checksums)
+        run: python -m pytest tests/test_release_contract.py -q

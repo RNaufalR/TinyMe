@@ -81,6 +81,15 @@ def _load_engine(experiment: str, checkpoint: str, tokenizer, backend: str,
     return engine
 
 
+def _f32_list(node):
+    """Yield a float32-cast copy of a nested block dict (blocks are lists of dicts)."""
+    if isinstance(node, dict):
+        return [{k: (v.astype(np.float32) if hasattr(v, "astype") else v) for k, v in node.items()}]
+    if isinstance(node, list):
+        return [x for item in node for x in _f32_list(item)]
+    return [node]
+
+
 def quantized_variants(params: dict, names: list[str]) -> dict[str, dict]:
     """Apply the flat quantization API to the nested tree and rebuild it.
 
@@ -105,12 +114,12 @@ def quantized_variants(params: dict, names: list[str]) -> dict[str, dict]:
             out[name] = unflatten_params(dequantize_int4(q, s))
         else:
             raise SystemExit(f"unknown variant {name}")
-        # keep the float32 dtype the engine's numpy forward expects
+        # keep float32 everywhere the NumPy forward touches (nested blocks included)
+        parts = out[name].get("blocks")
         out[name] = {k: (v.astype(np.float32) if hasattr(v, "astype") else v)
                      for k, v in out[name].items()}
-        if isinstance(out[name].get("blocks"), list):
-            out[name]["blocks"] = [{kk: vv.astype(np.float32) for kk, vv in blk.items()}
-                                   for blk in out[name]["blocks"]]
+        if isinstance(parts, list):
+            out[name]["blocks"] = [inner for blk in parts for inner in _f32_list(blk)]
     return out
 
 
@@ -149,19 +158,21 @@ def main() -> int:
         engine.set_params(params_by_variant[name])
         generate = lambda prompt, max_new_tokens=args.max_new_tokens: engine.generate(
             prompt, max_new_tokens=max_new_tokens, temperature=0.0, use_cache=True)
-        started = time.time()
         result = evaluate_model(generate, records, model_name=f"{args.experiment}:{name}",
                                 dataset_version=version, split=args.split,
                                 max_new_tokens=args.max_new_tokens,
+                                token_count_fn=lambda text: max(1, len(engine.encode(text))),
                                 perplexity_fn=lambda text: engine.perplexity([text]))
-        result.environment = {"backend": args.backend, "isolation": detected_summary(),
+        # merge, never replace: evaluate_model() already recorded the measured
+        # generation latency/throughput for this variant
+        result.environment.update({"backend": args.backend, "isolation": detected_summary(),
                               "checkpoint": f"{args.experiment}/{args.checkpoint}",
                               "checkpoint_bytes": int((REPO_ROOT / "checkpoints" / args.experiment /
                                                        f"{args.checkpoint}.safetensors").stat().st_size),
                               "max_new_tokens": args.max_new_tokens,
                               "max_samples": args.max_samples or None,
                               "held_out_records": len(records),
-                              "started_at": time.strftime("%Y-%m-%dT%H:%M:%S")}
+                              "started_at": time.strftime("%Y-%m-%dT%H:%M:%S")})
         results.append(result)
         summaries[name] = result.to_dict()
         log.info("[%s] mean_accuracy=%s domains=%d (%.1fs)", name,

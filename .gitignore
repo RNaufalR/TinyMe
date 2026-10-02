@@ -23,6 +23,9 @@ checkpoints/EXP-004/
 checkpoints/EXP-004-*/
 checkpoints/EXP-005/
 checkpoints/EXP-005-*/
+# Curriculum pilots follow the same policy: weights are reproducible from the
+# scripts + configs and are published via release/ if selected.
+checkpoints/CURRIC-*/
 checkpoints/_test_np/
 # Packed token shards (rebuild with scripts/prepare_data_v2.py)
 datasets/processed/*/shards/

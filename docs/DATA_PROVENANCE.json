@@ -1,6 +1,6 @@
 {
-  "dataset_version": "dataset_v2",
-  "created": "2026-10-02T04:15:30",
+  "dataset_version": "dataset_v3",
+  "created": "2026-10-02T11:45:59",
   "sources": [
     {
       "source": "python_stdlib",
@@ -109,9 +109,9 @@
       "inclusion_reason": "synthetic but well-formed English prose for language grounding"
     },
     {
-      "requested": 650,
-      "emitted": 591,
-      "duplicates_dropped": 59,
+      "requested": 1300,
+      "emitted": 1239,
+      "duplicates_dropped": 61,
       "source": "synthetic",
       "source_id": "syn/arithmetic",
       "source_url": "local://data_sources/synthetic_v2.py",
@@ -119,7 +119,7 @@
       "license": "Synthetic-Verified",
       "license_url": "",
       "category_family": "math",
-      "records": 591,
+      "records": 1239,
       "verified": true,
       "verifier": "python_recomputation | subprocess_tests",
       "generator": "synthetic_v2.gen_arithmetic",
@@ -127,8 +127,8 @@
       "notes": "deterministic generator with independent verification; rejected samples are not emitted"
     },
     {
-      "requested": 450,
-      "emitted": 450,
+      "requested": 900,
+      "emitted": 900,
       "duplicates_dropped": 0,
       "source": "synthetic",
       "source_id": "syn/word_problems",
@@ -137,7 +137,7 @@
       "license": "Synthetic-Verified",
       "license_url": "",
       "category_family": "math",
-      "records": 450,
+      "records": 900,
       "verified": true,
       "verifier": "python_recomputation | subprocess_tests",
       "generator": "synthetic_v2.gen_word_problems",
@@ -145,9 +145,9 @@
       "notes": "deterministic generator with independent verification; rejected samples are not emitted"
     },
     {
-      "requested": 300,
-      "emitted": 253,
-      "duplicates_dropped": 47,
+      "requested": 600,
+      "emitted": 428,
+      "duplicates_dropped": 172,
       "source": "synthetic",
       "source_id": "syn/sequences",
       "source_url": "local://data_sources/synthetic_v2.py",
@@ -155,7 +155,7 @@
       "license": "Synthetic-Verified",
       "license_url": "",
       "category_family": "math",
-      "records": 253,
+      "records": 428,
       "verified": true,
       "verifier": "python_recomputation | subprocess_tests",
       "generator": "synthetic_v2.gen_sequence",
@@ -163,8 +163,8 @@
       "notes": "deterministic generator with independent verification; rejected samples are not emitted"
     },
     {
-      "requested": 300,
-      "emitted": 300,
+      "requested": 600,
+      "emitted": 600,
       "duplicates_dropped": 0,
       "source": "synthetic",
       "source_id": "syn/boolean",
@@ -173,7 +173,7 @@
       "license": "Synthetic-Verified",
       "license_url": "",
       "category_family": "logic",
-      "records": 300,
+      "records": 600,
       "verified": true,
       "verifier": "python_recomputation | subprocess_tests",
       "generator": "synthetic_v2.gen_boolean",
@@ -181,9 +181,9 @@
       "notes": "deterministic generator with independent verification; rejected samples are not emitted"
     },
     {
-      "requested": 200,
-      "emitted": 188,
-      "duplicates_dropped": 12,
+      "requested": 400,
+      "emitted": 359,
+      "duplicates_dropped": 41,
       "source": "synthetic",
       "source_id": "syn/deduction",
       "source_url": "local://data_sources/synthetic_v2.py",
@@ -191,7 +191,7 @@
       "license": "Synthetic-Verified",
       "license_url": "",
       "category_family": "logic",
-      "records": 188,
+      "records": 359,
       "verified": true,
       "verifier": "python_recomputation | subprocess_tests",
       "generator": "synthetic_v2.gen_deduction",
@@ -199,8 +199,8 @@
       "notes": "deterministic generator with independent verification; rejected samples are not emitted"
     },
     {
-      "requested": 300,
-      "emitted": 300,
+      "requested": 600,
+      "emitted": 600,
       "duplicates_dropped": 0,
       "source": "synthetic",
       "source_id": "syn/algorithm_trace",
@@ -209,7 +209,7 @@
       "license": "Synthetic-Verified",
       "license_url": "",
       "category_family": "algorithm",
-      "records": 300,
+      "records": 600,
       "verified": true,
       "verifier": "python_recomputation | subprocess_tests",
       "generator": "synthetic_v2.gen_algorithm_trace",
@@ -217,8 +217,8 @@
       "notes": "deterministic generator with independent verification; rejected samples are not emitted"
     },
     {
-      "requested": 500,
-      "emitted": 500,
+      "requested": 1000,
+      "emitted": 1000,
       "duplicates_dropped": 0,
       "source": "synthetic",
       "source_id": "syn/code_gen",
@@ -227,7 +227,7 @@
       "license": "Synthetic-Verified",
       "license_url": "",
       "category_family": "code",
-      "records": 500,
+      "records": 1000,
       "verified": true,
       "verifier": "python_recomputation | subprocess_tests",
       "generator": "synthetic_v2.gen_code_generation",
@@ -235,8 +235,8 @@
       "notes": "deterministic generator with independent verification; rejected samples are not emitted"
     },
     {
-      "requested": 350,
-      "emitted": 350,
+      "requested": 700,
+      "emitted": 700,
       "duplicates_dropped": 0,
       "source": "synthetic",
       "source_id": "syn/code_repair",
@@ -245,7 +245,7 @@
       "license": "Synthetic-Verified",
       "license_url": "",
       "category_family": "code",
-      "records": 350,
+      "records": 700,
       "verified": true,
       "verifier": "python_recomputation | subprocess_tests",
       "generator": "synthetic_v2.gen_code_repair",
@@ -253,8 +253,8 @@
       "notes": "deterministic generator with independent verification; rejected samples are not emitted"
     },
     {
-      "requested": 300,
-      "emitted": 299,
+      "requested": 600,
+      "emitted": 599,
       "duplicates_dropped": 1,
       "source": "synthetic",
       "source_id": "syn/code_explain",
@@ -263,7 +263,7 @@
       "license": "Synthetic-Verified",
       "license_url": "",
       "category_family": "code",
-      "records": 299,
+      "records": 599,
       "verified": true,
       "verifier": "python_recomputation | subprocess_tests",
       "generator": "synthetic_v2.gen_code_explanation",
@@ -271,9 +271,9 @@
       "notes": "deterministic generator with independent verification; rejected samples are not emitted"
     },
     {
-      "requested": 300,
-      "emitted": 268,
-      "duplicates_dropped": 32,
+      "requested": 1000,
+      "emitted": 840,
+      "duplicates_dropped": 160,
       "source": "synthetic",
       "source_id": "syn/instruction",
       "source_url": "local://data_sources/synthetic_v2.py",
@@ -281,7 +281,7 @@
       "license": "Synthetic-Verified",
       "license_url": "",
       "category_family": "instruction",
-      "records": 268,
+      "records": 840,
       "verified": true,
       "verifier": "python_recomputation | subprocess_tests",
       "generator": "synthetic_v2.gen_instruction",
@@ -289,9 +289,9 @@
       "notes": "deterministic generator with independent verification; rejected samples are not emitted"
     },
     {
-      "requested": 450,
-      "emitted": 350,
-      "duplicates_dropped": 100,
+      "requested": 2100,
+      "emitted": 1311,
+      "duplicates_dropped": 789,
       "source": "synthetic",
       "source_id": "syn/tool_use",
       "source_url": "local://data_sources/synthetic_v2.py",
@@ -299,7 +299,7 @@
       "license": "Synthetic-Verified",
       "license_url": "",
       "category_family": "tool",
-      "records": 350,
+      "records": 1311,
       "verified": true,
       "verifier": "python_recomputation | subprocess_tests",
       "generator": "synthetic_v2.gen_tool_use",

@@ -7,10 +7,17 @@ program that timed out or crashed.
 """
 from __future__ import annotations
 
+import hashlib
+
 from ..sandbox.policy import SandboxPolicy
 from ..sandbox.runner import run_python
 from ..sandbox.workspace import Workspace
 from .context import ToolContext
+
+
+def code_citation(code: str) -> str:
+    """Stable, content-derived citation id for one sandbox execution."""
+    return "run-" + hashlib.sha1(code.encode("utf-8")).hexdigest()[:8]
 
 
 def run_code(ctx: ToolContext, code: str, timeout_s: int | None = None) -> dict:
@@ -27,6 +34,7 @@ def run_code(ctx: ToolContext, code: str, timeout_s: int | None = None) -> dict:
              isolation=result.isolation.get("level"))
     payload = {
         "ok": result.ok,
+        "citation": code_citation(code),
         "exit_code": result.exit_code,
         "timed_out": result.timed_out,
         "stdout": result.stdout,

@@ -56,7 +56,9 @@ def test_measured_bytes_are_under_fifty_megabytes(manifest):
     limit = 50 * 1024 * 1024
     for name, info in manifest["release"]["variants"].items():
         assert info["bytes"] < limit, (name, info["bytes"])
-        assert info["bytes"] == manifest["fp32_bytes"] if name == "fp32" else True
+        if name == "fp32":
+            assert info["bytes"] == manifest["fp32_bytes"], (info["bytes"], manifest["fp32_bytes"])
+            assert manifest["fp32_tensor_bytes"] <= manifest["fp32_bytes"]
     assert manifest["under_50mb"] and all(manifest["under_50mb"].values())
 
 

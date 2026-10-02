@@ -1,49 +1,48 @@
 # PROJECT STATE — TASK OBSERVER
 
-**Last Updated:** 2026-10-02 (corrective-audit execution, session branch `arena/01a0fa8e-tinyme`)
+**Last Updated:** 2026-10-02 (audit execution + capability iteration, session branch `arena/01a0fc10-tinyme`, content-identical to `arena/01a0fa8e-tinyme` @ `8446a03`)
 
-- **CURRENT TASK:** corrective audit execution — P0 correctness layer **complete and test-covered**;
-  P1 data engine complete; P1 tool runtime + sandbox implemented; canonical retraining (EXP-002) in progress.
+- **CURRENT TASK:** `TinyMeTask.md` §1–§29 execution and audit. All 29 sections are
+  implemented, executed and reported in `docs/AUDIT_MATRIX.md`; the capability
+  sections are reported as **FAILED** with measurements (see §4 below).
 - **CURRENT STATE:**
-  - `docs/CORRECTIVE_AUDIT.md` records every defect with executed-probe evidence (`docs/audit_evidence/*.out.txt`).
-    Headline confirmed defects: RoPE vs explicit rotation max|Δ| 4.076; EXP-001 "held-out" ppl 2.455 derived
-    from `train.jsonl[:32]`; `eval.jsonl` had 0 `token_ids`; trainer applied the optimizer once per *microbatch*
-    (no gradient accumulation); checkpoints carried no optimizer/RNG/sampler state; dedup LSH bucket loop was dead
-    code; shard writer re-wrote the whole `.npy` per append; `run_sandboxed_python` was a bare `subprocess.run(cwd="/tmp")`.
-  - **P0 fixes implemented + covered by tests:** content-aware preprocessing (code indentation, fences, control
-    tokens, AST validation on the *target*, malformed code = hard reject), structured segmented record contract
-    (`SYSTEM/USER/ASSISTANT/THOUGHT/TOOL_CALL/TOOL_RESULT/FINAL/CODE`) with `loss_mask` and `IGNORE_INDEX=-100`,
-    task-aware loss masking (tool results context-only), padding mask (pad_id → zero loss, active/masked/padding
-    reported), genuine train/validation/test/challenge split on `group_id` with contamination PASS/FAIL gates,
-    trainer reads real `validation` and refuses `train.jsonl`, tokenizer trained on the train split only with a
-    startup vocab assertion, one authoritative sequence builder (`seq_len` 256 primary, target-aware truncation),
-    true gradient accumulation (params frozen across microbatches + numerical-equivalence test), deterministic
-    sampler with persisted state, atomic checkpoint save/load/verify with fingerprints, scheduler/optimizer state
-    resume, RNG sync (python/numpy/JAX/data/synthetic), RoPE + cached-vs-full parity tests, NaN/Inf guards and
-    grad-norm logging, `compute_dtype` that changes real arithmetic and is recorded in the run config.
-  - **Data engine:** `scripts/prepare_data_v2.py` builds `dataset_v2` end-to-end (ingest → license → preprocess →
-    quality → dedup → group split → tokenizer(train only) → pack/shard → manifest + docs). Latest build:
-    **train 3062 / validation 259 / test 259 / challenge 60**, 6757 kept records (2 hard-rejected malformed code
-    targets), dedup 6757 → 3700, **585 187 active train target tokens**, padding ratio 0.161,
-    **contamination PASS** on all split pairs, 19 special tokens (audit-mandated `tool_call`/`tool_result`/`final`
-    control tokens with `end_tool_call`/`end_tool_result`).
-  - **Tool runtime + sandbox:** `src/agent/{protocol,tool_registry,router,planner,executor,evidence}.py` and
-    `src/tools/{search,fetch,compute,code,files,retrieval,context}.py`. Isolation is auto-detected and labelled
-    honestly: this host supports user+mount+net namespaces (`unshare -Urnm`), so executed code has **no network**
-    (verified: `socket.create_connection` → OSError), the host home tree is a tmpfs, the environment is scrubbed,
-    CPU/memory/file/output/fd rlimits apply and the process cap is enforced with `prlimit` inside the namespace
-    (verified: fork bomb stops after `max_processes` children). Offline BM25 retrieval index (408 documents,
-    181 KB corpus) with provenance on every passage.
-  - **Test suite:** 139 tests pass (`python3 -m pytest tests/ -q`), covering tokenizer, preprocessing, sequences,
-    loss/padding masks, gradient accumulation, checkpoint/resume, sampler, RoPE, KV-cache parity, dedup,
-    split contamination, dataset API, quality filters, model shapes, dtypes, numpy/JAX parity, inference,
-    numerical stability, RNG determinism, tool protocol, tools, sandbox and agent loop.
+  - **Corrected training (fresh initialisation, no resume of invalidated runs):**
+    `EXP-002-CORRECTED-NANO` 400 steps, val_ppl 122.02, rerun byte-identical on all
+    400 logged steps. Then three tool-SFT iterations:
+    `EXP-004-TOOL-SFT` (320 steps, ppl 7.21) → `EXP-004-TOOL-SFT-V2` (700 steps,
+    ppl 5.41) → `EXP-004-TOOL-SFT-V3` (600 steps, **ppl 4.62**). Base feasibility
+    pilot `EXP-003-BASE-PILOT` (25 steps, 8,933,440 params, 1,000.8 tok/s).
+  - **Capability verdict: FAILED.** §4 tool suite on the best checkpoint:
+    `task_completion` 0.00, `multi_step_success` 0.00, `error_recovery_success`
+    0.00, `citation_validity` 0.00, `grounded_final_answer` 0.30,
+    `execution_success` 0.50, `tool_syntax_validity` 0.84, `argument_validity`
+    1.00. Test split (2,158 samples) mean accuracy **0.0571**; challenge split
+    mean accuracy **0.1000**. Verdict recorded per §22 (never accepted on loss).
+  - **Root cause, measured:** one repeated target sentence (382 copies, 1 distinct
+    value, 5.7 % of all target segments) taught a memorisation prior; fixed at the
+    data level (`_THOUGHTS` pool, 6 phrasings/family → `dataset_v3` **rev4**,
+    7,220 train records, 718,077 active tokens, contamination PASS). The remaining
+    constraint is corpus scale: 718,077 tokens = **1.40 %** of the 20N budget
+    (`docs/CAPACITY_ANALYSIS.md`).
+  - **Release:** `release/` rebuilt from `EXP-004-TOOL-SFT-V3/best` — 13 files,
+    19,688,665 B (18.78 MiB); variants fp32 10,233,776 / fp16 5,118,480 /
+    int8 2,600,976 / int4 1,451,272 B; `< 50 MB` true for all four.
+  - **Clean-room gate:** `/tmp/cleanrel2` with `env -i`, empty `PYTHONPATH` and
+    only release files → `python3 inference.py` loads 2,557,632 params and
+    generates. Portability VERIFIED; the answer itself is wrong (capability
+    FAILED), and the two are reported separately.
+  - **Sandbox:** 18-case escape suite, 18 PASS, 16 blocked-or-contained, label
+    `namespace(net+mount+pid)`.
+  - **Tests:** `python3 -m pytest tests/ -q` → **273 passed** (33 modules).
 - **BLOCKERS:**
-  - `huggingface.co` / `raw.githubusercontent.com` remain TLS-blocked from the sandbox; the HF corpus is the
-    locally cached slice already in the repository, and every synthetic record is independently verified.
-- **LAST VERIFIED RESULT:** `python3 -m pytest tests/ -q` → **139 passed**; `dataset_v2` manifest →
-  contamination PASS, malformed_code_rate 0.0; `run_python` escape probes → network blocked, `/home` hidden.
-- **NEXT ACTION:** finish the canonical EXP-002 run, then EXP-003 (base feasibility pilot), EXP-004 (tool/instruction
-  SFT), EXP-005 (quantization), wire `scripts/{evaluate,package_model,quantize}.py` + `release/`, write
-  `docs/{TRAINING_REPORT,MODEL_COMPARISON}.md` and `FINAL_REPORT.md`, rewrite `README.md`, and push to
-  `arena/01a0f722-tinnyme` (via pull request from the session branch).
+  - `huggingface.co` / `raw.githubusercontent.com` remain TLS-blocked from the
+    sandbox; the HF corpus is the locally cached slice in the repository and
+    every synthetic record is independently verified.
+  - Corpus scale (0.72 M active tokens vs 51.2 M needed for 20N) — a data
+    problem, not a compute problem; Base would repeat the same failure.
+- **LAST VERIFIED RESULT:** `pytest tests/ -q` → 273 passed; RoPE vs independent
+  rotation reference 4.287e-07 (tolerance 1e-5); NumPy↔JAX parity 1.53e-05;
+  release clean-room gate loads and generates; contamination PASS.
+- **NEXT ACTION:** none required for the audit — all 29 sections are closed with
+  a status. Any future work must first raise the corpus above ~6N active tokens
+  with genuinely diverse multi-step supervision (`docs/CAPACITY_ANALYSIS.md` §5).

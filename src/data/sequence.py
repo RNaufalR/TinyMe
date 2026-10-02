@@ -21,11 +21,19 @@ from typing import Any, Iterable, Iterator
 
 import numpy as np
 
-from .records import (CONTEXT_ROLES, ROLE_CODE, ROLE_SYSTEM, ROLE_TOOL_CALL,
-                      ROLE_TOOL_RESULT, Segment, TrainingRecord)
+from .records import (CONTEXT_ROLES, ROLE_ASSISTANT, ROLE_CODE, ROLE_SYSTEM,
+                      ROLE_TOOL_CALL, ROLE_TOOL_RESULT, Segment, TrainingRecord)
 
 IGNORE_INDEX = -100
 MIN_TARGET_TOKENS = 6
+
+#: Loss-mask semantics of this revision.  ``control-tokens-supervised`` means a
+#: target segment supervises its opening marker and closing token as well as its
+#: body, so the protocol itself is learnable.  The earlier
+#: ``body-only`` semantics (dataset_v2 and older) left every role marker
+#: unsupervised, which made tool calls and final answers unlearnable; dataset
+#: revisions record which contract they were built with.
+LOSS_MASK_SEMANTICS = "control-tokens-supervised"
 
 _ROLE_OPEN = {
     ROLE_CODE: "<|code|>",
@@ -78,28 +86,39 @@ def _segments_of(record: dict[str, Any] | TrainingRecord) -> list[Segment]:
 
 
 def encode_segment(seg: Segment, tokenizer: Any) -> tuple[list[int], list[bool]]:
-    """Encode one segment to ids plus a per-token target flag."""
+    """Encode one segment to ids plus a per-token target flag.
+
+    Target segments (``ASSISTANT``/``THOUGHT``/``TOOL_CALL``/``FINAL``/``CODE``)
+    supervise **their control tokens as well as their body**: the opening marker
+    (``<|assistant|>``, ``<|tool_call|>``, ``<|final|>``, …) and the closing
+    token (``<|end_tool_call|>``, ``<|endcode|>``) are exactly the decisions the
+    model has to make at inference time, so masking them out makes the protocol
+    unlearnable. Context segments (``SYSTEM``/``USER``/``TOOL_RESULT``) stay
+    fully unsupervised — tool output is context, never a generation target.
+    """
     open_tok = _ROLE_OPEN.get(seg.role, f"<|{seg.role}|>")
     close_tok = _ROLE_CLOSE.get(seg.role, "")
+    supervised = bool(seg.contributes_to_loss())
     pieces: list[int] = []
     flags: list[bool] = []
     marker = tokenizer.encode_ids(open_tok + "\n")
-    # Role markers themselves are structural, never prediction targets.
     pieces += marker
-    flags += [False] * len(marker)
+    flags += [supervised] * len(marker)
     body = tokenizer.encode_ids(seg.text)
     if seg.role in _ROLE_CLOSE:
         # body may itself contain the closing token text; strip it defensively
         body = _truncate_at_marker(body, tokenizer, _ROLE_CLOSE[seg.role])
     pieces += body
-    flags += [seg.contributes_to_loss()] * len(body)
+    flags += [supervised] * len(body)
     if close_tok:
         cnt = tokenizer.encode_ids(close_tok)
         pieces += cnt
-        flags += [False] * len(cnt)
-    else:
+        flags += [supervised] * len(cnt)
+    elif body:
+        # separator between two segments of the same turn; a bare turn opener
+        # (e.g. an assistant marker with no text) must not add a stray newline
         pieces += tokenizer.encode_ids("\n")
-        flags += [False]
+        flags += [supervised]
     return pieces, flags
 
 
@@ -183,12 +202,26 @@ def build_sequence(record: dict[str, Any] | TrainingRecord, tokenizer: Any, seq_
     ids: list[int] = [bos_id]
     target_flags: list[bool] = [False]
     target_start = 1
+    in_model_turn = False
     for seg in segs:
+        is_target = seg.contributes_to_loss()
+        # Turn alignment (audit §24): every model turn starts with <|assistant|>.
+        # A target segment whose role is not ``assistant`` (thought / tool_call /
+        # final / code) and which opens a turn must therefore be preceded by the
+        # assistant opener.  Without this rule the training stream jumped
+        # straight from a tool result to <|final|>, while every runtime prompt
+        # closes with <|assistant|> — a format the model never saw.  Corpora that
+        # already carry an explicit empty assistant segment are unaffected.
+        if is_target and not in_model_turn and seg.role != ROLE_ASSISTANT:
+            opener = tokenizer.encode_ids(ROLE_TOKENS["assistant"] + "\n")
+            ids += opener
+            target_flags += [True] * len(opener)
         seg_ids, seg_flags = encode_segment(seg, tokenizer)
         if any(seg_flags):
             target_start = min(target_start, len(ids)) if ids else len(ids)
         ids += seg_ids
         target_flags += seg_flags
+        in_model_turn = is_target
     ids.append(eos_id)
     target_flags.append(True)
     if len(ids) < 4 or not any(target_flags[1:]):

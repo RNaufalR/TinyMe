@@ -37,19 +37,36 @@ class InferenceEngine:
 
     def __init__(self, model_path: str | Path, tokenizer_path: str | Path,
                  config_path: str | Path | None = None, backend: str = "jax",
-                 weights_dtype: str | None = None):
+                 weights_dtype: str | None = None, strict_config: bool = False):
+        """Load weights + tokenizer.
+
+        ``strict_config=True`` refuses to guess an architecture: if no
+        ``config.json`` can be resolved the load fails instead of silently
+        falling back to the ``nano`` default. Packaging and release validation
+        must use it, because a missing config file otherwise makes a ``base``
+        checkpoint look like a loadable ``nano`` one (audit §13).
+        """
         from ..model import TinyMeConfig, assert_vocab_compatible
         from ..tokenizer.bpe import TinyMeTokenizer
 
         self.backend = backend
         self.tokenizer = TinyMeTokenizer.load(tokenizer_path)
         config_path = Path(config_path) if config_path else Path(model_path).parent / "config.json"
+        self.config_path = Path(config_path)
+        self.config_source = "explicit"
         if Path(config_path).exists():
             cfg_dict = json.loads(Path(config_path).read_text())
             self.config = TinyMeConfig(**{k: v for k, v in cfg_dict.items()
                                           if k in TinyMeConfig.__dataclass_fields__})
+        elif strict_config:
+            raise FileNotFoundError(
+                f"strict_config=True but no model config at {config_path}; refusing to "
+                "fall back to the 'nano' default architecture")
         else:
             self.config = TinyMeConfig.from_name("nano")
+            self.config_source = "fallback:nano"
+            logger.warning("no model config at %s - falling back to the 'nano' default "
+                           "(pass strict_config=True to make this an error)", config_path)
         assert_vocab_compatible(self.config, int(self.tokenizer.vocab_size), context="inference load")
         self.params = self._load_params(model_path)
         self.weights_dtype = weights_dtype or "float32"
@@ -188,8 +205,16 @@ class InferenceEngine:
     def encode(self, text: str) -> list[int]:
         return self.tokenizer.encode_ids(text)
 
-    def decode(self, ids: list[int]) -> str:
-        return self.tokenizer.decode(ids)
+    def decode(self, ids: list[int], skip_special_tokens: bool = False) -> str:
+        """Decode tokens, keeping protocol markers by default.
+
+        TinyMe is a *protocol* model: ``<|tool_call|>``, ``<|final|>`` and
+        ``<|eos|>`` are part of its output language.  Stripping them (the
+        tokenizer default) makes every generated turn unparseable for the agent
+        runtime, so generation keeps them and callers that want plain text pass
+        ``skip_special_tokens=True`` explicitly.
+        """
+        return self.tokenizer.decode(ids, skip_special_tokens=skip_special_tokens)
 
     def _rope_table(self, T: int) -> np.ndarray:
         """Paired RoPE table matching :func:`src.model.transformer.rope_frequencies`."""
@@ -328,8 +353,18 @@ class InferenceEngine:
             return float("nan")
         return float(-logp[np.arange(n), targets[:n]].mean())
 
+    def _with_bos(self, ids: list[int]) -> list[int]:
+        """Prepend ``<|bos|>`` when a prompt does not carry it.
+
+        Training sequences always start with BOS, and RoPE makes the model
+        position-sensitive: feeding a prompt without BOS shifts every position
+        by one and measurably degrades generation (this was a real defect found
+        during the tool-use evaluation).
+        """
+        return ids if (ids and ids[0] == self.bos_id) else [self.bos_id] + list(ids)
+
     def perplexity(self, texts: list[str]) -> float:
-        vals = [self.sequence_loss(self.encode(t)) for t in texts]
+        vals = [self.sequence_loss(self._with_bos(self.encode(t))) for t in texts]
         vals = [v for v in vals if np.isfinite(v)]
         return float(np.exp(np.mean(vals))) if vals else float("nan")
 
@@ -372,7 +407,7 @@ class InferenceEngine:
         Deterministic when ``temperature <= 0``; when sampling, ``seed=None``
         uses seed 0 so behaviour is still reproducible (P0-13).
         """
-        ids = self.encode(prompt)
+        ids = self._with_bos(self.encode(prompt))
         if not ids:
             ids = [self.bos_id]
         max_ctx = self.config.max_seq_len
@@ -381,6 +416,10 @@ class InferenceEngine:
         rng = np.random.default_rng(0 if seed is None else seed)
         generated: list[int] = []
         context_len = len(ids)
+        #: measured token budget actually consumed by the last generate() call
+        self.last_generated_tokens = 0
+        #: prompt tokens actually fed (after BOS insertion and any truncation)
+        self.last_prompt_tokens = len(ids)
 
         def sample(logits: np.ndarray) -> int:
             logits = np.asarray(logits, dtype=np.float64).copy()
@@ -449,6 +488,7 @@ class InferenceEngine:
                     break
                 if context_len >= max_ctx:
                     break
+        self.last_generated_tokens = len(generated)
         return self.decode(generated)
 
     # ------------------------------------------------------------ metadata

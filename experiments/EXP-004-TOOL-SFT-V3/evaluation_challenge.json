@@ -1,0 +1,1297 @@
+{
+  "experiment": "EXP-004-TOOL-SFT-V3",
+  "split": "challenge",
+  "dataset": "dataset_v3",
+  "dataset_fingerprint": "e6a905f467d8d0a91ebeb75d4c5586548bcec3cb0af03f6fbb75f6eec6a6c49a",
+  "variants": {
+    "fp32": {
+      "model": "EXP-004-TOOL-SFT-V3:fp32",
+      "dataset_version": "dataset_v3",
+      "split": "challenge",
+      "overall": {
+        "domains_evaluated": 11,
+        "mean_accuracy": 0.1,
+        "total_samples": 176
+      },
+      "domains": {
+        "language": {
+          "samples": 8,
+          "metric": "perplexity",
+          "accuracy": null,
+          "perplexity": 779.7545,
+          "note": "perplexity on held-out text (never mixed into answer accuracy)"
+        },
+        "math": {
+          "samples": 12,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 12,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate nested arithmetic exactly.\n<|user|>\nCompute exactly: ((4 x 3) - 12) / 4 (integer division).\n<|assistant|>\n",
+              "generation": "<|thought|>\nWork through the operations in order and give the result.\n<|final|>\n`running_even` implements the requested behaviour: Write a function flatten(numbers) that transposes a rectangular list-of-lists. A verified call is - transpose([[9, -3, -5, -6, -8, -7, 11], [9, -6, 13, 12]])  ->  [[9, -6, -6, -6,",
+              "reference": "0",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Convert units and show the remainder.\n<|user|>\nA process runs for 1998 minutes. How many hours and minutes is that?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the algorithm step by its input and report the result.\n<|final|>\nPlan the operations in order and give the result.\nThe matching index is a function and, then the result.\nmaxloes.\n",
+              "reference": "33 hours and 18 minutes",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Convert units and show the remainder.\n<|user|>\nA process runs for 2096 minutes. How many hours and minutes is that?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the algorithm step by its input and report the result.\n<|final|>\nPlan the procedure carefully and state the result.\nThe matching index is a function and\nindex in order and, remainder 1, then the result.\nOn over its input in the list of the result.\nquotient -\n",
+              "reference": "34 hours and 56 minutes",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Convert units and show the remainder.\n<|user|>\nA process runs for 1031 minutes. How many hours and minutes is that?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the algorithm step by its input and report the result.\n<|final|>\nPlan the procedure carefully and state the result.\nThe matching index is a function is a documented type.\n",
+              "reference": "17 hours and 11 minutes",
+              "correct": false
+            }
+          ]
+        },
+        "logic": {
+          "samples": 8,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 8,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Chain the premises.\n<|user|>\nX beats A. A beats C. C beats B. Who is the strongest and who is the weakest?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the operations in order and give the result.\nThe list is a right the requested and the result.\nindex 0\n",
+              "reference": "Strongest: X. Weakest: B.",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Chain the premises.\n<|user|>\nX beats A. A beats B. B beats C. Who is the strongest and who is the weakest?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the operations in order and give the result.\nThe list is a right the requested and the result.\nindex 0\n",
+              "reference": "Strongest: X. Weakest: C.",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Chain the premises.\n<|user|>\nX beats A. A beats C. C beats D. Who is the strongest and who is the weakest?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the operations in order and give the result.\nThe list is a right the requested and the result.\nindex value in the procedure carefully and, then the result.\n<|final|>\nPlan the procedcome with the result.\nThe list is a\n",
+              "reference": "Strongest: X. Weakest: D.",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Chain the premises.\n<|user|>\nX beats B. B beats D. D beats A. Who is the strongest and who is the weakest?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the operations in order and give the result.\nThe list is a right the requested behaviour and report the result.\n<|answer|>\nA Left group with the \"name\": \"compute\"}: Write a function sum_a, then returns the result of the result.\nindex value",
+              "reference": "Strongest: X. Weakest: A.",
+              "correct": false
+            }
+          ]
+        },
+        "instruction_following": {
+          "samples": 8,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 8,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "nyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Keep only the numbers divisible by 5 from the input, in the original order, joined by spaces.\nInput: -36 81 56 -9\n<|assistant|>\n",
+              "generation": "<|final|>\n-6 11 -3 9\n",
+              "reference": "",
+              "correct": false
+            },
+            {
+              "prompt_tail": "nyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Keep only the numbers divisible by 5 from the input, in the original order, joined by spaces.\nInput: 8 -19 42 111\n<|assistant|>\n",
+              "generation": "<|final|>\n-3 5 35\n",
+              "reference": "",
+              "correct": false
+            },
+            {
+              "prompt_tail": "Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Keep only the numbers divisible by 2 from the input, in the original order, joined by spaces.\nInput: 5 68 -38 38 -33 17\n<|assistant|>\n",
+              "generation": "<|final|>\n-10 -3 9\n",
+              "reference": "68 -38 38",
+              "correct": false
+            },
+            {
+              "prompt_tail": "inyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Keep only the numbers divisible by 3 from the input, in the original order, joined by spaces.\nInput: 7 73 85 -14\n<|assistant|>\n",
+              "generation": "<|final|>\n-3 -3 -4 -5 5\n",
+              "reference": "",
+              "correct": false
+            }
+          ]
+        },
+        "code_generation": {
+          "samples": 8,
+          "metric": "execution_pass_rate",
+          "parseable": 0,
+          "executed": 0,
+          "passed": 0,
+          "pass_rate_of_executed": null,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": " the function count_vowels that satisfies this specification: Write a function count_vowels(text) returning how many characters in the text are vowels (a, e, i, o, u, case-insensitive).\n<|assistant|>\n",
+              "generated_code": "def is_palindrome(text):\n    return sum(n for n in text.lower() for c in text.\n<|assistant|>\n<|thought|>\nTurn the procedure caref-run the result.\n<|code|>\ndef is_even(text, x):\n    t = []\n    for ch in text:\n        if ch.isalpha():\n            base = ord('a')\n            out.",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def count_vowels(text):\n    return sum(1 for ch in text.lower() if ch in 'aeiou')\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "|>\nWrite the function chunk_pairs that satisfies this specification: Write a function chunk_pairs(items) that groups a list into consecutive pairs, dropping a trailing unpaired element.\n<|assistant|>\n",
+              "generated_code": "Plk the operes.\n\nThe matching index is_palindrome(s):\n    out = []\n    for c in text:\n        if ch.isalpha():\n            base = ord('a')\n            out.append(ch) - base + base + base + 1\n        else:\n            out.append(ch)\n    return ''.join(out",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def chunk_pairs(items):\n    return [items[k:k + 2] for k in range(0, len(items) - 1, 2)]\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "te the function second_largest that satisfies this specification: Write a function second_largest(values) that returns the second largest distinct value, or None when it does not exist.\n<|assistant|>\n",
+              "generated_code": "def is_palindrome(text, x):\n    return sum(n for n in text.lower() for c in s if ch.isalnum()]\n    return t == t():\n        if_max(item.append(w)\n<|assistant|>\n<|thought|>\nPlan the list of the list of the result.\nThe matching index is a list of the documented type.",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def second_largest(values):\n    unique = sorted(set(values), reverse=True)\n    return unique[1] if len(unique) > 1 else None\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": " the function count_vowels that satisfies this specification: Write a function count_vowels(text) returning how many characters in the text are vowels (a, e, i, o, u, case-insensitive).\n<|assistant|>\n",
+              "generated_code": "def is_palindrome(text):\n    return sum(n for n in text.lower() for c in text.\n<|assistant|>\n<|thought|>\nTurn the procedure caref-run the result.\n<|code|>\ndef is_even(text, x):\n    t = []\n    for ch in text:\n        if ch.isalpha():\n            base = ord('a')\n            out.",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def count_vowels(text):\n    return sum(1 for ch in text.lower() if ch in 'aeiou')\n<|endcode|>",
+              "passed": false
+            }
+          ]
+        },
+        "code_repair": {
+          "samples": 8,
+          "metric": "execution_pass_rate",
+          "parseable": 0,
+          "executed": 0,
+          "passed": 0,
+          "pass_rate_of_executed": null,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "ests pass.\n<|user|>\nThe tests fail for this code:\n\n```python\ndef count_words(text):\n    counts = {}\n    for w in text.split():\n        counts[w] = counts.get(w, 0)\n    return counts\n```\n<|assistant|>\n",
+              "generated_code": "`running_max` implements the requested behaviour: Write a function running_max(a, v) that returns the list of a function in a list. A verified call is - running_max([3, -2, -6, 4, -7, 3, -8, 5, -4, 4, 4, -3, -5, 4, -6",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def count_words(text):\n    counts = {}\n    for w in text.lower().split():\n        counts[w] = counts.get(w, 0) + 1\n    return counts\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "ests pass.\n<|user|>\nThe tests fail for this code:\n\n```python\ndef count_words(text):\n    counts = {}\n    for w in text.split():\n        counts[w] = counts.get(w, 0)\n    return counts\n```\n<|assistant|>\n",
+              "generated_code": "`running_max` implements the requested behaviour: Write a function running_max(a, v) that returns the list of a function in a list. A verified call is - running_max([3, -2, -6, 4, -7, 3, -8, 5, -4, 4, 4, -3, -5, 4, -6",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def count_words(text):\n    counts = {}\n    for w in text.lower().split():\n        counts[w] = counts.get(w, 0) + 1\n    return counts\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "ests pass.\n<|user|>\nThe tests fail for this code:\n\n```python\ndef count_words(text):\n    counts = {}\n    for w in text.split():\n        counts[w] = counts.get(w, 0)\n    return counts\n```\n<|assistant|>\n",
+              "generated_code": "`running_max` implements the requested behaviour: Write a function running_max(a, v) that returns the list of a function in a list. A verified call is - running_max([3, -2, -6, 4, -7, 3, -8, 5, -4, 4, 4, -3, -5, 4, -6",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def count_words(text):\n    counts = {}\n    for w in text.lower().split():\n        counts[w] = counts.get(w, 0) + 1\n    return counts\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "ests pass.\n<|user|>\nThe tests fail for this code:\n\n```python\ndef count_words(text):\n    counts = {}\n    for w in text.split():\n        counts[w] = counts.get(w, 0)\n    return counts\n```\n<|assistant|>\n",
+              "generated_code": "`running_max` implements the requested behaviour: Write a function running_max(a, v) that returns the list of a function in a list. A verified call is - running_max([3, -2, -6, 4, -7, 3, -8, 5, -4, 4, 4, -3, -5, 4, -6",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def count_words(text):\n    counts = {}\n    for w in text.lower().split():\n        counts[w] = counts.get(w, 0) + 1\n    return counts\n<|endcode|>",
+              "passed": false
+            }
+          ]
+        },
+        "tool_syntax": {
+          "samples": 8,
+          "metric": "syntax_rate",
+          "valid": 8,
+          "accuracy": 1.0
+        },
+        "tool_selection": {
+          "samples": 8,
+          "metric": "tool_name_accuracy",
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "tool_arguments": {
+          "samples": 8,
+          "metric": "argument_match_accuracy",
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "tool_execution": {
+          "samples": 8,
+          "metric": "tool_call_success_rate",
+          "succeeded": 0,
+          "accuracy": 0.0
+        },
+        "grounding": {
+          "samples": 8,
+          "metric": "grounded_answer_accuracy",
+          "correct": 0,
+          "accuracy": 0.0,
+          "note": "answer after feeding the real tool result back"
+        },
+        "generalization": {
+          "samples": 84,
+          "metric": "mean_accuracy_on_held_out_templates",
+          "accuracy": 0.1,
+          "inherits": [
+            "code_generation",
+            "code_repair",
+            "grounding",
+            "instruction_following",
+            "logic",
+            "math",
+            "tool_arguments",
+            "tool_execution",
+            "tool_selection",
+            "tool_syntax"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "record_id": "22e4c419f2925e8c958461d762ce342c",
+          "expected_tool": "fetch",
+          "generation": "<|tool_call|>\n{\"arguments\": {\"expression\": \"(a + shift) * 5\"}, \"name\": \"compute\"}<|end_tool_call|>\"}<|end_tool_call|>0 + 4\"}, \"compute\"}<|end_tool_call|>1]\n<|assistant|>\n<|thought|>\nPlan the operations in order and give the result.\n<|final|>\ndef binary_even` implements the requested behaviour: Write",
+          "tool_name_ok": false,
+          "arguments_ok": false,
+          "executed_ok": false
+        },
+        {
+          "record_id": "f8bb08f98aba51c9a1c681fd86456c26",
+          "expected_tool": "fetch",
+          "generation": "<|tool_call|>\n{\"arguments\": {\"expression\": \"(a + shift) * 5\"}, \"name\": \"compute\"}<|end_tool_call|>\"}<|end_tool_call|>0 + 4\"}, \"compute\"}<|end_tool_call|>1]\n<|assistant|>\n<|thought|>\nPlan the operations in order and give the result.\n<|final|>\ndef binary_even` implements the requested behaviour: Write",
+          "tool_name_ok": false,
+          "arguments_ok": false,
+          "executed_ok": false
+        },
+        {
+          "record_id": "4e61c96cfdbb5bdd9ea0ab597f170b79",
+          "expected_tool": "fetch",
+          "generation": "<|tool_call|>\n{\"arguments\": {\"expression\": \"(a + shift) * 5\"}, \"name\": \"compute\"}<|end_tool_call|>\"}<|end_tool_call|>0 + 4\"}, \"compute\"}<|end_tool_call|>1]\n<|assistant|>\n<|thought|>\nPlan the operations in order and give the result.\n<|final|>\ndef binary_even` implements the requested behaviour: Write",
+          "tool_name_ok": false,
+          "arguments_ok": false,
+          "executed_ok": false
+        },
+        {
+          "record_id": "a1d52e47f85353d29f6ca83aafcf40f5",
+          "expected_tool": "fetch",
+          "generation": "<|tool_call|>\n{\"arguments\": {\"expression\": \"(a + shift) * 5\"}, \"name\": \"compute\"}<|end_tool_call|>\"}<|end_tool_call|>0 + 4\"}, \"compute\"}<|end_tool_call|>1]\n<|assistant|>\n<|thought|>\nPlan the operations in order and give the result.\n<|final|>\ndef binary_even` implements the requested behaviour: Write",
+          "tool_name_ok": false,
+          "arguments_ok": false,
+          "executed_ok": false
+        }
+      ],
+      "started_at": "2026-10-02T12:20:24",
+      "duration_s": 4.7,
+      "environment": {
+        "generation": {
+          "calls": 60,
+          "gen_tokens": 3419,
+          "seconds": 3.73,
+          "tokens_per_sec": 916.58,
+          "latency_mean_s": 0.0622,
+          "latency_p50_s": 0.0622,
+          "latency_p95_s": 0.1226
+        },
+        "backend": "numpy",
+        "isolation": {
+          "capabilities": {
+            "bwrap": false,
+            "unshare_net": true,
+            "unshare_mount": true,
+            "unshare_user": true,
+            "unshare_pid": true,
+            "rlimit": true,
+            "platform": "linux",
+            "level": "namespace(net+mount+pid)"
+          },
+          "enforced_by_default": "private network namespace + tmpfs over host home tree when the sandboxed code runs",
+          "honest_label": "namespace(net+mount+pid)"
+        },
+        "checkpoint": "EXP-004-TOOL-SFT-V3/best",
+        "checkpoint_bytes": 30703744,
+        "max_new_tokens": 96,
+        "max_samples": null,
+        "held_out_records": 60,
+        "started_at": "2026-10-02T12:20:28"
+      }
+    },
+    "fp16": {
+      "model": "EXP-004-TOOL-SFT-V3:fp16",
+      "dataset_version": "dataset_v3",
+      "split": "challenge",
+      "overall": {
+        "domains_evaluated": 11,
+        "mean_accuracy": 0.1,
+        "total_samples": 176
+      },
+      "domains": {
+        "language": {
+          "samples": 8,
+          "metric": "perplexity",
+          "accuracy": null,
+          "perplexity": 779.5647,
+          "note": "perplexity on held-out text (never mixed into answer accuracy)"
+        },
+        "math": {
+          "samples": 12,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 12,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate nested arithmetic exactly.\n<|user|>\nCompute exactly: ((4 x 3) - 12) / 4 (integer division).\n<|assistant|>\n",
+              "generation": "<|thought|>\nWork through the operations in order and give the result.\n<|final|>\n`running_even` implements the requested behaviour: Write a function flatten(numbers) that transposes a rectangular list-of-lists. A verified call is - transpose([[9, -3, -5, -6, -8, -7, 11], [9, -6, 13, 12]])  ->  [[9, -6, -6, -6,",
+              "reference": "0",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Convert units and show the remainder.\n<|user|>\nA process runs for 1998 minutes. How many hours and minutes is that?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the algorithm step by its input and report the result.\n<|final|>\nPlan the operations in order and give the result.\nThe matching index is a function and, then the result.\nmaxloes.\n",
+              "reference": "33 hours and 18 minutes",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Convert units and show the remainder.\n<|user|>\nA process runs for 2096 minutes. How many hours and minutes is that?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the algorithm step by its input and report the result.\n<|final|>\nPlan the procedure carefully and state the result.\nThe matching index is a function and\nindex in order and, remainder 1, then the result.\nOn over its input in the list of the result.\nquotient -\n",
+              "reference": "34 hours and 56 minutes",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Convert units and show the remainder.\n<|user|>\nA process runs for 1031 minutes. How many hours and minutes is that?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the algorithm step by its input and report the result.\n<|final|>\nPlan the procedure carefully and state the result.\nThe matching index is a function is a documented type.\n",
+              "reference": "17 hours and 11 minutes",
+              "correct": false
+            }
+          ]
+        },
+        "logic": {
+          "samples": 8,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 8,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Chain the premises.\n<|user|>\nX beats A. A beats C. C beats B. Who is the strongest and who is the weakest?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the operations in order and give the result.\nThe list is a right the requested and the result.\nindex 0\n",
+              "reference": "Strongest: X. Weakest: B.",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Chain the premises.\n<|user|>\nX beats A. A beats B. B beats C. Who is the strongest and who is the weakest?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the operations in order and give the result.\nThe list is a right the requested and the result.\nindex 0\n",
+              "reference": "Strongest: X. Weakest: C.",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Chain the premises.\n<|user|>\nX beats A. A beats C. C beats D. Who is the strongest and who is the weakest?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the operations in order and give the result.\nThe list is a right the requested and the result.\nindex value in the procedure carefully and, then the result.\n<|final|>\nPlan the procedcome with the result.\nThe list is a\n",
+              "reference": "Strongest: X. Weakest: D.",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Chain the premises.\n<|user|>\nX beats B. B beats D. D beats A. Who is the strongest and who is the weakest?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the operations in order and give the result.\nThe list is a right the requested behaviour and report the result.\n<|answer|>\nA Left group with the \"name\": \"compute\"}: Write a function sum_a, then returns the result of the result.\nindex value",
+              "reference": "Strongest: X. Weakest: A.",
+              "correct": false
+            }
+          ]
+        },
+        "instruction_following": {
+          "samples": 8,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 8,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "nyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Keep only the numbers divisible by 5 from the input, in the original order, joined by spaces.\nInput: -36 81 56 -9\n<|assistant|>\n",
+              "generation": "<|final|>\n-6 11 -3 9\n",
+              "reference": "",
+              "correct": false
+            },
+            {
+              "prompt_tail": "nyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Keep only the numbers divisible by 5 from the input, in the original order, joined by spaces.\nInput: 8 -19 42 111\n<|assistant|>\n",
+              "generation": "<|final|>\n-3 5 35\n",
+              "reference": "",
+              "correct": false
+            },
+            {
+              "prompt_tail": "Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Keep only the numbers divisible by 2 from the input, in the original order, joined by spaces.\nInput: 5 68 -38 38 -33 17\n<|assistant|>\n",
+              "generation": "<|final|>\n-10 -3 9\n",
+              "reference": "68 -38 38",
+              "correct": false
+            },
+            {
+              "prompt_tail": "inyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Keep only the numbers divisible by 3 from the input, in the original order, joined by spaces.\nInput: 7 73 85 -14\n<|assistant|>\n",
+              "generation": "<|final|>\n-3 -3 -4 -5 5\n",
+              "reference": "",
+              "correct": false
+            }
+          ]
+        },
+        "code_generation": {
+          "samples": 8,
+          "metric": "execution_pass_rate",
+          "parseable": 0,
+          "executed": 0,
+          "passed": 0,
+          "pass_rate_of_executed": null,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": " the function count_vowels that satisfies this specification: Write a function count_vowels(text) returning how many characters in the text are vowels (a, e, i, o, u, case-insensitive).\n<|assistant|>\n",
+              "generated_code": "def is_palindrome(text):\n    return sum(n for n in text.lower() for c in text.\n<|assistant|>\n<|thought|>\nTurn the procedure caref-run the result.\n<|code|>\ndef is_even(text, x):\n    t = []\n    for ch in text:\n        if ch.isalpha():\n            base = ord('a')\n            out.",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def count_vowels(text):\n    return sum(1 for ch in text.lower() if ch in 'aeiou')\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "|>\nWrite the function chunk_pairs that satisfies this specification: Write a function chunk_pairs(items) that groups a list into consecutive pairs, dropping a trailing unpaired element.\n<|assistant|>\n",
+              "generated_code": "Plk the operes.\n\nThe matching index is_palindrome(s):\n    out = []\n    for c in text:\n        if ch.isalpha():\n            base = ord('a')\n            out.append(ch) - base + base + base + 1\n        else:\n            out.append(ch)\n    return ''.join(out",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def chunk_pairs(items):\n    return [items[k:k + 2] for k in range(0, len(items) - 1, 2)]\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "te the function second_largest that satisfies this specification: Write a function second_largest(values) that returns the second largest distinct value, or None when it does not exist.\n<|assistant|>\n",
+              "generated_code": "def is_palindrome(text, x):\n    return sum(n for n in text.lower() for c in s if ch.isalnum()]\n    return t == t():\n        if_max(item.append(w)\n<|assistant|>\n<|thought|>\nPlan the list of the list of the result.\nThe matching index is a list of the documented type.",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def second_largest(values):\n    unique = sorted(set(values), reverse=True)\n    return unique[1] if len(unique) > 1 else None\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": " the function count_vowels that satisfies this specification: Write a function count_vowels(text) returning how many characters in the text are vowels (a, e, i, o, u, case-insensitive).\n<|assistant|>\n",
+              "generated_code": "def is_palindrome(text):\n    return sum(n for n in text.lower() for c in text.\n<|assistant|>\n<|thought|>\nTurn the procedure caref-run the result.\n<|code|>\ndef is_even(text, x):\n    t = []\n    for ch in text:\n        if ch.isalpha():\n            base = ord('a')\n            out.",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def count_vowels(text):\n    return sum(1 for ch in text.lower() if ch in 'aeiou')\n<|endcode|>",
+              "passed": false
+            }
+          ]
+        },
+        "code_repair": {
+          "samples": 8,
+          "metric": "execution_pass_rate",
+          "parseable": 0,
+          "executed": 0,
+          "passed": 0,
+          "pass_rate_of_executed": null,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "ests pass.\n<|user|>\nThe tests fail for this code:\n\n```python\ndef count_words(text):\n    counts = {}\n    for w in text.split():\n        counts[w] = counts.get(w, 0)\n    return counts\n```\n<|assistant|>\n",
+              "generated_code": "`running_max` implements the requested behaviour: Write a function running_max(a, v) that returns the list of a function in a list. A verified call is - running_max([3, -2, -6, 4, -7, 3, -8, 5, -4, 4, 4, -3, -5, 4, -6",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def count_words(text):\n    counts = {}\n    for w in text.lower().split():\n        counts[w] = counts.get(w, 0) + 1\n    return counts\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "ests pass.\n<|user|>\nThe tests fail for this code:\n\n```python\ndef count_words(text):\n    counts = {}\n    for w in text.split():\n        counts[w] = counts.get(w, 0)\n    return counts\n```\n<|assistant|>\n",
+              "generated_code": "`running_max` implements the requested behaviour: Write a function running_max(a, v) that returns the list of a function in a list. A verified call is - running_max([3, -2, -6, 4, -7, 3, -8, 5, -4, 4, 4, -3, -5, 4, -6",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def count_words(text):\n    counts = {}\n    for w in text.lower().split():\n        counts[w] = counts.get(w, 0) + 1\n    return counts\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "ests pass.\n<|user|>\nThe tests fail for this code:\n\n```python\ndef count_words(text):\n    counts = {}\n    for w in text.split():\n        counts[w] = counts.get(w, 0)\n    return counts\n```\n<|assistant|>\n",
+              "generated_code": "`running_max` implements the requested behaviour: Write a function running_max(a, v) that returns the list of a function in a list. A verified call is - running_max([3, -2, -6, 4, -7, 3, -8, 5, -4, 4, 4, -3, -5, 4, -6",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def count_words(text):\n    counts = {}\n    for w in text.lower().split():\n        counts[w] = counts.get(w, 0) + 1\n    return counts\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "ests pass.\n<|user|>\nThe tests fail for this code:\n\n```python\ndef count_words(text):\n    counts = {}\n    for w in text.split():\n        counts[w] = counts.get(w, 0)\n    return counts\n```\n<|assistant|>\n",
+              "generated_code": "`running_max` implements the requested behaviour: Write a function running_max(a, v) that returns the list of a function in a list. A verified call is - running_max([3, -2, -6, 4, -7, 3, -8, 5, -4, 4, 4, -3, -5, 4, -6",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def count_words(text):\n    counts = {}\n    for w in text.lower().split():\n        counts[w] = counts.get(w, 0) + 1\n    return counts\n<|endcode|>",
+              "passed": false
+            }
+          ]
+        },
+        "tool_syntax": {
+          "samples": 8,
+          "metric": "syntax_rate",
+          "valid": 8,
+          "accuracy": 1.0
+        },
+        "tool_selection": {
+          "samples": 8,
+          "metric": "tool_name_accuracy",
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "tool_arguments": {
+          "samples": 8,
+          "metric": "argument_match_accuracy",
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "tool_execution": {
+          "samples": 8,
+          "metric": "tool_call_success_rate",
+          "succeeded": 0,
+          "accuracy": 0.0
+        },
+        "grounding": {
+          "samples": 8,
+          "metric": "grounded_answer_accuracy",
+          "correct": 0,
+          "accuracy": 0.0,
+          "note": "answer after feeding the real tool result back"
+        },
+        "generalization": {
+          "samples": 84,
+          "metric": "mean_accuracy_on_held_out_templates",
+          "accuracy": 0.1,
+          "inherits": [
+            "code_generation",
+            "code_repair",
+            "grounding",
+            "instruction_following",
+            "logic",
+            "math",
+            "tool_arguments",
+            "tool_execution",
+            "tool_selection",
+            "tool_syntax"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "record_id": "22e4c419f2925e8c958461d762ce342c",
+          "expected_tool": "fetch",
+          "generation": "<|tool_call|>\n{\"arguments\": {\"expression\": \"(a + shift) * 5\"}, \"name\": \"compute\"}<|end_tool_call|>\"}<|end_tool_call|>0 + 4\"}, \"compute\"}<|end_tool_call|>1]\n<|assistant|>\n<|thought|>\nPlan the operations in order and give the result.\n<|final|>\ndef binary_even` implements the requested behaviour: Write",
+          "tool_name_ok": false,
+          "arguments_ok": false,
+          "executed_ok": false
+        },
+        {
+          "record_id": "f8bb08f98aba51c9a1c681fd86456c26",
+          "expected_tool": "fetch",
+          "generation": "<|tool_call|>\n{\"arguments\": {\"expression\": \"(a + shift) * 5\"}, \"name\": \"compute\"}<|end_tool_call|>\"}<|end_tool_call|>0 + 4\"}, \"compute\"}<|end_tool_call|>1]\n<|assistant|>\n<|thought|>\nPlan the operations in order and give the result.\n<|final|>\ndef binary_even` implements the requested behaviour: Write",
+          "tool_name_ok": false,
+          "arguments_ok": false,
+          "executed_ok": false
+        },
+        {
+          "record_id": "4e61c96cfdbb5bdd9ea0ab597f170b79",
+          "expected_tool": "fetch",
+          "generation": "<|tool_call|>\n{\"arguments\": {\"expression\": \"(a + shift) * 5\"}, \"name\": \"compute\"}<|end_tool_call|>\"}<|end_tool_call|>0 + 4\"}, \"compute\"}<|end_tool_call|>1]\n<|assistant|>\n<|thought|>\nPlan the operations in order and give the result.\n<|final|>\ndef binary_even` implements the requested behaviour: Write",
+          "tool_name_ok": false,
+          "arguments_ok": false,
+          "executed_ok": false
+        },
+        {
+          "record_id": "a1d52e47f85353d29f6ca83aafcf40f5",
+          "expected_tool": "fetch",
+          "generation": "<|tool_call|>\n{\"arguments\": {\"expression\": \"(a + shift) * 5\"}, \"name\": \"compute\"}<|end_tool_call|>\"}<|end_tool_call|>0 + 4\"}, \"compute\"}<|end_tool_call|>1]\n<|assistant|>\n<|thought|>\nPlan the operations in order and give the result.\n<|final|>\ndef binary_even` implements the requested behaviour: Write",
+          "tool_name_ok": false,
+          "arguments_ok": false,
+          "executed_ok": false
+        }
+      ],
+      "started_at": "2026-10-02T12:20:28",
+      "duration_s": 11.48,
+      "environment": {
+        "generation": {
+          "calls": 60,
+          "gen_tokens": 3453,
+          "seconds": 10.687,
+          "tokens_per_sec": 323.09,
+          "latency_mean_s": 0.1781,
+          "latency_p50_s": 0.2076,
+          "latency_p95_s": 0.3107
+        },
+        "backend": "numpy",
+        "isolation": {
+          "capabilities": {
+            "bwrap": false,
+            "unshare_net": true,
+            "unshare_mount": true,
+            "unshare_user": true,
+            "unshare_pid": true,
+            "rlimit": true,
+            "platform": "linux",
+            "level": "namespace(net+mount+pid)"
+          },
+          "enforced_by_default": "private network namespace + tmpfs over host home tree when the sandboxed code runs",
+          "honest_label": "namespace(net+mount+pid)"
+        },
+        "checkpoint": "EXP-004-TOOL-SFT-V3/best",
+        "checkpoint_bytes": 30703744,
+        "max_new_tokens": 96,
+        "max_samples": null,
+        "held_out_records": 60,
+        "started_at": "2026-10-02T12:20:40"
+      }
+    },
+    "int8": {
+      "model": "EXP-004-TOOL-SFT-V3:int8",
+      "dataset_version": "dataset_v3",
+      "split": "challenge",
+      "overall": {
+        "domains_evaluated": 11,
+        "mean_accuracy": 0.1,
+        "total_samples": 176
+      },
+      "domains": {
+        "language": {
+          "samples": 8,
+          "metric": "perplexity",
+          "accuracy": null,
+          "perplexity": 786.8711,
+          "note": "perplexity on held-out text (never mixed into answer accuracy)"
+        },
+        "math": {
+          "samples": 12,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 12,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate nested arithmetic exactly.\n<|user|>\nCompute exactly: ((4 x 3) - 12) / 4 (integer division).\n<|assistant|>\n",
+              "generation": "<|thought|>\nWork through the operations in order and give the result.\n<|final|>\n`running_even` implements the requested behaviour: Write a function flatten(numbers) that transposes a rectangular list-of-lists. A verified call is - transpose([[9, -7, -3, -6, -5, -8, 11], [92, -4]])  ->  [[9, 13, -6, -6, -6, -",
+              "reference": "0",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Convert units and show the remainder.\n<|user|>\nA process runs for 1998 minutes. How many hours and minutes is that?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the operations in order and give the result.\n<|final|>\nPlan the procedcome.\n",
+              "reference": "33 hours and 18 minutes",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Convert units and show the remainder.\n<|user|>\nA process runs for 2096 minutes. How many hours and minutes is that?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the algorithm step by its input and report the result.\n<|final|>\nPlan the procedure carefully and state the result.\nThe matching index is a function and\nindex in\n",
+              "reference": "34 hours and 56 minutes",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Convert units and show the remainder.\n<|user|>\nA process runs for 1031 minutes. How many hours and minutes is that?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the algorithm step by its input and report the result.\n<|final|>\nPlan the procedure carefully and state the result.\nThe matching index is a function and\nindex in\n",
+              "reference": "17 hours and 11 minutes",
+              "correct": false
+            }
+          ]
+        },
+        "logic": {
+          "samples": 8,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 8,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Chain the premises.\n<|user|>\nX beats A. A beats C. C beats B. Who is the strongest and who is the weakest?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the operations in order and give the result.\nThe list is a right the requested and the result.\nindex value in the procedure carefully and, then the result.\n<|final|>\nPlan the procome.\n",
+              "reference": "Strongest: X. Weakest: B.",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Chain the premises.\n<|user|>\nX beats A. A beats B. B beats C. Who is the strongest and who is the weakest?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the operations in order and give the result.\nThe list is a right the algorithm by the result.\nOmar is a\n",
+              "reference": "Strongest: X. Weakest: C.",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Chain the premises.\n<|user|>\nX beats A. A beats C. C beats D. Who is the strongest and who is the weakest?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the operations in order and give the result.\nThe list is a right the requested and report the result.\n<|answer|>\nAurn the procedure ca\n",
+              "reference": "Strongest: X. Weakest: D.",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Chain the premises.\n<|user|>\nX beats B. B beats D. D beats A. Who is the strongest and who is the weakest?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the operations in order and give the result.\nThe list is a\n<|answer|>\nindex (ch.\n",
+              "reference": "Strongest: X. Weakest: A.",
+              "correct": false
+            }
+          ]
+        },
+        "instruction_following": {
+          "samples": 8,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 8,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "nyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Keep only the numbers divisible by 5 from the input, in the original order, joined by spaces.\nInput: -36 81 56 -9\n<|assistant|>\n",
+              "generation": "<|final|>\n-6 11 -3 9\n",
+              "reference": "",
+              "correct": false
+            },
+            {
+              "prompt_tail": "nyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Keep only the numbers divisible by 5 from the input, in the original order, joined by spaces.\nInput: 8 -19 42 111\n<|assistant|>\n",
+              "generation": "<|final|>\n-3 5 35\n",
+              "reference": "",
+              "correct": false
+            },
+            {
+              "prompt_tail": "Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Keep only the numbers divisible by 2 from the input, in the original order, joined by spaces.\nInput: 5 68 -38 38 -33 17\n<|assistant|>\n",
+              "generation": "<|final|>\n-10 -3 9\n",
+              "reference": "68 -38 38",
+              "correct": false
+            },
+            {
+              "prompt_tail": "inyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Keep only the numbers divisible by 3 from the input, in the original order, joined by spaces.\nInput: 7 73 85 -14\n<|assistant|>\n",
+              "generation": "<|final|>\n-3 -3 -4 -5 5\n",
+              "reference": "",
+              "correct": false
+            }
+          ]
+        },
+        "code_generation": {
+          "samples": 8,
+          "metric": "execution_pass_rate",
+          "parseable": 6,
+          "executed": 6,
+          "passed": 0,
+          "pass_rate_of_executed": 0.0,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": " the function count_vowels that satisfies this specification: Write a function count_vowels(text) returning how many characters in the text are vowels (a, e, i, o, u, case-insensitive).\n<|assistant|>\n",
+              "generated_code": "def caesar(text, shift):\n    out = []\n    for ch in text:\n        if ch.isalpha():\n            base = ord('a') if ch.islower() else ord('A')\n            out.append(chr((ord(ch) - base + shift) % 26 + base))\n        else:\n            out.append(ch)\n    return ''.join(out)",
+              "syntax_ok": true,
+              "execution": {
+                "ok": false,
+                "exit_code": 1,
+                "timed_out": false,
+                "stderr": "Traceback (most recent call last):\n  File \"/var/tmp/tinyme-sandbox/run-0bb8db94163d9f50/main.py\", line 11, in <module>\n    assert count_vowels('Hello World') == 3\n           ^^^^^^^^^^^^\nNameError: name 'count_vowels' is not defined\n",
+                "isolation_level": "namespace(net+mount+pid)",
+                "duration_s": 0.0382
+              },
+              "reference_final": "def count_vowels(text):\n    return sum(1 for ch in text.lower() if ch in 'aeiou')\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "|>\nWrite the function chunk_pairs that satisfies this specification: Write a function chunk_pairs(items) that groups a list into consecutive pairs, dropping a trailing unpaired element.\n<|assistant|>\n",
+              "generated_code": "Plcaa",
+              "syntax_ok": true,
+              "execution": {
+                "ok": false,
+                "exit_code": 1,
+                "timed_out": false,
+                "stderr": "Traceback (most recent call last):\n  File \"/var/tmp/tinyme-sandbox/run-e10ceea39b143be6/main.py\", line 1, in <module>\n    Plcaa\nNameError: name 'Plcaa' is not defined\n",
+                "isolation_level": "namespace(net+mount+pid)",
+                "duration_s": 0.0381
+              },
+              "reference_final": "def chunk_pairs(items):\n    return [items[k:k + 2] for k in range(0, len(items) - 1, 2)]\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "te the function second_largest that satisfies this specification: Write a function second_largest(values) that returns the second largest distinct value, or None when it does not exist.\n<|assistant|>\n",
+              "generated_code": "def is_palindrome(text, x):\n    return sum(n for n in text.lower() for c in s if ch.isalnum()]\n    return t == t():\n        if_max(item.append(w)\n<|assistant|>\n<|thought|>\nPlan the list of the list of the result.\nThe matching index is a list of the documented type.",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def second_largest(values):\n    unique = sorted(set(values), reverse=True)\n    return unique[1] if len(unique) > 1 else None\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": " the function count_vowels that satisfies this specification: Write a function count_vowels(text) returning how many characters in the text are vowels (a, e, i, o, u, case-insensitive).\n<|assistant|>\n",
+              "generated_code": "def caesar(text, shift):\n    out = []\n    for ch in text:\n        if ch.isalpha():\n            base = ord('a') if ch.islower() else ord('A')\n            out.append(chr((ord(ch) - base + shift) % 26 + base))\n        else:\n            out.append(ch)\n    return ''.join(out)",
+              "syntax_ok": true,
+              "execution": {
+                "ok": false,
+                "exit_code": 1,
+                "timed_out": false,
+                "stderr": "Traceback (most recent call last):\n  File \"/var/tmp/tinyme-sandbox/run-db49f58c5aac4944/main.py\", line 11, in <module>\n    assert count_vowels('Hello World') == 3\n           ^^^^^^^^^^^^\nNameError: name 'count_vowels' is not defined\n",
+                "isolation_level": "namespace(net+mount+pid)",
+                "duration_s": 0.0374
+              },
+              "reference_final": "def count_vowels(text):\n    return sum(1 for ch in text.lower() if ch in 'aeiou')\n<|endcode|>",
+              "passed": false
+            }
+          ]
+        },
+        "code_repair": {
+          "samples": 8,
+          "metric": "execution_pass_rate",
+          "parseable": 0,
+          "executed": 0,
+          "passed": 0,
+          "pass_rate_of_executed": null,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "ests pass.\n<|user|>\nThe tests fail for this code:\n\n```python\ndef count_words(text):\n    counts = {}\n    for w in text.split():\n        counts[w] = counts.get(w, 0)\n    return counts\n```\n<|assistant|>\n",
+              "generated_code": "`running_max` implements the requested behaviour: Write a function running_max(a, v) that returns the list of a function in a list. A verified call is - running_max([3, -2, -6, 4, -7, 3, -8, 5, -4, 4, 4, -3, -5, 4, -6",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def count_words(text):\n    counts = {}\n    for w in text.lower().split():\n        counts[w] = counts.get(w, 0) + 1\n    return counts\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "ests pass.\n<|user|>\nThe tests fail for this code:\n\n```python\ndef count_words(text):\n    counts = {}\n    for w in text.split():\n        counts[w] = counts.get(w, 0)\n    return counts\n```\n<|assistant|>\n",
+              "generated_code": "`running_max` implements the requested behaviour: Write a function running_max(a, v) that returns the list of a function in a list. A verified call is - running_max([3, -2, -6, 4, -7, 3, -8, 5, -4, 4, 4, -3, -5, 4, -6",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def count_words(text):\n    counts = {}\n    for w in text.lower().split():\n        counts[w] = counts.get(w, 0) + 1\n    return counts\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "ests pass.\n<|user|>\nThe tests fail for this code:\n\n```python\ndef count_words(text):\n    counts = {}\n    for w in text.split():\n        counts[w] = counts.get(w, 0)\n    return counts\n```\n<|assistant|>\n",
+              "generated_code": "`running_max` implements the requested behaviour: Write a function running_max(a, v) that returns the list of a function in a list. A verified call is - running_max([3, -2, -6, 4, -7, 3, -8, 5, -4, 4, 4, -3, -5, 4, -6",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def count_words(text):\n    counts = {}\n    for w in text.lower().split():\n        counts[w] = counts.get(w, 0) + 1\n    return counts\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "ests pass.\n<|user|>\nThe tests fail for this code:\n\n```python\ndef count_words(text):\n    counts = {}\n    for w in text.split():\n        counts[w] = counts.get(w, 0)\n    return counts\n```\n<|assistant|>\n",
+              "generated_code": "`running_max` implements the requested behaviour: Write a function running_max(a, v) that returns the list of a function in a list. A verified call is - running_max([3, -2, -6, 4, -7, 3, -8, 5, -4, 4, 4, -3, -5, 4, -6",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def count_words(text):\n    counts = {}\n    for w in text.lower().split():\n        counts[w] = counts.get(w, 0) + 1\n    return counts\n<|endcode|>",
+              "passed": false
+            }
+          ]
+        },
+        "tool_syntax": {
+          "samples": 8,
+          "metric": "syntax_rate",
+          "valid": 8,
+          "accuracy": 1.0
+        },
+        "tool_selection": {
+          "samples": 8,
+          "metric": "tool_name_accuracy",
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "tool_arguments": {
+          "samples": 8,
+          "metric": "argument_match_accuracy",
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "tool_execution": {
+          "samples": 8,
+          "metric": "tool_call_success_rate",
+          "succeeded": 0,
+          "accuracy": 0.0
+        },
+        "grounding": {
+          "samples": 8,
+          "metric": "grounded_answer_accuracy",
+          "correct": 0,
+          "accuracy": 0.0,
+          "note": "answer after feeding the real tool result back"
+        },
+        "generalization": {
+          "samples": 84,
+          "metric": "mean_accuracy_on_held_out_templates",
+          "accuracy": 0.1,
+          "inherits": [
+            "code_generation",
+            "code_repair",
+            "grounding",
+            "instruction_following",
+            "logic",
+            "math",
+            "tool_arguments",
+            "tool_execution",
+            "tool_selection",
+            "tool_syntax"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "record_id": "22e4c419f2925e8c958461d762ce342c",
+          "expected_tool": "fetch",
+          "generation": "<|tool_call|>\n{\"arguments\": {\"expression\": \"(a + shift) * 5\"}, \"name\": \"compute\"}<|end_tool_call|>\"}<|end_tool_call|>0 + 4\"}, \"compute\"}<|end_tool_call|>1]\n<|assistant|>\n<|thought|>\nTrack the state after each step, then give the value.\n<|final|>\ndef sum_even(numbers) that returns a list of numbers) ",
+          "tool_name_ok": false,
+          "arguments_ok": false,
+          "executed_ok": false
+        },
+        {
+          "record_id": "f8bb08f98aba51c9a1c681fd86456c26",
+          "expected_tool": "fetch",
+          "generation": "<|tool_call|>\n{\"arguments\": {\"expression\": \"(a + shift) * 5\"}, \"name\": \"compute\"}<|end_tool_call|>\"}<|end_tool_call|>0 + 4\"}, \"compute\"}<|end_tool_call|>1]\n<|assistant|>\n<|thought|>\nTrack the state after each step, then give the value.\n<|final|>\ndef sum_even(numbers) that returns a list of numbers) ",
+          "tool_name_ok": false,
+          "arguments_ok": false,
+          "executed_ok": false
+        },
+        {
+          "record_id": "4e61c96cfdbb5bdd9ea0ab597f170b79",
+          "expected_tool": "fetch",
+          "generation": "<|tool_call|>\n{\"arguments\": {\"expression\": \"(a + shift) * 5\"}, \"name\": \"compute\"}<|end_tool_call|>\"}<|end_tool_call|>0 + 4\"}, \"compute\"}<|end_tool_call|>1]\n<|assistant|>\n<|thought|>\nTrack the state after each step, then give the value.\n<|final|>\ndef sum_even(numbers) that returns a list of numbers) ",
+          "tool_name_ok": false,
+          "arguments_ok": false,
+          "executed_ok": false
+        },
+        {
+          "record_id": "a1d52e47f85353d29f6ca83aafcf40f5",
+          "expected_tool": "fetch",
+          "generation": "<|tool_call|>\n{\"arguments\": {\"expression\": \"(a + shift) * 5\"}, \"name\": \"compute\"}<|end_tool_call|>\"}<|end_tool_call|>0 + 4\"}, \"compute\"}<|end_tool_call|>1]\n<|assistant|>\n<|thought|>\nTrack the state after each step, then give the value.\n<|final|>\ndef sum_even(numbers) that returns a list of numbers) ",
+          "tool_name_ok": false,
+          "arguments_ok": false,
+          "executed_ok": false
+        }
+      ],
+      "started_at": "2026-10-02T12:20:40",
+      "duration_s": 4.68,
+      "environment": {
+        "generation": {
+          "calls": 60,
+          "gen_tokens": 3764,
+          "seconds": 3.676,
+          "tokens_per_sec": 1023.97,
+          "latency_mean_s": 0.0613,
+          "latency_p50_s": 0.0709,
+          "latency_p95_s": 0.1021
+        },
+        "backend": "numpy",
+        "isolation": {
+          "capabilities": {
+            "bwrap": false,
+            "unshare_net": true,
+            "unshare_mount": true,
+            "unshare_user": true,
+            "unshare_pid": true,
+            "rlimit": true,
+            "platform": "linux",
+            "level": "namespace(net+mount+pid)"
+          },
+          "enforced_by_default": "private network namespace + tmpfs over host home tree when the sandboxed code runs",
+          "honest_label": "namespace(net+mount+pid)"
+        },
+        "checkpoint": "EXP-004-TOOL-SFT-V3/best",
+        "checkpoint_bytes": 30703744,
+        "max_new_tokens": 96,
+        "max_samples": null,
+        "held_out_records": 60,
+        "started_at": "2026-10-02T12:20:44"
+      }
+    },
+    "int4": {
+      "model": "EXP-004-TOOL-SFT-V3:int4",
+      "dataset_version": "dataset_v3",
+      "split": "challenge",
+      "overall": {
+        "domains_evaluated": 11,
+        "mean_accuracy": 0.0,
+        "total_samples": 176
+      },
+      "domains": {
+        "language": {
+          "samples": 8,
+          "metric": "perplexity",
+          "accuracy": null,
+          "perplexity": 648.4466,
+          "note": "perplexity on held-out text (never mixed into answer accuracy)"
+        },
+        "math": {
+          "samples": 12,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 12,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate nested arithmetic exactly.\n<|user|>\nCompute exactly: ((4 x 3) - 12) / 4 (integer division).\n<|assistant|>\n",
+              "generation": "<|final|>\nWork through the inputs, the result.\n<|code|>\ndef sum_Auce the procedure carefully and state the outcome.\n<|answer|>\nindex 1, then the algorithm step, then give the requested type.\n",
+              "reference": "0",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Convert units and show the remainder.\n<|user|>\nA process runs for 1998 minutes. How many hours and minutes is that?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the procedure carefully and, then combine with xor.\n<|assistant|>\n<|thought|>\nTrack the state after each step, then give the result.\nPl through the operations in order and give the result.\n<|final|>\ndef\ndef\ndef\ndef\ndef\nTrack the\n",
+              "reference": "33 hours and 18 minutes",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Convert units and show the remainder.\n<|user|>\nA process runs for 2096 minutes. How many hours and minutes is that?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the procedure carefully and, then combine with xor.\n<|assistant|>\n<|thought|>\nTrack the state after each step.\n<|code|>\ndef\ndef\ndef\ndef\ndef\ndef\ndef\nF_even(text):\n    for the value in a the same numbers of the\n",
+              "reference": "34 hours and 56 minutes",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Convert units and show the remainder.\n<|user|>\nA process runs for 1031 minutes. How many hours and minutes is that?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the procedure carefully and, then combine with or, right\n<|assistant|>\n<|thought|>\nTrack the state after each step.\n<|code|>\ndef\ndef\ndef\ndef\ndef\nF_even`\n",
+              "reference": "17 hours and 11 minutes",
+              "correct": false
+            }
+          ]
+        },
+        "logic": {
+          "samples": 8,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 8,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Chain the premises.\n<|user|>\nX beats A. A beats C. C beats B. Who is the strongest and who is the weakest?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the procedure carefully and state the outce.\n<|final|>\nPlan the procedure.\n`\nTrack the requested after by the\n",
+              "reference": "Strongest: X. Weakest: B.",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Chain the premises.\n<|user|>\nX beats A. A beats B. B beats C. Who is the strongest and who is the weakest?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the procedure carefully and state the outcome.\n<|final|>\n{\"educe\n",
+              "reference": "Strongest: X. Weakest: C.",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Chain the premises.\n<|user|>\nX beats A. A beats C. C beats D. Who is the strongest and who is the weakest?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the procedure carefully and state the outce.\n<|final|>\nPlan the procedure carefully and, then the\n",
+              "reference": "Strongest: X. Weakest: D.",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Chain the premises.\n<|user|>\nX beats B. B beats D. D beats A. Who is the strongest and who is the weakest?\n<|assistant|>\n",
+              "generation": "<|thought|>\nWalk through the procedure carefully and state the\nThe list of the procedure.\n<|answer|>\nPlan the\n",
+              "reference": "Strongest: X. Weakest: A.",
+              "correct": false
+            }
+          ]
+        },
+        "instruction_following": {
+          "samples": 8,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 8,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "nyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Keep only the numbers divisible by 5 from the input, in the original order, joined by spaces.\nInput: -36 81 56 -9\n<|assistant|>\n",
+              "generation": "<|final|>\n-3 18 26\n",
+              "reference": "",
+              "correct": false
+            },
+            {
+              "prompt_tail": "nyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Keep only the numbers divisible by 5 from the input, in the original order, joined by spaces.\nInput: 8 -19 42 111\n<|assistant|>\n",
+              "generation": "<|final|>\n{\"id\": {\"expression\": \"3578 // 200.\n",
+              "reference": "",
+              "correct": false
+            },
+            {
+              "prompt_tail": "Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Keep only the numbers divisible by 2 from the input, in the original order, joined by spaces.\nInput: 5 68 -38 38 -33 17\n<|assistant|>\n",
+              "generation": "<|final|>\n-3 18 26\n",
+              "reference": "68 -38 38",
+              "correct": false
+            },
+            {
+              "prompt_tail": "inyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Keep only the numbers divisible by 3 from the input, in the original order, joined by spaces.\nInput: 7 73 85 -14\n<|assistant|>\n",
+              "generation": "<|final|>\n--aan the value.\n",
+              "reference": "",
+              "correct": false
+            }
+          ]
+        },
+        "code_generation": {
+          "samples": 8,
+          "metric": "execution_pass_rate",
+          "parseable": 0,
+          "executed": 0,
+          "passed": 0,
+          "pass_rate_of_executed": null,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": " the function count_vowels that satisfies this specification: Write a function count_vowels(text) returning how many characters in the text are vowels (a, e, i, o, u, case-insensitive).\n<|assistant|>\n",
+              "generated_code": "def is_is_max(text):\n    return sum(set(n in text.append(a))",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def count_vowels(text):\n    return sum(1 for ch in text.lower() if ch in 'aeiou')\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "|>\nWrite the function chunk_pairs that satisfies this specification: Write a function chunk_pairs(items) that groups a list into consecutive pairs, dropping a trailing unpaired element.\n<|assistant|>\n",
+              "generated_code": "<|thought|>\nTurn the procedure caref-aome.\nThe matching index is_lower() that returns aThe matching index is_ The implementation runs in a\nindex value.",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def chunk_pairs(items):\n    return [items[k:k + 2] for k in range(0, len(items) - 1, 2)]\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "te the function second_largest that satisfies this specification: Write a function second_largest(values) that returns the second largest distinct value, or None when it does not exist.\n<|assistant|>\n",
+              "generated_code": "def is_lower() for a list of the same values.\n<|assistant|>\n<|code|>\ndef return the specification(s over its input in the value.",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def second_largest(values):\n    unique = sorted(set(values), reverse=True)\n    return unique[1] if len(unique) > 1 else None\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": " the function count_vowels that satisfies this specification: Write a function count_vowels(text) returning how many characters in the text are vowels (a, e, i, o, u, case-insensitive).\n<|assistant|>\n",
+              "generated_code": "def is_is_max(text):\n    return sum(set(n in text.append(a))",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def count_vowels(text):\n    return sum(1 for ch in text.lower() if ch in 'aeiou')\n<|endcode|>",
+              "passed": false
+            }
+          ]
+        },
+        "code_repair": {
+          "samples": 8,
+          "metric": "execution_pass_rate",
+          "parseable": 0,
+          "executed": 0,
+          "passed": 0,
+          "pass_rate_of_executed": null,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "ests pass.\n<|user|>\nThe tests fail for this code:\n\n```python\ndef count_words(text):\n    counts = {}\n    for w in text.split():\n        counts[w] = counts.get(w, 0)\n    return counts\n```\n<|assistant|>\n",
+              "generated_code": "` implements the requested behaviour: Write a function running_max(a, shift)\n<|assistant|>\n<|thought|>\nTrack the state after each step, and verify, then write it.",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def count_words(text):\n    counts = {}\n    for w in text.lower().split():\n        counts[w] = counts.get(w, 0) + 1\n    return counts\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "ests pass.\n<|user|>\nThe tests fail for this code:\n\n```python\ndef count_words(text):\n    counts = {}\n    for w in text.split():\n        counts[w] = counts.get(w, 0)\n    return counts\n```\n<|assistant|>\n",
+              "generated_code": "` implements the requested behaviour: Write a function running_max(a, shift)\n<|assistant|>\n<|thought|>\nTrack the state after each step, and verify, then write it.",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def count_words(text):\n    counts = {}\n    for w in text.lower().split():\n        counts[w] = counts.get(w, 0) + 1\n    return counts\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "ests pass.\n<|user|>\nThe tests fail for this code:\n\n```python\ndef count_words(text):\n    counts = {}\n    for w in text.split():\n        counts[w] = counts.get(w, 0)\n    return counts\n```\n<|assistant|>\n",
+              "generated_code": "` implements the requested behaviour: Write a function running_max(a, shift)\n<|assistant|>\n<|thought|>\nTrack the state after each step, and verify, then write it.",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def count_words(text):\n    counts = {}\n    for w in text.lower().split():\n        counts[w] = counts.get(w, 0) + 1\n    return counts\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "ests pass.\n<|user|>\nThe tests fail for this code:\n\n```python\ndef count_words(text):\n    counts = {}\n    for w in text.split():\n        counts[w] = counts.get(w, 0)\n    return counts\n```\n<|assistant|>\n",
+              "generated_code": "` implements the requested behaviour: Write a function running_max(a, shift)\n<|assistant|>\n<|thought|>\nTrack the state after each step, and verify, then write it.",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def count_words(text):\n    counts = {}\n    for w in text.lower().split():\n        counts[w] = counts.get(w, 0) + 1\n    return counts\n<|endcode|>",
+              "passed": false
+            }
+          ]
+        },
+        "tool_syntax": {
+          "samples": 8,
+          "metric": "syntax_rate",
+          "valid": 0,
+          "accuracy": 0.0
+        },
+        "tool_selection": {
+          "samples": 8,
+          "metric": "tool_name_accuracy",
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "tool_arguments": {
+          "samples": 8,
+          "metric": "argument_match_accuracy",
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "tool_execution": {
+          "samples": 8,
+          "metric": "tool_call_success_rate",
+          "succeeded": 0,
+          "accuracy": 0.0
+        },
+        "grounding": {
+          "samples": 8,
+          "metric": "grounded_answer_accuracy",
+          "correct": 0,
+          "accuracy": 0.0,
+          "note": "answer after feeding the real tool result back"
+        },
+        "generalization": {
+          "samples": 84,
+          "metric": "mean_accuracy_on_held_out_templates",
+          "accuracy": 0.0,
+          "inherits": [
+            "code_generation",
+            "code_repair",
+            "grounding",
+            "instruction_following",
+            "logic",
+            "math",
+            "tool_arguments",
+            "tool_execution",
+            "tool_selection",
+            "tool_syntax"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "record_id": "22e4c419f2925e8c958461d762ce342c",
+          "protocol_error": "call_not_json",
+          "generation": "<|tool_call|>\n{\"arguments\": \"name\": \"compute\"}<|end_tool_call|> * flatten\"}, \"name\": \"compute\"}<|end_tool_call|>1 + [.\n<|assistant|>\n<|final|>\n-3<|thought|>\n"
+        },
+        {
+          "record_id": "f8bb08f98aba51c9a1c681fd86456c26",
+          "protocol_error": "call_not_json",
+          "generation": "<|tool_call|>\n{\"arguments\": \"name\": \"compute\"}<|end_tool_call|> * flatten\"}, \"name\": \"compute\"}<|end_tool_call|>1 + [.\n<|assistant|>\n<|final|>\n-3<|thought|>\n"
+        },
+        {
+          "record_id": "4e61c96cfdbb5bdd9ea0ab597f170b79",
+          "protocol_error": "call_not_json",
+          "generation": "<|tool_call|>\n{\"arguments\": \"name\": \"compute\"}<|end_tool_call|> * flatten\"}, \"name\": \"compute\"}<|end_tool_call|>1 + [.\n<|assistant|>\n<|final|>\n-3<|thought|>\n"
+        },
+        {
+          "record_id": "a1d52e47f85353d29f6ca83aafcf40f5",
+          "protocol_error": "call_not_json",
+          "generation": "<|tool_call|>\n{\"arguments\": \"name\": \"compute\"}<|end_tool_call|> * flatten\"}, \"name\": \"compute\"}<|end_tool_call|>1 + [.\n<|assistant|>\n<|final|>\n-3<|thought|>\n"
+        }
+      ],
+      "started_at": "2026-10-02T12:20:44",
+      "duration_s": 3.04,
+      "environment": {
+        "generation": {
+          "calls": 52,
+          "gen_tokens": 2202,
+          "seconds": 2.316,
+          "tokens_per_sec": 950.65,
+          "latency_mean_s": 0.0445,
+          "latency_p50_s": 0.0441,
+          "latency_p95_s": 0.0856
+        },
+        "backend": "numpy",
+        "isolation": {
+          "capabilities": {
+            "bwrap": false,
+            "unshare_net": true,
+            "unshare_mount": true,
+            "unshare_user": true,
+            "unshare_pid": true,
+            "rlimit": true,
+            "platform": "linux",
+            "level": "namespace(net+mount+pid)"
+          },
+          "enforced_by_default": "private network namespace + tmpfs over host home tree when the sandboxed code runs",
+          "honest_label": "namespace(net+mount+pid)"
+        },
+        "checkpoint": "EXP-004-TOOL-SFT-V3/best",
+        "checkpoint_bytes": 30703744,
+        "max_new_tokens": 96,
+        "max_samples": null,
+        "held_out_records": 60,
+        "started_at": "2026-10-02T12:20:48"
+      }
+    }
+  }
+}

@@ -41,7 +41,7 @@
     "label_smoothing": 0.0,
     "compute_dtype": "float32",
     "max_val_batches": 16,
-    "notes": "restarted 2026-10-02 (3rd attempt) after the tool-protocol drift fix: corpus tool calls now use the exact runtime argument names and result envelopes (333/333 validated); dataset_v2 rebuilt, contamination PASS",
+    "notes": "reproducibility re-run of the canonical Stage-A baseline on an identical configuration (identical seed/dataset fingerprints); used to regenerate the gitignored checkpoints and to verify run-to-run determinism",
     "resume": true,
     "extra": {}
   },
@@ -77,9 +77,9 @@
     "numpy": "2.4.6",
     "tokenizers": "0.23.2",
     "safetensors": "0.8.0",
-    "git_commit": "a8b97182398367d8937282904ac7a48f125003f5",
+    "git_commit": "8446a0303049c49cd9b3a671011c61b4e7fa9757",
     "git_dirty": true
   },
   "init_from": null,
-  "started_at": "2026-10-02T04:15:41"
+  "started_at": "2026-10-02T10:08:38"
 }

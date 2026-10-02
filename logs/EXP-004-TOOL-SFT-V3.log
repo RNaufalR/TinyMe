@@ -1,0 +1,85 @@
+2026-10-02 11:47:44,111 | INFO     | tinyme.train.cli | train blocks=2907 active_targets=223506 | val blocks=540 active_targets=40146
+2026-10-02 11:47:44,117 | INFO     | jax._src.xla_bridge | Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2026-10-02 11:47:45,510 | WARNING  | tinyme.train.cli | transfer learning: init checkpoint was trained on dataset fingerprint a8f5c37a251d1a42, this run uses e6a905f467d8d0a9 (recorded in run_config.json)
+2026-10-02 11:47:45,511 | INFO     | tinyme.train.cli | initialised weights from EXP-002-CORRECTED-NANO/best (step 400) — new experiment id EXP-004-TOOL-SFT-V3
+2026-10-02 11:47:45,520 | INFO     | tinyme.train | no checkpoint 'latest' to resume
+2026-10-02 11:47:45,520 | INFO     | tinyme.train | training EXP-004-TOOL-SFT-V3 [sft]: 2557632 params, seq_len=256, micro_bs=8, accum=4, effective_batch=32, steps=600, dtype=float32
+2026-10-02 11:47:45,520 | INFO     | tinyme.train | dtypes: embeddings=float32 weights=float32 loss=float32
+2026-10-02 11:47:50,819 | INFO     | tinyme.train | step 1/600 loss=6.5181 lr=5.00e-06 grad_norm=7.474 tok/s=464.8 epoch=0
+2026-10-02 11:48:10,867 | INFO     | tinyme.train | step 10/600 loss=5.9307 lr=5.00e-05 grad_norm=3.126 tok/s=947.1 epoch=0
+2026-10-02 11:48:37,657 | INFO     | tinyme.train | step 20/600 loss=5.3388 lr=1.00e-04 grad_norm=2.441 tok/s=946.1 epoch=0
+2026-10-02 11:49:04,382 | INFO     | tinyme.train | step 30/600 loss=4.9761 lr=1.50e-04 grad_norm=1.584 tok/s=937.4 epoch=0
+2026-10-02 11:49:43,717 | INFO     | tinyme.train | step 40/600 loss=4.4194 lr=2.00e-04 grad_norm=1.420 tok/s=837.0 epoch=0
+2026-10-02 11:50:36,724 | INFO     | tinyme.train | step 50/600 loss=4.1940 lr=2.50e-04 grad_norm=1.580 tok/s=721.8 epoch=0
+2026-10-02 11:51:13,214 | INFO     | tinyme.train | step 60/600 loss=3.5219 lr=3.00e-04 grad_norm=2.985 tok/s=713.5 epoch=0
+2026-10-02 11:51:51,113 | INFO     | tinyme.train | step 70/600 loss=3.2882 lr=3.00e-04 grad_norm=1.419 tok/s=704.6 epoch=0
+2026-10-02 11:52:33,730 | INFO     | tinyme.train | step 80/600 loss=2.9700 lr=2.99e-04 grad_norm=1.381 tok/s=685.3 epoch=0
+2026-10-02 11:53:14,632 | INFO     | tinyme.train | step 90/600 loss=2.7752 lr=2.98e-04 grad_norm=1.639 tok/s=673.3 epoch=0
+2026-10-02 11:53:55,240 | INFO     | tinyme.train | step 100/600 loss=2.3571 lr=2.96e-04 grad_norm=1.237 tok/s=663.9 epoch=1
+2026-10-02 11:54:33,659 | INFO     | tinyme.train | step 110/600 loss=2.2524 lr=2.94e-04 grad_norm=1.660 tok/s=662.3 epoch=1
+2026-10-02 11:55:11,452 | INFO     | tinyme.train | step 120/600 loss=2.2839 lr=2.92e-04 grad_norm=1.295 tok/s=662.3 epoch=1
+2026-10-02 11:55:52,186 | INFO     | tinyme.train | step 130/600 loss=1.8443 lr=2.89e-04 grad_norm=1.189 tok/s=656.7 epoch=1
+2026-10-02 11:56:28,939 | INFO     | tinyme.train | step 140/600 loss=1.6309 lr=2.86e-04 grad_norm=1.537 tok/s=659.5 epoch=1
+2026-10-02 11:57:08,103 | INFO     | tinyme.train | step 150/600 loss=1.6771 lr=2.82e-04 grad_norm=1.288 tok/s=657.3 epoch=1
+2026-10-02 11:57:21,525 | INFO     | tinyme.train |   eval step 150: val_loss=2.3611 val_ppl=10.60 (active=37311)
+2026-10-02 11:57:59,106 | INFO     | tinyme.train | step 160/600 loss=1.3579 lr=2.78e-04 grad_norm=0.987 tok/s=642.6 epoch=1
+2026-10-02 11:58:37,454 | INFO     | tinyme.train | step 170/600 loss=1.4299 lr=2.73e-04 grad_norm=1.188 tok/s=642.2 epoch=1
+2026-10-02 11:59:16,523 | INFO     | tinyme.train | step 180/600 loss=1.3387 lr=2.68e-04 grad_norm=1.160 tok/s=641.2 epoch=1
+2026-10-02 11:59:55,324 | INFO     | tinyme.train | step 190/600 loss=1.3819 lr=2.63e-04 grad_norm=1.024 tok/s=640.2 epoch=2
+2026-10-02 12:00:35,225 | INFO     | tinyme.train | step 200/600 loss=1.1013 lr=2.58e-04 grad_norm=0.766 tok/s=638.6 epoch=2
+2026-10-02 12:01:15,064 | INFO     | tinyme.train | step 210/600 loss=1.3052 lr=2.52e-04 grad_norm=0.937 tok/s=637.2 epoch=2
+2026-10-02 12:01:55,570 | INFO     | tinyme.train | step 220/600 loss=1.3604 lr=2.46e-04 grad_norm=1.042 tok/s=635.2 epoch=2
+2026-10-02 12:02:28,304 | INFO     | tinyme.train | step 230/600 loss=1.1939 lr=2.39e-04 grad_norm=1.038 tok/s=640.0 epoch=2
+2026-10-02 12:02:49,853 | INFO     | tinyme.train | step 240/600 loss=1.0795 lr=2.33e-04 grad_norm=0.848 tok/s=652.0 epoch=2
+2026-10-02 12:03:11,604 | INFO     | tinyme.train | step 250/600 loss=0.8509 lr=2.26e-04 grad_norm=0.796 tok/s=663.0 epoch=2
+2026-10-02 12:03:33,294 | INFO     | tinyme.train | step 260/600 loss=1.2028 lr=2.18e-04 grad_norm=1.047 tok/s=674.1 epoch=2
+2026-10-02 12:03:54,764 | INFO     | tinyme.train | step 270/600 loss=1.0640 lr=2.11e-04 grad_norm=0.897 tok/s=685.0 epoch=2
+2026-10-02 12:04:16,239 | INFO     | tinyme.train | step 280/600 loss=0.7436 lr=2.04e-04 grad_norm=0.709 tok/s=695.1 epoch=3
+2026-10-02 12:04:37,689 | INFO     | tinyme.train | step 290/600 loss=0.6580 lr=1.96e-04 grad_norm=0.556 tok/s=704.7 epoch=3
+2026-10-02 12:04:59,101 | INFO     | tinyme.train | step 300/600 loss=0.8116 lr=1.88e-04 grad_norm=0.923 tok/s=714.0 epoch=3
+2026-10-02 12:05:07,528 | INFO     | tinyme.train |   eval step 300: val_loss=1.6422 val_ppl=5.17 (active=37311)
+2026-10-02 12:05:29,432 | INFO     | tinyme.train | step 310/600 loss=0.8331 lr=1.81e-04 grad_norm=1.132 tok/s=716.2 epoch=3
+2026-10-02 12:05:51,175 | INFO     | tinyme.train | step 320/600 loss=1.0483 lr=1.73e-04 grad_norm=0.894 tok/s=724.3 epoch=3
+2026-10-02 12:06:12,862 | INFO     | tinyme.train | step 330/600 loss=0.7577 lr=1.65e-04 grad_norm=0.624 tok/s=732.5 epoch=3
+2026-10-02 12:06:34,304 | INFO     | tinyme.train | step 340/600 loss=0.9417 lr=1.57e-04 grad_norm=0.704 tok/s=740.7 epoch=3
+2026-10-02 12:06:56,163 | INFO     | tinyme.train | step 350/600 loss=0.6536 lr=1.49e-04 grad_norm=0.848 tok/s=747.9 epoch=3
+2026-10-02 12:07:17,959 | INFO     | tinyme.train | step 360/600 loss=0.9581 lr=1.42e-04 grad_norm=0.818 tok/s=755.7 epoch=3
+2026-10-02 12:07:39,311 | INFO     | tinyme.train | step 370/600 loss=0.6518 lr=1.34e-04 grad_norm=0.584 tok/s=762.3 epoch=4
+2026-10-02 12:08:02,101 | INFO     | tinyme.train | step 380/600 loss=0.8257 lr=1.26e-04 grad_norm=0.789 tok/s=768.7 epoch=4
+2026-10-02 12:08:23,846 | INFO     | tinyme.train | step 390/600 loss=0.5722 lr=1.19e-04 grad_norm=0.629 tok/s=774.7 epoch=4
+2026-10-02 12:08:45,443 | INFO     | tinyme.train | step 400/600 loss=0.6084 lr=1.12e-04 grad_norm=0.638 tok/s=780.9 epoch=4
+2026-10-02 12:09:07,183 | INFO     | tinyme.train | step 410/600 loss=0.7886 lr=1.04e-04 grad_norm=0.674 tok/s=786.9 epoch=4
+2026-10-02 12:09:28,582 | INFO     | tinyme.train | step 420/600 loss=1.0979 lr=9.75e-05 grad_norm=0.801 tok/s=792.4 epoch=4
+2026-10-02 12:09:50,004 | INFO     | tinyme.train | step 430/600 loss=0.5889 lr=9.08e-05 grad_norm=0.635 tok/s=798.4 epoch=4
+2026-10-02 12:10:11,198 | INFO     | tinyme.train | step 440/600 loss=0.5799 lr=8.44e-05 grad_norm=0.629 tok/s=804.2 epoch=4
+2026-10-02 12:10:32,971 | INFO     | tinyme.train | step 450/600 loss=0.7703 lr=7.82e-05 grad_norm=0.690 tok/s=809.6 epoch=4
+2026-10-02 12:10:41,458 | INFO     | tinyme.train |   eval step 450: val_loss=1.5448 val_ppl=4.69 (active=37311)
+2026-10-02 12:11:03,752 | INFO     | tinyme.train | step 460/600 loss=0.7650 lr=7.24e-05 grad_norm=0.655 tok/s=809.4 epoch=5
+2026-10-02 12:11:25,278 | INFO     | tinyme.train | step 470/600 loss=0.5983 lr=6.68e-05 grad_norm=0.629 tok/s=814.0 epoch=5
+2026-10-02 12:11:46,873 | INFO     | tinyme.train | step 480/600 loss=0.6861 lr=6.16e-05 grad_norm=0.668 tok/s=818.6 epoch=5
+2026-10-02 12:12:08,823 | INFO     | tinyme.train | step 490/600 loss=0.7388 lr=5.67e-05 grad_norm=0.706 tok/s=823.0 epoch=5
+2026-10-02 12:12:30,751 | INFO     | tinyme.train | step 500/600 loss=0.8395 lr=5.22e-05 grad_norm=0.705 tok/s=827.3 epoch=5
+2026-10-02 12:12:52,650 | INFO     | tinyme.train | step 510/600 loss=0.9700 lr=4.81e-05 grad_norm=0.761 tok/s=831.4 epoch=5
+2026-10-02 12:13:14,453 | INFO     | tinyme.train | step 520/600 loss=0.6837 lr=4.44e-05 grad_norm=0.608 tok/s=835.8 epoch=5
+2026-10-02 12:13:35,961 | INFO     | tinyme.train | step 530/600 loss=0.5720 lr=4.10e-05 grad_norm=0.472 tok/s=840.6 epoch=5
+2026-10-02 12:13:57,525 | INFO     | tinyme.train | step 540/600 loss=0.6761 lr=3.81e-05 grad_norm=0.561 tok/s=845.0 epoch=5
+2026-10-02 12:14:19,137 | INFO     | tinyme.train | step 550/600 loss=0.9547 lr=3.57e-05 grad_norm=0.609 tok/s=849.4 epoch=6
+2026-10-02 12:14:41,610 | INFO     | tinyme.train | step 560/600 loss=0.6034 lr=3.36e-05 grad_norm=0.493 tok/s=852.9 epoch=6
+2026-10-02 12:15:02,585 | INFO     | tinyme.train | step 570/600 loss=0.8930 lr=3.21e-05 grad_norm=0.695 tok/s=856.6 epoch=6
+2026-10-02 12:15:23,979 | INFO     | tinyme.train | step 580/600 loss=0.5715 lr=3.09e-05 grad_norm=0.665 tok/s=860.4 epoch=6
+2026-10-02 12:15:45,917 | INFO     | tinyme.train | step 590/600 loss=0.5265 lr=3.02e-05 grad_norm=0.652 tok/s=863.6 epoch=6
+2026-10-02 12:16:07,336 | INFO     | tinyme.train | step 600/600 loss=0.5552 lr=3.00e-05 grad_norm=0.483 tok/s=867.1 epoch=6
+2026-10-02 12:16:15,451 | INFO     | tinyme.train |   eval step 600: val_loss=1.5305 val_ppl=4.62 (active=37311)
+2026-10-02 12:16:23,866 | INFO     | tinyme.train | done: 600 steps, val_loss=1.5305, val_ppl=4.62, 29.28 MB artifacts
+2026-10-02 12:16:23,867 | INFO     | tinyme.train.cli | checkpoint: 29.28 MB
+{
+  "experiment_id": "EXP-004-TOOL-SFT-V3",
+  "stage": "sft",
+  "parameter_count": 2557632,
+  "steps_executed": 600,
+  "final_val_loss": 1.5305189694144425,
+  "final_val_perplexity": 4.620574136833696,
+  "tokens_processed": 1475643,
+  "wall_clock_seconds": 1718.34,
+  "avg_tokens_per_sec": 858.8
+}

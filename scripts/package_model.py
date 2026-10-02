@@ -79,31 +79,81 @@ def load_flat_checkpoint(st_path: Path, meta: dict) -> tuple[dict[str, np.ndarra
     return out, raw
 
 
+def _normalise_results(payload: dict, source: str) -> list[dict]:
+    """Flatten the real evaluation schemas into renderable rows.
+
+    ``scripts/evaluate.py`` writes
+    ``{experiment, split, dataset, variants: {fp32: {overall, domains, environment}}}``
+    while ``scripts/evaluate_tools.py`` writes a flat per-variant metric dict.
+    Both must survive into ``release/evaluation_report.md`` -- an unread schema
+    previously produced a report with "0 samples scored", which is a false pass.
+    """
+    rows: list[dict] = []
+    if not isinstance(payload, dict):
+        return rows
+    experiment = payload.get("experiment", "?")
+    split = payload.get("split")
+    dataset = payload.get("dataset")
+    variants = payload.get("variants")
+    if isinstance(variants, dict) and variants:
+        for name, stats in variants.items():
+            if isinstance(stats.get("summary"), dict):
+                stats = {**stats["summary"], "cases": len(stats.get("cases", []))}
+            overlap = set(stats) & {"overall", "domains", "perplexity", "accuracy",
+                                    "tool_syntax_validity", "task_completion"}
+            if not overlap:
+                continue
+            rows.append({"model": f"{experiment}:{name}", "split": split,
+                         "dataset_version": dataset,
+                         "overall": stats.get("overall", {}),
+                         "domains": stats.get("domains", {}),
+                         "metrics": {k: v for k, v in stats.items()
+                                     if isinstance(v, (int, float)) and k != "cases"},
+                         "cases": stats.get("cases"), "duration_s": stats.get("duration_s"),
+                         "source": source})
+    return rows
+
+
 def _render_evaluation_markdown(results: list[dict], title: str) -> str:
     lines = [f"# {title}", "", f"Generated: {time.strftime('%Y-%m-%dT%H:%M:%S')}", ""]
+    rendered = 0
     for result in results:
-        domains = result.get("domains", {})
+        domains = result.get("domains") or {}
+        metrics = result.get("metrics") or {}
+        overall = result.get("overall") or {}
+        total = overall.get("total_samples") or result.get("cases") or 0
+        if not domains and not metrics and not total:
+            continue  # never render an empty section (that was the false pass)
+        rendered += 1
         lines += [f"## {result.get('model')} - split `{result.get('split')}` "
                   f"({result.get('dataset_version')})", "",
-                  f"- Samples scored: **{result.get('overall', {}).get('total_samples', 0)}**",
-                  f"- Duration: {result.get('duration_s')} s",
-                  "", "| Domain | Samples | Metric | Score |", "| :--- | ---: | :--- | ---: |"]
-        for name, stats in sorted(domains.items()):
-            score = stats.get("accuracy")
-            if score is None:
-                score = stats.get("perplexity")
-                score_txt = "n/a" if score is None else f"ppl {score}"
-            else:
-                score_txt = f"{100 * float(score):.1f}%"
-            lines.append(f"| {name} | {stats.get('samples', 0)} | {stats.get('metric', '')} "
-                         f"| {score_txt} |")
-        lines += ["", "Measurements are produced by `scripts/evaluate.py` against held-out "
-                      "splits only; no subset of `train.jsonl` is ever used.", ""]
-    if not results:
+                  f"- Source: `{result.get('source')}`",
+                  f"- Samples scored: **{total}**",
+                  f"- Mean accuracy: {overall.get('mean_accuracy')}",
+                  f"- Duration: {result.get('duration_s')} s", ""]
+        if metrics:
+            lines += ["| Metric | Value |", "| :--- | ---: |"]
+            lines += [f"| {k} | {v} |" for k, v in sorted(metrics.items())]
+            lines += [""]
+        if domains:
+            lines += ["| Domain | Samples | Score |", "| :--- | ---: | ---: |"]
+            for name, stats in sorted(domains.items()):
+                score = stats.get("accuracy")
+                if score is None:
+                    ppl = stats.get("perplexity")
+                    score_txt = "n/a" if ppl is None else f"ppl {ppl}"
+                else:
+                    score_txt = f"{100 * float(score):.1f}%"
+                lines.append(f"| {name} | {stats.get('samples', 0)} | {score_txt} |")
+            lines += [""]
+        lines += ["Measurements are produced by `scripts/evaluate.py` / "
+                  "`scripts/evaluate_tools.py` against held-out splits only; no subset of "
+                  "`train.jsonl` is ever used.", ""]
+    if not rendered:
         lines += ["No evaluation JSON was found for this experiment.", "",
                   "Reproduce with:", "",
                   "    python scripts/evaluate.py --experiment <EXP> --checkpoint best "
-                  "--dataset dataset_v2 --split test --variants fp32,fp16,int8,int4", ""]
+                  "--dataset dataset_v3 --split test --variants fp32,fp16,int8,int4", ""]
     return "\n".join(lines)
 
 
@@ -127,10 +177,18 @@ def _render_comparison(releases: list[dict], evaluation_files: list[Path]) -> st
     if evaluation_files:
         for path in evaluation_files:
             payload = json.loads(Path(path).read_text())
-            for result in (payload if isinstance(payload, list) else [payload]):
-                model = result.get("model", "?")
-                overall = result.get("overall", {})
-                lines.append(f"- `{model}` on `{result.get('split')}`: "
+            if isinstance(payload, list):
+                continue
+            rows = _normalise_results(payload, Path(path).name)
+            for result in rows:
+                overall = result.get("overall") or {}
+                if not overall and result.get("metrics"):
+                    head = ", ".join(f"{k}={v}" for k, v in
+                                     sorted(result["metrics"].items())[:4])
+                    lines.append(f"- `{result['model']}` (tool suite, "
+                                 f"{result.get('cases')} cases): {head}")
+                    continue
+                lines.append(f"- `{result['model']}` on `{result.get('split')}`: "
                              f"{overall.get('total_samples', 0)} samples, "
                              f"mean accuracy {overall.get('mean_accuracy')}")
         lines += ["", "Rows for models trained on a different dataset fingerprint or tokenizer are "
@@ -447,7 +505,7 @@ def main() -> int:
 
     flat, _raw = load_flat_checkpoint(st_path, ckpt_meta)
     param_count = int(sum(int(np.prod(v.shape)) for v in flat.values()))
-    fp32_bytes = int(sum(v.nbytes for v in flat.values()))
+    fp32_tensor_bytes = int(sum(v.nbytes for v in flat.values()))
     if ckpt_meta.get("param_count") and ckpt_meta["param_count"] != param_count:
         raise SystemExit(f"checkpoint parameter count mismatch: meta={ckpt_meta['param_count']} file={param_count}")
 
@@ -516,22 +574,10 @@ def main() -> int:
             variants[name]["relative_rmse"] = round(float(np.sqrt(errs / max(denom, 1e-12))), 6)
             variants[name]["max_abs_error"] = round(max_abs, 6)
 
-    # Verify the artifact is loadable by the repo engine (numpy backend, no JAX).
-    try:
-        from src.inference.engine import InferenceEngine
-
-        engine = InferenceEngine(fp32_path, tokenizer_src, out_dir / "config.json", backend="numpy")
-        probe = np.asarray([[engine.bos_id, 42, 43, 44]], dtype=np.int64)
-        logits = engine.forward_numpy(probe)
-        if not np.all(np.isfinite(logits)):
-            raise SystemExit("release verification failed: non-finite logits")
-        log.info("release verification: loadable, logits %s finite, max|logit|=%.3f",
-                 logits.shape, float(np.max(np.abs(logits))))
-    except SystemExit:
-        raise
-    except Exception as exc:  # pragma: no cover - diagnostics
-        raise SystemExit(f"release verification failed: {type(exc).__name__}: {exc}")
-
+    # The tokenizer, entry point and config are written *before* the loadability
+    # check: validating the package against an absent config would silently fall
+    # back to the 'nano' default and make a `base` release look loadable
+    # (audit §13 — packaging order bug).
     shutil.copy2(tokenizer_src, out_dir / "tokenizer.json")
     (out_dir / "inference.py").write_text(RELEASE_INFERENCE, encoding="utf-8")
 
@@ -541,7 +587,8 @@ def main() -> int:
 
         tok = TinyMeTokenizer.load(tokenizer_src)
         specials = {name: int(tok.tok.token_to_id(f"<|{name}|>"))
-                    for name in ("pad", "bos", "eos", "system", "user", "assistant", "final")}
+                    for name in ("pad", "bos", "eos", "system", "user", "assistant", "final",
+                                 "tool_call", "tool_result", "end_tool_call", "end_tool_result")}
     except Exception as exc:  # pragma: no cover - diagnostic
         log.warning("could not read special token ids: %s", exc)
     config_payload = dict(model_cfg)                 # flat: InferenceEngine can read it directly
@@ -549,9 +596,42 @@ def main() -> int:
         "tokenizer_version": tokenizer_version,
         "special_token_ids": specials,
         "parameter_count": param_count,
-        "fp32_bytes": fp32_bytes,
+        "fp32_bytes": variants["fp32"]["bytes"],
+        "fp32_tensor_bytes": fp32_tensor_bytes,
+        "architecture": ckpt_meta.get("architecture") or model_cfg.get("architecture"),
     })
     (out_dir / "config.json").write_text(json.dumps(config_payload, indent=2) + "\n", encoding="utf-8")
+
+    # Verify the artifact is loadable by the repo engine (numpy backend, no JAX)
+    # using the config that was just written, in strict mode.
+    try:
+        from src.inference.engine import InferenceEngine
+
+        engine = InferenceEngine(fp32_path, tokenizer_src, out_dir / "config.json",
+                                 backend="numpy", strict_config=True)
+
+        def _count(tree) -> int:
+            if isinstance(tree, dict):
+                return sum(_count(v) for v in tree.values())
+            if isinstance(tree, (list, tuple)):
+                return sum(_count(v) for v in tree)
+            return int(np.prod(tree.shape)) if hasattr(tree, "shape") else 0
+
+        loaded = _count(engine.params)
+        if loaded and loaded != param_count:
+            raise SystemExit(f"release verification failed: engine loaded {loaded} params, "
+                             f"checkpoint declares {param_count}")
+        probe = np.asarray([[engine.bos_id, 42, 43, 44]], dtype=np.int64)
+        logits = engine.forward_numpy(probe)
+        if not np.all(np.isfinite(logits)):
+            raise SystemExit("release verification failed: non-finite logits")
+        log.info("release verification: loadable (config=%s, arch=%s), logits %s finite, "
+                 "max|logit|=%.3f", engine.config_source, model_cfg.get("architecture"),
+                 logits.shape, float(np.max(np.abs(logits))))
+    except SystemExit:
+        raise
+    except Exception as exc:  # pragma: no cover - diagnostics
+        raise SystemExit(f"release verification failed: {type(exc).__name__}: {exc}")
 
     dataset_manifest = None
     ds_manifest_path = REPO_ROOT / "datasets" / "versions" / dataset_version / "manifest.json"
@@ -567,7 +647,8 @@ def main() -> int:
         "step": ckpt_meta.get("step"),
         "best_val_loss": ckpt_meta.get("best_val_loss"),
         "parameter_count": param_count,
-        "fp32_bytes": fp32_bytes,
+        "fp32_bytes": variants["fp32"]["bytes"],       # serialized fp32 file
+        "fp32_tensor_bytes": fp32_tensor_bytes,        # raw payload (no header)
         "model_config": model_cfg,
         "model_config_hash": ckpt_meta.get("model_config_hash"),
         "dataset_version": dataset_version,
@@ -584,7 +665,7 @@ def main() -> int:
     results = []
     for path in evaluation_files:
         payload = json.loads(path.read_text())
-        results.extend(payload if isinstance(payload, list) else [payload])
+        results.extend(_normalise_results(payload, path.name))
 
     (out_dir / "evaluation_report.md").write_text(
         _render_evaluation_markdown(results, f"EVALUATION REPORT - {args.experiment}"), encoding="utf-8")
@@ -594,19 +675,41 @@ def main() -> int:
         _render_provenance(release_meta, {**ckpt_meta, "dataset_version": dataset_version}, dataset_manifest),
         encoding="utf-8")
 
-    files = sorted(p for p in out_dir.iterdir() if p.is_file() and p.name != "checksums.txt")
-    file_info = {p.name: {"bytes": p.stat().st_size, "sha256": sha256_file(p)} for p in files}
-    release_meta["release"]["files"] = file_info
-    _write_readme(out_dir, release_meta)
+    # Order (audit §13): every file is produced first, then inventoried, then the
+    # manifest is written, and only then are the checksums computed — so the
+    # manifest lists README.md and no checksum can describe a file that changed.
+    def _inventory() -> dict:
+        tracked = sorted(p for p in out_dir.iterdir()
+                         if p.is_file() and p.name not in ("checksums.txt", "manifest.json"))
+        return {p.name: {"bytes": p.stat().st_size, "sha256": sha256_file(p),
+                         "mb": round(p.stat().st_size / 1_000_000, 4),
+                         "mib": round(p.stat().st_size / (1024 * 1024), 4)}
+                for p in tracked}
 
-    files = sorted(p for p in out_dir.iterdir() if p.is_file() and p.name != "checksums.txt")
+    # The README quotes the inventory, so it needs a first pass; the manifest then
+    # gets the *final* inventory (README included) — order matters (audit §13).
+    release_meta["release"]["files"] = _inventory()
+    _write_readme(out_dir, release_meta)
+    release_meta["release"]["files"] = _inventory()
+    release_meta["release"]["files"]["manifest.json"] = {"bytes": None, "sha256": None,
+                                                         "note": "self — hashed in checksums.txt"}
     write_json(release_meta, out_dir / "manifest.json")
-    checksum_lines = [f"{sha256_file(p)}  {p.name}" for p in files] + \
-                     [f"{sha256_file(out_dir / 'manifest.json')}  manifest.json"]
+    checksum_targets = sorted(p for p in out_dir.iterdir() if p.is_file() and p.name != "checksums.txt")
+    checksum_lines = [f"{sha256_file(p)}  {p.name}" for p in checksum_targets]
     (out_dir / "checksums.txt").write_text("\n".join(sorted(set(checksum_lines))) + "\n", encoding="utf-8")
 
-    total_bytes = sum(v["bytes"] for v in variants.values()) + sum(
-        (out_dir / name).stat().st_size for name in ("tokenizer.json", "config.json", "inference.py"))
+    release_files = sorted(p for p in out_dir.iterdir() if p.is_file())
+    total_bytes = sum(p.stat().st_size for p in release_files)
+    release_meta["release"]["total"] = {
+        "files": len(release_files), "bytes": total_bytes,
+        "mb": round(total_bytes / 1_000_000, 4), "mib": round(total_bytes / (1024 * 1024), 4)}
+    write_json(release_meta, out_dir / "manifest.json")
+    # rewrite checksums so the (final) manifest is covered too
+    checksum_targets = sorted(p for p in out_dir.iterdir() if p.is_file() and p.name != "checksums.txt")
+    (out_dir / "checksums.txt").write_text(
+        "\n".join(f"{sha256_file(p)}  {p.name}" for p in checksum_targets) + "\n", encoding="utf-8")
+    log.info("release total: %s bytes (%.4f MB / %.4f MiB) across %d files",
+             total_bytes, total_bytes / 1_000_000, total_bytes / (1024 * 1024), len(release_files))
     log.info("packaged %s into %s", args.experiment, out_dir)
     log.info("variants: %s", json.dumps({k: v["human"] for k, v in variants.items()}))
     log.info("release payload (weights+tokenizer+config+entrypoint): %s", human_bytes(total_bytes))

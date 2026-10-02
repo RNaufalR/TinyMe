@@ -157,7 +157,7 @@ def test_code_tool_episode_runs_in_the_sandbox(runtime):
     traj = runtime.solve("What does this print: sum of squares 0..4?", scripted_policy(outputs))
     assert traj.steps[0].result["result"]["stdout"].strip() == "30"
     assert traj.steps[0].result["result"]["isolation_level"] in {
-        "namespace(net+mount)", "netns-only", "rlimit-only", "bwrap"}
+        "namespace(net+mount+pid)", "namespace(net+mount)", "netns-only", "rlimit-only", "bwrap"}
 
 
 def test_registry_schemas_are_the_model_facing_surface(runtime):

@@ -40,3 +40,29 @@
 - **Context:** No `bwrap`, no PID namespace: isolation is `namespace(net+mount)` plus rlimits. Claiming "container-grade" isolation would be false.
 - **Decision:** Report `detected_summary()["capabilities"]["level"]` verbatim in docs, publish the 12-case escape suite with a per-case verdict and expectation, and document residual risks (`/etc` shared, other same-uid processes visible, sandbox root on host fs) instead of hiding them.
 - **Status:** `VERIFIED` (see `docs/SANDBOX.md`, `docs/audit_evidence/sandbox_escape_suite.out.txt`)
+
+## DEC-007: Loss is not capability — the tool-SFT acceptance rule (2026-10-02)
+
+- **Context:** `EXP-004-TOOL-SFT-V2` reached val_ppl 5.41 (better than its predecessor) and still completed **0 of 20** tool tasks. A reviewer optimising on the loss curve would have shipped it.
+- **Decision:** A checkpoint is accepted only when `scripts/evaluate_tools.py` reports non-zero `task_completion`, `multi_step_success`, `error_recovery_success` and `citation_validity`. Loss/ppl is reported for reproducibility but is never an acceptance criterion (`docs/TRAINING_REPORT.md` §22 record).
+- **Consequence:** All three SFT iterations are published as **FAILED** with their measurements, and `release/` ships the best-measured checkpoint while `FINAL_REPORT.md` states plainly that capability is not achieved.
+- **Status:** `VERIFIED` (decision enforced; see the capability results table in `docs/AUDIT_MATRIX.md`)
+
+## DEC-008: A repeated target sentence is a defect, not a style choice (2026-10-02)
+
+- **Context:** The corpus contained one code-repair thought sentence 382 times with **1 distinct value** — 5.7 % of all target segments. The model learned it as a high-probability continuation and emitted it *in place of* task content (including as the final answer to arithmetic prompts).
+- **Decision:** Every template family must draw its non-task text from a pool (`data_sources/synthetic_v2.py::_THOUGHTS`, 6 phrasings per family) and the text itself must be justified before it enters the loss. Target-text repetition is treated like data contamination: measured, reported, and fixed at the data level.
+- **Rationale:** In a 0.72 M-token corpus, one string at 5.7 % frequency outranks the compositional knowledge the run is supposed to learn.
+- **Status:** `VERIFIED` (distinct thoughts 1 → 6 per family; `dataset_v3` rev4 rebuilt, contamination PASS)
+
+## DEC-009: Quantisation selection by measured functional regression (2026-10-02)
+
+- **Context:** Raw round-trip error says fp16 is near-lossless and int4 is 450× worse, but the audit asks for *functional* regression, and this model's fp32 reference is already failing.
+- **Decision:** Publish all four variants with both the numeric round-trip error and the functional suites (tool + per-domain). Designate **fp32 as the reference**; advertise int4 explicitly as "smallest, measurably degraded" (tool syntax 0.84 → 0.40, execution 0.50 → 0.00) instead of implying it is equivalent.
+- **Status:** `VERIFIED` (`docs/QUANTIZATION_REPORT.md`, `release/model_comparison.md`)
+
+## DEC-010: Portability and capability are never merged into one claim (2026-10-02)
+
+- **Context:** The §14 clean-room gate passed — `python3 inference.py` ran with empty `PYTHONPATH` and no repo — while producing the wrong answer (`-799` for a straightforward arithmetic prompt).
+- **Decision:** Report §14 as *portability* evidence, and report the correctness of the generated text separately under §4/§2C. A passing gate is never presented as capability.
+- **Status:** `VERIFIED` (`FINAL_REPORT.md` §3 and §7.5)

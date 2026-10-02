@@ -1,0 +1,17 @@
+2026-10-02 10:07:19,933 | INFO     | ingested 192 stdlib records from 21 modules
+2026-10-02 10:07:26,422 | INFO     | stdlib v2: 2422 records from 480 files (438 modules); skipped={'skipped_safety': 4}
+2026-10-02 10:07:51,899 | INFO     | assembled 6508 raw records from 16 provenance entries
+2026-10-02 10:08:07,317 | INFO     | splits: {'train': 4227, 'validation': 741, 'test': 810, 'challenge': 60}
+2026-10-02 10:08:07,848 | INFO     | trained BPE tokenizer: vocab_size=4096 on 4227 texts (train)
+2026-10-02 10:08:11,599 | INFO     | DONE 52.4s | train=4227 val=741 test=810 challenge=60 | active target tokens=588816 | tokens.json=259.49 KB
+{
+  "dataset_version": "dataset_v2",
+  "splits": {
+    "train": 4227,
+    "validation": 741,
+    "test": 810,
+    "challenge": 60
+  },
+  "train_tokens_active": 588816,
+  "train_validation_test_contamination": "PASS"
+}

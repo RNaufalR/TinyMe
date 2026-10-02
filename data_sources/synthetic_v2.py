@@ -170,17 +170,26 @@ def _mock_fetch(source_id: str) -> dict[str, Any]:
 
 
 def _mock_compute(expression: str, value: Any) -> dict[str, Any]:
-    """Mock of the runtime ``compute`` envelope (src/tools/compute.py)."""
+    """Mock of the runtime ``compute`` envelope (src/tools/compute.py).
+
+    The citation id is produced by the same function the runtime uses, so a
+    generated citation resolves against the real tool output.
+    """
+    from src.tools.compute import compute_citation
+
     return {"ok": True, "name": "compute",
             "result": {"expression": expression, "value": value, "exact": str(value),
-                       "method": "python-ast-exact"},
+                       "method": "python-ast-exact", "citation": compute_citation(expression)},
             "duration_s": 0.0001}
 
 
-def _mock_code(stdout: str, exit_code: int = 0) -> dict[str, Any]:
+def _mock_code(stdout: str, exit_code: int = 0, code: str = "") -> dict[str, Any]:
     """Mock of the runtime ``code`` envelope (src/tools/code.py)."""
+    from src.tools.code import code_citation
+
     return {"ok": exit_code == 0, "name": "code",
-            "result": {"exit_code": exit_code, "timed_out": False, "stdout": stdout, "stderr": "",
+            "result": {"citation": code_citation(code), "exit_code": exit_code,
+                       "timed_out": False, "stdout": stdout, "stderr": "",
                        "duration_s": 0.0728, "truncated": False,
                        "isolation_level": "namespace(net+mount)", "network_enforced": True},
             "duration_s": 0.1199}
@@ -207,11 +216,13 @@ def run_python(code: str, tests: str | None = None, timeout: float = 10.0) -> tu
 
 # ------------------------------------------------------------------- helpers
 def _math_rec(q: str, a: str, template: str, source_id: str, *, tests: list[str] | None = None,
-              answer: str | None = None) -> Any:
+              answer: str | None = None, rng: "random.Random | None" = None) -> Any:
     segs = [
         Segment("system", "You are TinyMe, a precise reasoning assistant. Show concise work.", target=False),
         Segment("user", q, target=False),
-        Segment("assistant", f"<|thought|>\nCompute directly and verify the result.\n<|answer|>\n{a}", target=True),
+        Segment("assistant",
+                f"<|thought|>\n{(rng or random.Random(0)).choice(_THOUGHTS['trace'])}\n<|answer|>\n{a}",
+                target=True),
     ]
     return make_segment_record(segments=segs, category="math", source="synthetic",
                                source_id=source_id, task_type="reasoning", template_id=template,
@@ -256,7 +267,7 @@ def gen_arithmetic(rng: random.Random, n: int) -> list[Any]:
             for _ in range(k):
                 product *= a
             assert product == ans
-        out.append(_math_rec(q, str(ans), template=f"math/arithmetic/kind{kind}",
+        out.append(_math_rec(q, str(ans), template=f"math/arithmetic/kind{kind}", rng=rng,
                              source_id=f"syn/math/arith/{i}"))
     return out
 
@@ -354,7 +365,7 @@ def gen_boolean(rng: random.Random, n: int) -> list[Any]:
              f"Values: {', '.join(f'{nm}={str(v).lower()}' for nm, v in zip(names, (a, b, c, d)))}")
         segs = [Segment("system", "You are TinyMe. Evaluate logic expressions exactly.", target=False),
                 Segment("user", q, target=False),
-                Segment("assistant", f"<|thought|>\nEvaluate the left group with {op1}, the right group "
+                Segment("assistant", f"<|thought|>\n{rng.choice(_THOUGHTS['trace'])} Left group with {op1}, right group "
                                      f"with {op2}, then combine with {op3}.\n<|answer|>\n{str(val).lower()}",
                         target=True)]
         assert val in (True, False)
@@ -432,6 +443,38 @@ def gen_algorithm_trace(rng: random.Random, n: int) -> list[Any]:
 
 
 # ------------------------------------------------------------------ code
+#: Thought phrasings.  One sentence repeated across hundreds of records becomes a
+#: dominant prior that the model emits instead of the required content (observed:
+#: an SFT model that answered arithmetic prompts with a code-gen sentence), so the
+#: generator draws from a pool and nothing is repeated verbatim at scale.
+_THOUGHTS: dict[str, list[str]] = {
+    "code_gen": [
+        "Restate the specification, then implement it.",
+        "Implement the specification and check the edge cases.",
+        "Turn the specification into a function and verify it.",
+        "Write the function the specification describes.",
+        "Plan the implementation, then write it.",
+        "Identify inputs and outputs, then implement.",
+    ],
+    "code_repair": [
+        "Locate the divergence from the specification, patch it, and re-check the tests.",
+        "Find where the behaviour differs from the specification and repair it.",
+        "Diagnose the defect, patch the function, then re-run the tests.",
+        "Compare the implementation with the specification and fix the mismatch.",
+        "Identify the faulty line, correct it, and confirm the tests pass.",
+        "Trace the bug, repair the implementation, and re-check.",
+    ],
+    "trace": [
+        "Identify the inputs, the algorithm and the return value.",
+        "Walk through the algorithm step by step and report the result.",
+        "Track the state after each step, then give the answer.",
+        "Follow the procedure carefully and state the outcome.",
+        "Reduce the problem step by step and report the value.",
+        "Work through the operations in order and give the result.",
+    ],
+}
+
+
 _SPEC_LIBRARY: list[dict[str, Any]] = [
     {"name": "gcd", "spec": "Write a function gcd(a, b) returning the greatest common divisor of two positive integers using the Euclidean algorithm.",
      "solution": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a\n",
@@ -556,7 +599,7 @@ def gen_code_generation(rng: random.Random, n: int) -> list[Any]:
         tests = spec["tests"] + ("\n" + extra_tests if extra_tests else "")
         segs = [Segment("system", "You are TinyMe. Write correct Python that satisfies the specification.", target=False),
                 Segment("user", prompt, target=False),
-                Segment("assistant", f"<|thought|>\nImplement the specification and check the edge cases.\n"
+                Segment("assistant", f"<|thought|>\n{rng.choice(_THOUGHTS['code_gen'])}\n"
                                      f"<|code|>\n{spec['solution'].strip()}\n<|endcode|>", target=True)]
         out.append(make_segment_record(segments=segs, category="code_gen", source="synthetic",
                                        source_id=f"syn/code/gen/{spec['name']}/{i}",
@@ -591,7 +634,7 @@ def gen_code_repair(rng: random.Random, n: int) -> list[Any]:
                                 f"Specification: {spec['spec']}"
                                 + ("\n\nExpected behaviour (verified):\n" + examples if examples else ""),
                         target=False),
-                Segment("thought", "Locate the divergence from the specification, patch it, and re-check the tests.", target=True),
+                Segment("thought", rng.choice(_THOUGHTS["code_repair"]), target=True),
                 Segment("assistant", f"<|code|>\n{spec['solution'].strip()}\n<|endcode|>", target=True)]
         out.append(make_segment_record(segments=segs, category="code_repair", source="synthetic",
                                        source_id=f"syn/code/repair/{spec['name']}/{name}/{made}",
@@ -617,7 +660,7 @@ def gen_code_explanation(rng: random.Random, n: int) -> list[Any]:
                  "returns a value of the documented type.")
         segs = [Segment("system", "You are TinyMe. Explain code precisely and briefly.", target=False),
                 Segment("user", f"Explain this code:\n\n```python\n{spec['solution'].strip()}\n```", target=False),
-                Segment("assistant", f"<|thought|>\nIdentify the inputs, the algorithm and the return value.\n"
+                Segment("assistant", f"<|thought|>\n{rng.choice(_THOUGHTS['trace'])}\n"
                                      f"<|final|>\n{doc}", target=True)]
         out.append(make_segment_record(segments=segs, category="code_explain", source="synthetic",
                                        source_id=f"syn/code/explain/{spec['name']}/{i}",
@@ -706,9 +749,14 @@ def gen_instruction(rng: random.Random, n: int) -> list[Any]:
 # ------------------------------------------------------------------ tool use
 def _tool_trajectory(user: str, calls: list[dict[str, Any]], final: str, template: str,
                      source_id: str, expected_tool: str, citations: list[str] | None = None) -> Any:
+    # The assistant turn *must* open with <|assistant|> before the first
+    # <|tool_call|>: that is the prefix every evaluation prompt ends with, and
+    # without it the model can never learn to decide between calling a tool and
+    # answering directly (format mismatch between training and inference).
     segs = [Segment("system", "You are TinyMe, a controller for external tools. Use a tool only when needed, "
                               "then answer from the evidence.", target=False),
-            Segment("user", user, target=False)]
+            Segment("user", user, target=False),
+            Segment("assistant", "", target=True)]
     for call in calls:
         segs.append(Segment("tool_call", _tool_call(call["name"], call["arguments"]), target=True))
         segs.append(Segment("tool_result", call["result"], target=False))
@@ -782,16 +830,34 @@ def gen_tool_use(rng: random.Random, n: int) -> list[Any]:
                 {"name": "search", "arguments": {"query": q2, "k": 1}, "result": json.dumps(r2, ensure_ascii=False)},
             ], final, "tool/search_multi", f"syn/tool/multi/{idx}", "search", [h1["source_id"], h2["source_id"]]))
         elif kind == 3:
+            # Expression *shapes* are varied on purpose: a model that only ever
+            # sees "a * b + c" learns the shape and stops copying the operands
+            # from the prompt (observed failure during the tool-use audit), so the
+            # generator covers several structures with different operand counts.
+            shape = rng.choice(["mul_add", "mul", "add_mul", "add_sub", "paren", "div_exact"])
             a, b = rng.randint(37, 987), rng.randint(11, 89)
-            expr = f"{a} * {b} + 17"
-            value = a * b + 17
+            c = rng.randint(3, 40)
+            if shape == "mul_add":
+                expr, value = f"{a} * {b} + {c}", a * b + c
+            elif shape == "mul":
+                expr, value = f"{a} * {b}", a * b
+            elif shape == "add_mul":
+                expr, value = f"{a} + {b} * {c}", a + b * c
+            elif shape == "add_sub":
+                expr, value = f"{a} + {b} - {c}", a + b - c
+            elif shape == "paren":
+                expr, value = f"({a} + {b}) * {c}", (a + b) * c
+            else:
+                divisor = rng.randint(7, 29)
+                expr, value = f"{a * divisor} // {divisor}", (a * divisor) // divisor
             assert eval(expr) == value
             r1 = _mock_compute(expr, value)
             user = rng.choice([f"Compute exactly: {expr}", f"What is {expr}? Use a tool and give the exact value."])
-            final = f"{expr} = {value} [calc-1]"
+            calc_id = r1["result"]["citation"]
+            final = f"{expr} = {value} [{calc_id}]"
             out.append(_tool_trajectory(user, [{"name": "compute", "arguments": {"expression": expr},
                                                 "result": json.dumps(r1, ensure_ascii=False)}],
-                                        final, "tool/compute", f"syn/tool/compute/{idx}", "compute", ["calc-1"]))
+                                        final, "tool/compute", f"syn/tool/compute/{idx}", "compute", [calc_id]))
         elif kind == 4:
             spec = rng.choice(_SPEC_LIBRARY)
             ok, txt = _verified_solution(spec)
@@ -799,20 +865,24 @@ def gen_tool_use(rng: random.Random, n: int) -> list[Any]:
             _examples, extra_tests = _instance_examples(spec, rng, k=2)
             tests = spec["tests"] + ("\n" + extra_tests if extra_tests else "")
             program = f"{spec['solution'].strip()}\n\n{tests}"
-            r1 = _mock_code("all assertions passed\n")
+            r1 = _mock_code("all assertions passed\n", code=program)
             user = (f"Run this program in the sandbox and report the result:\n"
                     f"```python\n{program}\n```")
-            final = f"Exit code 0; all assertions passed for {spec['name']} [run-1]."
+            run_id = r1["result"]["citation"]
+            final = f"Exit code 0; all assertions passed for {spec['name']} [{run_id}]."
             out.append(_tool_trajectory(user, [{"name": "code",
                                                 "arguments": {"code": program, "timeout_s": 8},
                                                 "result": json.dumps(r1, ensure_ascii=False)}],
-                                        final, "tool/code_run", f"syn/tool/code/{idx}", "code", ["run-1"]))
+                                        final, "tool/code_run", f"syn/tool/code/{idx}", "code", [run_id]))
         elif kind == 5:
             good = rng.choice(_FACT_KEYS)
             mode = rng.choice(["drop", "swap", "dup"])
             positions = [k for k in range(1, len(good) - 1) if good[k].isalnum()]
             if mode == "swap":
-                positions = [k for k in positions if good[k + 1].isalnum()]
+                # swapping two identical neighbours (e.g. the "ee" in "freezing")
+                # would leave the query unchanged and make the "recovery"
+                # trajectory meaningless - the mutation must be observable.
+                positions = [k for k in positions if good[k + 1].isalnum() and good[k] != good[k + 1]]
             pos = rng.choice(positions)          # never typo a space: the token set must change
             if mode == "drop":
                 bad = good[:pos] + good[pos + 1:]
@@ -820,6 +890,7 @@ def gen_tool_use(rng: random.Random, n: int) -> list[Any]:
                 bad = good[:pos] + good[pos + 1] + good[pos] + good[pos + 2:]
             else:
                 bad = good[:pos] + good[pos] + good[pos:]
+            assert bad != good, (mode, good, bad, pos)
             r_bad, r_good = _mock_search(bad, k=1), _mock_search(good, k=3)
             assert r_bad["result"]["results"] == [], (bad, good)
             hit = r_good["result"]["results"][0]
@@ -865,8 +936,12 @@ GENERATORS_V2: dict[str, tuple[Callable[[random.Random, int], list[Any]], int, s
     "code_gen": (gen_code_generation, 200, "code"),
     "code_repair": (gen_code_repair, 140, "code"),
     "code_explain": (gen_code_explanation, 120, "code"),
-    "instruction": (gen_instruction, 120, "instruction"),
-    "tool_use": (gen_tool_use, 180, "tool"),
+    "instruction": (gen_instruction, 200, "instruction"),
+    # Tool use carries the protocol behaviour (when to call, which tool, valid
+    # arguments, error recovery, grounded final answer) and is deliberately the
+    # largest structured block after the correctness fix to the control-token
+    # loss mask (the format is only learnable now).
+    "tool_use": (gen_tool_use, 420, "tool"),
 }
 
 
@@ -922,6 +997,32 @@ if __name__ == "__main__":  # pragma: no cover - manual inspection helper
         print("-", r.category, r.template_id, len(r.text), "chars")
 
 
+#: Challenge-only functions: defined here and nowhere else, so a challenge
+#: ``code_gen`` item can never be answered by recalling a training template.
+_CHALLENGE_SPECS: list[dict[str, Any]] = [
+    {"name": "chunk_pairs",
+     "spec": "Write a function chunk_pairs(items) that groups a list into consecutive pairs, dropping a trailing unpaired element.",
+     "solution": ("def chunk_pairs(items):\n"
+                  "    return [items[k:k + 2] for k in range(0, len(items) - 1, 2)]\n"),
+     "tests": ("assert chunk_pairs([1, 2, 3, 4, 5]) == [[1, 2], [3, 4]]\n"
+               "assert chunk_pairs([]) == []\n"
+               "assert chunk_pairs([9]) == []\n")},
+    {"name": "count_vowels",
+     "spec": "Write a function count_vowels(text) returning how many characters in the text are vowels (a, e, i, o, u, case-insensitive).",
+     "solution": ("def count_vowels(text):\n"
+                  "    return sum(1 for ch in text.lower() if ch in 'aeiou')\n"),
+     "tests": ("assert count_vowels('Hello World') == 3\n"
+               "assert count_vowels('xyz') == 0\n")},
+    {"name": "second_largest",
+     "spec": "Write a function second_largest(values) that returns the second largest distinct value, or None when it does not exist.",
+     "solution": ("def second_largest(values):\n"
+                  "    unique = sorted(set(values), reverse=True)\n"
+                  "    return unique[1] if len(unique) > 1 else None\n"),
+     "tests": ("assert second_largest([5, 5, 3, 9]) == 5\n"
+               "assert second_largest([7]) is None\n")},
+]
+
+
 # ------------------------------------------------------------------ challenge
 def gen_challenge(rng: random.Random, n: int) -> list[Any]:
     """Small, harder, hand-designed challenge set (never used for training).
@@ -933,7 +1034,7 @@ def gen_challenge(rng: random.Random, n: int) -> list[Any]:
     out: list[Any] = []
     i = 0
     while len(out) < n:
-        kind = i % 5
+        kind = i % 8
         i += 1
         if kind == 0:                       # multi-step arithmetic
             a, b, c, d = rng.randint(3, 40), rng.randint(3, 20), rng.randint(2, 30), rng.randint(2, 9)
@@ -997,6 +1098,49 @@ def gen_challenge(rng: random.Random, n: int) -> list[Any]:
                 {"name": "search", "arguments": {"query": q2, "k": 1}, "result": json.dumps(r3, ensure_ascii=False)},
             ], final, "challenge/tool/multihop", f"challenge/tool/{len(out)}", "fetch",
                 [hit1["source_id"], hit3["source_id"]])
+        elif kind == 5:                     # held-out instruction template
+            values = _rand_int_list(rng, -40, 120, rng.randint(4, 6))
+            k = rng.choice([2, 3, 5])
+            kept = [v for v in values if v % k == 0]
+            q = (f"Instruction: Keep only the numbers divisible by {k} from the input, in the original "
+                 f"order, joined by spaces.\nInput: {' '.join(str(v) for v in values)}")
+            segs = [Segment("system", "You are TinyMe. Follow the instruction exactly and answer with the result only.", target=False),
+                    Segment("user", q, target=False),
+                    Segment("assistant", f"<|final|>\n{' '.join(str(v) for v in kept)}", target=True)]
+            rec = make_segment_record(segments=segs, category="instruction", source="synthetic",
+                                      source_id=f"challenge/instruction/{len(out)}", task_type="instruction",
+                                      template_id="challenge/instruction/filter_divisible", verified=True,
+                                      verifier="divisibility_recomputation",
+                                      answer=" ".join(str(v) for v in kept))
+        elif kind == 6:                     # held-out code-generation template (executable)
+            # these specs exist *only* here: the challenge function is never seen
+            # in training data (audit §3 held-out templates)
+            spec = _CHALLENGE_SPECS[i % len(_CHALLENGE_SPECS)]
+            tests = spec["tests"]
+            ok, _ = run_python(spec["solution"], tests)
+            if not ok:
+                continue
+            segs = [Segment("system", "You are TinyMe. Write the function so that all tests pass.", target=False),
+                    Segment("user", f"Write the function {spec['name']} that satisfies this specification: "
+                                    f"{spec['spec']}", target=False),
+                    Segment("assistant", f"<|code|>\n{spec['solution'].strip()}\n<|endcode|>", target=True)]
+            rec = make_segment_record(segments=segs, category="code_gen", source="synthetic",
+                                      source_id=f"challenge/code_gen/{len(out)}", task_type="code_completion",
+                                      template_id="challenge/code_gen/from_spec", verified=True,
+                                      verifier="reference_passes_tests", tests=[tests], language="python")
+        elif kind == 7:                     # held-out language template (perplexity only)
+            topic = rng.choice(["scheduling", "caching", "serialisation", "indexing"])
+            words = [rng.choice(_WORD_POOL) for _ in range(6)]
+            text = (f"Note on {topic}. " + ", ".join(words) + " are considered together when the "
+                    f"system decides how to {rng.choice(['order', 'batch', 'store'])} its work. "
+                    f"The property that matters is {rng.choice(['latency', 'throughput', 'clarity'])}.")
+            segs = [Segment("system", "You are TinyMe. Continue the note in the same register.", target=False),
+                    Segment("user", f"Continue the note about {topic}.", target=False),
+                    Segment("assistant", f"<|final|>\n{text}", target=True)]
+            rec = make_segment_record(segments=segs, category="language", source="synthetic",
+                                      source_id=f"challenge/language/{len(out)}", task_type="instruction",
+                                      template_id="challenge/language/register", verified=True,
+                                      verifier="template_instantiation", answer=text)
         else:                               # harder code repair (two defects)
             spec = _SPEC_LIBRARY[2]
             buggy = spec["solution"].replace("counts.get(w, 0) + 1", "counts.get(w, 0)",

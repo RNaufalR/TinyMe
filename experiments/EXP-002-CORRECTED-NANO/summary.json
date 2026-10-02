@@ -21,8 +21,8 @@
   "tokens_processed": 2872417,
   "non_finite_steps": 0,
   "epochs_completed": 5,
-  "wall_clock_seconds": 950.88,
-  "avg_tokens_per_sec": 3020.8,
+  "wall_clock_seconds": 1078.66,
+  "avg_tokens_per_sec": 2662.9,
   "checkpoint_bytes": 30703744,
   "fingerprints": {
     "experiment_id": "EXP-002-CORRECTED-NANO",
@@ -46,7 +46,7 @@
     "numpy": "2.4.6",
     "tokenizers": "0.23.2",
     "safetensors": "0.8.0",
-    "git_commit": "a9bb2cc18180f1af383d5b107b955cccf4af0fd0",
+    "git_commit": "8446a0303049c49cd9b3a671011c61b4e7fa9757",
     "git_dirty": true
   },
   "config": {
@@ -72,7 +72,7 @@
     "label_smoothing": 0.0,
     "compute_dtype": "float32",
     "max_val_batches": 16,
-    "notes": "restarted 2026-10-02 (3rd attempt) after the tool-protocol drift fix: corpus tool calls now use the exact runtime argument names and result envelopes (333/333 validated); dataset_v2 rebuilt, contamination PASS",
+    "notes": "reproducibility re-run of the canonical Stage-A baseline on an identical configuration (identical seed/dataset fingerprints); used to regenerate the gitignored checkpoints and to verify run-to-run determinism",
     "resume": true,
     "extra": {}
   },

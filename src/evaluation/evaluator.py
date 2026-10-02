@@ -54,13 +54,21 @@ def _segments(record: Any) -> list[Any]:
 
 
 def render_prompt(record: Any) -> str:
-    """Render every non-target segment as the model-facing prompt."""
+    """Render the model-facing prompt: context *before the first target segment*.
+
+    Context that only exists *after* the first target (e.g. the reference tool
+    result of a tool trajectory) must never leak into the prompt — the model has
+    to act before that result exists.  The prompt ends with the assistant turn
+    opener, exactly like the training sequences.
+    """
     parts: list[str] = []
     for seg in _segments(record):
         if _field(seg, "target", False):
-            continue
+            break
         role = _field(seg, "role", "user")
         parts.append(ROLE_TOKENS.get(role, "<|user|>") + "\n" + _field(seg, "text", ""))
+    if not parts:                                   # plain LM records have no segments
+        return _field(record, "text", "")
     return "\n".join(parts).strip() + "\n" + ROLE_TOKENS.get("assistant", "<|assistant|>") + "\n"
 
 
@@ -171,16 +179,53 @@ def build_suite(version: str, split: str = "test", *, max_samples: int | None = 
 def _domain_for(record: dict) -> str | None:
     cat = record.get("category", "")
     return {"math": "math", "logic": "logic", "algorithm": "algorithmic_reasoning",
-            "code_gen": "code_generation", "code_repair": "debugging",
+            "code_gen": "code_generation", "code_repair": "code_repair",
             "programming": "code", "instruction": "instruction_following",
             "tool_use": "tool_use", "code_explain": "code_explanation",
             "language": "language"}.get(cat)
 
 
 # ------------------------------------------------------------------ evaluate
+class _GenerationStats:
+    """Latency/throughput accounting for one evaluation run (audit §6/§10)."""
+
+    def __init__(self, generate_fn: Callable[..., str], token_count_fn: Callable[[str], int] | None = None):
+        self._fn = generate_fn
+        self._count = token_count_fn
+        self.calls = 0
+        self.tokens = 0
+        self.seconds = 0.0
+        self.latencies: list[float] = []
+
+    def __call__(self, prompt: str, **kwargs) -> str:
+        started = time.perf_counter()
+        out = self._fn(prompt, **kwargs)
+        elapsed = time.perf_counter() - started
+        self.calls += 1
+        self.seconds += elapsed
+        self.latencies.append(elapsed)
+        self.tokens += (self._count(out) if self._count else max(1, len(out) // 4))
+        return out
+
+    def snapshot(self) -> dict:
+        if not self.calls:
+            return {"calls": 0}
+        ordered = sorted(self.latencies)
+        return {
+            "calls": self.calls,
+            "gen_tokens": self.tokens,
+            "seconds": round(self.seconds, 3),
+            "tokens_per_sec": round(self.tokens / self.seconds, 2) if self.seconds else None,
+            "latency_mean_s": round(self.seconds / self.calls, 4),
+            "latency_p50_s": round(ordered[len(ordered) // 2], 4),
+            "latency_p95_s": round(ordered[min(len(ordered) - 1, int(0.95 * len(ordered)))], 4),
+        }
+
+
 def evaluate_model(generate_fn: Callable[..., str], records: list[dict], *,
                    model_name: str = "unknown", dataset_version: str = "unknown",
                    split: str = "test", max_new_tokens: int = 96,
+                   token_count_fn: Callable[[str], int] | None = None,
                    policy: SandboxPolicy = DEFAULT_SANDBOX,
                    registry: ToolRegistry | None = None,
                    perplexity_fn: Callable[[str], float] | None = None,
@@ -189,6 +234,8 @@ def evaluate_model(generate_fn: Callable[..., str], records: list[dict], *,
     result = EvaluationResult(model=model_name, dataset_version=dataset_version, split=split,
                               started_at=time.strftime("%Y-%m-%dT%H:%M:%S"))
     registry = registry or ToolRegistry.default()
+    stats = _GenerationStats(generate_fn, token_count_fn)
+    generate_fn = stats          # every domain measures the same instrumented callable
     buckets: dict[str, list[dict]] = {}
     for record in records:
         buckets.setdefault(_domain_for(record) or "other", []).append(record)
@@ -273,7 +320,7 @@ def evaluate_model(generate_fn: Callable[..., str], records: list[dict], *,
             "examples": examples}
 
     code_domain("code_generation")
-    code_domain("debugging")
+    code_domain("code_repair")
     code_domain("code")
 
     # ------------------------------------------------------------ tool use
@@ -345,6 +392,7 @@ def evaluate_model(generate_fn: Callable[..., str], records: list[dict], *,
                 "accuracy": round(sum(v["accuracy"] for v in generalization.values()) / len(generalization), 4),
                 "inherits": sorted(generalization)}
     result.duration_s = time.time() - started
+    result.environment["generation"] = stats.snapshot()
     return result
 
 

@@ -1,0 +1,13 @@
+=== A1: staged pretrain 150 steps ===
+  "wall_clock_seconds": 480.89,
+  "avg_tokens_per_sec": 2240.5
+}
+=== A2: staged SFT 150 steps (continues A1) ===
+  "wall_clock_seconds": 9.03,
+  "avg_tokens_per_sec": 0.0
+}
+=== B: mixed 300 steps ===
+  "wall_clock_seconds": 690.79,
+  "avg_tokens_per_sec": 1955.3
+}
+ALL_CURRIC_DONE

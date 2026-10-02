@@ -1,21 +1,21 @@
-# DATA QUALITY REPORT — dataset_v2
+# DATA QUALITY REPORT — dataset_v3
 
-- Raw records ingested: **6568**
-- After license check: **6508**
-- After content-aware preprocessing: **6506** (rejected: {'rejected:invalid_code': 2})
-- After quality/safety filter: **6506** (dropped: {})
-- After deduplication: **5778** (exact=311, normalized=2, minhash=392, code=23)
+- Raw records ingested: **11295**
+- After license check: **11235**
+- After content-aware preprocessing: **11233** (rejected: {'rejected:invalid_code': 2})
+- After quality/safety filter: **11233** (dropped: {})
+- After deduplication: **10200** (exact=311, normalized=5, minhash=598, code=119)
 - Malformed-code rate in the final corpus: **0.000000**
-- Verified records: **5705**
+- Verified records: **10127**
 
 ## Splits (group-aware, template families held out)
 
 | split | records | active target tokens | blocks |
 | :--- | ---: | ---: | ---: |
-| train | 4227 | 588816 | 3585 |
-| validation | 741 | 105432 | 641 |
-| test | 810 | 82501 | 587 |
-| challenge | 60 | 1854 | 23 |
+| train | 7220 | 718077 | 5110 |
+| validation | 1422 | 128146 | 918 |
+| test | 1558 | 105419 | 896 |
+| challenge | 60 | 2093 | 25 |
 
 ## Contamination gate
 
@@ -25,7 +25,7 @@ Checks performed: exact hash, normalized hash, MinHash/LSH similarity, code-AST 
 
 ## Tokenizer
 
-- Trained on the **train split only** (4227 texts).
+- Trained on the **train split only** (7220 texts).
 - Vocabulary: 4096; file 265717 bytes;
   sha256 `d2d47152426e0a9b307eee230e833b77…`
 
@@ -37,17 +37,17 @@ Checks performed: exact hash, normalized hash, MinHash/LSH similarity, code-AST 
 | mbpp | 15 |
 | python3.11-stdlib-extended | 2422 |
 | python_stdlib | 192 |
-| syn/algorithm_trace | 300 |
-| syn/arithmetic | 591 |
-| syn/boolean | 300 |
-| syn/code_explain | 299 |
-| syn/code_gen | 500 |
-| syn/code_repair | 350 |
-| syn/deduction | 188 |
-| syn/instruction | 268 |
-| syn/sequences | 253 |
-| syn/tool_use | 350 |
-| syn/word_problems | 450 |
+| syn/algorithm_trace | 600 |
+| syn/arithmetic | 1239 |
+| syn/boolean | 600 |
+| syn/code_explain | 599 |
+| syn/code_gen | 1000 |
+| syn/code_repair | 700 |
+| syn/deduction | 359 |
+| syn/instruction | 840 |
+| syn/sequences | 428 |
+| syn/tool_use | 1311 |
+| syn/word_problems | 900 |
 | tinystories | 15 |
 
 | licence | records |
@@ -56,19 +56,19 @@ Checks performed: exact hash, normalized hash, MinHash/LSH similarity, code-AST 
 | CDLA-Sharing-1.0 | 15 |
 | MIT | 15 |
 | PSF-2.0 | 2024 |
-| Synthetic-Verified | 3769 |
+| Synthetic-Verified | 8191 |
 
 ## Category distribution
 
 | category | records |
 | :--- | ---: |
-| algorithm | 300 |
-| code_explain | 679 |
-| code_gen | 515 |
-| code_repair | 363 |
-| instruction | 268 |
-| language | 180 |
-| logic | 502 |
-| math | 1328 |
+| algorithm | 600 |
+| code_explain | 913 |
+| code_gen | 1023 |
+| code_repair | 708 |
+| instruction | 845 |
+| language | 188 |
+| logic | 967 |
+| math | 2594 |
 | programming | 1399 |
-| tool_use | 304 |
+| tool_use | 1023 |

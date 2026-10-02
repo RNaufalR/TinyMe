@@ -34,7 +34,7 @@ from src.data import preprocess as preprocess_mod  # noqa: E402
 from src.data.dedup import deduplicate  # noqa: E402
 from src.data.quality_filter import filter_record, score_record  # noqa: E402
 from src.data.records import classify_license  # noqa: E402
-from src.data.sequence import pack_records  # noqa: E402
+from src.data.sequence import LOSS_MASK_SEMANTICS, pack_records  # noqa: E402
 from src.data.shard_writer import ShardWriter, load_shard_arrays  # noqa: E402
 from src.data.splits import (SPLITS, assign_splits, dataset_fingerprint,  # noqa: E402
                              split_report, split_summary_markdown)
@@ -65,6 +65,10 @@ def main() -> int:
     ap.add_argument("--stdlib-files", type=int, default=480, help="stdlib files to scan")
     ap.add_argument("--challenge-size", type=int, default=60)
     ap.add_argument("--shard-capacity", type=int, default=512)
+    ap.add_argument("--tokenizer-from", default=None,
+                    help="freeze the tokenizer of an existing dataset version instead of "
+                         "retraining it (keeps checkpoints embedding-compatible; the source "
+                         "train split must be a subset of the new train split)")
     args = ap.parse_args()
 
     t0 = time.time()
@@ -130,17 +134,41 @@ def main() -> int:
 
     # ------------------------------------- tokenizer (TRAIN split only)
     train_texts = [r["text"] for r in by_split["train"]]
-    tokenizer = train_tokenizer(train_texts, vocab_size=args.vocab_size,
-                                min_frequency=2, corpus_role="train")
-    tok_path = version_dir / "tokenizer.json"
-    tokenizer.save(tok_path)
-    tokenizer.save(PROCESSED_DIR / "tokenizer.json")
-    tokenizer_saved = TinyMeTokenizer.load(tok_path)
-    tok_hash = tokenizer_saved.sha256(tok_path)
-    tok_bytes = tok_path.stat().st_size
-    stats["tokenizer"] = {"version": TOKENIZER_VERSION, "vocab_size": tokenizer_saved.vocab_size,
-                          "sha256": tok_hash, "bytes": tok_bytes,
-                          "trained_on": "train split only", "train_texts": len(train_texts)}
+    if args.tokenizer_from:
+        # Controlled revisions: reuse a tokenizer that was already trained on a
+        # *subset* of this split's text.  Freezing it keeps every checkpoint
+        # embedding-compatible across dataset revisions, so a data-format change
+        # can be isolated from a vocabulary change (and the reuse is verifiable:
+        # the source train split must be a subset of this one).
+        src_dir = VERSIONS_DIR / args.tokenizer_from
+        src_tok = src_dir / "tokenizer.json"
+        if not src_tok.exists():
+            log.error("--tokenizer-from %s has no tokenizer.json", args.tokenizer_from)
+            return 4
+        tokenizer = TinyMeTokenizer.load(src_tok)
+        tokenizer.save(version_dir / "tokenizer.json")
+        tokenizer.save(PROCESSED_DIR / "tokenizer.json")
+        tokenizer_saved = TinyMeTokenizer.load(version_dir / "tokenizer.json")
+        tok_hash = tokenizer_saved.sha256(version_dir / "tokenizer.json")
+        tok_bytes = (version_dir / "tokenizer.json").stat().st_size
+        stats["tokenizer"] = {"version": getattr(tokenizer_saved, "version", TOKENIZER_VERSION), "vocab_size": tokenizer_saved.vocab_size,
+                              "sha256": tok_hash, "bytes": tok_bytes,
+                              "trained_on": f"frozen from {args.tokenizer_from} (train split only)",
+                              "train_texts": len(train_texts)}
+        log.info("tokenizer frozen from %s (vocab=%d, sha256=%s)", args.tokenizer_from,
+                 tokenizer_saved.vocab_size, tok_hash[:16])
+    else:
+        tokenizer = train_tokenizer(train_texts, vocab_size=args.vocab_size,
+                                    min_frequency=2, corpus_role="train")
+        tok_path = version_dir / "tokenizer.json"
+        tokenizer.save(tok_path)
+        tokenizer.save(PROCESSED_DIR / "tokenizer.json")
+        tokenizer_saved = TinyMeTokenizer.load(tok_path)
+        tok_hash = tokenizer_saved.sha256(tok_path)
+        tok_bytes = tok_path.stat().st_size
+        stats["tokenizer"] = {"version": TOKENIZER_VERSION, "vocab_size": tokenizer_saved.vocab_size,
+                              "sha256": tok_hash, "bytes": tok_bytes,
+                              "trained_on": "train split only", "train_texts": len(train_texts)}
 
     # --------------------------------------------- tokenize + pack + shards
     token_stats: dict[str, dict] = {}
@@ -204,6 +232,7 @@ def main() -> int:
         "tokenizer_version": TOKENIZER_VERSION,
         "contamination": split_rep["contamination"],
         "train_validation_test_contamination": "PASS" if contamination_free else "FAIL",
+        "loss_mask_semantics": LOSS_MASK_SEMANTICS,
         "stage_stats": stats,
         "provenance_summary": {
             "sources": dict(Counter(p.get("source") for p in provenance)),
@@ -224,6 +253,11 @@ def main() -> int:
     manifest["dataset_fingerprint"] = dataset_fingerprint(assigned, extra={
         "seq_len": args.seq_len, "tokenizer_sha256": tok_hash,
         "splits": {s: len(v) for s, v in by_split.items()}})
+    # shard fingerprint: training reads the packed shards, so their content must
+    # be verifiable — a stale shard built by an older sequence builder would
+    # otherwise train silently (audit §13/§20).
+    from src.data.dataset_api import shard_fingerprint
+    manifest["shards_fingerprint"] = shard_fingerprint(shard_dir)
     write_json(manifest, version_dir / "manifest.json")
     write_json(manifest, REPO_ROOT / "DATA_PROVENANCE.json")
 

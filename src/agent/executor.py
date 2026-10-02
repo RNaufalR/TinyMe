@@ -137,6 +137,14 @@ class AgentRuntime:
                 traj.steps.append(step)
                 break
 
+            if not parsed.tool_calls:
+                # The model produced neither a final answer nor a well-formed tool
+                # call (empty output, bare assistant marker, stray text).  That is
+                # a *model* failure, not a runtime crash: record it and stop.
+                traj.stop_reason = "no_final_no_tool_call"
+                step.error = "no_final_no_tool_call"
+                traj.steps.append(step)
+                break
             call = parsed.tool_calls[0]
             step.call = call.to_dict()
             if self.loops.check(call):

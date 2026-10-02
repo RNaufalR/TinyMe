@@ -1,100 +1,103 @@
-# TRAINING REPORT — EXP-002-CORRECTED-NANO (stage A pretrain)
+# TinyMe — Training report (audit §2, §10, §21, §22, §23)
 
-Run executed 2026-10-02 on the audit-corrected data contract
-(`dataset_v2`, fingerprint `a8f5c37a…`). Fresh initialisation: `EXP-001` is
-HISTORICAL / INVALID-AS-HELDOUT-BASELINE and was never resumed.
+All numbers in this file were produced by `scripts/train.py` runs in this
+repository and are read back from `experiments/*/summary.json` and
+`experiments/*/metrics.jsonl`. Nothing here is estimated.
 
-## 1. Exact command
-
-```bash
-python scripts/train.py \
-  --experiment EXP-002-CORRECTED-NANO \
-  --experiment-name "TinyMe Nano pretrain on protocol-exact dataset_v2" \
-  --stage pretrain --arch nano --dataset dataset_v2 \
-  --seq-len 256 --micro-batch 8 --grad-accum 4 --max-steps 400 \
-  --lr 6e-4 --dtype float32
-```
-
-## 2. Configuration (recorded in `experiments/EXP-002-CORRECTED-NANO/run_config.json`)
+## 1. Corrected baseline (Stage A) — `EXP-002-CORRECTED-NANO`
 
 | Item | Value |
 | :--- | :--- |
-| Architecture | `nano` — d_model 192, 4 layers, 6 heads, d_ff 512, vocab 4096, ctx 512 |
-| Parameters | 2,557,632 (fp32 file 10,230,528 B; checkpoint with optimizer 30,703,744 B) |
-| Stage | `pretrain` (stage A) |
-| seq_len | 256 (primary; 512 reserved as the secondary setting) |
-| micro-batch × accumulation | 8 × 4 = effective batch 32 |
-| Optimizer | AdamW via `optax.chain(clip_by_global_norm(1.0), adamw(lr=6e-4, wd=0.01))` |
-| Schedule | 40-step linear warmup → cosine to 10 % of peak |
-| compute_dtype | `float32` (embeddings/weights/loss all float32 — verified by `tests/test_dtype.py`) |
-| Seed | 20261002 (python/numpy/JAX/data/synthetic all synced) |
-| Data | `dataset_v2` 4227/741/810/60; train blocks 2203, active target tokens 494,571, padding ratio 0.1231 |
-| Validation | 378 blocks, 88,000 active target tokens, padding ratio 0.0906 |
-
-## 3. Result
-
-| Metric | Value |
-| :--- | ---: |
-| Steps executed | **400 / 400** (5 epochs; `steps_this_run = 400`) |
+| Architecture | `nano`, 2,557,632 parameters |
+| Context / tokens | seq_len 256, 2,872,417 tokens processed |
+| Optimisation | micro-batch 8 × accum 4 (effective 32), lr 6e-4, warmup 50, fp32, seed 20261002 |
+| Steps | 400 (5 epochs over `dataset_v2` pretrain blocks) |
 | Final train loss | 4.5152 |
-| Final validation loss | **4.8042** |
-| Final validation perplexity | **122.02** |
-| Best validation loss | 4.8042 (monotonic improvement at every evaluation) |
-| Tokens processed | 2,872,417 |
-| Wall clock | 950.88 s (15 min 51 s) |
-| Throughput | 3,020.8 tokens/s (2 vCPU, no accelerator) |
-| Non-finite steps | 0 |
-| Status | `COMPLETED` |
+| Final validation loss / ppl | 4.8042 / 122.02 (88,000 validation target tokens) |
+| Wall clock | 1078.66 s (2,662.9 tokens/s on 2 vCPU) |
+| Checkpoint | 30,703,744 B (weights + optimizer + RNG) |
 
-Validation trajectory (evaluation every 50 steps):
+Determinism: the run was repeated end-to-end (`logs/EXP-002-CORRECTED-NANO-rerun.log`).
+All 400 logged steps match the committed run exactly (0 mismatches on loss, lr,
+grad_norm, val_loss, val_ppl); only wall-clock and tokens/s differ.
 
-| Step | val_loss | val_ppl |
-| ---: | ---: | ---: |
-| 50 | 6.5391 | 691.64 |
-| 100 | 5.9893 | 399.13 |
-| 150 | 5.3844 | 217.98 |
-| 200 | 5.0833 | 161.30 |
-| 250 | 4.9402 | 139.81 |
-| 300 | 4.8632 | 129.44 |
-| 350 | 4.8214 | 124.14 |
-| 400 | **4.8042** | **122.02** |
+### Why a corrected retrain was necessary
 
-## 4. What is verified by this run
+`EXP-001` is retained as a **historical, invalid-as-held-out-baseline** experiment
+(see `TinyMeAudit.md`). It is not resumed and its metrics are never compared
+against the corrected runs.
 
-* **Real held-out validation.** The number above comes from
-  `datasets/versions/dataset_v2/validation.jsonl` (741 records, 378 blocks),
-  never from a slice of the training file (`tests/test_dataset_api.py`).
-* **True gradient accumulation.** Micro-batches accumulate with parameters
-  frozen; the numerical-equivalence test compares 4 × micro-8 against a single
-  batch-32 step (`tests/test_grad_accumulation.py`).
-* **Padding and masking are real.** 12.3 % of train positions are padding and
-  contribute exactly zero loss; targets marked `IGNORE_INDEX (-100)` are
-  excluded, so validation loss is computed on the same active-token basis
-  (88,000 tokens per evaluation).
-* **Determinism.** RNG state for python/numpy/JAX/data/synthetic is persisted in
-  the checkpoint; `tests/test_rng_determinism.py` proves identical draws after
-  restore.
-* **Checkpointing.** `best`, `latest`, `step_000200/300/400` written atomically
-  with sha256 + fingerprint compatibility; `verify_checkpoint` re-checks them.
-  A resume test loads `latest` and confirms LR continuity (`tests/test_checkpoint_resume.py`).
-* **Numerical stability.** Every step logs a finite gradient norm (0.36–1.10 in
-  this run) and no NaN/Inf occurred (`non_finite_steps = 0`).
+## 2. Tool-SFT stage — three measured iterations (§22 loop)
 
-## 5. Honest reading of the loss
+The tool-SFT stage is the intervention the audit asks for: teach the protocol
+(needed/not-needed tool decision, valid arguments, result interpretation,
+grounded final answer, multi-step, error recovery). Three iterations were run
+because the independent evaluation kept finding *real* defects:
 
-Perplexity 122 on a corpus dominated by code, structured reasoning and tool
-transcripts is *not* evidence of general competence. It says the model learned
-the corpus statistics at a small scale; held-out task accuracy (executable code
-pass rates, tool selection/arguments, exact answers) is measured separately in
-`docs/MODEL_COMPARISON.md` and `release/evaluation_report.md`. Any comparison
-against `EXP-001` (ppl 2.4551 on a contaminated split with a different
-tokenizer and no held-out protocol) is **NOT COMPARABLE** and is labelled as
-such everywhere it appears.
+| Iteration | Experiment | Data revision | Steps | Train loss | Val loss | Val ppl | Issue found by the *next* evaluation |
+| :--- | :--- | :--- | --: | --: | --: | --: | :--- |
+| 1 | `EXP-004-TOOL-SFT` | v3 rev1 (no turn opener) | 320 | 0.9878 | 1.9757 | 7.21 | runtime could not parse generations: markers stripped by the decoder, BOS missing, tool-result template leakage in prompts |
+| 2 | `EXP-004-TOOL-SFT-V2` | v3 rev3 (opener fixed, varied shapes) | 700 | 0.6395 | 1.6874 | 5.41 | model emits memorised thought sentences instead of task content: the corpus had **1 distinct thought string across 382 repair records** |
+| 3 | `EXP-004-TOOL-SFT-V3` | v3 rev4 (thought pool, 6 phrasings/family) | 600 | see `experiments/EXP-004-TOOL-SFT-V3/summary.json` | | | |
 
-## 6. Intentionally not claimed
+Loss alone never decided acceptance: iteration 2 has the better loss but
+*capability* is judged by `experiments/*/evaluation_tools_best.json` (§4), and
+iteration 3 was launched because the capability measurement showed the model
+answering arithmetic prompts with a code-generation sentence.
 
-* No claim that 2.6 M parameters store factual world knowledge — factual answers
-  are expected to come from the tool runtime and are grounded in citations.
-* No claim of state-of-the-art anything. The reference points in this repository
-  are the historical `EXP-001` artifacts, which are kept only as evidence of the
-  audit findings.
+### 8-point intervention record (§22)
+
+| Field | Iteration 2 → 3 |
+| :--- | :--- |
+| Observed failure | Tool evaluation: `tool_name_accuracy` 0.25; finals not grounded; operand copying absent |
+| Hypothesis | Target text is dominated by a single repeated sentence, so the model's prior over template text exceeds its prior over task content |
+| Target behaviour | Emit task-specific content (copied operands, values from the tool result) rather than boilerplate |
+| Data modification | `data_sources/synthetic_v2.py`: `_THOUGHTS` pool (6 phrasings per family) replaces 3 hard-coded sentences; compute expression shapes varied (6 shapes) |
+| Training modification | 600 steps (plateau point of iteration 2), otherwise identical schedule/seed |
+| Experiment ID | `EXP-004-TOOL-SFT-V3` (new id; earlier runs are kept) |
+| Evaluation protocol | `scripts/evaluate_tools.py` (25 independent cases) + `scripts/evaluate.py` on test/challenge |
+| Result | recorded in `experiments/EXP-004-TOOL-SFT-V3/` (see `EXPERIMENT_LOG.md` for the verdict) |
+
+## 3. Data revisions actually used
+
+| Build (log) | Splits (train/val/test/challenge) | Active train targets | Contamination | Thought diversity |
+| :--- | :--- | --: | :--: | :--: |
+| `logs/prepare_dataset_v3.log` (rev1) | 6,144 / 1,204 / 1,196 / 60 | 668,457 | PASS | no (single repeated thought sentence) |
+| `logs/prepare_dataset_v3_rev2.log` | 6,144 / 1,204 / 1,196 / 60 | 668,457 | PASS | no |
+| `logs/prepare_dataset_v3_rev3.log` | 6,787 / 1,711 / 1,569 / 60 | 700,451 | PASS | no |
+| `logs/prepare_dataset_v3_rev4.log` | 7,220 / 1,422 / 1,558 / 60 | **718,077** | PASS | yes (6 phrasings/family) |
+
+`EXP-004-TOOL-SFT-V3` trained on rev4; `-V2` on rev3; `-V1` on rev2 (whose train
+data is identical to rev1 — only the challenge shard changed, verified by the
+sha256 of every `.npy`). Shards fingerprint of the trained revision:
+`fe6abc98686c7913155bd88b1cf3fd5082ffdc97577da17e259d1f9404f7b120`.
+
+## 4. Base architecture feasibility (§2B)
+
+The environment is CPU-only (2 vCPU, ≈3.9 GB RAM, no GPU). Base is 8,933,440
+parameters (3.5× nano). Measured pilot figures are in
+`experiments/EXP-003-BASE-PILOT/` and `docs/MODEL_COMPARISON.md`.
+
+## 5. Curriculum A vs B (§21)
+
+Two pilots on identical data/steps with identical seeds:
+
+* **A (staged)**: Stage-A pretrain on plain documents → SFT on structured
+  records.
+* **B (mixed)**: a single shuffled pool (`--stage mixed`) of the same blocks.
+
+Results and the honest verdict (measured differences, no winner declared) are in
+`experiments/CURRIC-*/summary.json` and `docs/MODEL_COMPARISON.md`.
+
+## 6. Overfitting analysis (§23)
+
+| Signal | Observation (iteration 2) | Reading |
+| :--- | :--- | :--- |
+| train ↓ / val ↓ | 0.64 / 1.69 | learning, not diverging |
+| val plateau | 1.645 (400) → 1.665 (500) → 1.676 (600) | mild overfit beyond step 400; `best` = step 400 |
+| test vs validation | see `evaluation_test.json` | held-out template gap |
+| challenge | see `evaluation_challenge.json` | hardest held-out templates |
+
+Conclusions are recorded conservatively: the model memorises template structure
+and only partially copies task content; the capability section of
+`FINAL_REPORT.md` states the measured accuracy rather than claiming success.

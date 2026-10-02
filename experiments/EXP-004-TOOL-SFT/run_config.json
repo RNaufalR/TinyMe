@@ -1,0 +1,93 @@
+{
+  "experiment_id": "EXP-004-TOOL-SFT",
+  "stage": "sft",
+  "dataset_version": "dataset_v3",
+  "dataset_fingerprint": "f729752c3d915cdfafae67d5dbfcdc69370ed53e468d70df9cca5007247fd337",
+  "tokenizer_hash": "d2d47152426e0a9b307eee230e833b7763f60b50ec7316a080d2906528162230",
+  "tokenizer_vocab": 4096,
+  "model_config": {
+    "name": "nano",
+    "vocab_size": 4096,
+    "d_model": 192,
+    "n_layers": 4,
+    "n_heads": 6,
+    "d_ff": 512,
+    "max_seq_len": 512,
+    "rope_theta": 10000.0,
+    "rms_norm_eps": 1e-05,
+    "tie_word_embeddings": true,
+    "dropout": 0.0
+  },
+  "train_config": {
+    "experiment_id": "EXP-004-TOOL-SFT",
+    "experiment_name": "EXP-004-TOOL-SFT (pretrain)",
+    "stage": "sft",
+    "architecture": "nano",
+    "dataset_version": "dataset_v3",
+    "tokenizer_version": "tok-v2",
+    "seed": 20261002,
+    "seq_len": 256,
+    "micro_batch_size": 8,
+    "grad_accum_steps": 4,
+    "learning_rate": 0.0003,
+    "min_lr_ratio": 0.1,
+    "warmup_steps": 40,
+    "weight_decay": 0.01,
+    "grad_clip_norm": 1.0,
+    "max_steps": 320,
+    "eval_every": 80,
+    "checkpoint_every": 100,
+    "keep_last_checkpoints": 3,
+    "label_smoothing": 0.0,
+    "compute_dtype": "float32",
+    "max_val_batches": 16,
+    "notes": "Tool-SFT stage: corrected protocol format (assistant opener before every model turn), control-token supervision, dataset_v3",
+    "resume": true,
+    "extra": {}
+  },
+  "train_stats": {
+    "split": "train",
+    "version": "dataset_v3",
+    "stage": "sft",
+    "source": "shards",
+    "blocks": 2320,
+    "active_target_tokens": 173886,
+    "padding_ratio": 0.707223
+  },
+  "val_stats": {
+    "split": "validation",
+    "version": "dataset_v3",
+    "stage": "sft",
+    "source": "shards",
+    "blocks": 423,
+    "active_target_tokens": 30365,
+    "padding_ratio": 0.71959
+  },
+  "environment": {
+    "python": "3.11.2",
+    "platform": "Linux-6.1.158+-x86_64-with-glibc2.36",
+    "machine": "x86_64",
+    "cpu_count": 2,
+    "jax": "0.10.2",
+    "jax_backend": "cpu",
+    "jax_devices": [
+      "cpu:0"
+    ],
+    "optax": "0.2.8",
+    "numpy": "2.4.6",
+    "tokenizers": "0.23.2",
+    "safetensors": "0.8.0",
+    "git_commit": "8446a0303049c49cd9b3a671011c61b4e7fa9757",
+    "git_dirty": true
+  },
+  "init_from": "EXP-002-CORRECTED-NANO",
+  "init_from_fingerprints": {
+    "experiment_id": "EXP-002-CORRECTED-NANO",
+    "step": 400,
+    "dataset_fingerprint": "a8f5c37a251d1a4200bdd5392a7582b4500645bcb3e01de4ed8e41fb45f74b8d",
+    "tokenizer_hash": "d2d47152426e0a9b307eee230e833b7763f60b50ec7316a080d2906528162230",
+    "model_config_hash": "a6885ef3bc597122",
+    "best_val_loss": 4.804191317471591
+  },
+  "started_at": "2026-10-02T10:52:19"
+}

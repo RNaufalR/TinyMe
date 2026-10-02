@@ -1,0 +1,2350 @@
+{
+  "experiment": "CURRIC-B-MIXED",
+  "checkpoint": "best",
+  "dataset_version": "dataset_v3",
+  "backend": "numpy",
+  "temperature": 0.0,
+  "max_new_tokens": 96,
+  "suite": "independent tool-use cases A-H (src/evaluation/tool_cases.py)",
+  "variants": {
+    "fp32": {
+      "summary": {
+        "cases": 25,
+        "tool_needed_accuracy": 0.15,
+        "tool_not_needed_accuracy": 1.0,
+        "tool_syntax_validity": 0.92,
+        "tool_name_accuracy": 0.15,
+        "argument_validity": 1.0,
+        "argument_accuracy": 1.0,
+        "execution_success": 0.1,
+        "multi_step_success": 0.0,
+        "error_recovery_success": 0.0,
+        "grounded_final_answer": 0.25,
+        "citation_validity": 0.0,
+        "task_completion": 0.0,
+        "by_family": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "G": 0.0
+        },
+        "needed_cases": 20,
+        "not_needed_cases": 5
+      },
+      "cases": [
+        {
+          "case_id": "A0",
+          "family": "A",
+          "expectation": "no tool call; direct correct answer",
+          "request": "What is 21 + 34?",
+          "final": "6\"}, \" units",
+          "stop_reason": "final",
+          "tool_needed": false,
+          "notes": "answerable without the runtime",
+          "solved": true,
+          "steps": 1,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_syntax_valid": true,
+          "args_valid": true,
+          "exec_success": false,
+          "grounded": true,
+          "called_tool": false,
+          "tool_not_needed_ok": true,
+          "answer_correct": false,
+          "correct": false,
+          "answers_with_citations": 0,
+          "valid": 0,
+          "invalid": 0,
+          "invalid_ids": [],
+          "citation_valid": true
+        },
+        {
+          "case_id": "A1",
+          "family": "A",
+          "expectation": "no tool call; direct correct answer",
+          "request": "What is 8 * 7?",
+          "final": "6 units",
+          "stop_reason": "final",
+          "tool_needed": false,
+          "notes": "answerable without the runtime",
+          "solved": true,
+          "steps": 1,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_syntax_valid": true,
+          "args_valid": true,
+          "exec_success": false,
+          "grounded": true,
+          "called_tool": false,
+          "tool_not_needed_ok": true,
+          "answer_correct": false,
+          "correct": false,
+          "answers_with_citations": 0,
+          "valid": 0,
+          "invalid": 0,
+          "invalid_ids": [],
+          "citation_valid": true
+        },
+        {
+          "case_id": "A2",
+          "family": "A",
+          "expectation": "no tool call; direct correct answer",
+          "request": "Capitalise the word 'tinyme'.",
+          "final": "6",
+          "stop_reason": "final",
+          "tool_needed": false,
+          "notes": "answerable without the runtime",
+          "solved": true,
+          "steps": 1,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_syntax_valid": true,
+          "args_valid": true,
+          "exec_success": false,
+          "grounded": true,
+          "called_tool": false,
+          "tool_not_needed_ok": true,
+          "answer_correct": false,
+          "correct": false,
+          "answers_with_citations": 0,
+          "valid": 0,
+          "invalid": 0,
+          "invalid_ids": [],
+          "citation_valid": true
+        },
+        {
+          "case_id": "A3",
+          "family": "A",
+          "expectation": "no tool call; direct correct answer",
+          "request": "Reverse the string 'abc'.",
+          "final": "6",
+          "stop_reason": "final",
+          "tool_needed": false,
+          "notes": "answerable without the runtime",
+          "solved": true,
+          "steps": 1,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_syntax_valid": true,
+          "args_valid": true,
+          "exec_success": false,
+          "grounded": true,
+          "called_tool": false,
+          "tool_not_needed_ok": true,
+          "answer_correct": false,
+          "correct": false,
+          "answers_with_citations": 0,
+          "valid": 0,
+          "invalid": 0,
+          "invalid_ids": [],
+          "citation_valid": true
+        },
+        {
+          "case_id": "A4",
+          "family": "A",
+          "expectation": "no tool call; direct correct answer",
+          "request": "What is 100 - 45?",
+          "final": null,
+          "stop_reason": "no_final_no_tool_call",
+          "tool_needed": false,
+          "notes": "answerable without the runtime",
+          "solved": false,
+          "steps": 1,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_syntax_valid": true,
+          "args_valid": true,
+          "exec_success": false,
+          "grounded": false,
+          "called_tool": false,
+          "tool_not_needed_ok": true,
+          "answer_correct": false,
+          "correct": false,
+          "answers_with_citations": 0,
+          "valid": 0,
+          "invalid": 0,
+          "invalid_ids": [],
+          "citation_valid": true
+        },
+        {
+          "case_id": "B0",
+          "family": "B",
+          "expectation": "compute with valid args",
+          "request": "Compute exactly: 4837 * 962 + 71",
+          "final": null,
+          "stop_reason": "protocol_error:call_not_json",
+          "tool_needed": true,
+          "notes": "mul_add shape; operands held out from training data",
+          "solved": false,
+          "steps": 1,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_syntax_valid": false,
+          "args_valid": true,
+          "exec_success": false,
+          "grounded": false,
+          "first_tool_correct": false,
+          "tool_name_correct": false,
+          "answer_correct": false,
+          "grounded_final": false,
+          "correct": false,
+          "answers_with_citations": 0,
+          "valid": 0,
+          "invalid": 0,
+          "invalid_ids": [],
+          "citation_valid": true
+        },
+        {
+          "case_id": "B1",
+          "family": "B",
+          "expectation": "compute with valid args",
+          "request": "Compute exactly: 7123 * 481 + 13",
+          "final": "",
+          "stop_reason": "final",
+          "tool_needed": true,
+          "notes": "mul_add shape; operands held out from training data",
+          "solved": true,
+          "steps": 2,
+          "tool_calls": 1,
+          "tools_used": [
+            "compute"
+          ],
+          "tool_syntax_valid": true,
+          "args_valid": true,
+          "exec_success": false,
+          "grounded": true,
+          "first_tool_correct": true,
+          "tool_name_correct": true,
+          "answer_correct": false,
+          "grounded_final": false,
+          "correct": false,
+          "answers_with_citations": 0,
+          "valid": 0,
+          "invalid": 0,
+          "invalid_ids": [],
+          "citation_valid": true
+        },
+        {
+          "case_id": "B2",
+          "family": "B",
+          "expectation": "compute with valid args",
+          "request": "Compute exactly: 9059 + 337 * 29",
+          "final": null,
+          "stop_reason": "protocol_error:call_not_json",
+          "tool_needed": true,
+          "notes": "add_mul shape; operands held out from training data",
+          "solved": false,
+          "steps": 1,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_syntax_valid": false,
+          "args_valid": true,
+          "exec_success": false,
+          "grounded": false,
+          "first_tool_correct": false,
+          "tool_name_correct": false,
+          "answer_correct": false,
+          "grounded_final": false,
+          "correct": false,
+          "answers_with_citations": 0,
+          "valid": 0,
+          "invalid": 0,
+          "invalid_ids": [],
+          "citation_valid": true
+        },
+        {
+          "case_id": "B3",
+          "family": "B",
+          "expectation": "compute with valid args",
+          "request": "Compute exactly: 6271 * 1543",
+          "final": "6 [calc-1 [calc-1 + 13 = 136 [calc-1]",
+          "stop_reason": "final",
+          "tool_needed": true,
+          "notes": "mul shape; operands held out from training data",
+          "solved": true,
+          "steps": 2,
+          "tool_calls": 1,
+          "tools_used": [
+            "compute"
+          ],
+          "tool_syntax_valid": true,
+          "args_valid": true,
+          "exec_success": true,
+          "grounded": false,
+          "first_tool_correct": true,
+          "tool_name_correct": true,
+          "answer_correct": false,
+          "grounded_final": false,
+          "correct": false,
+          "answers_with_citations": 1,
+          "valid": 0,
+          "invalid": 1,
+          "invalid_ids": [
+            "calc-1"
+          ],
+          "citation_valid": false
+        },
+        {
+          "case_id": "B4",
+          "family": "B",
+          "expectation": "compute with valid args",
+          "request": "Compute exactly: 3821 + 219 - 22",
+          "final": "6 [calc-1 [calc-1 + 13 = 134 [calc-1]",
+          "stop_reason": "final",
+          "tool_needed": true,
+          "notes": "add_sub shape; operands held out from training data",
+          "solved": true,
+          "steps": 2,
+          "tool_calls": 1,
+          "tools_used": [
+            "compute"
+          ],
+          "tool_syntax_valid": true,
+          "args_valid": true,
+          "exec_success": true,
+          "grounded": false,
+          "first_tool_correct": true,
+          "tool_name_correct": true,
+          "answer_correct": false,
+          "grounded_final": false,
+          "correct": false,
+          "answers_with_citations": 1,
+          "valid": 0,
+          "invalid": 1,
+          "invalid_ids": [
+            "calc-1"
+          ],
+          "citation_valid": false
+        },
+        {
+          "case_id": "C0",
+          "family": "C",
+          "expectation": "search with valid args; grounded answer",
+          "request": "What is the population of jakarta according to a source?",
+          "final": "2",
+          "stop_reason": "final",
+          "tool_needed": true,
+          "notes": "requires the retrieval index",
+          "solved": true,
+          "steps": 1,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_syntax_valid": true,
+          "args_valid": true,
+          "exec_success": false,
+          "grounded": true,
+          "first_tool_correct": false,
+          "tool_name_correct": false,
+          "answer_correct": false,
+          "grounded_final": true,
+          "correct": false,
+          "answers_with_citations": 0,
+          "valid": 0,
+          "invalid": 0,
+          "invalid_ids": [],
+          "citation_valid": true
+        },
+        {
+          "case_id": "C1",
+          "family": "C",
+          "expectation": "search with valid args; grounded answer",
+          "request": "Which source supports the capital of indonesia?",
+          "final": "2",
+          "stop_reason": "final",
+          "tool_needed": true,
+          "notes": "requires the retrieval index",
+          "solved": true,
+          "steps": 1,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_syntax_valid": true,
+          "args_valid": true,
+          "exec_success": false,
+          "grounded": true,
+          "first_tool_correct": false,
+          "tool_name_correct": false,
+          "answer_correct": false,
+          "grounded_final": true,
+          "correct": false,
+          "answers_with_citations": 0,
+          "valid": 0,
+          "invalid": 0,
+          "invalid_ids": [],
+          "citation_valid": true
+        },
+        {
+          "case_id": "C2",
+          "family": "C",
+          "expectation": "search with valid args; grounded answer",
+          "request": "What is the big-o of binary search?",
+          "final": "6",
+          "stop_reason": "final",
+          "tool_needed": true,
+          "notes": "requires the retrieval index",
+          "solved": true,
+          "steps": 1,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_syntax_valid": true,
+          "args_valid": true,
+          "exec_success": false,
+          "grounded": true,
+          "first_tool_correct": false,
+          "tool_name_correct": false,
+          "answer_correct": false,
+          "grounded_final": true,
+          "correct": false,
+          "answers_with_citations": 0,
+          "valid": 0,
+          "invalid": 0,
+          "invalid_ids": [],
+          "citation_valid": true
+        },
+        {
+          "case_id": "C3",
+          "family": "C",
+          "expectation": "search with valid args; grounded answer",
+          "request": "What licence applies to the python standard library?",
+          "final": "6",
+          "stop_reason": "final",
+          "tool_needed": true,
+          "notes": "requires the retrieval index",
+          "solved": true,
+          "steps": 1,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_syntax_valid": true,
+          "args_valid": true,
+          "exec_success": false,
+          "grounded": true,
+          "first_tool_correct": false,
+          "tool_name_correct": false,
+          "answer_correct": false,
+          "grounded_final": true,
+          "correct": false,
+          "answers_with_citations": 0,
+          "valid": 0,
+          "invalid": 0,
+          "invalid_ids": [],
+          "citation_valid": true
+        },
+        {
+          "case_id": "D0",
+          "family": "D",
+          "expectation": "search then fetch; grounded answer",
+          "request": "Read the stored source FACT-988002 about the population of jakarta and quote its key sentence.",
+          "final": null,
+          "stop_reason": "no_final_no_tool_call",
+          "tool_needed": true,
+          "notes": "multi-step retrieval",
+          "solved": false,
+          "steps": 1,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_syntax_valid": true,
+          "args_valid": true,
+          "exec_success": false,
+          "grounded": false,
+          "first_tool_correct": false,
+          "tool_name_correct": false,
+          "answer_correct": false,
+          "grounded_final": false,
+          "correct": false,
+          "multi_step": false,
+          "multi_step_success": false,
+          "answers_with_citations": 0,
+          "valid": 0,
+          "invalid": 0,
+          "invalid_ids": [],
+          "citation_valid": true
+        },
+        {
+          "case_id": "D1",
+          "family": "D",
+          "expectation": "search then fetch; grounded answer",
+          "request": "Read the stored source FACT-FCD206 about the definition of a prime number and quote its key sentence.",
+          "final": null,
+          "stop_reason": "no_final_no_tool_call",
+          "tool_needed": true,
+          "notes": "multi-step retrieval",
+          "solved": false,
+          "steps": 1,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_syntax_valid": true,
+          "args_valid": true,
+          "exec_success": false,
+          "grounded": false,
+          "first_tool_correct": false,
+          "tool_name_correct": false,
+          "answer_correct": false,
+          "grounded_final": false,
+          "correct": false,
+          "multi_step": false,
+          "multi_step_success": false,
+          "answers_with_citations": 0,
+          "valid": 0,
+          "invalid": 0,
+          "invalid_ids": [],
+          "citation_valid": true
+        },
+        {
+          "case_id": "D2",
+          "family": "D",
+          "expectation": "search then fetch; grounded answer",
+          "request": "Read the stored source FACT-0B1DC0 about the shortest path algorithm and quote its key sentence.",
+          "final": null,
+          "stop_reason": "no_final_no_tool_call",
+          "tool_needed": true,
+          "notes": "multi-step retrieval",
+          "solved": false,
+          "steps": 1,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_syntax_valid": true,
+          "args_valid": true,
+          "exec_success": false,
+          "grounded": false,
+          "first_tool_correct": false,
+          "tool_name_correct": false,
+          "answer_correct": false,
+          "grounded_final": false,
+          "correct": false,
+          "multi_step": false,
+          "multi_step_success": false,
+          "answers_with_citations": 0,
+          "valid": 0,
+          "invalid": 0,
+          "invalid_ids": [],
+          "citation_valid": true
+        },
+        {
+          "case_id": "D3",
+          "family": "D",
+          "expectation": "fetch with the given id",
+          "request": "Fetch the passage with source_id FACT-2082DD and summarise it.",
+          "final": "",
+          "stop_reason": "final",
+          "tool_needed": true,
+          "notes": "",
+          "solved": true,
+          "steps": 1,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_syntax_valid": true,
+          "args_valid": true,
+          "exec_success": false,
+          "grounded": true,
+          "first_tool_correct": false,
+          "tool_name_correct": false,
+          "answer_correct": false,
+          "grounded_final": false,
+          "correct": false,
+          "answers_with_citations": 0,
+          "valid": 0,
+          "invalid": 0,
+          "invalid_ids": [],
+          "citation_valid": true
+        },
+        {
+          "case_id": "E0",
+          "family": "E",
+          "expectation": "code tool executes; result interpreted",
+          "request": "Run this program in the sandbox and report the result:\n```python\ndef is_prime(n):\n    if n < 2:\n        return False\n    for d in range(2, int(n ** 0.5) + 1):\n        if n % d == 0:\n            return False\n    return True\n\nassert is_prime(97)\nassert not is_prime(91)\nprint(is_prime(97), is_prime(91))\n```",
+          "final": null,
+          "stop_reason": "no_final_no_tool_call",
+          "tool_needed": true,
+          "notes": "",
+          "solved": false,
+          "steps": 1,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_syntax_valid": true,
+          "args_valid": true,
+          "exec_success": false,
+          "grounded": false,
+          "first_tool_correct": false,
+          "tool_name_correct": false,
+          "answer_correct": false,
+          "grounded_final": false,
+          "correct": false,
+          "code_executed": false,
+          "answers_with_citations": 0,
+          "valid": 0,
+          "invalid": 0,
+          "invalid_ids": [],
+          "citation_valid": true
+        },
+        {
+          "case_id": "E1",
+          "family": "E",
+          "expectation": "code tool executes; result interpreted",
+          "request": "Execute this and tell me the printed number:\n```python\nnums = [4, 9, 16, 25]\nroots = [int(n ** 0.5) for n in nums]\nassert roots == [2, 3, 4, 5]\nprint(sum(roots))\n```",
+          "final": null,
+          "stop_reason": "no_final_no_tool_call",
+          "tool_needed": true,
+          "notes": "",
+          "solved": false,
+          "steps": 1,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_syntax_valid": true,
+          "args_valid": true,
+          "exec_success": false,
+          "grounded": false,
+          "first_tool_correct": false,
+          "tool_name_correct": false,
+          "answer_correct": false,
+          "grounded_final": false,
+          "correct": false,
+          "code_executed": false,
+          "answers_with_citations": 0,
+          "valid": 0,
+          "invalid": 0,
+          "invalid_ids": [],
+          "citation_valid": true
+        },
+        {
+          "case_id": "F0",
+          "family": "F",
+          "expectation": "code tool runs a corrected implementation; tests pass",
+          "request": "The tests fail for this code:\n```python\ndef count_words(text):\n    counts = {}\n    for w in text.lower().split():\n        counts[w] = 1\n    return counts\n```\nSpecification: Write count_words(text) returning each lowercase whitespace-separated word mapped to its frequency. The current implementation returns 1 for every word.\nFix it, run the tests, and report the result.",
+          "final": null,
+          "stop_reason": "no_final_no_tool_call",
+          "tool_needed": true,
+          "notes": "the repaired program must count duplicate words",
+          "solved": false,
+          "steps": 1,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_syntax_valid": true,
+          "args_valid": true,
+          "exec_success": false,
+          "grounded": false,
+          "first_tool_correct": false,
+          "tool_name_correct": false,
+          "answer_correct": false,
+          "grounded_final": false,
+          "correct": false,
+          "code_executed": false,
+          "answers_with_citations": 0,
+          "valid": 0,
+          "invalid": 0,
+          "invalid_ids": [],
+          "citation_valid": true
+        },
+        {
+          "case_id": "F1",
+          "family": "F",
+          "expectation": "code tool runs a corrected implementation",
+          "request": "This function is wrong:\n```python\ndef total(values):\n    t = 0\n    for v in values:\n        t = v\n    return t\n```\nIt must return the sum of the list. Fix it, run it on [3, 4, 5] and report the number.",
+          "final": "-",
+          "stop_reason": "final",
+          "tool_needed": true,
+          "notes": "",
+          "solved": true,
+          "steps": 1,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_syntax_valid": true,
+          "args_valid": true,
+          "exec_success": false,
+          "grounded": true,
+          "first_tool_correct": false,
+          "tool_name_correct": false,
+          "answer_correct": false,
+          "grounded_final": true,
+          "correct": false,
+          "code_executed": false,
+          "answers_with_citations": 0,
+          "valid": 0,
+          "invalid": 0,
+          "invalid_ids": [],
+          "citation_valid": true
+        },
+        {
+          "case_id": "G0",
+          "family": "G",
+          "expectation": "failed/empty call then a corrected successful call",
+          "request": "Look up the population of jakartaa (note the typo) and if the search finds nothing, correct the query and answer with a citation.",
+          "final": null,
+          "stop_reason": "no_final_no_tool_call",
+          "tool_needed": true,
+          "notes": "typo query returns no results",
+          "solved": false,
+          "steps": 1,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_syntax_valid": true,
+          "args_valid": true,
+          "exec_success": false,
+          "grounded": false,
+          "first_tool_correct": false,
+          "tool_name_correct": false,
+          "answer_correct": false,
+          "grounded_final": false,
+          "correct": false,
+          "saw_failure": false,
+          "recovery_success": false,
+          "answers_with_citations": 0,
+          "valid": 0,
+          "invalid": 0,
+          "invalid_ids": [],
+          "citation_valid": true
+        },
+        {
+          "case_id": "G1",
+          "family": "G",
+          "expectation": "invalid call then a corrected successful call",
+          "request": "Fetch source_id FACT-000000; if that fails, find the real id for the capital of indonesia and fetch it.",
+          "final": null,
+          "stop_reason": "no_final_no_tool_call",
+          "tool_needed": true,
+          "notes": "unknown source id must be recovered from",
+          "solved": false,
+          "steps": 1,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_syntax_valid": true,
+          "args_valid": true,
+          "exec_success": false,
+          "grounded": false,
+          "first_tool_correct": false,
+          "tool_name_correct": false,
+          "answer_correct": false,
+          "grounded_final": false,
+          "correct": false,
+          "saw_failure": false,
+          "recovery_success": false,
+          "answers_with_citations": 0,
+          "valid": 0,
+          "invalid": 0,
+          "invalid_ids": [],
+          "citation_valid": true
+        },
+        {
+          "case_id": "G2",
+          "family": "G",
+          "expectation": "error then corrected call",
+          "request": "Evaluate 12 / 0 with the compute tool; if it errors, evaluate 12 / 4 instead and report the value.",
+          "final": null,
+          "stop_reason": "no_final_no_tool_call",
+          "tool_needed": true,
+          "notes": "",
+          "solved": false,
+          "steps": 1,
+          "tool_calls": 0,
+          "tools_used": [],
+          "tool_syntax_valid": true,
+          "args_valid": true,
+          "exec_success": false,
+          "grounded": false,
+          "first_tool_correct": false,
+          "tool_name_correct": false,
+          "answer_correct": false,
+          "grounded_final": false,
+          "correct": false,
+          "saw_failure": false,
+          "recovery_success": false,
+          "answers_with_citations": 0,
+          "valid": 0,
+          "invalid": 0,
+          "invalid_ids": [],
+          "citation_valid": true
+        }
+      ]
+    }
+  },
+  "transcripts": {
+    "fp32": [
+      {
+        "case_id": "A0",
+        "family": "A",
+        "trajectory": {
+          "request": "What is 21 + 34?",
+          "final": "6\"}, \" units",
+          "stop_reason": "final",
+          "solved": true,
+          "steps": [
+            {
+              "index": 1,
+              "raw_output": "<|thought|>\n<|final|>\n6\"}, \" units",
+              "output": {
+                "thought": "",
+                "tool_calls": [],
+                "final": "6\"}, \" units",
+                "noise": ""
+              },
+              "call": null,
+              "result": null,
+              "duration_s": 0.0162,
+              "error": null
+            }
+          ],
+          "evidence": {
+            "items": [],
+            "citation_ids": []
+          },
+          "grounding": {
+            "grounded": true,
+            "evidence_items": 0,
+            "cited_urls": [],
+            "unsupported_urls": [],
+            "cited_ids": [],
+            "unsupported_citations": [],
+            "unsupported_quotes": [],
+            "problems": []
+          },
+          "metrics": {
+            "steps": 1,
+            "tool_calls": 0,
+            "turns_with_tool_calls": 0,
+            "errors": [],
+            "total_seconds": 0.0163,
+            "context": {
+              "tool_calls": 0,
+              "tool_seconds": 0.0,
+              "max_tool_calls": 12,
+              "max_total_seconds": 90.0,
+              "retrieval_index_documents": 408,
+              "workspace": "/var/tmp/tinyme-sandbox/run-bc180b4f0c170c17"
+            },
+            "loops": {
+              "repeat_counts": {},
+              "triggered": []
+            }
+          }
+        }
+      },
+      {
+        "case_id": "A1",
+        "family": "A",
+        "trajectory": {
+          "request": "What is 8 * 7?",
+          "final": "6 units",
+          "stop_reason": "final",
+          "solved": true,
+          "steps": [
+            {
+              "index": 1,
+              "raw_output": "<|thought|>\n<|final|>\n6 units",
+              "output": {
+                "thought": "",
+                "tool_calls": [],
+                "final": "6 units",
+                "noise": ""
+              },
+              "call": null,
+              "result": null,
+              "duration_s": 0.0115,
+              "error": null
+            }
+          ],
+          "evidence": {
+            "items": [],
+            "citation_ids": []
+          },
+          "grounding": {
+            "grounded": true,
+            "evidence_items": 0,
+            "cited_urls": [],
+            "unsupported_urls": [],
+            "cited_ids": [],
+            "unsupported_citations": [],
+            "unsupported_quotes": [],
+            "problems": []
+          },
+          "metrics": {
+            "steps": 1,
+            "tool_calls": 0,
+            "turns_with_tool_calls": 0,
+            "errors": [],
+            "total_seconds": 0.0116,
+            "context": {
+              "tool_calls": 0,
+              "tool_seconds": 0.0,
+              "max_tool_calls": 12,
+              "max_total_seconds": 90.0,
+              "retrieval_index_documents": 408,
+              "workspace": "/var/tmp/tinyme-sandbox/run-fa0b54d879a19dae"
+            },
+            "loops": {
+              "repeat_counts": {},
+              "triggered": []
+            }
+          }
+        }
+      },
+      {
+        "case_id": "A2",
+        "family": "A",
+        "trajectory": {
+          "request": "Capitalise the word 'tinyme'.",
+          "final": "6",
+          "stop_reason": "final",
+          "solved": true,
+          "steps": [
+            {
+              "index": 1,
+              "raw_output": "<|final|>\n6",
+              "output": {
+                "thought": null,
+                "tool_calls": [],
+                "final": "6",
+                "noise": ""
+              },
+              "call": null,
+              "result": null,
+              "duration_s": 0.0086,
+              "error": null
+            }
+          ],
+          "evidence": {
+            "items": [],
+            "citation_ids": []
+          },
+          "grounding": {
+            "grounded": true,
+            "evidence_items": 0,
+            "cited_urls": [],
+            "unsupported_urls": [],
+            "cited_ids": [],
+            "unsupported_citations": [],
+            "unsupported_quotes": [],
+            "problems": []
+          },
+          "metrics": {
+            "steps": 1,
+            "tool_calls": 0,
+            "turns_with_tool_calls": 0,
+            "errors": [],
+            "total_seconds": 0.0087,
+            "context": {
+              "tool_calls": 0,
+              "tool_seconds": 0.0,
+              "max_tool_calls": 12,
+              "max_total_seconds": 90.0,
+              "retrieval_index_documents": 408,
+              "workspace": "/var/tmp/tinyme-sandbox/run-6a42714d6a660aa9"
+            },
+            "loops": {
+              "repeat_counts": {},
+              "triggered": []
+            }
+          }
+        }
+      },
+      {
+        "case_id": "A3",
+        "family": "A",
+        "trajectory": {
+          "request": "Reverse the string 'abc'.",
+          "final": "6",
+          "stop_reason": "final",
+          "solved": true,
+          "steps": [
+            {
+              "index": 1,
+              "raw_output": "<|final|>\n6",
+              "output": {
+                "thought": null,
+                "tool_calls": [],
+                "final": "6",
+                "noise": ""
+              },
+              "call": null,
+              "result": null,
+              "duration_s": 0.0085,
+              "error": null
+            }
+          ],
+          "evidence": {
+            "items": [],
+            "citation_ids": []
+          },
+          "grounding": {
+            "grounded": true,
+            "evidence_items": 0,
+            "cited_urls": [],
+            "unsupported_urls": [],
+            "cited_ids": [],
+            "unsupported_citations": [],
+            "unsupported_quotes": [],
+            "problems": []
+          },
+          "metrics": {
+            "steps": 1,
+            "tool_calls": 0,
+            "turns_with_tool_calls": 0,
+            "errors": [],
+            "total_seconds": 0.0086,
+            "context": {
+              "tool_calls": 0,
+              "tool_seconds": 0.0,
+              "max_tool_calls": 12,
+              "max_total_seconds": 90.0,
+              "retrieval_index_documents": 408,
+              "workspace": "/var/tmp/tinyme-sandbox/run-a6cd28abc361da0b"
+            },
+            "loops": {
+              "repeat_counts": {},
+              "triggered": []
+            }
+          }
+        }
+      },
+      {
+        "case_id": "A4",
+        "family": "A",
+        "trajectory": {
+          "request": "What is 100 - 45?",
+          "final": null,
+          "stop_reason": "no_final_no_tool_call",
+          "solved": false,
+          "steps": [
+            {
+              "index": 1,
+              "raw_output": "<|thought|>\n{\"arguments\": \".",
+              "output": {
+                "thought": "{\"arguments\": \".",
+                "tool_calls": [],
+                "final": null,
+                "noise": ""
+              },
+              "call": null,
+              "result": null,
+              "duration_s": 0.0122,
+              "error": "no_final_no_tool_call"
+            }
+          ],
+          "evidence": {
+            "items": [],
+            "citation_ids": []
+          },
+          "grounding": {
+            "grounded": null,
+            "evidence_items": 0,
+            "problems": [
+              "no_final_answer"
+            ]
+          },
+          "metrics": {
+            "steps": 1,
+            "tool_calls": 0,
+            "turns_with_tool_calls": 0,
+            "errors": [
+              "no_final_no_tool_call"
+            ],
+            "total_seconds": 0.0122,
+            "context": {
+              "tool_calls": 0,
+              "tool_seconds": 0.0,
+              "max_tool_calls": 12,
+              "max_total_seconds": 90.0,
+              "retrieval_index_documents": 408,
+              "workspace": "/var/tmp/tinyme-sandbox/run-92172c85a65dc19f"
+            },
+            "loops": {
+              "repeat_counts": {},
+              "triggered": []
+            }
+          }
+        }
+      },
+      {
+        "case_id": "B0",
+        "family": "B",
+        "trajectory": {
+          "request": "Compute exactly: 4837 * 962 + 71",
+          "final": null,
+          "stop_reason": "protocol_error:call_not_json",
+          "solved": false,
+          "steps": [
+            {
+              "index": 1,
+              "raw_output": "<|tool_call|>\n{\"arguments\": {\"expression\": \".\n{\"arguments\": \"compute\"}<|end_tool_call|>",
+              "output": {},
+              "call": null,
+              "result": null,
+              "duration_s": 0.0209,
+              "error": "protocol_error:call_not_json"
+            }
+          ],
+          "evidence": {
+            "items": [],
+            "citation_ids": []
+          },
+          "grounding": {
+            "grounded": null,
+            "evidence_items": 0,
+            "problems": [
+              "no_final_answer"
+            ]
+          },
+          "metrics": {
+            "steps": 1,
+            "tool_calls": 0,
+            "turns_with_tool_calls": 0,
+            "errors": [
+              "protocol_error:call_not_json"
+            ],
+            "total_seconds": 0.0209,
+            "context": {
+              "tool_calls": 0,
+              "tool_seconds": 0.0,
+              "max_tool_calls": 12,
+              "max_total_seconds": 90.0,
+              "retrieval_index_documents": 408,
+              "workspace": "/var/tmp/tinyme-sandbox/run-b499aa0596a7612f"
+            },
+            "loops": {
+              "repeat_counts": {},
+              "triggered": []
+            }
+          }
+        }
+      },
+      {
+        "case_id": "B1",
+        "family": "B",
+        "trajectory": {
+          "request": "Compute exactly: 7123 * 481 + 13",
+          "final": "",
+          "stop_reason": "final",
+          "solved": true,
+          "steps": [
+            {
+              "index": 1,
+              "raw_output": "<|tool_call|>\n{\"arguments\": {\"expression\": \"(8 + 13\"}, \"name\": \"compute\"}<|end_tool_call|>",
+              "output": {
+                "thought": null,
+                "tool_calls": [
+                  {
+                    "name": "compute",
+                    "arguments": {
+                      "expression": "(8 + 13"
+                    }
+                  }
+                ],
+                "final": null,
+                "noise": ""
+              },
+              "call": {
+                "name": "compute",
+                "arguments": {
+                  "expression": "(8 + 13"
+                }
+              },
+              "result": {
+                "ok": false,
+                "name": "compute",
+                "error": "syntax_error: '(' was never closed",
+                "duration_s": 0.0
+              },
+              "duration_s": 0.0236,
+              "error": null
+            },
+            {
+              "index": 2,
+              "raw_output": "<|final|>",
+              "output": {
+                "thought": null,
+                "tool_calls": [],
+                "final": "",
+                "noise": ""
+              },
+              "call": null,
+              "result": null,
+              "duration_s": 0.0107,
+              "error": null
+            }
+          ],
+          "evidence": {
+            "items": [],
+            "citation_ids": []
+          },
+          "grounding": {
+            "grounded": true,
+            "evidence_items": 0,
+            "cited_urls": [],
+            "unsupported_urls": [],
+            "cited_ids": [],
+            "unsupported_citations": [],
+            "unsupported_quotes": [],
+            "problems": []
+          },
+          "metrics": {
+            "steps": 2,
+            "tool_calls": 1,
+            "turns_with_tool_calls": 1,
+            "errors": [],
+            "total_seconds": 0.0344,
+            "context": {
+              "tool_calls": 1,
+              "tool_seconds": 0.0,
+              "max_tool_calls": 12,
+              "max_total_seconds": 90.0,
+              "retrieval_index_documents": 408,
+              "workspace": "/var/tmp/tinyme-sandbox/run-e2a9c3af108eae4a"
+            },
+            "loops": {
+              "repeat_counts": {
+                "compute:{\"expression\": \"(8 + 13\"}": 1
+              },
+              "triggered": []
+            }
+          }
+        }
+      },
+      {
+        "case_id": "B2",
+        "family": "B",
+        "trajectory": {
+          "request": "Compute exactly: 9059 + 337 * 29",
+          "final": null,
+          "stop_reason": "protocol_error:call_not_json",
+          "solved": false,
+          "steps": [
+            {
+              "index": 1,
+              "raw_output": "<|tool_call|>\n{\"arguments\": {\"expression\": \".\n{\"arguments\": \"compute\"}<|end_tool_call|>",
+              "output": {},
+              "call": null,
+              "result": null,
+              "duration_s": 0.0202,
+              "error": "protocol_error:call_not_json"
+            }
+          ],
+          "evidence": {
+            "items": [],
+            "citation_ids": []
+          },
+          "grounding": {
+            "grounded": null,
+            "evidence_items": 0,
+            "problems": [
+              "no_final_answer"
+            ]
+          },
+          "metrics": {
+            "steps": 1,
+            "tool_calls": 0,
+            "turns_with_tool_calls": 0,
+            "errors": [
+              "protocol_error:call_not_json"
+            ],
+            "total_seconds": 0.0202,
+            "context": {
+              "tool_calls": 0,
+              "tool_seconds": 0.0,
+              "max_tool_calls": 12,
+              "max_total_seconds": 90.0,
+              "retrieval_index_documents": 408,
+              "workspace": "/var/tmp/tinyme-sandbox/run-b56c1024db09f389"
+            },
+            "loops": {
+              "repeat_counts": {},
+              "triggered": []
+            }
+          }
+        }
+      },
+      {
+        "case_id": "B3",
+        "family": "B",
+        "trajectory": {
+          "request": "Compute exactly: 6271 * 1543",
+          "final": "6 [calc-1 [calc-1 + 13 = 136 [calc-1]",
+          "stop_reason": "final",
+          "solved": true,
+          "steps": [
+            {
+              "index": 1,
+              "raw_output": "<|tool_call|>\n{\"arguments\": {\"expression\": \"3 + 13\"}, \"name\": \"compute\"}<|end_tool_call|>",
+              "output": {
+                "thought": null,
+                "tool_calls": [
+                  {
+                    "name": "compute",
+                    "arguments": {
+                      "expression": "3 + 13"
+                    }
+                  }
+                ],
+                "final": null,
+                "noise": ""
+              },
+              "call": {
+                "name": "compute",
+                "arguments": {
+                  "expression": "3 + 13"
+                }
+              },
+              "result": {
+                "ok": true,
+                "name": "compute",
+                "result": {
+                  "expression": "3 + 13",
+                  "value": 16,
+                  "exact": "16",
+                  "method": "python-ast-exact",
+                  "citation": "calc-0f121b59"
+                },
+                "duration_s": 0.0001
+              },
+              "duration_s": 0.0213,
+              "error": null
+            },
+            {
+              "index": 2,
+              "raw_output": "<|final|>\n6 [calc-1 [calc-1 + 13 = 136 [calc-1]",
+              "output": {
+                "thought": null,
+                "tool_calls": [],
+                "final": "6 [calc-1 [calc-1 + 13 = 136 [calc-1]",
+                "noise": ""
+              },
+              "call": null,
+              "result": null,
+              "duration_s": 0.0322,
+              "error": null
+            }
+          ],
+          "evidence": {
+            "items": [],
+            "citation_ids": [
+              "calc-0f121b59"
+            ]
+          },
+          "grounding": {
+            "grounded": false,
+            "evidence_items": 0,
+            "cited_urls": [],
+            "unsupported_urls": [],
+            "cited_ids": [
+              "calc-1"
+            ],
+            "unsupported_citations": [
+              "calc-1"
+            ],
+            "unsupported_quotes": [],
+            "problems": [
+              "unsupported_citations:['calc-1']",
+              "citations_without_evidence"
+            ]
+          },
+          "metrics": {
+            "steps": 2,
+            "tool_calls": 1,
+            "turns_with_tool_calls": 1,
+            "errors": [],
+            "total_seconds": 0.0535,
+            "context": {
+              "tool_calls": 1,
+              "tool_seconds": 0.0,
+              "max_tool_calls": 12,
+              "max_total_seconds": 90.0,
+              "retrieval_index_documents": 408,
+              "workspace": "/var/tmp/tinyme-sandbox/run-8951965a6ed5abf5"
+            },
+            "loops": {
+              "repeat_counts": {
+                "compute:{\"expression\": \"3 + 13\"}": 1
+              },
+              "triggered": []
+            }
+          }
+        }
+      },
+      {
+        "case_id": "B4",
+        "family": "B",
+        "trajectory": {
+          "request": "Compute exactly: 3821 + 219 - 22",
+          "final": "6 [calc-1 [calc-1 + 13 = 134 [calc-1]",
+          "stop_reason": "final",
+          "solved": true,
+          "steps": [
+            {
+              "index": 1,
+              "raw_output": "<|tool_call|>\n{\"arguments\": {\"expression\": \"3 + 18\"}, \"name\": \"compute\"}<|end_tool_call|>",
+              "output": {
+                "thought": null,
+                "tool_calls": [
+                  {
+                    "name": "compute",
+                    "arguments": {
+                      "expression": "3 + 18"
+                    }
+                  }
+                ],
+                "final": null,
+                "noise": ""
+              },
+              "call": {
+                "name": "compute",
+                "arguments": {
+                  "expression": "3 + 18"
+                }
+              },
+              "result": {
+                "ok": true,
+                "name": "compute",
+                "result": {
+                  "expression": "3 + 18",
+                  "value": 21,
+                  "exact": "21",
+                  "method": "python-ast-exact",
+                  "citation": "calc-f4a3f964"
+                },
+                "duration_s": 0.0001
+              },
+              "duration_s": 0.0212,
+              "error": null
+            },
+            {
+              "index": 2,
+              "raw_output": "<|final|>\n6 [calc-1 [calc-1 + 13 = 134 [calc-1]",
+              "output": {
+                "thought": null,
+                "tool_calls": [],
+                "final": "6 [calc-1 [calc-1 + 13 = 134 [calc-1]",
+                "noise": ""
+              },
+              "call": null,
+              "result": null,
+              "duration_s": 0.0368,
+              "error": null
+            }
+          ],
+          "evidence": {
+            "items": [],
+            "citation_ids": [
+              "calc-f4a3f964"
+            ]
+          },
+          "grounding": {
+            "grounded": false,
+            "evidence_items": 0,
+            "cited_urls": [],
+            "unsupported_urls": [],
+            "cited_ids": [
+              "calc-1"
+            ],
+            "unsupported_citations": [
+              "calc-1"
+            ],
+            "unsupported_quotes": [],
+            "problems": [
+              "unsupported_citations:['calc-1']",
+              "citations_without_evidence"
+            ]
+          },
+          "metrics": {
+            "steps": 2,
+            "tool_calls": 1,
+            "turns_with_tool_calls": 1,
+            "errors": [],
+            "total_seconds": 0.0581,
+            "context": {
+              "tool_calls": 1,
+              "tool_seconds": 0.0,
+              "max_tool_calls": 12,
+              "max_total_seconds": 90.0,
+              "retrieval_index_documents": 408,
+              "workspace": "/var/tmp/tinyme-sandbox/run-6065a4fb8940fa23"
+            },
+            "loops": {
+              "repeat_counts": {
+                "compute:{\"expression\": \"3 + 18\"}": 1
+              },
+              "triggered": []
+            }
+          }
+        }
+      },
+      {
+        "case_id": "C0",
+        "family": "C",
+        "trajectory": {
+          "request": "What is the population of jakarta according to a source?",
+          "final": "2",
+          "stop_reason": "final",
+          "solved": true,
+          "steps": [
+            {
+              "index": 1,
+              "raw_output": "<|final|>\n2",
+              "output": {
+                "thought": null,
+                "tool_calls": [],
+                "final": "2",
+                "noise": ""
+              },
+              "call": null,
+              "result": null,
+              "duration_s": 0.0086,
+              "error": null
+            }
+          ],
+          "evidence": {
+            "items": [],
+            "citation_ids": []
+          },
+          "grounding": {
+            "grounded": true,
+            "evidence_items": 0,
+            "cited_urls": [],
+            "unsupported_urls": [],
+            "cited_ids": [],
+            "unsupported_citations": [],
+            "unsupported_quotes": [],
+            "problems": []
+          },
+          "metrics": {
+            "steps": 1,
+            "tool_calls": 0,
+            "turns_with_tool_calls": 0,
+            "errors": [],
+            "total_seconds": 0.0086,
+            "context": {
+              "tool_calls": 0,
+              "tool_seconds": 0.0,
+              "max_tool_calls": 12,
+              "max_total_seconds": 90.0,
+              "retrieval_index_documents": 408,
+              "workspace": "/var/tmp/tinyme-sandbox/run-09cb0d02e53b811b"
+            },
+            "loops": {
+              "repeat_counts": {},
+              "triggered": []
+            }
+          }
+        }
+      },
+      {
+        "case_id": "C1",
+        "family": "C",
+        "trajectory": {
+          "request": "Which source supports the capital of indonesia?",
+          "final": "2",
+          "stop_reason": "final",
+          "solved": true,
+          "steps": [
+            {
+              "index": 1,
+              "raw_output": "<|final|>\n2",
+              "output": {
+                "thought": null,
+                "tool_calls": [],
+                "final": "2",
+                "noise": ""
+              },
+              "call": null,
+              "result": null,
+              "duration_s": 0.0102,
+              "error": null
+            }
+          ],
+          "evidence": {
+            "items": [],
+            "citation_ids": []
+          },
+          "grounding": {
+            "grounded": true,
+            "evidence_items": 0,
+            "cited_urls": [],
+            "unsupported_urls": [],
+            "cited_ids": [],
+            "unsupported_citations": [],
+            "unsupported_quotes": [],
+            "problems": []
+          },
+          "metrics": {
+            "steps": 1,
+            "tool_calls": 0,
+            "turns_with_tool_calls": 0,
+            "errors": [],
+            "total_seconds": 0.0102,
+            "context": {
+              "tool_calls": 0,
+              "tool_seconds": 0.0,
+              "max_tool_calls": 12,
+              "max_total_seconds": 90.0,
+              "retrieval_index_documents": 408,
+              "workspace": "/var/tmp/tinyme-sandbox/run-d9a5222ec221f981"
+            },
+            "loops": {
+              "repeat_counts": {},
+              "triggered": []
+            }
+          }
+        }
+      },
+      {
+        "case_id": "C2",
+        "family": "C",
+        "trajectory": {
+          "request": "What is the big-o of binary search?",
+          "final": "6",
+          "stop_reason": "final",
+          "solved": true,
+          "steps": [
+            {
+              "index": 1,
+              "raw_output": "<|final|>\n6",
+              "output": {
+                "thought": null,
+                "tool_calls": [],
+                "final": "6",
+                "noise": ""
+              },
+              "call": null,
+              "result": null,
+              "duration_s": 0.0085,
+              "error": null
+            }
+          ],
+          "evidence": {
+            "items": [],
+            "citation_ids": []
+          },
+          "grounding": {
+            "grounded": true,
+            "evidence_items": 0,
+            "cited_urls": [],
+            "unsupported_urls": [],
+            "cited_ids": [],
+            "unsupported_citations": [],
+            "unsupported_quotes": [],
+            "problems": []
+          },
+          "metrics": {
+            "steps": 1,
+            "tool_calls": 0,
+            "turns_with_tool_calls": 0,
+            "errors": [],
+            "total_seconds": 0.0086,
+            "context": {
+              "tool_calls": 0,
+              "tool_seconds": 0.0,
+              "max_tool_calls": 12,
+              "max_total_seconds": 90.0,
+              "retrieval_index_documents": 408,
+              "workspace": "/var/tmp/tinyme-sandbox/run-868f4a1aec65cd98"
+            },
+            "loops": {
+              "repeat_counts": {},
+              "triggered": []
+            }
+          }
+        }
+      },
+      {
+        "case_id": "C3",
+        "family": "C",
+        "trajectory": {
+          "request": "What licence applies to the python standard library?",
+          "final": "6",
+          "stop_reason": "final",
+          "solved": true,
+          "steps": [
+            {
+              "index": 1,
+              "raw_output": "<|final|>\n6",
+              "output": {
+                "thought": null,
+                "tool_calls": [],
+                "final": "6",
+                "noise": ""
+              },
+              "call": null,
+              "result": null,
+              "duration_s": 0.0083,
+              "error": null
+            }
+          ],
+          "evidence": {
+            "items": [],
+            "citation_ids": []
+          },
+          "grounding": {
+            "grounded": true,
+            "evidence_items": 0,
+            "cited_urls": [],
+            "unsupported_urls": [],
+            "cited_ids": [],
+            "unsupported_citations": [],
+            "unsupported_quotes": [],
+            "problems": []
+          },
+          "metrics": {
+            "steps": 1,
+            "tool_calls": 0,
+            "turns_with_tool_calls": 0,
+            "errors": [],
+            "total_seconds": 0.0084,
+            "context": {
+              "tool_calls": 0,
+              "tool_seconds": 0.0,
+              "max_tool_calls": 12,
+              "max_total_seconds": 90.0,
+              "retrieval_index_documents": 408,
+              "workspace": "/var/tmp/tinyme-sandbox/run-1a5f40f819e2924b"
+            },
+            "loops": {
+              "repeat_counts": {},
+              "triggered": []
+            }
+          }
+        }
+      },
+      {
+        "case_id": "D0",
+        "family": "D",
+        "trajectory": {
+          "request": "Read the stored source FACT-988002 about the population of jakarta and quote its key sentence.",
+          "final": null,
+          "stop_reason": "no_final_no_tool_call",
+          "solved": false,
+          "steps": [
+            {
+              "index": 1,
+              "raw_output": "<|thought|>",
+              "output": {
+                "thought": "",
+                "tool_calls": [],
+                "final": null,
+                "noise": ""
+              },
+              "call": null,
+              "result": null,
+              "duration_s": 0.0071,
+              "error": "no_final_no_tool_call"
+            }
+          ],
+          "evidence": {
+            "items": [],
+            "citation_ids": []
+          },
+          "grounding": {
+            "grounded": null,
+            "evidence_items": 0,
+            "problems": [
+              "no_final_answer"
+            ]
+          },
+          "metrics": {
+            "steps": 1,
+            "tool_calls": 0,
+            "turns_with_tool_calls": 0,
+            "errors": [
+              "no_final_no_tool_call"
+            ],
+            "total_seconds": 0.0072,
+            "context": {
+              "tool_calls": 0,
+              "tool_seconds": 0.0,
+              "max_tool_calls": 12,
+              "max_total_seconds": 90.0,
+              "retrieval_index_documents": 408,
+              "workspace": "/var/tmp/tinyme-sandbox/run-daf5168c961efc46"
+            },
+            "loops": {
+              "repeat_counts": {},
+              "triggered": []
+            }
+          }
+        }
+      },
+      {
+        "case_id": "D1",
+        "family": "D",
+        "trajectory": {
+          "request": "Read the stored source FACT-FCD206 about the definition of a prime number and quote its key sentence.",
+          "final": null,
+          "stop_reason": "no_final_no_tool_call",
+          "solved": false,
+          "steps": [
+            {
+              "index": 1,
+              "raw_output": "<|thought|>",
+              "output": {
+                "thought": "",
+                "tool_calls": [],
+                "final": null,
+                "noise": ""
+              },
+              "call": null,
+              "result": null,
+              "duration_s": 0.0076,
+              "error": "no_final_no_tool_call"
+            }
+          ],
+          "evidence": {
+            "items": [],
+            "citation_ids": []
+          },
+          "grounding": {
+            "grounded": null,
+            "evidence_items": 0,
+            "problems": [
+              "no_final_answer"
+            ]
+          },
+          "metrics": {
+            "steps": 1,
+            "tool_calls": 0,
+            "turns_with_tool_calls": 0,
+            "errors": [
+              "no_final_no_tool_call"
+            ],
+            "total_seconds": 0.0076,
+            "context": {
+              "tool_calls": 0,
+              "tool_seconds": 0.0,
+              "max_tool_calls": 12,
+              "max_total_seconds": 90.0,
+              "retrieval_index_documents": 408,
+              "workspace": "/var/tmp/tinyme-sandbox/run-3d48aec6807fe354"
+            },
+            "loops": {
+              "repeat_counts": {},
+              "triggered": []
+            }
+          }
+        }
+      },
+      {
+        "case_id": "D2",
+        "family": "D",
+        "trajectory": {
+          "request": "Read the stored source FACT-0B1DC0 about the shortest path algorithm and quote its key sentence.",
+          "final": null,
+          "stop_reason": "no_final_no_tool_call",
+          "solved": false,
+          "steps": [
+            {
+              "index": 1,
+              "raw_output": "<|thought|>",
+              "output": {
+                "thought": "",
+                "tool_calls": [],
+                "final": null,
+                "noise": ""
+              },
+              "call": null,
+              "result": null,
+              "duration_s": 0.0073,
+              "error": "no_final_no_tool_call"
+            }
+          ],
+          "evidence": {
+            "items": [],
+            "citation_ids": []
+          },
+          "grounding": {
+            "grounded": null,
+            "evidence_items": 0,
+            "problems": [
+              "no_final_answer"
+            ]
+          },
+          "metrics": {
+            "steps": 1,
+            "tool_calls": 0,
+            "turns_with_tool_calls": 0,
+            "errors": [
+              "no_final_no_tool_call"
+            ],
+            "total_seconds": 0.0074,
+            "context": {
+              "tool_calls": 0,
+              "tool_seconds": 0.0,
+              "max_tool_calls": 12,
+              "max_total_seconds": 90.0,
+              "retrieval_index_documents": 408,
+              "workspace": "/var/tmp/tinyme-sandbox/run-b0fe03237c6c3dc6"
+            },
+            "loops": {
+              "repeat_counts": {},
+              "triggered": []
+            }
+          }
+        }
+      },
+      {
+        "case_id": "D3",
+        "family": "D",
+        "trajectory": {
+          "request": "Fetch the passage with source_id FACT-2082DD and summarise it.",
+          "final": "",
+          "stop_reason": "final",
+          "solved": true,
+          "steps": [
+            {
+              "index": 1,
+              "raw_output": "<|final|>",
+              "output": {
+                "thought": null,
+                "tool_calls": [],
+                "final": "",
+                "noise": ""
+              },
+              "call": null,
+              "result": null,
+              "duration_s": 0.0076,
+              "error": null
+            }
+          ],
+          "evidence": {
+            "items": [],
+            "citation_ids": []
+          },
+          "grounding": {
+            "grounded": true,
+            "evidence_items": 0,
+            "cited_urls": [],
+            "unsupported_urls": [],
+            "cited_ids": [],
+            "unsupported_citations": [],
+            "unsupported_quotes": [],
+            "problems": []
+          },
+          "metrics": {
+            "steps": 1,
+            "tool_calls": 0,
+            "turns_with_tool_calls": 0,
+            "errors": [],
+            "total_seconds": 0.0076,
+            "context": {
+              "tool_calls": 0,
+              "tool_seconds": 0.0,
+              "max_tool_calls": 12,
+              "max_total_seconds": 90.0,
+              "retrieval_index_documents": 408,
+              "workspace": "/var/tmp/tinyme-sandbox/run-1ce688591be7c9be"
+            },
+            "loops": {
+              "repeat_counts": {},
+              "triggered": []
+            }
+          }
+        }
+      },
+      {
+        "case_id": "E0",
+        "family": "E",
+        "trajectory": {
+          "request": "Run this program in the sandbox and report the result:\n```python\ndef is_prime(n):\n    if n < 2:\n        return False\n    for d in range(2, int(n ** 0.5) + 1):\n        if n % d == 0:\n            return False\n    return True\n\nassert is_prime(97)\nassert not is_prime(91)\nprint(is_prime(97), is_prime(91))\n```",
+          "final": null,
+          "stop_reason": "no_final_no_tool_call",
+          "solved": false,
+          "steps": [
+            {
+              "index": 1,
+              "raw_output": "<|thought|>",
+              "output": {
+                "thought": "",
+                "tool_calls": [],
+                "final": null,
+                "noise": ""
+              },
+              "call": null,
+              "result": null,
+              "duration_s": 0.0138,
+              "error": "no_final_no_tool_call"
+            }
+          ],
+          "evidence": {
+            "items": [],
+            "citation_ids": []
+          },
+          "grounding": {
+            "grounded": null,
+            "evidence_items": 0,
+            "problems": [
+              "no_final_answer"
+            ]
+          },
+          "metrics": {
+            "steps": 1,
+            "tool_calls": 0,
+            "turns_with_tool_calls": 0,
+            "errors": [
+              "no_final_no_tool_call"
+            ],
+            "total_seconds": 0.0138,
+            "context": {
+              "tool_calls": 0,
+              "tool_seconds": 0.0,
+              "max_tool_calls": 12,
+              "max_total_seconds": 90.0,
+              "retrieval_index_documents": 408,
+              "workspace": "/var/tmp/tinyme-sandbox/run-dd3fd9e9e4627b22"
+            },
+            "loops": {
+              "repeat_counts": {},
+              "triggered": []
+            }
+          }
+        }
+      },
+      {
+        "case_id": "E1",
+        "family": "E",
+        "trajectory": {
+          "request": "Execute this and tell me the printed number:\n```python\nnums = [4, 9, 16, 25]\nroots = [int(n ** 0.5) for n in nums]\nassert roots == [2, 3, 4, 5]\nprint(sum(roots))\n```",
+          "final": null,
+          "stop_reason": "no_final_no_tool_call",
+          "solved": false,
+          "steps": [
+            {
+              "index": 1,
+              "raw_output": "<|thought|>",
+              "output": {
+                "thought": "",
+                "tool_calls": [],
+                "final": null,
+                "noise": ""
+              },
+              "call": null,
+              "result": null,
+              "duration_s": 0.0109,
+              "error": "no_final_no_tool_call"
+            }
+          ],
+          "evidence": {
+            "items": [],
+            "citation_ids": []
+          },
+          "grounding": {
+            "grounded": null,
+            "evidence_items": 0,
+            "problems": [
+              "no_final_answer"
+            ]
+          },
+          "metrics": {
+            "steps": 1,
+            "tool_calls": 0,
+            "turns_with_tool_calls": 0,
+            "errors": [
+              "no_final_no_tool_call"
+            ],
+            "total_seconds": 0.0109,
+            "context": {
+              "tool_calls": 0,
+              "tool_seconds": 0.0,
+              "max_tool_calls": 12,
+              "max_total_seconds": 90.0,
+              "retrieval_index_documents": 408,
+              "workspace": "/var/tmp/tinyme-sandbox/run-7cac262e18fa4d94"
+            },
+            "loops": {
+              "repeat_counts": {},
+              "triggered": []
+            }
+          }
+        }
+      },
+      {
+        "case_id": "F0",
+        "family": "F",
+        "trajectory": {
+          "request": "The tests fail for this code:\n```python\ndef count_words(text):\n    counts = {}\n    for w in text.lower().split():\n        counts[w] = 1\n    return counts\n```\nSpecification: Write count_words(text) returning each lowercase whitespace-separated word mapped to its frequency. The current implementation returns 1 for every word.\nFix it, run the tests, and report the result.",
+          "final": null,
+          "stop_reason": "no_final_no_tool_call",
+          "solved": false,
+          "steps": [
+            {
+              "index": 1,
+              "raw_output": "<|thought|>",
+              "output": {
+                "thought": "",
+                "tool_calls": [],
+                "final": null,
+                "noise": ""
+              },
+              "call": null,
+              "result": null,
+              "duration_s": 0.0123,
+              "error": "no_final_no_tool_call"
+            }
+          ],
+          "evidence": {
+            "items": [],
+            "citation_ids": []
+          },
+          "grounding": {
+            "grounded": null,
+            "evidence_items": 0,
+            "problems": [
+              "no_final_answer"
+            ]
+          },
+          "metrics": {
+            "steps": 1,
+            "tool_calls": 0,
+            "turns_with_tool_calls": 0,
+            "errors": [
+              "no_final_no_tool_call"
+            ],
+            "total_seconds": 0.0123,
+            "context": {
+              "tool_calls": 0,
+              "tool_seconds": 0.0,
+              "max_tool_calls": 12,
+              "max_total_seconds": 90.0,
+              "retrieval_index_documents": 408,
+              "workspace": "/var/tmp/tinyme-sandbox/run-19c74a0bcdc42570"
+            },
+            "loops": {
+              "repeat_counts": {},
+              "triggered": []
+            }
+          }
+        }
+      },
+      {
+        "case_id": "F1",
+        "family": "F",
+        "trajectory": {
+          "request": "This function is wrong:\n```python\ndef total(values):\n    t = 0\n    for v in values:\n        t = v\n    return t\n```\nIt must return the sum of the list. Fix it, run it on [3, 4, 5] and report the number.",
+          "final": "-",
+          "stop_reason": "final",
+          "solved": true,
+          "steps": [
+            {
+              "index": 1,
+              "raw_output": "<|final|>\n-",
+              "output": {
+                "thought": null,
+                "tool_calls": [],
+                "final": "-",
+                "noise": ""
+              },
+              "call": null,
+              "result": null,
+              "duration_s": 0.012,
+              "error": null
+            }
+          ],
+          "evidence": {
+            "items": [],
+            "citation_ids": []
+          },
+          "grounding": {
+            "grounded": true,
+            "evidence_items": 0,
+            "cited_urls": [],
+            "unsupported_urls": [],
+            "cited_ids": [],
+            "unsupported_citations": [],
+            "unsupported_quotes": [],
+            "problems": []
+          },
+          "metrics": {
+            "steps": 1,
+            "tool_calls": 0,
+            "turns_with_tool_calls": 0,
+            "errors": [],
+            "total_seconds": 0.0121,
+            "context": {
+              "tool_calls": 0,
+              "tool_seconds": 0.0,
+              "max_tool_calls": 12,
+              "max_total_seconds": 90.0,
+              "retrieval_index_documents": 408,
+              "workspace": "/var/tmp/tinyme-sandbox/run-b009ca4f9c058213"
+            },
+            "loops": {
+              "repeat_counts": {},
+              "triggered": []
+            }
+          }
+        }
+      },
+      {
+        "case_id": "G0",
+        "family": "G",
+        "trajectory": {
+          "request": "Look up the population of jakartaa (note the typo) and if the search finds nothing, correct the query and answer with a citation.",
+          "final": null,
+          "stop_reason": "no_final_no_tool_call",
+          "solved": false,
+          "steps": [
+            {
+              "index": 1,
+              "raw_output": "<|thought|>",
+              "output": {
+                "thought": "",
+                "tool_calls": [],
+                "final": null,
+                "noise": ""
+              },
+              "call": null,
+              "result": null,
+              "duration_s": 0.0084,
+              "error": "no_final_no_tool_call"
+            }
+          ],
+          "evidence": {
+            "items": [],
+            "citation_ids": []
+          },
+          "grounding": {
+            "grounded": null,
+            "evidence_items": 0,
+            "problems": [
+              "no_final_answer"
+            ]
+          },
+          "metrics": {
+            "steps": 1,
+            "tool_calls": 0,
+            "turns_with_tool_calls": 0,
+            "errors": [
+              "no_final_no_tool_call"
+            ],
+            "total_seconds": 0.0084,
+            "context": {
+              "tool_calls": 0,
+              "tool_seconds": 0.0,
+              "max_tool_calls": 12,
+              "max_total_seconds": 90.0,
+              "retrieval_index_documents": 408,
+              "workspace": "/var/tmp/tinyme-sandbox/run-9cb257ecb2635d63"
+            },
+            "loops": {
+              "repeat_counts": {},
+              "triggered": []
+            }
+          }
+        }
+      },
+      {
+        "case_id": "G1",
+        "family": "G",
+        "trajectory": {
+          "request": "Fetch source_id FACT-000000; if that fails, find the real id for the capital of indonesia and fetch it.",
+          "final": null,
+          "stop_reason": "no_final_no_tool_call",
+          "solved": false,
+          "steps": [
+            {
+              "index": 1,
+              "raw_output": "<|thought|>",
+              "output": {
+                "thought": "",
+                "tool_calls": [],
+                "final": null,
+                "noise": ""
+              },
+              "call": null,
+              "result": null,
+              "duration_s": 0.0076,
+              "error": "no_final_no_tool_call"
+            }
+          ],
+          "evidence": {
+            "items": [],
+            "citation_ids": []
+          },
+          "grounding": {
+            "grounded": null,
+            "evidence_items": 0,
+            "problems": [
+              "no_final_answer"
+            ]
+          },
+          "metrics": {
+            "steps": 1,
+            "tool_calls": 0,
+            "turns_with_tool_calls": 0,
+            "errors": [
+              "no_final_no_tool_call"
+            ],
+            "total_seconds": 0.0076,
+            "context": {
+              "tool_calls": 0,
+              "tool_seconds": 0.0,
+              "max_tool_calls": 12,
+              "max_total_seconds": 90.0,
+              "retrieval_index_documents": 408,
+              "workspace": "/var/tmp/tinyme-sandbox/run-7a63a92947e39ec5"
+            },
+            "loops": {
+              "repeat_counts": {},
+              "triggered": []
+            }
+          }
+        }
+      },
+      {
+        "case_id": "G2",
+        "family": "G",
+        "trajectory": {
+          "request": "Evaluate 12 / 0 with the compute tool; if it errors, evaluate 12 / 4 instead and report the value.",
+          "final": null,
+          "stop_reason": "no_final_no_tool_call",
+          "solved": false,
+          "steps": [
+            {
+              "index": 1,
+              "raw_output": "<|thought|>",
+              "output": {
+                "thought": "",
+                "tool_calls": [],
+                "final": null,
+                "noise": ""
+              },
+              "call": null,
+              "result": null,
+              "duration_s": 0.0068,
+              "error": "no_final_no_tool_call"
+            }
+          ],
+          "evidence": {
+            "items": [],
+            "citation_ids": []
+          },
+          "grounding": {
+            "grounded": null,
+            "evidence_items": 0,
+            "problems": [
+              "no_final_answer"
+            ]
+          },
+          "metrics": {
+            "steps": 1,
+            "tool_calls": 0,
+            "turns_with_tool_calls": 0,
+            "errors": [
+              "no_final_no_tool_call"
+            ],
+            "total_seconds": 0.0068,
+            "context": {
+              "tool_calls": 0,
+              "tool_seconds": 0.0,
+              "max_tool_calls": 12,
+              "max_total_seconds": 90.0,
+              "retrieval_index_documents": 408,
+              "workspace": "/var/tmp/tinyme-sandbox/run-e176b01a4f69b989"
+            },
+            "loops": {
+              "repeat_counts": {},
+              "triggered": []
+            }
+          }
+        }
+      }
+    ]
+  },
+  "duration_s": 0.43,
+  "generated_at": "2026-10-02T13:03:28"
+}

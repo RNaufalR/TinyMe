@@ -1,0 +1,31 @@
+{
+  "name": "nano",
+  "vocab_size": 4096,
+  "d_model": 192,
+  "n_layers": 4,
+  "n_heads": 6,
+  "d_ff": 512,
+  "max_seq_len": 512,
+  "rope_theta": 10000.0,
+  "rms_norm_eps": 1e-05,
+  "tie_word_embeddings": true,
+  "dropout": 0.0,
+  "tokenizer_version": "tok-v2",
+  "special_token_ids": {
+    "pad": 0,
+    "bos": 1,
+    "eos": 2,
+    "system": 5,
+    "user": 6,
+    "assistant": 7,
+    "final": 16,
+    "tool_call": 12,
+    "tool_result": 14,
+    "end_tool_call": 13,
+    "end_tool_result": 15
+  },
+  "parameter_count": 2557632,
+  "fp32_bytes": 10233776,
+  "fp32_tensor_bytes": 10230528,
+  "architecture": "nano"
+}

@@ -391,7 +391,10 @@ class Trainer:
             "compute_dtype": cfg.compute_dtype,
             "steps_executed": self.step,
             "steps_this_run": self.step - start_step,
-            "final_train_loss": float(np.mean([m["loss"] for m in self.metrics[-20:]])),
+            # a resumed run that had nothing left to do must not report NaN:
+            # NaN is not valid JSON and a downstream parser would choke on it
+            "final_train_loss": (float(np.mean([m["loss"] for m in self.metrics[-20:]]))
+                                 if self.metrics[-20:] else None),
             "final_val_loss": final_val["val_loss"],
             "final_val_perplexity": final_val["val_perplexity"],
             "final_val_active_tokens": final_val["active_tokens"],
