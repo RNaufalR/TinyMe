@@ -1,22 +1,25 @@
-# TinyMe base configuration (spec §30)
-experiment_id: EXP-001
-experiment_name: baseline
-architecture: nano            # nano | base | medium
-dataset_version: dataset_v1
-tokenizer_version: tok-v1
-seed: 1234
-seq_len: 128
-micro_batch_size: 16
-grad_accum_steps: 1
+# TinyMe base configuration (audit-corrected, 2026-10-02)
+# Authoritative pipeline: scripts/prepare_data_v2.py -> datasets/versions/dataset_v2
+# dataset_v1 / tok-v1 are HISTORICAL ONLY (invalid as a held-out baseline).
+experiment_id: EXP-002-CORRECTED-NANO
+experiment_name: corrected nano pretrain
+architecture: nano            # nano (2.56M) | base (8.93M) | medium
+dataset_version: dataset_v2
+tokenizer_version: tok-v2
+seed: 20261002
+seq_len: 256                  # primary; 512 is the secondary setting
+micro_batch_size: 8
+grad_accum_steps: 4           # true accumulation: params frozen across microbatches
 learning_rate: 0.0006
 min_lr_ratio: 0.1
-warmup_steps: 50
+warmup_steps: 40
 weight_decay: 0.01
 grad_clip_norm: 1.0
 max_steps: 400
-eval_every: 100
-checkpoint_every: 100
+eval_every: 20
+checkpoint_every: 40
 keep_last_checkpoints: 3
 label_smoothing: 0.0
-compute_dtype: float32
-notes: baseline mixed-corpus run
+compute_dtype: float32        # must change real computation; logged in run_config.json
+stage: pretrain               # pretrain (A) | sft (B: instruction/reasoning/tool)
+notes: corrected baseline on the stratified, de-duplicated dataset_v2

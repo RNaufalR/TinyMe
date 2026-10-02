@@ -102,3 +102,74 @@ def quantized_size_bytes(q: dict[str, np.ndarray], scales: dict[str, np.ndarray]
     for v in scales.values():
         total += v.nbytes
     return total
+
+
+# --------------------------------------------------------------- tree helpers
+def flatten_params(params: dict[str, Any], prefix: str = "") -> dict[str, np.ndarray]:
+    """Flatten the nested parameter tree into ``blocks/0/attn/q`` style keys."""
+    flat: dict[str, np.ndarray] = {}
+    for key, value in params.items():
+        name = f"{prefix}{key}"
+        if isinstance(value, dict):
+            flat.update(flatten_params(value, prefix=f"{name}/"))
+        elif isinstance(value, (list, tuple)):
+            for idx, item in enumerate(value):
+                if isinstance(item, dict):
+                    flat.update(flatten_params(item, prefix=f"{name}/{idx}/"))
+                else:
+                    flat[f"{name}/{idx}"] = np.asarray(item)
+        else:
+            flat[name] = np.asarray(value)
+    return flat
+
+
+def unflatten_params(flat: dict[str, np.ndarray]) -> dict[str, Any]:
+    """Rebuild the nested tree from flat keys (inverse of :func:`flatten_params`)."""
+    params: dict[str, Any] = {}
+    blocks: dict[int, dict[str, Any]] = {}
+    for key, arr in flat.items():
+        parts = key.split("/")
+        if parts[0] == "blocks":
+            i = int(parts[1])
+            blocks.setdefault(i, {})
+            if len(parts) == 3:
+                blocks[i][parts[2]] = arr
+            else:
+                blocks[i].setdefault(parts[2], {})[parts[3]] = arr
+        else:
+            params[parts[0]] = arr
+    params["blocks"] = [blocks[i] for i in sorted(blocks)]
+    return params
+
+
+def quantize_tree_to_fp16(params: dict[str, Any]) -> dict[str, Any]:
+    return unflatten_params(quantize_to_fp16(flatten_params(params)))
+
+
+def quantize_tree_int8(params: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
+    q, scales = quantize_int8(flatten_params(params))
+    return unflatten_params(q), scales
+
+
+def dequantize_tree_int8(q: dict[str, Any], scales: dict[str, Any]) -> dict[str, Any]:
+    return unflatten_params(dequantize_int8(flatten_params(q), scales))
+
+
+def quantize_tree_int4(params: dict[str, Any], group: int = INT4_GROUP):
+    flat = flatten_params(params)
+    q, scales = quantize_int4(flat, group=group)
+    return q, scales, {k: v.shape for k, v in flat.items()}
+
+
+def dequantize_tree_int4(q: dict[str, Any], scales: dict[str, Any],
+                         shape_hint: dict[str, tuple[int, ...]] | None = None) -> dict[str, Any]:
+    return unflatten_params(dequantize_int4(q, scales, shape_hint=shape_hint))
+
+
+def tree_size_bytes(tree: dict[str, Any]) -> int:
+    """Serialized byte size of a (possibly nested) parameter tree."""
+    return int(sum(v.nbytes for v in flatten_params(tree).values()))
+
+
+def quantized_tree_size_bytes(q: dict[str, Any], scales: dict[str, Any]) -> int:
+    return tree_size_bytes(q) + tree_size_bytes(scales)

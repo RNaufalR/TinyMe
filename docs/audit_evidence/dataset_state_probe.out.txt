@@ -1,0 +1,4 @@
+train rows 514 eval rows 25
+train chars 215701 eval chars 15455
+eval rows carrying token_ids: 0
+EXP-001 final_val_perplexity = 2.4551428701167373 -> produced from train.jsonl[:32] (see scripts/train.py line 63)

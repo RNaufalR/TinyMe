@@ -7,6 +7,14 @@ Two retrieval paths are supported so the pipeline never depends on one source:
 
 Each adapter call returns standardized `TrainingRecord`s plus a provenance entry.
 Unusable sources are skipped, never silently included.
+
+NOT WIRED INTO THE AUTHORITATIVE PIPELINE (2026-10-02).
+
+Direct `huggingface.co` sockets are blocked in the build sandbox, so the three
+curated HF slices were fetched once through the page-fetch tool and cached under
+`datasets/raw/huggingface/` (see `docs/DATA_PROVENANCE.json`).
+`data_sources/corpus_v2.py` reads that cache; this module is kept for
+environments where the dataset server is reachable.
 """
 from __future__ import annotations
 

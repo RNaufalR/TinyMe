@@ -24,3 +24,19 @@
   3. Extract local Python 3.11 standard library algorithms & documentation (`PSF-2.0`).
   4. Generate execution-verified synthetic curriculum data across all 9 categories (`A` through `I`) using deterministic problem/solution/validator pipelines.
 - **Status:** `VERIFIED`
+
+## DEC-004: Tool-protocol single source of truth (2026-10-02 corrective audit)
+- **Context:** The synthetic corpus advertised `search.max_results`, `fetch.url` and `code.source`/`code.tests`, while `ToolRegistry` validates `query`/`k`, `source_id` and `code`. Every trajectory the model learned was therefore *rejected* by the runtime (`unknown argument`), and the model also never saw the real result envelope (`{"ok", "name", "result", "duration_s"}`).
+- **Decision:** `data_sources/synthetic_v2.TOOL_SPECS` mirrors the runtime registry exactly, the mock search/fetch/compute/code providers emit the runtime's JSON envelope, mock source ids are read from the shipped retrieval index, and `tests/test_tool_protocol.py` fails the build if the two ever drift again. The partially trained run on the drifted corpus was stopped and its artifacts kept as `EXP-002-PRE-PROTOCOL`.
+- **Rationale:** Training on arguments the runtime refuses can never yield working tool use; measuring tool-argument accuracy on such a model would be theatre.
+- **Status:** `VERIFIED` (333/333 generated calls pass `ToolRegistry.validate_arguments`, 0 drift)
+
+## DEC-005: Restart policy for invalidated runs
+- **Context:** Three EXP-002 attempts were invalidated mid-run (duplicate-inflated corpus, category-starving random split, tool-argument drift). The audit forbids resuming invalid experiments and forbids overwriting history.
+- **Decision:** Every invalidated run is stopped, renamed to a descriptive historical id (`EXP-002-PREP-VALIDATION`, `EXP-002-PRE-STRATIFIED`, `EXP-002-PRE-PROTOCOL`) with its log kept, and recorded in `EXPERIMENT_LOG.jsonl` with an explicit `status`/`reason`. A fresh `EXP-002-CORRECTED-NANO` run is started from scratch (no resume) each time the data contract changes.
+- **Status:** `VERIFIED`
+
+## DEC-006: Sandbox honesty over marketing
+- **Context:** No `bwrap`, no PID namespace: isolation is `namespace(net+mount)` plus rlimits. Claiming "container-grade" isolation would be false.
+- **Decision:** Report `detected_summary()["capabilities"]["level"]` verbatim in docs, publish the 12-case escape suite with a per-case verdict and expectation, and document residual risks (`/etc` shared, other same-uid processes visible, sandbox root on host fs) instead of hiding them.
+- **Status:** `VERIFIED` (see `docs/SANDBOX.md`, `docs/audit_evidence/sandbox_escape_suite.out.txt`)

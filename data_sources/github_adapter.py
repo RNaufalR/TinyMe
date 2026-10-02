@@ -3,6 +3,13 @@
 GitHub is treated as a source of PROGRAMMING KNOWLEDGE, not as a bulk scraper.
 Every repository is license-checked first; GPL/copyleft and LICENSE_UNCLEAR
 repositories are excluded from the default corpus but still recorded.
+
+NOT WIRED INTO THE AUTHORITATIVE PIPELINE (2026-10-02).
+
+Kept as an optional experimental GitHub ingester. The corrective audit found no
+GitHub-sourced records in the shipped corpus; every source actually used is
+recorded in `docs/DATA_PROVENANCE.json`. New work should extend
+`data_sources/corpus_v2.py` and keep provenance entries complete.
 """
 from __future__ import annotations
 

@@ -1,0 +1,30 @@
+=== test (max-samples=0, variants=fp32) ===
+2026-10-02 04:49:21,955 | INFO     | tinyme.eval.cli | evaluating 810 held-out records from dataset_v2/test (dataset fingerprint a8f5c37a251d1a4200bdd5392a7582b4500645bcb3e01de4ed8e41fb45f74b8d)
+2026-10-02 04:49:22,013 | INFO     | tinyme.eval.cli | model config nano: 2557632 params (checkpoint has 2557632)
+2026-10-02 04:50:14,636 | INFO     | tinyme.eval.cli | [fp32] mean_accuracy=0.0 domains=13 (52.6s)
+{
+  "fp32": {
+    "domains_evaluated": 11,
+    "mean_accuracy": 0.0,
+    "total_samples": 998
+  }
+}
+=== challenge (max-samples=0, variants=fp32) ===
+2026-10-02 04:50:15,430 | INFO     | tinyme.eval.cli | evaluating 60 held-out records from dataset_v2/challenge (dataset fingerprint a8f5c37a251d1a4200bdd5392a7582b4500645bcb3e01de4ed8e41fb45f74b8d)
+2026-10-02 04:50:15,506 | INFO     | tinyme.eval.cli | model config nano: 2557632 params (checkpoint has 2557632)
+2026-10-02 04:50:19,729 | INFO     | tinyme.eval.cli | [fp32] mean_accuracy=0.0 domains=9 (4.2s)
+{
+  "fp32": {
+    "domains_evaluated": 9,
+    "mean_accuracy": 0.0,
+    "total_samples": 232
+  }
+}
+=== quant (max-samples=200, variants=fp32,fp16,int8,int4) ===
+usage: evaluate.py [-h] --experiment EXPERIMENT [--checkpoint CHECKPOINT]
+                   [--dataset DATASET] [--split {test,challenge,validation}]
+                   [--backend {jax,numpy}] [--max-new-tokens MAX_NEW_TOKENS]
+                   [--max-samples MAX_SAMPLES] [--variants VARIANTS]
+                   [--tag TAG] [--out OUT] [--release]
+evaluate.py: error: argument --split: invalid choice: 'quant' (choose from 'test', 'challenge', 'validation')
+FAILED: quant

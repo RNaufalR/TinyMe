@@ -1,79 +1,74 @@
-# DATA QUALITY REPORT
+# DATA QUALITY REPORT — dataset_v2
 
-- **Dataset version:** `dataset_v1`
-- **Generated:** 2026-10-01T13:57:28
-- **Train samples:** 514
-- **Eval samples:** 25
-- **Verified samples:** 369 (71.8% of train)
+- Raw records ingested: **6568**
+- After license check: **6508**
+- After content-aware preprocessing: **6506** (rejected: {'rejected:invalid_code': 2})
+- After quality/safety filter: **6506** (dropped: {})
+- After deduplication: **5778** (exact=311, normalized=2, minhash=392, code=23)
+- Malformed-code rate in the final corpus: **0.000000**
+- Verified records: **5705**
 
-## 1. Funnel: samples before / after each stage
+## Splits (group-aware, template families held out)
 
-| Stage | Input | Output | Removed |
+| split | records | active target tokens | blocks |
 | :--- | ---: | ---: | ---: |
-| Ingestion + schema validation | 937 | 937 | 0 |
-| License check | 937 | 937 | 0 |
-| Quality / safety / language filter | 937 | 937 | 0 |
-| Deduplication (4 levels) | 937 | 543 | 394 |
-| Train/eval split | 543 | 514 + 25 eval | — |
+| train | 4227 | 588816 | 3585 |
+| validation | 741 | 105432 | 641 |
+| test | 810 | 82501 | 587 |
+| challenge | 60 | 1854 | 23 |
 
-## 2. Duplicate statistics
+## Contamination gate
 
-- Exact hash duplicates: **295**
-- Normalized hash duplicates: **0**
-- Document-similarity duplicates: **99**
-- Code-similarity duplicates: **0**
-- Total duplicate percentage: **42.0491%**
+**TRAIN/VALIDATION/TEST CONTAMINATION: PASS**
 
-## 3. Contamination check (train vs evaluation)
+Checks performed: exact hash, normalized hash, MinHash/LSH similarity, code-AST shingles, template-family overlap. See `docs/SPLIT_SUMMARY.md` for per-pair numbers.
 
-- Evaluation samples: **25**
-- Exact overlap: **0**
-- Normalized overlap: **0**
-- Code-shingle overlap: **0**
-- **Contamination free: True**
+## Tokenizer
 
-## 4. Corpus composition
+- Trained on the **train split only** (4227 texts).
+- Vocabulary: 4096; file 265717 bytes;
+  sha256 `d2d47152426e0a9b307eee230e833b77…`
 
-| Category | Samples | Share |
-| :--- | ---: | ---: |
-| language | 82 | 16.0% |
-| programming | 82 | 16.0% |
-| math | 72 | 14.0% |
-| code_gen | 62 | 12.1% |
-| algorithm | 62 | 12.1% |
-| logic | 51 | 9.9% |
-| code_repair | 41 | 8.0% |
-| code_explain | 41 | 8.0% |
-| instruction | 21 | 4.1% |
+## Sources and licences
 
-- **Code share:** 226 samples (44.0%)
-- **Text share:** 103 samples (20.0%)
-- **Reasoning share:** 185 samples (36.0%)
-
-## 5. Source and license distribution
-
-| Source | Samples |
+| source | records |
 | :--- | ---: |
-| synthetic | 323 |
-| python_stdlib | 89 |
-| huggingface | 79 |
-| github | 23 |
+| gsm8k | 15 |
+| mbpp | 15 |
+| python3.11-stdlib-extended | 2422 |
+| python_stdlib | 192 |
+| syn/algorithm_trace | 300 |
+| syn/arithmetic | 591 |
+| syn/boolean | 300 |
+| syn/code_explain | 299 |
+| syn/code_gen | 500 |
+| syn/code_repair | 350 |
+| syn/deduction | 188 |
+| syn/instruction | 268 |
+| syn/sequences | 253 |
+| syn/tool_use | 350 |
+| syn/word_problems | 450 |
+| tinystories | 15 |
 
-| License | Samples |
+| licence | records |
 | :--- | ---: |
-| Synthetic-Verified | 323 |
-| PSF-2.0 | 89 |
-| CC-BY-4.0 | 35 |
-| MIT | 34 |
-| CDLA-Sharing-1.0 | 33 |
+| CC-BY-4.0 | 15 |
+| CDLA-Sharing-1.0 | 15 |
+| MIT | 15 |
+| PSF-2.0 | 2024 |
+| Synthetic-Verified | 3769 |
 
-## 6. Tokenization
+## Category distribution
 
-- Tokenizer: `tok-v1`
-- Total tokens: **55,508**
-- Average tokens per sample: **107.99221789883268**
-
-## 7. Provenance
-
-Full provenance is recorded in `docs/DATA_PROVENANCE.json` and `DATA_PROVENANCE.json`.
-Sources with unclear or copyleft licenses are excluded and explicitly marked.
+| category | records |
+| :--- | ---: |
+| algorithm | 300 |
+| code_explain | 679 |
+| code_gen | 515 |
+| code_repair | 363 |
+| instruction | 268 |
+| language | 180 |
+| logic | 502 |
+| math | 1328 |
+| programming | 1399 |
+| tool_use | 304 |

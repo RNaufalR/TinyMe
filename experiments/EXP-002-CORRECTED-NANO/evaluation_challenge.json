@@ -1,0 +1,233 @@
+{
+  "experiment": "EXP-002-CORRECTED-NANO",
+  "split": "challenge",
+  "dataset": "dataset_v2",
+  "dataset_fingerprint": "a8f5c37a251d1a4200bdd5392a7582b4500645bcb3e01de4ed8e41fb45f74b8d",
+  "variants": {
+    "fp32": {
+      "model": "EXP-002-CORRECTED-NANO:fp32",
+      "dataset_version": "dataset_v2",
+      "split": "challenge",
+      "overall": {
+        "domains_evaluated": 9,
+        "mean_accuracy": 0.0,
+        "total_samples": 232
+      },
+      "domains": {
+        "math": {
+          "samples": 19,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 12,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate nested arithmetic exactly.\n<|user|>\nCompute exactly: ((4 x 3) - 12) / 4 (integer division).\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "0",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Convert units and show the remainder.\n<|user|>\nA process runs for 1998 minutes. How many hours and minutes is that?\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "33 hours and 18 minutes",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Convert units and show the remainder.\n<|user|>\nA process runs for 1610 minutes. How many hours and minutes is that?\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "26 hours and 50 minutes",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Convert units and show the remainder.\n<|user|>\nA process runs for 674 minutes. How many hours and minutes is that?\n<|assistant|>\n",
+              "generation": "\n```\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "11 hours and 14 minutes",
+              "correct": false
+            }
+          ]
+        },
+        "logic": {
+          "samples": 14,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 0,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Chain the premises.\n<|user|>\nX beats A. A beats C. C beats B. Who is the strongest and who is the weakest?\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "Strongest: X. Weakest: B.",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Chain the premises.\n<|user|>\nX beats A. A beats C. C beats D. Who is the strongest and who is the weakest?\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "Strongest: X. Weakest: D.",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Chain the premises.\n<|user|>\nX beats C. C beats B. B beats D. Who is the strongest and who is the weakest?\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "Strongest: X. Weakest: D.",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Chain the premises.\n<|user|>\nX beats C. C beats A. A beats D. Who is the strongest and who is the weakest?\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "Strongest: X. Weakest: D.",
+              "correct": false
+            }
+          ]
+        },
+        "debugging": {
+          "samples": 13,
+          "metric": "execution_pass_rate",
+          "parseable": 0,
+          "executed": 0,
+          "passed": 0,
+          "pass_rate_of_executed": null,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "ests pass.\n<|user|>\nThe tests fail for this code:\n\n```python\ndef count_words(text):\n    counts = {}\n    for w in text.split():\n        counts[w] = counts.get(w, 0)\n    return counts\n```\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def count_words(text):\n    counts = {}\n    for w in text.lower().split():\n        counts[w] = counts.get(w, 0) + 1\n    return counts\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "ests pass.\n<|user|>\nThe tests fail for this code:\n\n```python\ndef count_words(text):\n    counts = {}\n    for w in text.split():\n        counts[w] = counts.get(w, 0)\n    return counts\n```\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def count_words(text):\n    counts = {}\n    for w in text.lower().split():\n        counts[w] = counts.get(w, 0) + 1\n    return counts\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "ests pass.\n<|user|>\nThe tests fail for this code:\n\n```python\ndef count_words(text):\n    counts = {}\n    for w in text.split():\n        counts[w] = counts.get(w, 0)\n    return counts\n```\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def count_words(text):\n    counts = {}\n    for w in text.lower().split():\n        counts[w] = counts.get(w, 0) + 1\n    return counts\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "ests pass.\n<|user|>\nThe tests fail for this code:\n\n```python\ndef count_words(text):\n    counts = {}\n    for w in text.split():\n        counts[w] = counts.get(w, 0)\n    return counts\n```\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def count_words(text):\n    counts = {}\n    for w in text.lower().split():\n        counts[w] = counts.get(w, 0) + 1\n    return counts\n<|endcode|>",
+              "passed": false
+            }
+          ]
+        },
+        "tool_syntax": {
+          "samples": 14,
+          "metric": "syntax_rate",
+          "valid": 0,
+          "accuracy": 0.0
+        },
+        "tool_selection": {
+          "samples": 14,
+          "metric": "tool_name_accuracy",
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "tool_arguments": {
+          "samples": 14,
+          "metric": "argument_match_accuracy",
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "tool_execution": {
+          "samples": 14,
+          "metric": "tool_call_success_rate",
+          "succeeded": 0,
+          "accuracy": 0.0
+        },
+        "grounding": {
+          "samples": 14,
+          "metric": "grounded_answer_accuracy",
+          "correct": 0,
+          "accuracy": 0.0,
+          "note": "answer after feeding the real tool result back"
+        },
+        "generalization": {
+          "samples": 116,
+          "metric": "mean_accuracy_on_held_out_templates",
+          "accuracy": 0.0,
+          "inherits": [
+            "debugging",
+            "grounding",
+            "logic",
+            "math",
+            "tool_arguments",
+            "tool_execution",
+            "tool_selection",
+            "tool_syntax"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "record_id": "0759a5dfdf9851919b09be0c420ad7cd",
+          "expected_tool": "fetch",
+          "generation": " %s\n        # a file",
+          "tool_name_ok": false,
+          "arguments_ok": null,
+          "executed_ok": null
+        },
+        {
+          "record_id": "8367c37bb339520983c7a76436935431",
+          "expected_tool": "fetch",
+          "generation": " %s\n        # a file",
+          "tool_name_ok": false,
+          "arguments_ok": null,
+          "executed_ok": null
+        },
+        {
+          "record_id": "40304e7a252c51269ede905cce3be200",
+          "expected_tool": "fetch",
+          "generation": " %s\n        # a file",
+          "tool_name_ok": false,
+          "arguments_ok": null,
+          "executed_ok": null
+        },
+        {
+          "record_id": "27c3c25dcf9551938543000636e60227",
+          "expected_tool": "fetch",
+          "generation": " %s\n        # a file",
+          "tool_name_ok": false,
+          "arguments_ok": null,
+          "executed_ok": null
+        }
+      ],
+      "started_at": "2026-10-02T04:50:15",
+      "duration_s": 4.18,
+      "environment": {
+        "backend": "numpy",
+        "isolation": {
+          "capabilities": {
+            "bwrap": false,
+            "unshare_net": true,
+            "unshare_mount": true,
+            "unshare_user": true,
+            "rlimit": true,
+            "platform": "linux",
+            "level": "namespace(net+mount)"
+          },
+          "enforced_by_default": "private network namespace + tmpfs over host home tree when the sandboxed code runs",
+          "honest_label": "namespace(net+mount)"
+        },
+        "checkpoint": "EXP-002-CORRECTED-NANO/best",
+        "checkpoint_bytes": 30703744,
+        "max_new_tokens": 64,
+        "max_samples": null,
+        "held_out_records": 60,
+        "started_at": "2026-10-02T04:50:19"
+      }
+    }
+  }
+}

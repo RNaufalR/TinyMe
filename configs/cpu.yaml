@@ -1,23 +1,23 @@
-# CPU-only configuration: 2 vCPU (AVX-512), 3.8 GiB RAM, no GPU.
-# Verified to run inside the measured resource envelope.
-experiment_id: EXP-001
-experiment_name: baseline-cpu
+# CPU profile: same corrected contract, smaller batch, float32 math.
+# Use: python scripts/train.py --config configs/cpu.yaml --experiment <EXP-ID>
+experiment_id: EXP-002-CORRECTED-NANO
+experiment_name: corrected nano (cpu)
 architecture: nano
-dataset_version: dataset_v1
-tokenizer_version: tok-v1
-seed: 1234
-seq_len: 128
-micro_batch_size: 16
-grad_accum_steps: 1
+dataset_version: dataset_v2
+tokenizer_version: tok-v2
+seed: 20261002
+seq_len: 256
+micro_batch_size: 8
+grad_accum_steps: 4
 learning_rate: 0.0006
 min_lr_ratio: 0.1
-warmup_steps: 50
+warmup_steps: 40
 weight_decay: 0.01
 grad_clip_norm: 1.0
 max_steps: 400
-eval_every: 100
-checkpoint_every: 100
+eval_every: 20
+checkpoint_every: 40
 keep_last_checkpoints: 3
-label_smoothing: 0.0
 compute_dtype: float32
-notes: CPU-only run with XLA/AVX-512; memory stays well below the 3.8 GiB limit
+stage: pretrain
+notes: 2 vCPU reference profile (~2-3k tok/s measured)

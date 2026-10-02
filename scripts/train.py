@@ -1,97 +1,150 @@
 #!/usr/bin/env python3
-"""Train a TinyMe model (spec §16, §17, §18).
+"""Corrected training entrypoint (never silently resumes an invalid run).
 
-Usage:
-    python scripts/train.py --config configs/cpu.yaml
-    python scripts/train.py --experiment EXP-001 --steps 300 --arch nano
-    python scripts/train.py --resume --experiment EXP-001 --steps 600
+Loads the real ``validation`` split — never ``train.jsonl`` — and refuses to
+start unless the validation split exists and is contamination-free.
+
+Examples::
+
+    # Stage A — domain pretraining from fresh initialisation
+    python scripts/train.py --config configs/cpu.yaml --experiment EXP-002-CORRECTED-NANO \
+        --stage pretrain --max-steps 350
+
+    # Stage B — instruction / reasoning / tool-use SFT (loss-masked)
+    python scripts/train.py --experiment EXP-004-TOOL-SFT --stage sft \
+        --init-from EXP-002-CORRECTED-NANO --max-steps 180 --lr 3e-4
+
+    # Base feasibility pilot
+    python scripts/train.py --experiment EXP-003-CORRECTED-BASE-PILOT --arch base --max-steps 30
 """
 from __future__ import annotations
 
 import argparse
+import json
 import logging
 import sys
 import time
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(REPO_ROOT))
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
-from src.training.trainer import TrainConfig, Trainer, load_dataset  # noqa: E402
-from src.utils.io_utils import REPO_ROOT, human_bytes, write_json  # noqa: E402
+from src.data.dataset_api import load_manifest, load_split, load_tokenizer  # noqa: E402
+from src.model import TinyMeConfig, count_parameters  # noqa: E402
+from src.training.checkpoint import environment_report, load_checkpoint  # noqa: E402
+from src.training.trainer import TrainConfig, Trainer  # noqa: E402
+from src.utils.io_utils import REPO_ROOT, human_bytes, read_json, write_json  # noqa: E402
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)-8s | %(name)s | %(message)s")
+log = logging.getLogger("tinyme.train.cli")
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description="TinnyMe training")
-    ap.add_argument("--config", default=None)
-    ap.add_argument("--experiment", default=None)
-    ap.add_argument("--name", default=None)
-    ap.add_argument("--arch", default=None)
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--config", default=None, help="YAML base config")
+    ap.add_argument("--experiment", required=True, help="experiment id (never reuse)")
+    ap.add_argument("--experiment-name", default="")
+    ap.add_argument("--stage", default="pretrain", choices=["pretrain", "sft"])
+    ap.add_argument("--arch", default=None, choices=["nano", "base", "medium"])
     ap.add_argument("--dataset", default=None)
-    ap.add_argument("--steps", type=int, default=None)
     ap.add_argument("--seq-len", type=int, default=None)
-    ap.add_argument("--batch-size", type=int, default=None)
+    ap.add_argument("--micro-batch", type=int, default=None)
+    ap.add_argument("--grad-accum", type=int, default=None)
+    ap.add_argument("--max-steps", type=int, default=None)
     ap.add_argument("--lr", type=float, default=None)
+    ap.add_argument("--warmup", type=int, default=None)
+    ap.add_argument("--eval-every", type=int, default=None)
+    ap.add_argument("--checkpoint-every", type=int, default=None)
     ap.add_argument("--seed", type=int, default=None)
-    ap.add_argument("--max-samples", type=int, default=None)
+    ap.add_argument("--dtype", default=None, choices=["float32", "bfloat16", "float16"])
+    ap.add_argument("--init-from", default=None,
+                    help="copy weights from another experiment (transfer learning)")
+    ap.add_argument("--vocab-size", type=int, default=None,
+                    help="override (only for controlled tokenizer ablations)")
     ap.add_argument("--no-resume", action="store_true")
     ap.add_argument("--notes", default="")
-    ap.add_argument("--log-level", default="INFO")
     args = ap.parse_args()
 
-    logging.basicConfig(level=getattr(logging, args.log_level.upper(), logging.INFO),
-                        format="%(asctime)s | %(levelname)-8s | %(name)s | %(message)s")
-    log = logging.getLogger("train")
+    cfg = TrainConfig.from_yaml(args.config) if args.config else TrainConfig()
+    for attr, value in (("architecture", args.arch), ("dataset_version", args.dataset),
+                        ("seq_len", args.seq_len), ("micro_batch_size", args.micro_batch),
+                        ("grad_accum_steps", args.grad_accum), ("max_steps", args.max_steps),
+                        ("learning_rate", args.lr), ("warmup_steps", args.warmup),
+                        ("eval_every", args.eval_every), ("checkpoint_every", args.checkpoint_every),
+                        ("seed", args.seed), ("compute_dtype", args.dtype)):
+        if value is not None:
+            setattr(cfg, attr, value)
+    cfg.experiment_id = args.experiment
+    cfg.experiment_name = args.experiment_name or f"{args.experiment} ({cfg.stage})"
+    cfg.stage = args.stage
+    cfg.notes = args.notes
+    if args.no_resume:
+        cfg.resume = False
 
-    if args.config:
-        cfg = TrainConfig.from_yaml(REPO_ROOT / args.config)
-    else:
-        cfg = TrainConfig()
-    for key, val in (("experiment_id", args.experiment), ("experiment_name", args.name),
-                     ("architecture", args.arch), ("dataset_version", args.dataset),
-                     ("max_steps", args.steps), ("seq_len", args.seq_len),
-                     ("micro_batch_size", args.batch_size), ("learning_rate", args.lr),
-                     ("seed", args.seed)):
-        if val is not None:
-            setattr(cfg, key, val)
-    if args.notes:
-        cfg.notes = args.notes
+    manifest = load_manifest(cfg.dataset_version)
+    if manifest.get("train_validation_test_contamination") != "PASS":
+        log.error("refusing to train: contamination gate is %s",
+                  manifest.get("train_validation_test_contamination"))
+        return 2
+    tokenizer = load_tokenizer(cfg.dataset_version)
+    model_cfg = TinyMeConfig.from_name(cfg.architecture)
+    if args.vocab_size:
+        model_cfg = TinyMeConfig(**{**model_cfg.to_dict(), "vocab_size": args.vocab_size})
+    model_cfg.vocab_size = int(tokenizer.vocab_size)
 
-    log.info("config: %s", cfg.to_dict())
-    data = load_dataset(cfg.dataset_version, cfg.seq_len, max_samples=args.max_samples)
-    train = data["tokens"]
-    eval_ = load_dataset(cfg.dataset_version, cfg.seq_len)["tokens"][:32]
+    train_data, train_stats = load_split(cfg.dataset_version, "train", seq_len=cfg.seq_len,
+                                         tokenizer=tokenizer, stage=cfg.stage)
+    val_data, val_stats = load_split(cfg.dataset_version, "validation", seq_len=cfg.seq_len,
+                                     tokenizer=tokenizer, stage=cfg.stage)
+    if train_data["input_ids"].shape[0] == 0 or val_data["input_ids"].shape[0] == 0:
+        log.error("empty split/stage (train=%s val=%s); nothing to do",
+                  train_data["input_ids"].shape, val_data["input_ids"].shape)
+        return 3
+    log.info("train blocks=%d active_targets=%d | val blocks=%d active_targets=%d",
+             train_data["input_ids"].shape[0], train_stats["active_target_tokens"],
+             val_data["input_ids"].shape[0], val_stats["active_target_tokens"])
 
-    trainer = Trainer(cfg)
-    log.info("model: %s, %d params (~%s FP32)", cfg.architecture, trainer.param_count,
-             human_bytes(trainer.param_count * 4))
+    trainer = Trainer(cfg, model_cfg=model_cfg, tokenizer=tokenizer)
+    if args.init_from:
+        ckpt_dir = REPO_ROOT / "checkpoints" / args.init_from
+        if not ckpt_dir.exists():
+            log.error("--init-from experiment %s has no checkpoints", args.init_from)
+            return 4
+        name = "best" if (ckpt_dir / "best.safetensors").exists() else "latest"
+        params, _, meta = load_checkpoint(
+            ckpt_dir, name, trainer.params, None,
+            expected_fingerprints={"model_config_hash": model_cfg.model_hash(),
+                                   "tokenizer_hash": manifest.get("tokenizer_hash", ""),
+                                   "dataset_fingerprint": manifest.get("dataset_fingerprint", ""),
+                                   "seq_len": cfg.seq_len},
+            require_optimizer=False)
+        trainer.params = params
+        trainer.param_count = count_parameters(params)
+        log.info("initialised weights from %s/%s (step %s) — new experiment id %s",
+                 args.init_from, name, meta.get("step"), cfg.experiment_id)
 
-    summary = trainer.fit(train, eval_, resume=not args.no_resume)
+    # record the exact run configuration before training starts
+    run_meta = {
+        "experiment_id": cfg.experiment_id, "stage": cfg.stage,
+        "dataset_version": cfg.dataset_version, "dataset_fingerprint": manifest.get("dataset_fingerprint"),
+        "tokenizer_hash": manifest.get("tokenizer_hash"), "tokenizer_vocab": tokenizer.vocab_size,
+        "model_config": model_cfg.to_dict(), "train_config": cfg.to_dict(),
+        "train_stats": train_stats, "val_stats": val_stats,
+        "environment": environment_report(), "init_from": args.init_from,
+        "started_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
+    }
+    exp_dir = REPO_ROOT / "experiments" / cfg.experiment_id
+    write_json(run_meta, exp_dir / "run_config.json")
 
-    # append to the experiment log
-    from src.utils.io_utils import read_jsonl
-    log_path = REPO_ROOT / "EXPERIMENT_LOG.jsonl"
-    existing = read_jsonl(log_path) if log_path.exists() else []
-    existing.append({
-        "experiment_id": cfg.experiment_id, "name": cfg.experiment_name,
-        "arch": cfg.architecture, "params": trainer.param_count,
-        "dataset": cfg.dataset_version, "seed": cfg.seed,
-        "steps": summary["steps_executed"],
-        "train_loss": summary["final_train_loss"],
-        "val_loss": summary["final_val_loss"],
-        "val_ppl": summary["final_val_perplexity"],
-        "wall_clock_s": summary["wall_clock_seconds"],
-        "tokens_per_sec": summary["avg_tokens_per_sec"],
-        "timestamp": time.strftime("%Y-%m-%dT%H:%M:%S"),
-    })
-    from src.utils.io_utils import write_jsonl
-    write_jsonl(existing, log_path)
-
-    print("\n=== TRAINING SUMMARY ===")
-    for k in ("experiment_id", "architecture", "parameter_count", "steps_executed",
-              "final_train_loss", "final_val_loss", "final_val_perplexity",
-              "avg_tokens_per_sec", "wall_clock_seconds", "checkpoint_bytes"):
-        print(f"{k:24s}: {summary[k]}")
+    summary = trainer.fit(train_data, val_data, resume=not args.no_resume)
+    summary["train_stats"] = train_stats
+    summary["val_stats"] = val_stats
+    write_json(summary, exp_dir / "summary.json")
+    log.info("checkpoint: %s", human_bytes(int(summary["checkpoint_bytes"])))
+    print(json.dumps({k: summary[k] for k in (
+        "experiment_id", "stage", "parameter_count", "steps_executed", "final_val_loss",
+        "final_val_perplexity", "tokens_processed", "wall_clock_seconds", "avg_tokens_per_sec")}, indent=2))
     return 0
 
 
