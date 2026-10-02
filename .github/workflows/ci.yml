@@ -76,6 +76,23 @@ jobs:
           name: unit-tests-log
           path: /tmp/unit-tests.log
           if-no-files-found: warn
+      - name: Surface failures as check annotations
+        # Job logs live in blob storage that is not always reachable; the Checks
+        # API is, so every failed test is emitted as an annotation with its
+        # one-line traceback. This is how a failing run stays diagnosable.
+        if: failure()
+        run: |
+          fails=$(grep -cE "^(FAILED|ERROR)" /tmp/unit-tests.log || true)
+          if [ "${fails:-0}" -gt 0 ]; then
+            grep -E "^(FAILED|ERROR)" /tmp/unit-tests.log | head -10 | while IFS= read -r line; do
+              echo "::error title=pytest::${line}"
+            done
+            grep -A2 "short test summary" /tmp/unit-tests.log | head -12
+          else
+            tail -12 /tmp/unit-tests.log | while IFS= read -r line; do
+              echo "::error title=pytest-output::${line}"
+            done
+          fi
 
   integration:
     name: integration (data + train 2 steps + eval smoke)

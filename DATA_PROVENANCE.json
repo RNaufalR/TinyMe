@@ -1,6 +1,6 @@
 {
-  "dataset_version": "ci_unit",
-  "created": "2026-10-02T13:15:25",
+  "dataset_version": "ci_smoke",
+  "created": "2026-10-02T14:14:40",
   "seq_len": 64,
   "splits": {
     "train": 1680,
@@ -582,7 +582,7 @@
   },
   "verified_samples": 2094,
   "malformed_code_rate": 0.0,
-  "elapsed_seconds": 16.68,
+  "elapsed_seconds": 18.4,
   "dataset_fingerprint": "771539efaaf8b636c71ad0cb1564ac3d5857cba7b2bd08b2ce10c78be45cd3cb",
   "shards_fingerprint": "55da4a35b48b5f0c10c9d4ca329976225fa843a3d913f55899232bce5cc57766"
 }
