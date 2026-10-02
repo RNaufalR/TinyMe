@@ -1,0 +1,23 @@
+# CPU-only configuration: 2 vCPU (AVX-512), 3.8 GiB RAM, no GPU.
+# Verified to run inside the measured resource envelope.
+experiment_id: EXP-001
+experiment_name: baseline-cpu
+architecture: nano
+dataset_version: dataset_v1
+tokenizer_version: tok-v1
+seed: 1234
+seq_len: 128
+micro_batch_size: 16
+grad_accum_steps: 1
+learning_rate: 0.0006
+min_lr_ratio: 0.1
+warmup_steps: 50
+weight_decay: 0.01
+grad_clip_norm: 1.0
+max_steps: 400
+eval_every: 100
+checkpoint_every: 100
+keep_last_checkpoints: 3
+label_smoothing: 0.0
+compute_dtype: float32
+notes: CPU-only run with XLA/AVX-512; memory stays well below the 3.8 GiB limit

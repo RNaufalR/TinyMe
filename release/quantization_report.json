@@ -1,0 +1,40 @@
+{
+  "experiment": "EXP-001",
+  "checkpoint": "best",
+  "architecture": "nano",
+  "parameter_count": 2557632,
+  "variants": {
+    "fp32": {
+      "file": "release/model_fp32.safetensors",
+      "bytes": 10233736,
+      "human": "9.76 MB"
+    },
+    "fp16": {
+      "file": "release/model_fp16.safetensors",
+      "bytes": 5118464,
+      "human": "4.88 MB",
+      "relative_rmse": 0.000212,
+      "max_abs_error": 0.000487
+    },
+    "int8": {
+      "file": "release/model_int8.safetensors",
+      "bytes": 2600960,
+      "human": "2.48 MB",
+      "relative_rmse": 0.006225,
+      "max_abs_error": 0.001458
+    },
+    "int4": {
+      "file": "release/model_int4.safetensors",
+      "bytes": 1451256,
+      "human": "1.38 MB",
+      "relative_rmse": 0.095302,
+      "max_abs_error": 0.025838
+    }
+  },
+  "under_50mb": {
+    "fp32": true,
+    "fp16": true,
+    "int8": true,
+    "int4": true
+  }
+}
