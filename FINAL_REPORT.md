@@ -64,7 +64,7 @@ iterations improved loss and remained at exactly 0.00 task completion.
 | §15 pinned deps / reproducibility | VERIFIED | `requirements.txt`, `docs/ENVIRONMENT_REPORT.md`, versions recorded inside `manifest.json: environment` |
 | §16 test-suite completeness | VERIFIED | 33 test modules; `python3 -m pytest tests/ -q` → **275 passed** |
 | §17 no false-pass tests | VERIFIED | audited skips (each gated on an artefact, none unconditional); source-string-only and self-fulfilling assertions removed |
-| §18 CI | VERIFIED (file) | `.github/workflows/ci.yml`: lint → unit → integration → eval smoke → package smoke; no full training job |
+| §18 CI | VERIFIED (remote) | GitHub Actions run **37020181438** on commit `2ffc656`: lint ✓ 30 s, unit ✓ 2 m 43 s, integration ✓ 58 s, evaluation smoke ✓ 42 s, packaging + release smoke ✓ 28 s; no full training job |
 | §19 synthetic generate→solve→verify→reject | VERIFIED | `data_sources/synthetic_v2.py`; counters requested/generated/verified/rejected/duplicate/malformed/accepted in the manifest; generator and verifier are independent code paths |
 | §20 data scale/quality + exact token count | VERIFIED | `train_tokens_active` reconstructed from `labels != -100`, not from a config field |
 | §24 inference audit | VERIFIED | `tests/test_inference.py`, `tests/test_kv_cache.py`: truncation, context window, BOS/EOS, stop set, top-p, temperature, seed, cache parity, long/empty/short prompts, max-context generation |

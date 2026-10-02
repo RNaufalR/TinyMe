@@ -29,7 +29,7 @@ auditor can reproduce every claim.
 | §15/§25 | Pinned deps + reproducibility | `requirements.txt` | versions recorded in `docs/ENVIRONMENT_REPORT.md` | `pip install -r requirements.txt` used by CI | VERIFIED |
 | §16 | Test-suite completeness (24+ modules) | `tests/` (33 modules) | `pytest -q` → **274 passed** locally; **260 passed / 0 failed** in a fresh clone (CI layout) after the fixture fix below | no empty/existence-only module; the 5 remaining skips are artefact-gated with explicit reasons | VERIFIED |
 | §17 | No false-pass tests | `tests/` | skip inventory: 5 skips, each gated by `requires_shards` with a printed reason (never unconditional); CI lint gate `\|\| true` **removed** so it can fail again | `pytest -rs` output in a fresh clone; `ruff check --select E9,F63,F7,F82,F811,F841` clean | VERIFIED |
-| §18 | CI pipeline | `.github/workflows/ci.yml` | lint → unit → integration → eval smoke → package smoke | workflow file present, jobs mirror local commands | VERIFIED (file), see limits |
+| §18 | CI pipeline | `.github/workflows/ci.yml` | **run 37020181438 on commit `2ffc656`: all five jobs green** — lint 30 s, unit tests 2 m 43 s, integration 58 s, evaluation smoke 42 s, packaging + release smoke 28 s | remote evidence; three CI defects were found and fixed to get there (see below) | VERIFIED |
 | §19 | Synthetic generate→solve→verify→reject | `data_sources/synthetic_v2.py` | `datasets/versions/dataset_v3/manifest.json` (`verified_samples`) | independent solver/verifier per family | VERIFIED |
 | §20 | Data scale/quality + exact token count | `scripts/prepare_data_v2.py` | manifest `train_tokens_active` | reconstructed from `labels != -100` | VERIFIED |
 | §21 | Curriculum A vs B pilots | `scripts/train.py --stage {pretrain,mixed}` | `experiments/CURRIC-A-STAGED/summary.json` (300 steps, ppl 101.65), `experiments/CURRIC-B-MIXED/summary.json` (300 steps, ppl 86.19), `evaluation_*.json` per split | per-domain + tool-suite comparison, 16 samples/domain | EXECUTED — **B (mixed) ≥ A (staged) on every capability measure**; both still 0.00 `task_completion`. Neither accepted |
@@ -131,3 +131,19 @@ rather than hidden behind a good loss curve.
 | Defect | Evidence it was real | Fix | Regression test |
 | :--- | :--- | :--- | :--- |
 | A binary payload could be labelled **`malformed_code_rejected` instead of `binary_content`**, because the syntax check ran before the binary check and its exception type is interpreter-dependent (CPython raises `ValueError` for a NUL byte on the audited box, `SyntaxError` on the CI runner) | CI check annotation on commit `cbdd655`: `FAILED tests/test_quality_filters.py::test_binary_and_minified_payloads_are_rejected - assert (not False and 'binary' in 'malformed_code_rejected')` — the same test passes locally | `filter_record` now checks `is_binary_like` **before** syntax validity: whether a payload is binary is a property of its bytes, not of the parser that happens to run next | `test_binary_reason_is_stable_regardless_of_parser_behaviour` (simulates the `SyntaxError` path and asserts `binary_content`) |
+
+## CI brought to green (remote evidence)
+
+The pipeline had never passed. Three real defects were found by auditing a fresh
+clone and by running the workflow, each fixed with a regression test or an
+explicit guarantee:
+
+| # | Defect | How it was found | Fix |
+| --: | :--- | :--- | :--- |
+| 1 | CI installed only `requirements.txt`, the **runtime** set (numpy/tokenizers/safetensors) — the suite needs JAX/Optax, so the unit job died with 10 collection errors before running a test | fresh clone + the exact CI command in a clean venv | new `requirements-training.txt` (`-r requirements.txt` + `jax==0.10.2` + `optax==0.2.8`) installed by every job; the lint job still imports the runtime set alone, keeping the release-only claim honest |
+| 2 | Four `test_dataset_api.py` tests loaded **git-ignored packed shards**, so any fresh clone failed them | `git clone --depth 1` of the pushed branch | session fixture builds a small dataset with the *real* builder (`--version ci_unit --scale 0.05 --seq-len 64`) and asserts against it |
+| 3 | The lint gate ended in `\|\| true` (could never fail) | reading the workflow | gate removed; the three real findings it exposed were fixed |
+| 4 | A binary payload was labelled `malformed_code_rejected` instead of `binary_content` because the syntax check ran first and the parser exception type is interpreter-dependent (`ValueError` locally, `SyntaxError` on the runner) | CI check annotation on `cbdd655` | `filter_record` classifies binary content first; regression test simulates the `SyntaxError` path |
+
+Final state: **CI #37020181438 — lint ✓, unit ✓, integration ✓, evaluation
+smoke ✓, packaging + release smoke ✓**.
