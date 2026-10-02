@@ -29,7 +29,7 @@ auditor can reproduce every claim.
 | §15/§25 | Pinned deps + reproducibility | `requirements.txt` | versions recorded in `docs/ENVIRONMENT_REPORT.md` | `pip install -r requirements.txt` used by CI | VERIFIED |
 | §16 | Test-suite completeness (24+ modules) | `tests/` (33 modules) | `pytest -q` → **274 passed** locally; **260 passed / 0 failed** in a fresh clone (CI layout) after the fixture fix below | no empty/existence-only module; the 5 remaining skips are artefact-gated with explicit reasons | VERIFIED |
 | §17 | No false-pass tests | `tests/` | skip inventory: 5 skips, each gated by `requires_shards` with a printed reason (never unconditional); CI lint gate `\|\| true` **removed** so it can fail again | `pytest -rs` output in a fresh clone; `ruff check --select E9,F63,F7,F82,F811,F841` clean | VERIFIED |
-| §18 | CI pipeline | `.github/workflows/ci.yml` | **run 37020181438 on commit `2ffc656`: all five jobs green** — lint 30 s, unit tests 2 m 43 s, integration 58 s, evaluation smoke 42 s, packaging + release smoke 28 s | remote evidence; three CI defects were found and fixed to get there (see below) | VERIFIED |
+| §18 | CI pipeline | `.github/workflows/ci.yml` | **run 37020181438 on commit `2ffc656`: all five jobs green** — lint 30 s, unit tests 2 m 43 s, integration 58 s, evaluation smoke 42 s, packaging + release smoke 28 s | remote evidence; four CI defects were found and fixed to get there (see the CI section at the end of this file) | VERIFIED |
 | §19 | Synthetic generate→solve→verify→reject | `data_sources/synthetic_v2.py` | `datasets/versions/dataset_v3/manifest.json` (`verified_samples`) | independent solver/verifier per family | VERIFIED |
 | §20 | Data scale/quality + exact token count | `scripts/prepare_data_v2.py` | manifest `train_tokens_active` | reconstructed from `labels != -100` | VERIFIED |
 | §21 | Curriculum A vs B pilots | `scripts/train.py --stage {pretrain,mixed}` | `experiments/CURRIC-A-STAGED/summary.json` (300 steps, ppl 101.65), `experiments/CURRIC-B-MIXED/summary.json` (300 steps, ppl 86.19), `evaluation_*.json` per split | per-domain + tool-suite comparison, 16 samples/domain | EXECUTED — **B (mixed) ≥ A (staged) on every capability measure**; both still 0.00 `task_completion`. Neither accepted |
@@ -40,7 +40,7 @@ auditor can reproduce every claim.
 | §26 | Independent RoPE verification | `tests/test_rope.py` | `docs/audit_evidence/rope_pairing_probe_current.out.txt` (worst |Δ| 4.287e-07, norm 1.471e-07); the pre-fix 4.076 probe is kept as `.out.txt.history` | explicit NumPy rotation reference written without repo code, multiple head dims (4/6/8) and positions (7/33), batch 2×3 | VERIFIED |
 | §27 | Checkpoint resume verification | `src/training/checkpoint.py` | `tests/test_checkpoint_resume.py` | uninterrupted vs resumed comparison | VERIFIED |
 | §28 | Gradient-accumulation equivalence | `src/training/trainer.py` | `tests/test_grad_accumulation.py` | micro×K vs single large batch | VERIFIED |
-| §29 | Documentation synchronised | `STATE.md`, `TODO.md`, `DECISIONS.md`, `FINAL_REPORT.md` | this matrix + experiment logs | statuses match executable evidence | see below |
+| §29 | Documentation synchronised | `STATE.md`, `TODO.md`, `DECISIONS.md`, `FINAL_REPORT.md`, `EXPERIMENT_LOG.{md,jsonl}` | all six files rewritten from the measured runs (11 experiment-log rows, DEC-001…DEC-010) | every status in them matches the artefact named in this matrix; no document claims a capability the measurements do not show | VERIFIED |
 
 ## Defects found and fixed during this audit
 
