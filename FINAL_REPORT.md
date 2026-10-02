@@ -62,7 +62,7 @@ iterations improved loss and remained at exactly 0.00 task completion.
 | §13 packaging audit | VERIFIED | strict config load (no fallback), write-order (config before verify, inventory before README), checksums recomputed, Base-vs-Nano handled; `tests/test_release_contract.py` |
 | §14 clean-environment gate | VERIFIED (portability) | `env -i PATH=/usr/bin:/bin HOME=/tmp PYTHONPATH=` in a directory containing **only** release files: `python3 inference.py --prompt ...` loads `[weights=float32 params=2,557,632]` and generates — no JAX, no Optax, no `src/`, no checkpoints, no dataset sources |
 | §15 pinned deps / reproducibility | VERIFIED | `requirements.txt`, `docs/ENVIRONMENT_REPORT.md`, versions recorded inside `manifest.json: environment` |
-| §16 test-suite completeness | VERIFIED | 33 test modules; `python3 -m pytest tests/ -q` → **273 passed** |
+| §16 test-suite completeness | VERIFIED | 33 test modules; `python3 -m pytest tests/ -q` → **274 passed** |
 | §17 no false-pass tests | VERIFIED | audited skips (each gated on an artefact, none unconditional); source-string-only and self-fulfilling assertions removed |
 | §18 CI | VERIFIED (file) | `.github/workflows/ci.yml`: lint → unit → integration → eval smoke → package smoke; no full training job |
 | §19 synthetic generate→solve→verify→reject | VERIFIED | `data_sources/synthetic_v2.py`; counters requested/generated/verified/rejected/duplicate/malformed/accepted in the manifest; generator and verifier are independent code paths |
@@ -151,5 +151,5 @@ python scripts/evaluate.py --experiment EXP-004-TOOL-SFT-V3 --checkpoint best \
 python scripts/evaluate.py --experiment EXP-004-TOOL-SFT-V3 --checkpoint best \
     --dataset dataset_v3 --split challenge --backend numpy --variants fp32,fp16,int8,int4
 python scripts/package_model.py --experiment EXP-004-TOOL-SFT-V3 --checkpoint best --dataset dataset_v3
-python -m pytest tests/ -q          # 273 passed
+python -m pytest tests/ -q          # 274 passed
 ```
