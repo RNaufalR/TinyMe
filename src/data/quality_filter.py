@@ -98,6 +98,15 @@ def code_ratio(text: str) -> float:
     return round(codeish / len(lines), 4)
 
 
+def is_binary_like(text: str, max_control_ratio: float = 0.02) -> bool:
+    """Detect binary/garble payloads that must never enter training (audit §8)."""
+    if not text:
+        return False
+    controls = sum(1 for ch in text if ord(ch) < 9 or (13 < ord(ch) < 32))
+    replacement = text.count("\ufffd")
+    return (controls / len(text) > max_control_ratio) or (replacement / len(text) > 0.05)
+
+
 def is_minified(text: str) -> bool:
     lines = text.split("\n")
     if not lines:
@@ -108,35 +117,66 @@ def is_minified(text: str) -> bool:
 
 
 def syntax_validity(text: str, language: str = "en") -> tuple[bool, str]:
-    """Static syntax check for Python snippets; other languages are accepted."""
-    if language != "python":
-        return True, "not_applicable"
-    import ast
+    """Language-aware syntax check (corrective audit P1-06).
 
-    # Only attempt to parse when the text looks like pure Python code.
-    stripped = text.strip()
-    if not stripped:
-        return True, "not_applicable"
-    try:
-        ast.parse(stripped)
-        return True, "ast_ok"
-    except SyntaxError as exc:
-        # Prose containing code is common; treat as not applicable rather than broken.
-        if not any(h in text for h in ("def ", "class ", "import ")):
+    Only languages with a real validator (Python, JSON) are parsed. Python AST
+    parsing is never applied to Rust/Go/JS/C record that merely contains code:
+    such records return ``not_applicable`` instead of a bogus verdict.
+    """
+    from .preprocess import extract_python_source, validate_code
+
+    s = text.strip()
+    if not s:
+        return False, "empty"
+    lang = (language or "").strip().lower()
+    if lang in ("python", "py"):
+        candidate = extract_python_source(s)
+        if not any(h in candidate for h in ("def ", "class ", "import ", "return", "=")):
             return True, "not_applicable"
-        return False, f"syntax_error: {exc.msg}"
-    except Exception:
-        return True, "not_applicable"
+        return validate_code(candidate, "python")
+    if lang in ("json", "jsonl"):
+        return validate_code(s, "json")
+    return True, "not_applicable"
+
+
+def _as_mapping(rec: Any) -> dict[str, Any]:
+    """Accept either a plain dict or a :class:`TrainingRecord` dataclass."""
+    if isinstance(rec, dict):
+        return rec
+    if hasattr(rec, "__dataclass_fields__"):
+        import dataclasses
+
+        return dataclasses.asdict(rec)
+    raise TypeError(f"expected dict or TrainingRecord, got {type(rec).__name__}")
 
 
 def score_record(rec: dict[str, Any], source_quality: float = 1.0,
                  duplication_score: float = 0.0) -> dict[str, Any]:
-    """Compute the full quality feature vector for one record."""
+    """Compute the full quality feature vector for one record.
+
+    Returns the **quality vector** (a dict of metrics), not the record; use
+    :func:`filter_record` to apply the policy.
+    """
+    rec = _as_mapping(rec)
     text = rec.get("text", "")
     category = rec.get("category", "language")
     language = rec.get("language", "en")
     safety = safety_flags(text)
-    syntax_ok, syntax_note = syntax_validity(text, "python" if category in ("programming", "code_gen", "code_repair", "code_explain", "algorithm", "synthetic") else language)
+    # Syntax validity only applies to code categories, and it is judged on the
+    # *target* span (repair tasks legitimately contain a broken prompt).
+    code_like = category in ("programming", "code_gen", "code_repair", "code_explain",
+                             "algorithm", "synthetic")
+    if code_like:
+        from .preprocess import extract_target_code
+
+        candidate = extract_target_code(rec)
+        if candidate.strip() and language in ("python", "py"):
+            syntax_ok, syntax_note = syntax_validity(candidate, "python")
+        else:
+            syntax_ok, syntax_note = None, ("no_code_in_target" if not candidate.strip()
+                                            else "language_not_checked")
+    else:
+        syntax_ok, syntax_note = None, "not_applicable"
     length = len(text)
     lang_conf = language_confidence(text)
     density = information_density(text)
@@ -177,18 +217,39 @@ def score_record(rec: dict[str, Any], source_quality: float = 1.0,
         "safety_malware": safety["malware"],
         "safety_toxicity": safety["toxicity"],
         "is_minified": is_minified(text),
+        "is_binary_like": is_binary_like(text),
         "quality_score": round(max(0.0, min(1.0, overall)), 4),
     }
 
 
 def filter_record(rec: dict[str, Any], min_quality: float = 0.35,
-                  drop_unsafe: bool = True, redact_pii: bool = True) -> tuple[bool, dict[str, Any], str]:
-    """Return (keep, updated_record, reason)."""
+                  drop_unsafe: bool = True, redact_pii: bool = True,
+                  require_valid_syntax: bool = True) -> tuple[bool, dict[str, Any], str]:
+    """Return (keep, updated_record, reason).
+
+    For records that claim to be valid source code, a failing syntax check is a
+    **hard rejection** (corrective audit P0-01), not a small quality penalty.
+    Intentionally-buggy repair inputs are exempt because they are stored in
+    ``buggy_input`` and are not the training target.
+    """
+    rec = _as_mapping(rec)
+    if not rec.get("quality"):
+        # Self-sufficient: callers that forget to score first must not get every
+        # record rejected with a bogus "too_short".
+        rec["quality"] = score_record(rec)
     q = rec.setdefault("quality", {})
     if q.get("safety_unsafe") and drop_unsafe:
         return False, rec, "unsafe_content"
+    category = rec.get("category", "")
+    if (require_valid_syntax and category in ("programming", "code_gen", "code_explain",
+                                              "algorithm")
+            and q.get("syntax_valid") is False
+            and q.get("syntax_note", "").startswith(("syntax_error", "json_error"))):
+        return False, rec, "malformed_code_rejected"
     if q.get("is_minified"):
         return False, rec, "minified_or_generated"
+    if q.get("is_binary_like"):
+        return False, rec, "binary_content"
     if q.get("length_chars", 0) < 25:
         return False, rec, "too_short"
     if q.get("language_confidence", 0.0) < 0.25:

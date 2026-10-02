@@ -1,0 +1,16 @@
+{
+  "version": "retrieval-v1",
+  "documents": 408,
+  "sources": [
+    "CPython 3.11 stdlib",
+    "curated-facts"
+  ],
+  "licenses": [
+    "CC0-1.0",
+    "PSF-2.0"
+  ],
+  "corpus_bytes": 181795,
+  "index_bytes": 193268,
+  "corpus_path": "datasets/retrieval/corpus.jsonl",
+  "index_path": "datasets/retrieval/index.json"
+}

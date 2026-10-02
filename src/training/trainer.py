@@ -1,23 +1,31 @@
-"""Resource-aware training engine for TinyMe (spec §16, §17, §18).
+"""Corrected TinyMe training engine (P0-03, P0-04, P0-09, P0-10, P0-11, P0-12, P0-15, P0-16).
 
-Features:
-  * deterministic seeding (jax, numpy, python random)
-  * YAML-configurable hyperparameters
-  * XLA-JIT compiled train step (fused forward + backward + AdamW)
-  * gradient accumulation for memory-constrained CPUs
-  * gradient clipping (global norm)
-  * learning-rate warmup + cosine decay
-  * validation split with periodic perplexity evaluation
-  * periodic checkpointing with retention, latest-pointer and crash recovery
-  * per-step JSONL metrics log for resumability
+What changed relative to the audited baseline:
+
+* **true gradient accumulation** — microbatches are scanned with frozen
+  parameters, gradients are summed (``jax.lax.scan``), and the optimizer is
+  updated **once** per accumulation step;
+* **masked loss** — every label carries ``-100`` where the token is not a
+  target; tool results, prompts and padding contribute exactly zero;
+* **padding never trains or evaluates** — the evaluation mean is normalised by
+  active target tokens;
+* **deterministic sampler** with persisted epoch/position;
+* **complete checkpoint/resume** (params + optimizer + scheduler + RNG +
+  sampler + fingerprints) through :mod:`src.training.checkpoint`;
+* **LR continuity on resume** — the schedule is a pure function of the global
+  step, so ``lr(step)`` is identical before and after a resume;
+* **numerical stability** — finite-loss checks, gradient-norm logging, and
+  explicit ``NON_FINITE`` events instead of silent NaN propagation;
+* **honest ``compute_dtype``** — activations run in the requested dtype and the
+  actually-used dtypes are logged.
 """
 from __future__ import annotations
 
 import json
 import logging
-import random
+import math
 import time
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -28,39 +36,47 @@ import optax
 import yaml
 from jax import tree_util
 
-from ..model import TinyMeConfig, count_parameters, forward, init_params
-from ..utils.io_utils import REPO_ROOT, write_json, write_jsonl
+from ..data.dataset_api import load_manifest, load_split, load_tokenizer
+from ..model import TinyMeConfig, assert_vocab_compatible, count_parameters, forward, init_params
+from ..utils.io_utils import REPO_ROOT, human_bytes, write_json, write_jsonl
+from ..utils.rng import RNGService
+from .checkpoint import environment_report, load_checkpoint, prune_checkpoints, save_checkpoint
+from .sampler import EpochSampler, SamplerState
 
 logger = logging.getLogger("tinyme.train")
 
 CHECKPOINTS_DIR = REPO_ROOT / "checkpoints"
 EXPERIMENTS_DIR = REPO_ROOT / "experiments"
+IGNORE_INDEX = -100
 
 
 @dataclass
 class TrainConfig:
-    experiment_id: str = "EXP-001"
-    experiment_name: str = "baseline"
+    experiment_id: str = "EXP-002-CORRECTED-NANO"
+    experiment_name: str = "corrected baseline"
+    stage: str = "pretrain"                     # pretrain | sft
     architecture: str = "nano"
-    dataset_version: str = "dataset_v1"
-    tokenizer_version: str = "tok-v1"
-    seed: int = 1234
-    seq_len: int = 128
-    micro_batch_size: int = 16
-    grad_accum_steps: int = 1
+    dataset_version: str = "dataset_v2"
+    tokenizer_version: str = "tok-v2"
+    seed: int = 20261002
+    seq_len: int = 256
+    micro_batch_size: int = 8
+    grad_accum_steps: int = 4
     learning_rate: float = 6e-4
     min_lr_ratio: float = 0.1
     warmup_steps: int = 50
     weight_decay: float = 0.01
     grad_clip_norm: float = 1.0
     max_steps: int = 400
-    eval_every: int = 100
+    eval_every: int = 50
     checkpoint_every: int = 100
     keep_last_checkpoints: int = 3
     label_smoothing: float = 0.0
     compute_dtype: str = "float32"
-    curriculum: list[dict[str, Any]] | None = None
+    max_val_batches: int = 16
     notes: str = ""
+    resume: bool = True
+    extra: dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -72,283 +88,334 @@ class TrainConfig:
         return cls(**{k: v for k, v in data.items() if k in known})
 
 
-def normalize_keys(flat: dict[str, "np.ndarray"]) -> dict[str, "np.ndarray"]:
-    """Convert JAX tree paths like "['blocks']/[0]/['attn']/['k']" to "blocks/0/attn/k"."""
-    import re as _re
+# ------------------------------------------------------------------- loss
+def masked_cross_entropy(logits: jnp.ndarray, labels: jnp.ndarray,
+                         loss_mask: jnp.ndarray, label_smoothing: float = 0.0) -> jnp.ndarray:
+    """Per-token cross-entropy; masked positions contribute exactly zero.
 
-    out: dict[str, np.ndarray] = {}
-    for key, val in flat.items():
-        k = key.replace("['", "").replace("']", "")
-        k = _re.sub(r"\[(\d+)\]", r"/\1", k)
-        out[_re.sub(r"/+", "/", k).strip("/")] = val
-    return out
-
-
-def set_seed(seed: int) -> None:
-    random.seed(seed)
-    np.random.seed(seed % (2**32))
-
-
-# ------------------------------------------------------------------ dataset
-def load_dataset(version: str, seq_len: int, max_samples: int | None = None,
-                 categories: list[str] | None = None) -> dict[str, np.ndarray]:
-    """Load a dataset version and build fixed-length training tensors."""
-    version_dir = REPO_ROOT / "datasets" / "versions" / version
-    path = version_dir / "train.jsonl"
-    if not path.exists():
-        raise FileNotFoundError(f"dataset {version} not found at {path}")
-
-    from src.tokenizer.bpe import TinyMeTokenizer
-    tok_path = REPO_ROOT / "release" / "tokenizer.json"
-    if not tok_path.exists():
-        tok_path = REPO_ROOT / "datasets" / "processed" / "tokenizer.json"
-    tokenizer = TinyMeTokenizer.load(tok_path)
-    pad_id = tokenizer.tok.token_to_id("<|pad|>")
-    bos_id = tokenizer.tok.token_to_id("<|bos|>")
-    eos_id = tokenizer.tok.token_to_id("<|eos|>")
-
-    sequences: list[list[int]] = []
-    n_read = 0
-    with open(path, "r", encoding="utf-8") as fh:
-        for line in fh:
-            line = line.strip()
-            if not line:
-                continue
-            rec = json.loads(line)
-            if categories and rec.get("category") not in categories:
-                continue
-            ids = tokenizer.encode_ids(rec["text"])
-            ids = [bos_id] + ids[:seq_len - 2] + [eos_id]
-            if len(ids) < 8:
-                continue
-            ids = ids + [pad_id] * (seq_len - len(ids))
-            sequences.append(ids)
-            n_read += 1
-            if max_samples and n_read >= max_samples:
-                break
-    if not sequences:
-        raise ValueError(f"no sequences produced from {version}")
-    arr = np.array(sequences, dtype=np.int32)
-    return {"tokens": arr, "pad_id": np.int32(pad_id),
-            "bos_id": np.int32(bos_id), "eos_id": np.int32(eos_id)}
+    Returns the *sum* over active positions together with the active count, so
+    callers can normalise globally rather than per-microbatch.
+    """
+    logits = logits.astype(jnp.float32)
+    target = jnp.clip(jnp.where(labels < 0, 0, labels), 0, logits.shape[-1] - 1)
+    logp = jax.nn.log_softmax(logits, axis=-1)
+    nll = -jnp.take_along_axis(logp, target[..., None], axis=-1)[..., 0]
+    if label_smoothing > 0:
+        smooth = -logp.mean(axis=-1)
+        nll = (1 - label_smoothing) * nll + label_smoothing * smooth
+    # label -100 is the ignore index; it must contribute zero even if the
+    # caller's mask is inconsistent with the labels.
+    mask = loss_mask.astype(jnp.float32) * (labels >= 0).astype(jnp.float32)
+    return (nll * mask).sum(), mask.sum()
 
 
 # ------------------------------------------------------------------ trainer
 class Trainer:
-    def __init__(self, cfg: TrainConfig, params: dict[str, Any] | None = None,
-                 model_cfg: TinyMeConfig | None = None):
+    def __init__(self, cfg: TrainConfig, model_cfg: TinyMeConfig | None = None,
+                 params: dict[str, Any] | None = None, tokenizer: Any | None = None):
         self.cfg = cfg
         self.model_cfg = model_cfg or TinyMeConfig.from_name(cfg.architecture)
+        self.rng = RNGService(cfg.seed)
+        self.tokenizer = tokenizer or load_tokenizer(cfg.dataset_version)
+        assert_vocab_compatible(self.model_cfg, int(self.tokenizer.vocab_size), context="trainer init")
         self.params = params if params is not None else init_params(self.model_cfg, seed=cfg.seed)
         self.param_count = count_parameters(self.params)
         self.step = 0
         self.best_val_loss = float("inf")
         self.metrics: list[dict[str, Any]] = []
-        self.history: list[dict[str, Any]] = []
-        set_seed(cfg.seed)
+        self.events: list[dict[str, Any]] = []
+        self.sampler_state: SamplerState | None = None
+        self.opt_state: Any = None
 
         self.exp_dir = EXPERIMENTS_DIR / cfg.experiment_id
         self.exp_dir.mkdir(parents=True, exist_ok=True)
         self.ckpt_dir = CHECKPOINTS_DIR / cfg.experiment_id
         self.ckpt_dir.mkdir(parents=True, exist_ok=True)
 
-        total = max(cfg.max_steps, 1)
-        warmup = min(cfg.warmup_steps, total - 1) if total > 1 else 0
-        schedule = optax.warmup_cosine_decay_schedule(
-            init_value=0.0,
-            peak_value=cfg.learning_rate,
-            warmup_steps=warmup,
-            decay_steps=max(total - warmup, 1),
-            end_value=cfg.learning_rate * cfg.min_lr_ratio,
-        )
-        self.optimizer = optax.chain(
-            optax.clip_by_global_norm(cfg.grad_clip_norm),
-            optax.adamw(learning_rate=schedule, weight_decay=cfg.weight_decay,
-                        b1=0.9, b2=0.95, eps=1e-8),
-        )
+        self.optimizer = self._build_optimizer()
         self.opt_state = self.optimizer.init(self.params)
-        self._lr_schedule = schedule
+        self._compile()
 
-        micro_bs = cfg.micro_batch_size
-        accum = cfg.grad_accum_steps
-        cfg_model = self.model_cfg
+    # --------------------------------------------------------------- setup
+    def _lr_jnp(self, step: Any) -> jnp.ndarray:
+        """Warmup + cosine LR as a pure (jittable) function of the global step."""
+        cfg = self.cfg
+        warmup = float(max(1, min(cfg.warmup_steps, max(cfg.max_steps // 10, 1))))
+        s = jnp.asarray(step, jnp.float32)
+        warm = cfg.learning_rate * s / warmup
+        progress = jnp.clip((s - warmup) / max(1.0, cfg.max_steps - warmup), 0.0, 1.0)
+        cosine = 0.5 * (1.0 + jnp.cos(jnp.pi * progress))
+        decay = cfg.learning_rate * (cfg.min_lr_ratio + (1 - cfg.min_lr_ratio) * cosine)
+        return jnp.where(s <= warmup, warm, decay)
 
-        def loss_fn(p, tokens, targets):
-            logits = forward(p, tokens, cfg_model).astype(jnp.float32)
-            if cfg.label_smoothing > 0:
-                onehot = jax.nn.one_hot(targets, logits.shape[-1])
-                soft = (1 - cfg.label_smoothing) * onehot + cfg.label_smoothing / logits.shape[-1]
-                loss = -(soft * jax.nn.log_softmax(logits)).sum(-1)
-            else:
-                loss = optax.softmax_cross_entropy_with_integer_labels(logits, targets)
-            return jnp.maximum(loss.mean(), 0.0)
+    def lr_at(self, step: int) -> float:
+        """Learning rate at a global step (identical before and after resume)."""
+        return float(self._lr_jnp(step))
 
-        def train_step(p, opt_st, batch):
-            tokens, targets = batch[:, :-1], batch[:, 1:]
-            micros = max(1, min(tokens.shape[0] // micro_bs, accum))
-            p_acc, st_acc, total_loss = p, opt_st, 0.0
-            for i in range(micros):
-                sl_ = slice(i * micro_bs, (i + 1) * micro_bs)
-                loss, grads = jax.value_and_grad(loss_fn)(p_acc, tokens[sl_], targets[sl_])
-                updates, st_acc = self.optimizer.update(grads, st_acc, p_acc)
-                p_acc = optax.apply_updates(p_acc, updates)
-                total_loss = total_loss + loss
-            return p_acc, st_acc, total_loss / micros
+    def _build_optimizer(self) -> optax.GradientTransformation:
+        # The schedule reads Optax's internal step count, which is part of the
+        # optimizer state and therefore survives checkpoints: LR continuity on
+        # resume is structural, not accidental (P0-12).
+        return optax.chain(
+            optax.clip_by_global_norm(self.cfg.grad_clip_norm),
+            optax.adamw(learning_rate=lambda count: self._lr_jnp(count + 1),
+                        weight_decay=self.cfg.weight_decay, b1=0.9, b2=0.95, eps=1e-8),
+        )
 
-        self._train_step = jax.jit(train_step)
+    def _compile(self) -> None:
+        cfg, model_cfg, dtype = self.cfg, self.model_cfg, self.cfg.compute_dtype
 
-        def eval_fn(p, batch):
-            tokens, targets = batch[:, :-1], batch[:, 1:]
-            logits = forward(p, tokens, cfg_model).astype(jnp.float32)
-            return optax.softmax_cross_entropy_with_integer_labels(logits, targets).mean()
+        def per_microb_loss(p, tokens, labels, mask, doc_ids):
+            logits = forward(p, tokens, model_cfg, dtype=dtype, doc_ids=doc_ids)
+            total, count = masked_cross_entropy(logits, labels, mask, cfg.label_smoothing)
+            return total, count
 
-        self._eval_fn = jax.jit(eval_fn)
+        def accum_grads(p, batch):
+            zeros = tree_util.tree_map(jnp.zeros_like, p)
 
-    # ------------------------------------------------------------ checkpoint
-    def _flat_numpy(self) -> dict[str, np.ndarray]:
-        flat = tree_util.tree_flatten_with_path(self.params)[0]
-        out: dict[str, np.ndarray] = {}
-        for path, val in flat:
-            key = "/".join(str(k) for k in path)
-            out[key] = np.asarray(val, dtype=np.float32)
-        return normalize_keys(out)
+            def scan_body(carry, microbatch):
+                grad_acc, loss_acc, count_acc = carry
+                t, l, m, d = microbatch
+                (total, count), grads = jax.value_and_grad(per_microb_loss, has_aux=True)(p, t, l, m, d)
+                grad_acc = tree_util.tree_map(lambda a, b: a + b, grad_acc, grads)
+                return (grad_acc, loss_acc + total, count_acc + count), None
 
-    def save_checkpoint(self, name: str = "latest", extra: dict[str, Any] | None = None) -> Path:
-        from safetensors.numpy import save_file
+            (grad_sum, loss_sum, count_sum), _ = jax.lax.scan(
+                scan_body, (zeros, jnp.zeros((), jnp.float32), jnp.zeros((), jnp.float32)), batch)
+            mean_grads = tree_util.tree_map(lambda g: g / jnp.maximum(count_sum, 1.0), grad_sum)
+            return mean_grads, loss_sum, count_sum
 
-        path = self.ckpt_dir / f"{name}.safetensors"
-        save_file(self._flat_numpy(), str(path), metadata={"format": "pt"})
-        meta = {
+        def apply_update(p, opt_state, grads):
+            updates, new_state = self.optimizer.update(grads, opt_state, p)
+            return optax.apply_updates(p, updates), new_state
+
+        self._accum_grads = jax.jit(accum_grads)
+        self._apply_update = jax.jit(apply_update)
+
+        def eval_loss(p, tokens, labels, mask, doc_ids):
+            logits = forward(p, tokens, model_cfg, dtype=dtype, doc_ids=doc_ids)
+            total, count = masked_cross_entropy(logits, labels, mask, 0.0)
+            return total, count
+
+        self._eval = jax.jit(eval_loss)
+
+    # ---------------------------------------------------------- checkpoint
+    def _fingerprints(self) -> dict[str, Any]:
+        try:
+            manifest = load_manifest(self.cfg.dataset_version)
+        except FileNotFoundError:
+            manifest = {}
+        return {
             "experiment_id": self.cfg.experiment_id,
+            "architecture": self.cfg.architecture,
+            "model_config_hash": self.model_cfg.model_hash(),
+            "tokenizer_hash": manifest.get("tokenizer_hash", ""),
+            "dataset_fingerprint": manifest.get("dataset_fingerprint", ""),
+            "seq_len": self.cfg.seq_len,
+        }
+
+    def save(self, name: str = "latest", extra: dict[str, Any] | None = None) -> Path:
+        meta: dict[str, Any] = {
             "step": self.step,
             "best_val_loss": self.best_val_loss,
             "param_count": self.param_count,
-            "architecture": self.cfg.architecture,
             "config": self.cfg.to_dict(),
-            "checkpoint_file": path.name,
-            "checkpoint_bytes": path.stat().st_size,
-            "saved_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
+            "model_config": self.model_cfg.to_dict(),
+            "sampler_state": (self.sampler_state or SamplerState()).to_dict(),
+            "rng_state": self.rng.save_state(),
+            "environment": environment_report(),
+            **self._fingerprints(),
         }
         if extra:
             meta.update(extra)
-        write_json(meta, self.ckpt_dir / f"{name}.json")
-        self._prune_checkpoints()
+        path = save_checkpoint(self.ckpt_dir, name, self.params, self.opt_state, meta)
+        prune_checkpoints(self.ckpt_dir, keep_last=self.cfg.keep_last_checkpoints)
         return path
 
-    def _prune_checkpoints(self) -> None:
-        ckpts = sorted(self.ckpt_dir.glob("step_*.safetensors"), key=lambda p: p.stat().st_mtime)
-        while len(ckpts) > self.cfg.keep_last_checkpoints:
-            victim = ckpts.pop(0)
-            victim.unlink(missing_ok=True)
-            (self.ckpt_dir / f"{victim.stem}.json").unlink(missing_ok=True)
-
-    def load_checkpoint(self, name: str = "latest") -> bool:
-        from safetensors.numpy import load_file
-
-        path = self.ckpt_dir / f"{name}.safetensors"
-        meta_path = self.ckpt_dir / f"{name}.json"
-        if not path.exists() or not meta_path.exists():
+    def resume_from_checkpoint(self, name: str = "latest") -> bool:
+        try:
+            params, opt_state, meta = load_checkpoint(
+                self.ckpt_dir, name, self.params, self.opt_state,
+                expected_fingerprints=self._fingerprints(), require_optimizer=True)
+        except FileNotFoundError:
+            logger.info("no checkpoint %r to resume", name)
             return False
-        flat = load_file(str(path))
-        keys = ["/".join(str(k) for k in p)
-                for p, _ in tree_util.tree_flatten_with_path(self.params)[0]]
-        leaves, treedef = tree_util.tree_flatten(self.params)
-        new_leaves = [jnp.asarray(flat[k]) for k in keys]
-        self.params = tree_util.tree_unflatten(treedef, new_leaves)
-        meta = json.loads(meta_path.read_text())
+        self.params = params
+        self.opt_state = opt_state
         self.step = int(meta.get("step", 0))
         self.best_val_loss = float(meta.get("best_val_loss", float("inf")))
-        self.opt_state = self.optimizer.init(self.params)
-        logger.info("resumed %s from step %d (val_loss=%.4f)", name, self.step, self.best_val_loss)
+        self.sampler_state = SamplerState.from_dict(meta.get("sampler_state", {}))
+        self.rng.load_state(meta.get("rng_state"))
+        logger.info("resumed %s from step %d (best_val=%.4f, lr=%.3e)",
+                    self.cfg.experiment_id, self.step, self.best_val_loss, self.lr_at(self.step))
         return True
 
+    # ----------------------------------------------------------- evaluation
+    def evaluate(self, data: dict[str, np.ndarray], max_batches: int | None = None) -> dict[str, float]:
+        n = data["input_ids"].shape[0]
+        bs = self.cfg.micro_batch_size * self.cfg.grad_accum_steps
+        max_batches = max_batches or self.cfg.max_val_batches
+        total, count, batches = 0.0, 0.0, 0
+        for start in range(0, n, bs):
+            if batches >= max_batches:
+                break
+            sl = slice(start, min(start + bs, n))
+            if sl.stop - sl.start < 2:
+                continue
+            t, c = self._eval(self.params, jnp.asarray(data["input_ids"][sl]),
+                              jnp.asarray(data["labels"][sl]), jnp.asarray(data["loss_mask"][sl]),
+                              jnp.asarray(data["doc_ids"][sl]))
+            total += float(t)
+            count += float(c)
+            batches += 1
+        if count == 0:
+            return {"val_loss": float("nan"), "val_perplexity": float("nan"),
+                    "active_tokens": 0.0}
+        loss = total / count
+        return {"val_loss": loss, "val_perplexity": float(np.exp(min(loss, 20.0))),
+                "active_tokens": count}
+
     # ---------------------------------------------------------------- train
-    def evaluate(self, data: np.ndarray, max_batches: int = 8) -> dict[str, float]:
-        losses = []
-        n = min(len(data), max_batches * self.cfg.micro_batch_size)
-        for i in range(0, n - self.cfg.micro_batch_size, self.cfg.micro_batch_size):
-            batch = jnp.asarray(data[i:i + self.cfg.micro_batch_size])
-            losses.append(float(self._eval_fn(self.params, batch)))
-        mean_loss = float(np.mean(losses)) if losses else float("nan")
-        return {"val_loss": mean_loss, "val_perplexity": float(np.exp(mean_loss))}
-
-    def fit(self, train_data: np.ndarray, val_data: np.ndarray | None = None,
-            resume: bool = True) -> dict[str, Any]:
+    def fit(self, train_data: dict[str, np.ndarray], val_data: dict[str, np.ndarray] | None = None,
+            resume: bool | None = None) -> dict[str, Any]:
         cfg = self.cfg
-        if resume:
-            self.load_checkpoint("latest")
+        resume = cfg.resume if resume is None else resume
+        if resume and self.opt_state is not None and self.step == 0:
+            self.resume_from_checkpoint("latest")
 
-        rng = np.random.default_rng(cfg.seed)
-        bs = cfg.micro_batch_size
-        start_step = self.step
+        n = train_data["input_ids"].shape[0]
+        batch_size = cfg.micro_batch_size * cfg.grad_accum_steps
+        sampler = EpochSampler(n, batch_size, seed=cfg.seed,
+                               fingerprint=self._fingerprints()["dataset_fingerprint"])
+        if self.sampler_state is None or self.sampler_state.dataset_size != n:
+            self.sampler_state = sampler.initial_state()
+
+        if val_data is None or val_data["input_ids"].shape[0] == 0:
+            raise ValueError("a real validation split is required (train split cannot be used)")
+
         t_start = time.perf_counter()
         tokens_processed = 0
+        skipped = 0
+        logger.info("training %s [%s]: %d params, seq_len=%d, micro_bs=%d, accum=%d, "
+                    "effective_batch=%d, steps=%d, dtype=%s",
+                    cfg.experiment_id, cfg.stage, self.param_count, cfg.seq_len,
+                    cfg.micro_batch_size, cfg.grad_accum_steps, batch_size, cfg.max_steps,
+                    cfg.compute_dtype)
+        logger.info("dtypes: embeddings=%s weights=%s loss=float32",
+                    self.params["tok_emb"].dtype, self.params["tok_emb"].dtype)
 
-        logger.info("training %s: %d params, seq_len=%d, micro_bs=%d, accum=%d, steps=%d",
-                    cfg.experiment_id, self.param_count, cfg.seq_len, bs,
-                    cfg.grad_accum_steps, cfg.max_steps)
-
+        start_step = self.step
         while self.step < cfg.max_steps:
-            idx = np.sort(rng.integers(0, max(1, len(train_data) - bs), size=bs))
-            batch = jnp.asarray(train_data[idx])
-            self.params, self.opt_state, loss = self._train_step(self.params, self.opt_state, batch)
+            idx = sampler.batch_indices(self.sampler_state.epoch, self.sampler_state.position)
+            batch = {k: v[idx] for k, v in train_data.items()}
+            n_micro = cfg.micro_batch_size
+            expected = cfg.grad_accum_steps * n_micro
+            if batch["input_ids"].shape[0] != expected:
+                raise ValueError(f"sampler returned {batch['input_ids'].shape[0]} rows; "
+                                 f"expected {expected} (grad_accum*micro_batch)")
+            tokens = batch["input_ids"].reshape(cfg.grad_accum_steps, n_micro, cfg.seq_len)
+            labels = batch["labels"].reshape(cfg.grad_accum_steps, n_micro, cfg.seq_len)
+            mask = batch["loss_mask"].reshape(cfg.grad_accum_steps, n_micro, cfg.seq_len)
+            doc_ids = batch["doc_ids"].reshape(cfg.grad_accum_steps, n_micro, cfg.seq_len)
+
+            grads, loss_sum, count_sum = self._accum_grads(
+                self.params, (jnp.asarray(tokens), jnp.asarray(labels),
+                              jnp.asarray(mask), jnp.asarray(doc_ids)))
+            loss = float(loss_sum) / max(float(count_sum), 1.0)
+            grad_norm = float(optax.global_norm(grads))
+            finite = bool(np.isfinite(loss)) and bool(np.isfinite(grad_norm))
+
             self.step += 1
-            tokens_processed += int(batch.shape[0] * (batch.shape[1] - 1))
-            lr = float(self._lr_schedule(self.step))
+            if finite:
+                self.params, self.opt_state = self._apply_update(self.params, self.opt_state, grads)
+            else:
+                skipped += 1
+                self.events.append({"step": self.step, "event": "NON_FINITE", "loss": loss,
+                                    "grad_norm": grad_norm, "config": cfg.to_dict()})
+                logger.error("step %d: non-finite loss/grad (loss=%s grad_norm=%s) — update skipped",
+                             self.step, loss, grad_norm)
+
+            self.sampler_state = sampler.state_after_step(self.sampler_state)
+            tokens_processed += int(count_sum)
 
             record = {
-                "experiment_id": cfg.experiment_id, "step": self.step,
-                "loss": float(loss), "lr": lr,
+                "experiment_id": cfg.experiment_id, "stage": cfg.stage, "step": self.step,
+                "loss": loss, "lr": float(self.lr_at(self.step)), "grad_norm": grad_norm,
+                "active_target_tokens": int(count_sum),
                 "tokens_per_sec": round(tokens_processed / max(time.perf_counter() - t_start, 1e-6), 1),
                 "elapsed_sec": round(time.perf_counter() - t_start, 2),
+                "epoch": self.sampler_state.epoch,
+                "batch_position": self.sampler_state.position,
+                "non_finite": not finite,
                 "timestamp": time.strftime("%Y-%m-%dT%H:%M:%S"),
             }
             self.metrics.append(record)
 
-            if self.step % 10 == 0 or self.step == 1:
-                logger.info("step %d/%d loss=%.4f lr=%.2e tok/s=%s",
-                            self.step, cfg.max_steps, record["loss"], record["lr"], record["tokens_per_sec"])
+            if self.step % 10 == 0 or self.step == start_step + 1:
+                logger.info("step %d/%d loss=%.4f lr=%.2e grad_norm=%.3f tok/s=%s epoch=%d",
+                            self.step, cfg.max_steps, loss, record["lr"], grad_norm,
+                            record["tokens_per_sec"], self.sampler_state.epoch)
 
             if val_data is not None and self.step % cfg.eval_every == 0:
                 ev = self.evaluate(val_data)
                 record.update(ev)
                 if ev["val_loss"] < self.best_val_loss:
                     self.best_val_loss = ev["val_loss"]
-                    self.save_checkpoint("best", extra={"val_loss": ev["val_loss"]})
-                logger.info("  eval step %d: val_loss=%.4f ppl=%.2f",
-                            self.step, ev["val_loss"], ev["val_perplexity"])
+                    self.save("best", extra={"val_loss": ev["val_loss"]})
+                logger.info("  eval step %d: val_loss=%.4f val_ppl=%.2f (active=%d)",
+                            self.step, ev["val_loss"], ev["val_perplexity"], int(ev["active_tokens"]))
 
             if self.step % cfg.checkpoint_every == 0:
-                self.save_checkpoint("latest")
-                self.save_checkpoint(f"step_{self.step:06d}")
+                self.save("latest")
+                self.save(f"step_{self.step:06d}")
 
-        self.save_checkpoint("latest")
-        final_val = (self.evaluate(val_data) if val_data is not None
-                     else {"val_loss": float("nan"), "val_perplexity": float("nan")})
+        self.save("latest")
+        final_val = self.evaluate(val_data)
         write_jsonl(self.metrics, self.exp_dir / "metrics.jsonl")
+        if self.events:
+            write_jsonl(self.events, self.exp_dir / "events.jsonl")
 
         elapsed = time.perf_counter() - t_start
         summary = {
             "experiment_id": cfg.experiment_id,
             "experiment_name": cfg.experiment_name,
+            "stage": cfg.stage,
             "architecture": cfg.architecture,
             "parameter_count": self.param_count,
             "dataset_version": cfg.dataset_version,
             "tokenizer_version": cfg.tokenizer_version,
             "seed": cfg.seed,
+            "seq_len": cfg.seq_len,
+            "effective_batch_size": batch_size,
+            "grad_accum_steps": cfg.grad_accum_steps,
+            "compute_dtype": cfg.compute_dtype,
             "steps_executed": self.step,
             "steps_this_run": self.step - start_step,
             "final_train_loss": float(np.mean([m["loss"] for m in self.metrics[-20:]])),
             "final_val_loss": final_val["val_loss"],
             "final_val_perplexity": final_val["val_perplexity"],
+            "final_val_active_tokens": final_val["active_tokens"],
             "best_val_loss": self.best_val_loss,
             "tokens_processed": tokens_processed,
+            "non_finite_steps": skipped,
+            "epochs_completed": self.sampler_state.epoch,
             "wall_clock_seconds": round(elapsed, 2),
             "avg_tokens_per_sec": round(tokens_processed / max(elapsed, 1e-6), 1),
             "checkpoint_bytes": (self.ckpt_dir / "latest.safetensors").stat().st_size,
+            "fingerprints": self._fingerprints(),
+            "environment": environment_report(),
             "config": cfg.to_dict(),
             "status": "COMPLETED",
         }
         write_json(summary, self.exp_dir / "summary.json")
-        self.history.append(summary)
+        logger.info("done: %d steps, val_loss=%.4f, val_ppl=%.2f, %s artifacts",
+                    self.step, final_val["val_loss"], final_val["val_perplexity"],
+                    human_bytes(int(summary["checkpoint_bytes"])))
         return summary
+
+
+# ------------------------------------------------------------- compatibility
+def load_dataset_for_stage(cfg: TrainConfig, split: str) -> tuple[dict[str, np.ndarray], dict[str, Any]]:
+    """Load a split with the corrected API (no implicit train.jsonl)."""
+    return load_split(cfg.dataset_version, split, seq_len=cfg.seq_len,
+                      tokenizer=load_tokenizer(cfg.dataset_version))

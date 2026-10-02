@@ -1,0 +1,3677 @@
+{
+ "version": "retrieval-v1",
+ "documents": [
+  {
+   "source_id": "FACT-2082DD",
+   "title": "Algorithms, 4th ed. companion notes",
+   "text": "Big-o of binary search.\nBinary search halves the search interval each step, giving O(log n) comparisons.",
+   "url": "https://example.org/facts/binary-search",
+   "source": "curated-facts",
+   "license": "CC0-1.0",
+   "published_at": "2021-09-02"
+  },
+  {
+   "source_id": "FACT-8334A1",
+   "title": "Indonesian government portal",
+   "text": "Capital of indonesia.\nJakarta is the capital of Indonesia; the planned move to Nusantara is phased through 2029.",
+   "url": "https://example.org/facts/indonesia-capital",
+   "source": "curated-facts",
+   "license": "CC0-1.0",
+   "published_at": "2024-01-05"
+  },
+  {
+   "source_id": "FACT-FCD206",
+   "title": "Encyclopaedia of Mathematics",
+   "text": "Definition of a prime number.\nA prime number is an integer greater than 1 whose only positive divisors are 1 and itself.",
+   "url": "https://example.org/facts/prime-number",
+   "source": "curated-facts",
+   "license": "CC0-1.0",
+   "published_at": "2022-07-19"
+  },
+  {
+   "source_id": "FACT-F56310",
+   "title": "Statistics Indonesia, 2024 census release",
+   "text": "Population of bandung.\nBandung's administrative population was recorded as 2,506,603 in the 2024 release.",
+   "url": "https://example.org/facts/bandung-population",
+   "source": "curated-facts",
+   "license": "CC0-1.0",
+   "published_at": "2024-03-11"
+  },
+  {
+   "source_id": "FACT-988002",
+   "title": "Statistics Indonesia, 2024 census release",
+   "text": "Population of jakarta.\nJakarta's administrative population was recorded as 10,679,951 in the 2024 release.",
+   "url": "https://example.org/facts/jakarta-population",
+   "source": "curated-facts",
+   "license": "CC0-1.0",
+   "published_at": "2024-03-11"
+  },
+  {
+   "source_id": "FACT-16880E",
+   "title": "Python Software Foundation",
+   "text": "Psf licence of the python standard library.\nThe Python standard library is distributed under the PSF-2.0 licence.",
+   "url": "https://example.org/facts/psf-license",
+   "source": "curated-facts",
+   "license": "CC0-1.0",
+   "published_at": "2023-04-01"
+  },
+  {
+   "source_id": "FACT-0B1DC0",
+   "title": "Algorithms, 4th ed. companion notes",
+   "text": "Shortest path algorithm for non-negative weights.\nDijkstra's algorithm computes single-source shortest paths for non-negative edge weights.",
+   "url": "https://example.org/facts/shortest-path",
+   "source": "curated-facts",
+   "license": "CC0-1.0",
+   "published_at": "2021-09-02"
+  },
+  {
+   "source_id": "FACT-E850FA",
+   "title": "NIST physical constants",
+   "text": "Water freezing point at one atmosphere.\nAt one atmosphere of pressure water freezes at 0 degrees Celsius (273.15 K).",
+   "url": "https://example.org/facts/water-freezing",
+   "source": "curated-facts",
+   "license": "CC0-1.0",
+   "published_at": "2020-11-30"
+  },
+  {
+   "source_id": "STDLIB-__future__",
+   "title": "Python stdlib: __future__.py",
+   "text": "Module __future__.py (CPython 3.11 standard library).\nRecord of phased-in incompatible language changes.\nPublic API: .",
+   "url": "https://docs.python.org/3.11/library/__future__.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-__hello__",
+   "title": "Python stdlib: __hello__.py",
+   "text": "Module __hello__.py (CPython 3.11 standard library).\n\nPublic API: TestFrozenUtf8_1, TestFrozenUtf8_2, TestFrozenUtf8_4, main.",
+   "url": "https://docs.python.org/3.11/library/__hello__.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-__phello__.__init__",
+   "title": "Python stdlib: __phello__/__init__.py",
+   "text": "Module __phello__/__init__.py (CPython 3.11 standard library).\n\nPublic API: main.",
+   "url": "https://docs.python.org/3.11/library/__phello__.__init__.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-__phello__.spam",
+   "title": "Python stdlib: __phello__/spam.py",
+   "text": "Module __phello__/spam.py (CPython 3.11 standard library).\n\nPublic API: main.",
+   "url": "https://docs.python.org/3.11/library/__phello__.spam.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-_aix_support",
+   "title": "Python stdlib: _aix_support.py",
+   "text": "Module _aix_support.py (CPython 3.11 standard library).\nShared AIX support functions.\nPublic API: aix_platform, aix_buildtag.",
+   "url": "https://docs.python.org/3.11/library/_aix_support.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-_bootsubprocess",
+   "title": "Python stdlib: _bootsubprocess.py",
+   "text": "Module _bootsubprocess.py (CPython 3.11 standard library).\nBasic subprocess implementation for POSIX which only uses os functions. Only\nimplement features required by setup.py to build C extension modules when\nsubprocess is unavailable. setup.py is not used on Windows.\nPublic API: Popen, check_output.",
+   "url": "https://docs.python.org/3.11/library/_bootsubprocess.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-_collections_abc",
+   "title": "Python stdlib: _collections_abc.py",
+   "text": "Module _collections_abc.py (CPython 3.11 standard library).\nAbstract Base Classes (ABCs) for collections, according to PEP 3119.\nPublic API: Hashable, Awaitable, Coroutine, AsyncIterable, AsyncIterator, AsyncGenerator, Iterable, Iterator, Reversible, Generator, Sized, Container, Collection, Callable, Set, MutableSet, Mapping, MappingView, KeysView, ItemsView, ValuesView, MutableMapping, Sequence, ByteString.",
+   "url": "https://docs.python.org/3.11/library/_collections_abc.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-_compression",
+   "title": "Python stdlib: _compression.py",
+   "text": "Module _compression.py (CPython 3.11 standard library).\nInternal classes used by the gzip, lzma and bz2 modules\nPublic API: BaseStream, DecompressReader.",
+   "url": "https://docs.python.org/3.11/library/_compression.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-_distutils_system_mod",
+   "title": "Python stdlib: _distutils_system_mod.py",
+   "text": "Module _distutils_system_mod.py (CPython 3.11 standard library).\nApply Debian-specific patches to distutils commands.\nPublic API: install, install_egg_info, is_virtual_environment, load_schemes_wrapper, add_debian_schemes, apply_customizations.",
+   "url": "https://docs.python.org/3.11/library/_distutils_system_mod.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-_markupbase",
+   "title": "Python stdlib: _markupbase.py",
+   "text": "Module _markupbase.py (CPython 3.11 standard library).\nShared support for scanning document type declarations in HTML and XHTML.\nPublic API: ParserBase.",
+   "url": "https://docs.python.org/3.11/library/_markupbase.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-_osx_support",
+   "title": "Python stdlib: _osx_support.py",
+   "text": "Module _osx_support.py (CPython 3.11 standard library).\nShared OS X support functions.\nPublic API: compiler_fixup, customize_config_vars, customize_compiler, get_platform_osx.",
+   "url": "https://docs.python.org/3.11/library/_osx_support.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-_py_abc",
+   "title": "Python stdlib: _py_abc.py",
+   "text": "Module _py_abc.py (CPython 3.11 standard library).\n\nPublic API: get_cache_token, ABCMeta.",
+   "url": "https://docs.python.org/3.11/library/_py_abc.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-_pydecimal",
+   "title": "Python stdlib: _pydecimal.py",
+   "text": "Module _pydecimal.py (CPython 3.11 standard library).\nThis is an implementation of decimal floating point arithmetic based on\nthe General Decimal Arithmetic Specification:\nPublic API: DecimalException, Clamped, InvalidOperation, ConversionSyntax, DivisionByZero, DivisionImpossible, DivisionUndefined, Inexact, InvalidContext, Rounded, Subnormal, Overflow, Underflow, FloatOperation, getcontext, setcontext, localcontext, Decimal, Context.",
+   "url": "https://docs.python.org/3.11/library/_pydecimal.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-_pyio",
+   "title": "Python stdlib: _pyio.py",
+   "text": "Module _pyio.py (CPython 3.11 standard library).\nPython implementation of the io module.\nPublic API: text_encoding, open, IOBase, RawIOBase, BufferedIOBase, BytesIO, BufferedReader, BufferedWriter, BufferedRWPair, BufferedRandom, FileIO, TextIOBase, IncrementalNewlineDecoder, TextIOWrapper, StringIO.",
+   "url": "https://docs.python.org/3.11/library/_pyio.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-_sitebuiltins",
+   "title": "Python stdlib: _sitebuiltins.py",
+   "text": "Module _sitebuiltins.py (CPython 3.11 standard library).\nThe objects used by the site module to add custom builtins.\nPublic API: Quitter.",
+   "url": "https://docs.python.org/3.11/library/_sitebuiltins.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-_strptime",
+   "title": "Python stdlib: _strptime.py",
+   "text": "Module _strptime.py (CPython 3.11 standard library).\nStrptime-related classes and functions.\nPublic API: LocaleTime, TimeRE.",
+   "url": "https://docs.python.org/3.11/library/_strptime.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-_threading_local",
+   "title": "Python stdlib: _threading_local.py",
+   "text": "Module _threading_local.py (CPython 3.11 standard library).\nThread-local objects.\nPublic API: local.",
+   "url": "https://docs.python.org/3.11/library/_threading_local.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-_weakrefset",
+   "title": "Python stdlib: _weakrefset.py",
+   "text": "Module _weakrefset.py (CPython 3.11 standard library).\n\nPublic API: WeakSet.",
+   "url": "https://docs.python.org/3.11/library/_weakrefset.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-abc",
+   "title": "Python stdlib: abc.py",
+   "text": "Module abc.py (CPython 3.11 standard library).\nAbstract Base Classes (ABCs) according to PEP 3119.\nPublic API: abstractmethod, abstractclassmethod, abstractstaticmethod, abstractproperty, update_abstractmethods, ABC.",
+   "url": "https://docs.python.org/3.11/library/abc.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-aifc",
+   "title": "Python stdlib: aifc.py",
+   "text": "Module aifc.py (CPython 3.11 standard library).\nStuff to parse AIFF-C and AIFF files.\nPublic API: Error, Aifc_read, Aifc_write, open.",
+   "url": "https://docs.python.org/3.11/library/aifc.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-antigravity",
+   "title": "Python stdlib: antigravity.py",
+   "text": "Module antigravity.py (CPython 3.11 standard library).\n\nPublic API: geohash.",
+   "url": "https://docs.python.org/3.11/library/antigravity.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-argparse",
+   "title": "Python stdlib: argparse.py",
+   "text": "Module argparse.py (CPython 3.11 standard library).\nCommand-line parsing library\nPublic API: HelpFormatter, RawDescriptionHelpFormatter, RawTextHelpFormatter, ArgumentDefaultsHelpFormatter, MetavarTypeHelpFormatter, ArgumentError, ArgumentTypeError, Action, BooleanOptionalAction, FileType, Namespace, ArgumentParser.",
+   "url": "https://docs.python.org/3.11/library/argparse.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-ast",
+   "title": "Python stdlib: ast.py",
+   "text": "Module ast.py (CPython 3.11 standard library).\nast\n~~~\nPublic API: parse, literal_eval, dump, copy_location, fix_missing_locations, increment_lineno, iter_fields, iter_child_nodes, get_docstring, get_source_segment, walk, NodeVisitor, NodeTransformer, Num, Str, Bytes, NameConstant, Ellipsis, slice, Index, ExtSlice, Suite, AugLoad, AugStore.",
+   "url": "https://docs.python.org/3.11/library/ast.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asynchat",
+   "title": "Python stdlib: asynchat.py",
+   "text": "Module asynchat.py (CPython 3.11 standard library).\nA class supporting chat-style (command/response) protocols.\nPublic API: async_chat, simple_producer, find_prefix_at_end.",
+   "url": "https://docs.python.org/3.11/library/asynchat.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.__init__",
+   "title": "Python stdlib: asyncio/__init__.py",
+   "text": "Module asyncio/__init__.py (CPython 3.11 standard library).\nThe asyncio package, tracking PEP 3156.\nPublic API: .",
+   "url": "https://docs.python.org/3.11/library/asyncio.__init__.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.__main__",
+   "title": "Python stdlib: asyncio/__main__.py",
+   "text": "Module asyncio/__main__.py (CPython 3.11 standard library).\n\nPublic API: AsyncIOInteractiveConsole, REPLThread.",
+   "url": "https://docs.python.org/3.11/library/asyncio.__main__.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.base_events",
+   "title": "Python stdlib: asyncio/base_events.py",
+   "text": "Module asyncio/base_events.py (CPython 3.11 standard library).\nBase implementation of event loop.\nPublic API: Server, BaseEventLoop.",
+   "url": "https://docs.python.org/3.11/library/asyncio.base_events.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.base_futures",
+   "title": "Python stdlib: asyncio/base_futures.py",
+   "text": "Module asyncio/base_futures.py (CPython 3.11 standard library).\n\nPublic API: isfuture.",
+   "url": "https://docs.python.org/3.11/library/asyncio.base_futures.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.base_subprocess",
+   "title": "Python stdlib: asyncio/base_subprocess.py",
+   "text": "Module asyncio/base_subprocess.py (CPython 3.11 standard library).\n\nPublic API: BaseSubprocessTransport, WriteSubprocessPipeProto, ReadSubprocessPipeProto.",
+   "url": "https://docs.python.org/3.11/library/asyncio.base_subprocess.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.coroutines",
+   "title": "Python stdlib: asyncio/coroutines.py",
+   "text": "Module asyncio/coroutines.py (CPython 3.11 standard library).\n\nPublic API: iscoroutinefunction, iscoroutine.",
+   "url": "https://docs.python.org/3.11/library/asyncio.coroutines.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.events",
+   "title": "Python stdlib: asyncio/events.py",
+   "text": "Module asyncio/events.py (CPython 3.11 standard library).\nEvent loop and event loop policy.\nPublic API: Handle, TimerHandle, AbstractServer, AbstractEventLoop, AbstractEventLoopPolicy, BaseDefaultEventLoopPolicy, get_running_loop, get_event_loop_policy, set_event_loop_policy, get_event_loop, set_event_loop, new_event_loop, get_child_watcher, set_child_watcher.",
+   "url": "https://docs.python.org/3.11/library/asyncio.events.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.exceptions",
+   "title": "Python stdlib: asyncio/exceptions.py",
+   "text": "Module asyncio/exceptions.py (CPython 3.11 standard library).\nasyncio exceptions.\nPublic API: CancelledError, InvalidStateError, SendfileNotAvailableError, IncompleteReadError, LimitOverrunError, BrokenBarrierError.",
+   "url": "https://docs.python.org/3.11/library/asyncio.exceptions.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.format_helpers",
+   "title": "Python stdlib: asyncio/format_helpers.py",
+   "text": "Module asyncio/format_helpers.py (CPython 3.11 standard library).\n\nPublic API: extract_stack.",
+   "url": "https://docs.python.org/3.11/library/asyncio.format_helpers.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.futures",
+   "title": "Python stdlib: asyncio/futures.py",
+   "text": "Module asyncio/futures.py (CPython 3.11 standard library).\nA Future class similar to the one in PEP 3148.\nPublic API: Future, wrap_future.",
+   "url": "https://docs.python.org/3.11/library/asyncio.futures.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.locks",
+   "title": "Python stdlib: asyncio/locks.py",
+   "text": "Module asyncio/locks.py (CPython 3.11 standard library).\nSynchronization primitives.\nPublic API: Lock, Event, Condition, Semaphore, BoundedSemaphore, Barrier.",
+   "url": "https://docs.python.org/3.11/library/asyncio.locks.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.log",
+   "title": "Python stdlib: asyncio/log.py",
+   "text": "Module asyncio/log.py (CPython 3.11 standard library).\nLogging configuration.\nPublic API: .",
+   "url": "https://docs.python.org/3.11/library/asyncio.log.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.mixins",
+   "title": "Python stdlib: asyncio/mixins.py",
+   "text": "Module asyncio/mixins.py (CPython 3.11 standard library).\nEvent loop mixins.\nPublic API: .",
+   "url": "https://docs.python.org/3.11/library/asyncio.mixins.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.proactor_events",
+   "title": "Python stdlib: asyncio/proactor_events.py",
+   "text": "Module asyncio/proactor_events.py (CPython 3.11 standard library).\nEvent loop using a proactor and related classes.\nPublic API: BaseProactorEventLoop.",
+   "url": "https://docs.python.org/3.11/library/asyncio.proactor_events.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.protocols",
+   "title": "Python stdlib: asyncio/protocols.py",
+   "text": "Module asyncio/protocols.py (CPython 3.11 standard library).\nAbstract Protocol base classes.\nPublic API: BaseProtocol, Protocol, BufferedProtocol, DatagramProtocol, SubprocessProtocol.",
+   "url": "https://docs.python.org/3.11/library/asyncio.protocols.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.queues",
+   "title": "Python stdlib: asyncio/queues.py",
+   "text": "Module asyncio/queues.py (CPython 3.11 standard library).\n\nPublic API: QueueEmpty, QueueFull, Queue, PriorityQueue, LifoQueue.",
+   "url": "https://docs.python.org/3.11/library/asyncio.queues.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.runners",
+   "title": "Python stdlib: asyncio/runners.py",
+   "text": "Module asyncio/runners.py (CPython 3.11 standard library).\n\nPublic API: Runner, run.",
+   "url": "https://docs.python.org/3.11/library/asyncio.runners.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.selector_events",
+   "title": "Python stdlib: asyncio/selector_events.py",
+   "text": "Module asyncio/selector_events.py (CPython 3.11 standard library).\nEvent loop using a selector and related classes.\nPublic API: BaseSelectorEventLoop.",
+   "url": "https://docs.python.org/3.11/library/asyncio.selector_events.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.sslproto",
+   "title": "Python stdlib: asyncio/sslproto.py",
+   "text": "Module asyncio/sslproto.py (CPython 3.11 standard library).\n\nPublic API: SSLProtocolState, AppProtocolState, add_flowcontrol_defaults, SSLProtocol.",
+   "url": "https://docs.python.org/3.11/library/asyncio.sslproto.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.staggered",
+   "title": "Python stdlib: asyncio/staggered.py",
+   "text": "Module asyncio/staggered.py (CPython 3.11 standard library).\nSupport for running coroutines in parallel with staggered start times.\nPublic API: .",
+   "url": "https://docs.python.org/3.11/library/asyncio.staggered.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.streams",
+   "title": "Python stdlib: asyncio/streams.py",
+   "text": "Module asyncio/streams.py (CPython 3.11 standard library).\n\nPublic API: FlowControlMixin, StreamReaderProtocol, StreamWriter, StreamReader.",
+   "url": "https://docs.python.org/3.11/library/asyncio.streams.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.subprocess",
+   "title": "Python stdlib: asyncio/subprocess.py",
+   "text": "Module asyncio/subprocess.py (CPython 3.11 standard library).\n\nPublic API: SubprocessStreamProtocol, Process.",
+   "url": "https://docs.python.org/3.11/library/asyncio.subprocess.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.taskgroups",
+   "title": "Python stdlib: asyncio/taskgroups.py",
+   "text": "Module asyncio/taskgroups.py (CPython 3.11 standard library).\n\nPublic API: TaskGroup.",
+   "url": "https://docs.python.org/3.11/library/asyncio.taskgroups.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.tasks",
+   "title": "Python stdlib: asyncio/tasks.py",
+   "text": "Module asyncio/tasks.py (CPython 3.11 standard library).\nSupport for tasks, coroutines and the scheduler.\nPublic API: current_task, all_tasks, Task, create_task, as_completed, ensure_future, gather, shield, run_coroutine_threadsafe.",
+   "url": "https://docs.python.org/3.11/library/asyncio.tasks.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.threads",
+   "title": "Python stdlib: asyncio/threads.py",
+   "text": "Module asyncio/threads.py (CPython 3.11 standard library).\nHigh-level support for working with threads in asyncio\nPublic API: .",
+   "url": "https://docs.python.org/3.11/library/asyncio.threads.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.timeouts",
+   "title": "Python stdlib: asyncio/timeouts.py",
+   "text": "Module asyncio/timeouts.py (CPython 3.11 standard library).\n\nPublic API: Timeout, timeout, timeout_at.",
+   "url": "https://docs.python.org/3.11/library/asyncio.timeouts.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.transports",
+   "title": "Python stdlib: asyncio/transports.py",
+   "text": "Module asyncio/transports.py (CPython 3.11 standard library).\nAbstract Transport class.\nPublic API: BaseTransport, ReadTransport, WriteTransport, Transport, DatagramTransport, SubprocessTransport.",
+   "url": "https://docs.python.org/3.11/library/asyncio.transports.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.trsock",
+   "title": "Python stdlib: asyncio/trsock.py",
+   "text": "Module asyncio/trsock.py (CPython 3.11 standard library).\n\nPublic API: TransportSocket.",
+   "url": "https://docs.python.org/3.11/library/asyncio.trsock.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.unix_events",
+   "title": "Python stdlib: asyncio/unix_events.py",
+   "text": "Module asyncio/unix_events.py (CPython 3.11 standard library).\nSelector event loop for Unix with signal handling.\nPublic API: waitstatus_to_exitcode, AbstractChildWatcher, PidfdChildWatcher, BaseChildWatcher, SafeChildWatcher, FastChildWatcher, MultiLoopChildWatcher, ThreadedChildWatcher.",
+   "url": "https://docs.python.org/3.11/library/asyncio.unix_events.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.windows_events",
+   "title": "Python stdlib: asyncio/windows_events.py",
+   "text": "Module asyncio/windows_events.py (CPython 3.11 standard library).\nSelector and proactor event loops for Windows.\nPublic API: PipeServer, ProactorEventLoop, IocpProactor, WindowsSelectorEventLoopPolicy, WindowsProactorEventLoopPolicy.",
+   "url": "https://docs.python.org/3.11/library/asyncio.windows_events.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncio.windows_utils",
+   "title": "Python stdlib: asyncio/windows_utils.py",
+   "text": "Module asyncio/windows_utils.py (CPython 3.11 standard library).\nVarious Windows specific bits and pieces.\nPublic API: pipe, PipeHandle, Popen.",
+   "url": "https://docs.python.org/3.11/library/asyncio.windows_utils.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-asyncore",
+   "title": "Python stdlib: asyncore.py",
+   "text": "Module asyncore.py (CPython 3.11 standard library).\nBasic infrastructure for asynchronous socket service clients and servers.\nPublic API: ExitNow, read, write, readwrite, poll, poll2, loop, dispatcher, dispatcher_with_send, compact_traceback, close_all.",
+   "url": "https://docs.python.org/3.11/library/asyncore.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-base64",
+   "title": "Python stdlib: base64.py",
+   "text": "Module base64.py (CPython 3.11 standard library).\nBase16, Base32, Base64 (RFC 3548), Base85 and Ascii85 data encodings\nPublic API: b64encode, b64decode, standard_b64encode, standard_b64decode, urlsafe_b64encode, urlsafe_b64decode, b32encode, b32decode, b32hexencode, b32hexdecode, b16encode, b16decode, a85encode, a85decode, b85encode, b85decode, encode, decode, encodebytes, decodebytes, main, test.",
+   "url": "https://docs.python.org/3.11/library/base64.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-bdb",
+   "title": "Python stdlib: bdb.py",
+   "text": "Module bdb.py (CPython 3.11 standard library).\nDebugger basics\nPublic API: BdbQuit, Bdb, set_trace, Breakpoint, checkfuncname, effective, Tdb, foo, bar, test.",
+   "url": "https://docs.python.org/3.11/library/bdb.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-bisect",
+   "title": "Python stdlib: bisect.py",
+   "text": "Module bisect.py (CPython 3.11 standard library).\nBisection algorithms.\nPublic API: insort_right, bisect_right, insort_left, bisect_left.",
+   "url": "https://docs.python.org/3.11/library/bisect.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-bz2",
+   "title": "Python stdlib: bz2.py",
+   "text": "Module bz2.py (CPython 3.11 standard library).\nInterface to the libbzip2 compression library.\nPublic API: BZ2File, open, compress, decompress.",
+   "url": "https://docs.python.org/3.11/library/bz2.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-cProfile",
+   "title": "Python stdlib: cProfile.py",
+   "text": "Module cProfile.py (CPython 3.11 standard library).\nPython interface for the 'lsprof' profiler.\nCompatible with the 'profile' module.\nPublic API: run, runctx, Profile, label, main.",
+   "url": "https://docs.python.org/3.11/library/cProfile.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-calendar",
+   "title": "Python stdlib: calendar.py",
+   "text": "Module calendar.py (CPython 3.11 standard library).\nCalendar printing functions\nPublic API: IllegalMonthError, IllegalWeekdayError, isleap, leapdays, weekday, monthrange, Calendar, TextCalendar, HTMLCalendar, different_locale, LocaleTextCalendar, LocaleHTMLCalendar, setfirstweekday, format, formatstring, timegm, main.",
+   "url": "https://docs.python.org/3.11/library/calendar.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-cgi",
+   "title": "Python stdlib: cgi.py",
+   "text": "Module cgi.py (CPython 3.11 standard library).\nSupport module for CGI (Common Gateway Interface) scripts.\nPublic API: initlog, dolog, nolog, closelog, parse, parse_multipart, parse_header, MiniFieldStorage, FieldStorage, test, print_exception, print_environ, print_form, print_directory, print_arguments, print_environ_usage, valid_boundary.",
+   "url": "https://docs.python.org/3.11/library/cgi.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-cgitb",
+   "title": "Python stdlib: cgitb.py",
+   "text": "Module cgitb.py (CPython 3.11 standard library).\nMore comprehensive traceback formatting for Python scripts.\nPublic API: reset, small, strong, grey, lookup, scanvars, html, text, Hook, enable.",
+   "url": "https://docs.python.org/3.11/library/cgitb.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-chunk",
+   "title": "Python stdlib: chunk.py",
+   "text": "Module chunk.py (CPython 3.11 standard library).\nSimple class to read IFF chunks.\nPublic API: Chunk.",
+   "url": "https://docs.python.org/3.11/library/chunk.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-cmd",
+   "title": "Python stdlib: cmd.py",
+   "text": "Module cmd.py (CPython 3.11 standard library).\nA generic class to build line-oriented command interpreters.\nPublic API: Cmd.",
+   "url": "https://docs.python.org/3.11/library/cmd.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-code",
+   "title": "Python stdlib: code.py",
+   "text": "Module code.py (CPython 3.11 standard library).\nUtilities needed to emulate Python's interactive interpreter.\nPublic API: InteractiveInterpreter, InteractiveConsole, interact.",
+   "url": "https://docs.python.org/3.11/library/code.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-codecs",
+   "title": "Python stdlib: codecs.py",
+   "text": "Module codecs.py (CPython 3.11 standard library).\ncodecs -- Python Codec Registry, API and helpers.\nPublic API: CodecInfo, Codec, IncrementalEncoder, BufferedIncrementalEncoder, IncrementalDecoder, BufferedIncrementalDecoder, StreamWriter, StreamReader, StreamReaderWriter, StreamRecoder, open, EncodedFile, getencoder, getdecoder, getincrementalencoder, getincrementaldecoder, getreader, getwriter, iterencode, iterdecode, make_identity_dict, make_encoding_map.",
+   "url": "https://docs.python.org/3.11/library/codecs.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-codeop",
+   "title": "Python stdlib: codeop.py",
+   "text": "Module codeop.py (CPython 3.11 standard library).\nUtilities to compile possibly incomplete Python source code.\nPublic API: compile_command, Compile, CommandCompiler.",
+   "url": "https://docs.python.org/3.11/library/codeop.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-collections.__init__",
+   "title": "Python stdlib: collections/__init__.py",
+   "text": "Module collections/__init__.py (CPython 3.11 standard library).\nThis module implements specialized container datatypes providing\nalternatives to Python's general purpose built-in containers, dict,\nlist, set, and tuple.\nPublic API: OrderedDict, namedtuple, Counter, ChainMap, UserDict, UserList, UserString.",
+   "url": "https://docs.python.org/3.11/library/collections.__init__.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-colorsys",
+   "title": "Python stdlib: colorsys.py",
+   "text": "Module colorsys.py (CPython 3.11 standard library).\nConversion functions between RGB and other color systems.\nPublic API: rgb_to_yiq, yiq_to_rgb, rgb_to_hls, hls_to_rgb, rgb_to_hsv, hsv_to_rgb.",
+   "url": "https://docs.python.org/3.11/library/colorsys.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-compileall",
+   "title": "Python stdlib: compileall.py",
+   "text": "Module compileall.py (CPython 3.11 standard library).\nModule/script to byte-compile all .py files to .pyc files.\nPublic API: compile_dir, compile_file, compile_path, main.",
+   "url": "https://docs.python.org/3.11/library/compileall.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-concurrent.futures.__init__",
+   "title": "Python stdlib: concurrent/futures/__init__.py",
+   "text": "Module concurrent/futures/__init__.py (CPython 3.11 standard library).\nExecute computations asynchronously using threads or processes.\nPublic API: .",
+   "url": "https://docs.python.org/3.11/library/concurrent.futures.__init__.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-concurrent.futures._base",
+   "title": "Python stdlib: concurrent/futures/_base.py",
+   "text": "Module concurrent/futures/_base.py (CPython 3.11 standard library).\n\nPublic API: Error, CancelledError, InvalidStateError, as_completed, wait, Future, Executor, BrokenExecutor.",
+   "url": "https://docs.python.org/3.11/library/concurrent.futures._base.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-concurrent.futures.process",
+   "title": "Python stdlib: concurrent/futures/process.py",
+   "text": "Module concurrent/futures/process.py (CPython 3.11 standard library).\nImplements ProcessPoolExecutor.\nPublic API: BrokenProcessPool, ProcessPoolExecutor.",
+   "url": "https://docs.python.org/3.11/library/concurrent.futures.process.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-concurrent.futures.thread",
+   "title": "Python stdlib: concurrent/futures/thread.py",
+   "text": "Module concurrent/futures/thread.py (CPython 3.11 standard library).\nImplements ThreadPoolExecutor.\nPublic API: BrokenThreadPool, ThreadPoolExecutor.",
+   "url": "https://docs.python.org/3.11/library/concurrent.futures.thread.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-configparser",
+   "title": "Python stdlib: configparser.py",
+   "text": "Module configparser.py (CPython 3.11 standard library).\nConfiguration file parser.\nPublic API: Error, NoSectionError, DuplicateSectionError, DuplicateOptionError, NoOptionError, InterpolationError, InterpolationMissingOptionError, InterpolationSyntaxError, InterpolationDepthError, ParsingError, MissingSectionHeaderError, Interpolation, BasicInterpolation, ExtendedInterpolation, LegacyInterpolation, RawConfigParser, ConfigParser, SafeConfigParser, SectionProxy, ConverterMapping.",
+   "url": "https://docs.python.org/3.11/library/configparser.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-contextlib",
+   "title": "Python stdlib: contextlib.py",
+   "text": "Module contextlib.py (CPython 3.11 standard library).\nUtilities for with-statement contexts.  See PEP 343.\nPublic API: AbstractContextManager, AbstractAsyncContextManager, ContextDecorator, AsyncContextDecorator, contextmanager, asynccontextmanager, closing, aclosing, redirect_stdout, redirect_stderr, suppress, ExitStack, AsyncExitStack, nullcontext, chdir.",
+   "url": "https://docs.python.org/3.11/library/contextlib.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-copy",
+   "title": "Python stdlib: copy.py",
+   "text": "Module copy.py (CPython 3.11 standard library).\nGeneric (shallow and deep) copying operations.\nPublic API: Error, copy, deepcopy.",
+   "url": "https://docs.python.org/3.11/library/copy.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-copyreg",
+   "title": "Python stdlib: copyreg.py",
+   "text": "Module copyreg.py (CPython 3.11 standard library).\nHelper to provide extensibility for pickle.\nPublic API: pickle, constructor, pickle_union, add_extension, remove_extension, clear_extension_cache.",
+   "url": "https://docs.python.org/3.11/library/copyreg.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-crypt",
+   "title": "Python stdlib: crypt.py",
+   "text": "Module crypt.py (CPython 3.11 standard library).\nWrapper to the POSIX crypt library call and associated functionality.\nPublic API: mksalt, crypt.",
+   "url": "https://docs.python.org/3.11/library/crypt.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-csv",
+   "title": "Python stdlib: csv.py",
+   "text": "Module csv.py (CPython 3.11 standard library).\ncsv.py - read/write/investigate CSV files\nPublic API: Dialect, excel, excel_tab, unix_dialect, DictReader, DictWriter, Sniffer.",
+   "url": "https://docs.python.org/3.11/library/csv.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-ctypes.__init__",
+   "title": "Python stdlib: ctypes/__init__.py",
+   "text": "Module ctypes/__init__.py (CPython 3.11 standard library).\ncreate and manipulate C data types in Python\nPublic API: create_string_buffer, CFUNCTYPE, py_object, c_short, c_ushort, c_long, c_ulong, c_float, c_double, c_longdouble, c_ubyte, c_byte, c_char, c_char_p, c_void_p, c_bool, c_wchar_p, c_wchar, create_unicode_buffer, SetPointerType, ARRAY, CDLL, PyDLL, LibraryLoader.",
+   "url": "https://docs.python.org/3.11/library/ctypes.__init__.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-ctypes._aix",
+   "title": "Python stdlib: ctypes/_aix.py",
+   "text": "Module ctypes/_aix.py (CPython 3.11 standard library).\nLib/ctypes.util.find_library() support for AIX\nSimilar approach as done for Darwin support by using separate files\nbut unlike Darwin - no extension such as ctypes.macholib.*\nPublic API: get_ld_header, get_ld_header_info, get_ld_headers, get_shared, get_one_match, get_legacy, get_version, get_member, get_libpaths, find_shared, find_library.",
+   "url": "https://docs.python.org/3.11/library/ctypes._aix.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-ctypes.util",
+   "title": "Python stdlib: ctypes/util.py",
+   "text": "Module ctypes/util.py (CPython 3.11 standard library).\n\nPublic API: test.",
+   "url": "https://docs.python.org/3.11/library/ctypes.util.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-ctypes.wintypes",
+   "title": "Python stdlib: ctypes/wintypes.py",
+   "text": "Module ctypes/wintypes.py (CPython 3.11 standard library).\n\nPublic API: VARIANT_BOOL, RECT, POINT, SIZE, RGB, FILETIME, MSG, WIN32_FIND_DATAA, WIN32_FIND_DATAW.",
+   "url": "https://docs.python.org/3.11/library/ctypes.wintypes.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-curses.__init__",
+   "title": "Python stdlib: curses/__init__.py",
+   "text": "Module curses/__init__.py (CPython 3.11 standard library).\ncurses\nPublic API: initscr, start_color, wrapper.",
+   "url": "https://docs.python.org/3.11/library/curses.__init__.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-curses.ascii",
+   "title": "Python stdlib: curses/ascii.py",
+   "text": "Module curses/ascii.py (CPython 3.11 standard library).\nConstants and membership tests for ASCII characters\nPublic API: isalnum, isalpha, isascii, isblank, iscntrl, isdigit, isgraph, islower, isprint, ispunct, isspace, isupper, isxdigit, isctrl, ismeta, ascii, ctrl, alt, unctrl.",
+   "url": "https://docs.python.org/3.11/library/curses.ascii.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-curses.has_key",
+   "title": "Python stdlib: curses/has_key.py",
+   "text": "Module curses/has_key.py (CPython 3.11 standard library).\n\nPublic API: has_key.",
+   "url": "https://docs.python.org/3.11/library/curses.has_key.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-curses.panel",
+   "title": "Python stdlib: curses/panel.py",
+   "text": "Module curses/panel.py (CPython 3.11 standard library).\ncurses.panel\nPublic API: .",
+   "url": "https://docs.python.org/3.11/library/curses.panel.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-curses.textpad",
+   "title": "Python stdlib: curses/textpad.py",
+   "text": "Module curses/textpad.py (CPython 3.11 standard library).\nSimple textbox editing widget with Emacs-like keybindings.\nPublic API: rectangle, Textbox.",
+   "url": "https://docs.python.org/3.11/library/curses.textpad.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-dataclasses",
+   "title": "Python stdlib: dataclasses.py",
+   "text": "Module dataclasses.py (CPython 3.11 standard library).\n\nPublic API: FrozenInstanceError, InitVar, Field, field, dataclass, fields, is_dataclass, asdict, astuple, make_dataclass, replace.",
+   "url": "https://docs.python.org/3.11/library/dataclasses.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-datetime",
+   "title": "Python stdlib: datetime.py",
+   "text": "Module datetime.py (CPython 3.11 standard library).\nConcrete date/time and related types.\nPublic API: timedelta, date, tzinfo, IsoCalendarDate, time, datetime, timezone.",
+   "url": "https://docs.python.org/3.11/library/datetime.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-dbm.__init__",
+   "title": "Python stdlib: dbm/__init__.py",
+   "text": "Module dbm/__init__.py (CPython 3.11 standard library).\nGeneric interface to all dbm clones.\nPublic API: error, open, whichdb.",
+   "url": "https://docs.python.org/3.11/library/dbm.__init__.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-dbm.dumb",
+   "title": "Python stdlib: dbm/dumb.py",
+   "text": "Module dbm/dumb.py (CPython 3.11 standard library).\nA dumb and slow but simple dbm clone.\nPublic API: open.",
+   "url": "https://docs.python.org/3.11/library/dbm.dumb.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-dbm.gnu",
+   "title": "Python stdlib: dbm/gnu.py",
+   "text": "Module dbm/gnu.py (CPython 3.11 standard library).\nProvide the _gdbm module as a dbm submodule.\nPublic API: .",
+   "url": "https://docs.python.org/3.11/library/dbm.gnu.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-dbm.ndbm",
+   "title": "Python stdlib: dbm/ndbm.py",
+   "text": "Module dbm/ndbm.py (CPython 3.11 standard library).\nProvide the _dbm module as a dbm submodule.\nPublic API: .",
+   "url": "https://docs.python.org/3.11/library/dbm.ndbm.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-difflib",
+   "title": "Python stdlib: difflib.py",
+   "text": "Module difflib.py (CPython 3.11 standard library).\nModule difflib -- helpers for computing deltas between objects.\nPublic API: SequenceMatcher, get_close_matches, Differ, IS_LINE_JUNK, IS_CHARACTER_JUNK, unified_diff, context_diff, diff_bytes, ndiff, HtmlDiff, restore.",
+   "url": "https://docs.python.org/3.11/library/difflib.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-dis",
+   "title": "Python stdlib: dis.py",
+   "text": "Module dis.py (CPython 3.11 standard library).\nDisassembler of Python byte code into mnemonics.\nPublic API: dis, distb, pretty_flags, code_info, show_code, Instruction, get_instructions, disassemble, findlabels, findlinestarts, Bytecode.",
+   "url": "https://docs.python.org/3.11/library/dis.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.__init__",
+   "title": "Python stdlib: distutils/__init__.py",
+   "text": "Module distutils/__init__.py (CPython 3.11 standard library).\ndistutils\nPublic API: .",
+   "url": "https://docs.python.org/3.11/library/distutils.__init__.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils._msvccompiler",
+   "title": "Python stdlib: distutils/_msvccompiler.py",
+   "text": "Module distutils/_msvccompiler.py (CPython 3.11 standard library).\ndistutils._msvccompiler\nPublic API: MSVCCompiler.",
+   "url": "https://docs.python.org/3.11/library/distutils._msvccompiler.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.archive_util",
+   "title": "Python stdlib: distutils/archive_util.py",
+   "text": "Module distutils/archive_util.py (CPython 3.11 standard library).\ndistutils.archive_util\nPublic API: make_tarball, make_zipfile, check_archive_formats, make_archive.",
+   "url": "https://docs.python.org/3.11/library/distutils.archive_util.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.bcppcompiler",
+   "title": "Python stdlib: distutils/bcppcompiler.py",
+   "text": "Module distutils/bcppcompiler.py (CPython 3.11 standard library).\ndistutils.bcppcompiler\nPublic API: BCPPCompiler.",
+   "url": "https://docs.python.org/3.11/library/distutils.bcppcompiler.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.ccompiler",
+   "title": "Python stdlib: distutils/ccompiler.py",
+   "text": "Module distutils/ccompiler.py (CPython 3.11 standard library).\ndistutils.ccompiler\nPublic API: CCompiler, get_default_compiler, show_compilers, new_compiler, gen_preprocess_options, gen_lib_options.",
+   "url": "https://docs.python.org/3.11/library/distutils.ccompiler.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.cmd",
+   "title": "Python stdlib: distutils/cmd.py",
+   "text": "Module distutils/cmd.py (CPython 3.11 standard library).\ndistutils.cmd\nPublic API: Command.",
+   "url": "https://docs.python.org/3.11/library/distutils.cmd.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.command.__init__",
+   "title": "Python stdlib: distutils/command/__init__.py",
+   "text": "Module distutils/command/__init__.py (CPython 3.11 standard library).\ndistutils.command\nPublic API: .",
+   "url": "https://docs.python.org/3.11/library/distutils.command.__init__.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.command.bdist",
+   "title": "Python stdlib: distutils/command/bdist.py",
+   "text": "Module distutils/command/bdist.py (CPython 3.11 standard library).\ndistutils.command.bdist\nPublic API: show_formats, bdist.",
+   "url": "https://docs.python.org/3.11/library/distutils.command.bdist.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.command.bdist_dumb",
+   "title": "Python stdlib: distutils/command/bdist_dumb.py",
+   "text": "Module distutils/command/bdist_dumb.py (CPython 3.11 standard library).\ndistutils.command.bdist_dumb\nPublic API: bdist_dumb.",
+   "url": "https://docs.python.org/3.11/library/distutils.command.bdist_dumb.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.command.bdist_rpm",
+   "title": "Python stdlib: distutils/command/bdist_rpm.py",
+   "text": "Module distutils/command/bdist_rpm.py (CPython 3.11 standard library).\ndistutils.command.bdist_rpm\nPublic API: bdist_rpm.",
+   "url": "https://docs.python.org/3.11/library/distutils.command.bdist_rpm.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.command.build",
+   "title": "Python stdlib: distutils/command/build.py",
+   "text": "Module distutils/command/build.py (CPython 3.11 standard library).\ndistutils.command.build\nPublic API: show_compilers, build.",
+   "url": "https://docs.python.org/3.11/library/distutils.command.build.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.command.build_clib",
+   "title": "Python stdlib: distutils/command/build_clib.py",
+   "text": "Module distutils/command/build_clib.py (CPython 3.11 standard library).\ndistutils.command.build_clib\nPublic API: show_compilers, build_clib.",
+   "url": "https://docs.python.org/3.11/library/distutils.command.build_clib.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.command.build_ext",
+   "title": "Python stdlib: distutils/command/build_ext.py",
+   "text": "Module distutils/command/build_ext.py (CPython 3.11 standard library).\ndistutils.command.build_ext\nPublic API: show_compilers, build_ext.",
+   "url": "https://docs.python.org/3.11/library/distutils.command.build_ext.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.command.build_py",
+   "title": "Python stdlib: distutils/command/build_py.py",
+   "text": "Module distutils/command/build_py.py (CPython 3.11 standard library).\ndistutils.command.build_py\nPublic API: build_py, build_py_2to3.",
+   "url": "https://docs.python.org/3.11/library/distutils.command.build_py.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.command.build_scripts",
+   "title": "Python stdlib: distutils/command/build_scripts.py",
+   "text": "Module distutils/command/build_scripts.py (CPython 3.11 standard library).\ndistutils.command.build_scripts\nPublic API: build_scripts, build_scripts_2to3.",
+   "url": "https://docs.python.org/3.11/library/distutils.command.build_scripts.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.command.check",
+   "title": "Python stdlib: distutils/command/check.py",
+   "text": "Module distutils/command/check.py (CPython 3.11 standard library).\ndistutils.command.check\nPublic API: check.",
+   "url": "https://docs.python.org/3.11/library/distutils.command.check.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.command.clean",
+   "title": "Python stdlib: distutils/command/clean.py",
+   "text": "Module distutils/command/clean.py (CPython 3.11 standard library).\ndistutils.command.clean\nPublic API: clean.",
+   "url": "https://docs.python.org/3.11/library/distutils.command.clean.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.command.config",
+   "title": "Python stdlib: distutils/command/config.py",
+   "text": "Module distutils/command/config.py (CPython 3.11 standard library).\ndistutils.command.config\nPublic API: config, dump_file.",
+   "url": "https://docs.python.org/3.11/library/distutils.command.config.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.command.install",
+   "title": "Python stdlib: distutils/command/install.py",
+   "text": "Module distutils/command/install.py (CPython 3.11 standard library).\ndistutils.command.install\nPublic API: install.",
+   "url": "https://docs.python.org/3.11/library/distutils.command.install.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.command.install_data",
+   "title": "Python stdlib: distutils/command/install_data.py",
+   "text": "Module distutils/command/install_data.py (CPython 3.11 standard library).\ndistutils.command.install_data\nPublic API: install_data.",
+   "url": "https://docs.python.org/3.11/library/distutils.command.install_data.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.command.install_egg_info",
+   "title": "Python stdlib: distutils/command/install_egg_info.py",
+   "text": "Module distutils/command/install_egg_info.py (CPython 3.11 standard library).\ndistutils.command.install_egg_info\nPublic API: install_egg_info, safe_name, safe_version, to_filename.",
+   "url": "https://docs.python.org/3.11/library/distutils.command.install_egg_info.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.command.install_headers",
+   "title": "Python stdlib: distutils/command/install_headers.py",
+   "text": "Module distutils/command/install_headers.py (CPython 3.11 standard library).\ndistutils.command.install_headers\nPublic API: install_headers.",
+   "url": "https://docs.python.org/3.11/library/distutils.command.install_headers.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.command.install_lib",
+   "title": "Python stdlib: distutils/command/install_lib.py",
+   "text": "Module distutils/command/install_lib.py (CPython 3.11 standard library).\ndistutils.command.install_lib\nPublic API: install_lib.",
+   "url": "https://docs.python.org/3.11/library/distutils.command.install_lib.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.command.install_scripts",
+   "title": "Python stdlib: distutils/command/install_scripts.py",
+   "text": "Module distutils/command/install_scripts.py (CPython 3.11 standard library).\ndistutils.command.install_scripts\nPublic API: install_scripts.",
+   "url": "https://docs.python.org/3.11/library/distutils.command.install_scripts.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.command.register",
+   "title": "Python stdlib: distutils/command/register.py",
+   "text": "Module distutils/command/register.py (CPython 3.11 standard library).\ndistutils.command.register\nPublic API: register.",
+   "url": "https://docs.python.org/3.11/library/distutils.command.register.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.command.sdist",
+   "title": "Python stdlib: distutils/command/sdist.py",
+   "text": "Module distutils/command/sdist.py (CPython 3.11 standard library).\ndistutils.command.sdist\nPublic API: show_formats, sdist.",
+   "url": "https://docs.python.org/3.11/library/distutils.command.sdist.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.command.upload",
+   "title": "Python stdlib: distutils/command/upload.py",
+   "text": "Module distutils/command/upload.py (CPython 3.11 standard library).\ndistutils.command.upload\nPublic API: upload.",
+   "url": "https://docs.python.org/3.11/library/distutils.command.upload.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.config",
+   "title": "Python stdlib: distutils/config.py",
+   "text": "Module distutils/config.py (CPython 3.11 standard library).\ndistutils.pypirc\nPublic API: PyPIRCCommand.",
+   "url": "https://docs.python.org/3.11/library/distutils.config.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.core",
+   "title": "Python stdlib: distutils/core.py",
+   "text": "Module distutils/core.py (CPython 3.11 standard library).\ndistutils.core\nPublic API: gen_usage, setup, run_setup.",
+   "url": "https://docs.python.org/3.11/library/distutils.core.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.cygwinccompiler",
+   "title": "Python stdlib: distutils/cygwinccompiler.py",
+   "text": "Module distutils/cygwinccompiler.py (CPython 3.11 standard library).\ndistutils.cygwinccompiler\nPublic API: get_msvcr, CygwinCCompiler, Mingw32CCompiler, check_config_h, get_versions, is_cygwingcc.",
+   "url": "https://docs.python.org/3.11/library/distutils.cygwinccompiler.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.dep_util",
+   "title": "Python stdlib: distutils/dep_util.py",
+   "text": "Module distutils/dep_util.py (CPython 3.11 standard library).\ndistutils.dep_util\nPublic API: newer, newer_pairwise, newer_group.",
+   "url": "https://docs.python.org/3.11/library/distutils.dep_util.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.dir_util",
+   "title": "Python stdlib: distutils/dir_util.py",
+   "text": "Module distutils/dir_util.py (CPython 3.11 standard library).\ndistutils.dir_util\nPublic API: mkpath, create_tree, copy_tree, remove_tree, ensure_relative.",
+   "url": "https://docs.python.org/3.11/library/distutils.dir_util.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.dist",
+   "title": "Python stdlib: distutils/dist.py",
+   "text": "Module distutils/dist.py (CPython 3.11 standard library).\ndistutils.dist\nPublic API: Distribution, DistributionMetadata, fix_help_options.",
+   "url": "https://docs.python.org/3.11/library/distutils.dist.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.errors",
+   "title": "Python stdlib: distutils/errors.py",
+   "text": "Module distutils/errors.py (CPython 3.11 standard library).\ndistutils.errors\nPublic API: DistutilsError, DistutilsModuleError, DistutilsClassError, DistutilsGetoptError, DistutilsArgError, DistutilsFileError, DistutilsOptionError, DistutilsSetupError, DistutilsPlatformError, DistutilsExecError, DistutilsInternalError, DistutilsTemplateError, DistutilsByteCompileError, CCompilerError, PreprocessError, CompileError, LibError, LinkError, UnknownFileError.",
+   "url": "https://docs.python.org/3.11/library/distutils.errors.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.extension",
+   "title": "Python stdlib: distutils/extension.py",
+   "text": "Module distutils/extension.py (CPython 3.11 standard library).\ndistutils.extension\nPublic API: Extension, read_setup_file.",
+   "url": "https://docs.python.org/3.11/library/distutils.extension.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.fancy_getopt",
+   "title": "Python stdlib: distutils/fancy_getopt.py",
+   "text": "Module distutils/fancy_getopt.py (CPython 3.11 standard library).\ndistutils.fancy_getopt\nPublic API: FancyGetopt, fancy_getopt, wrap_text, translate_longopt, OptionDummy.",
+   "url": "https://docs.python.org/3.11/library/distutils.fancy_getopt.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.file_util",
+   "title": "Python stdlib: distutils/file_util.py",
+   "text": "Module distutils/file_util.py (CPython 3.11 standard library).\ndistutils.file_util\nPublic API: copy_file, move_file, write_file.",
+   "url": "https://docs.python.org/3.11/library/distutils.file_util.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.filelist",
+   "title": "Python stdlib: distutils/filelist.py",
+   "text": "Module distutils/filelist.py (CPython 3.11 standard library).\ndistutils.filelist\nPublic API: FileList, findall, glob_to_re, translate_pattern.",
+   "url": "https://docs.python.org/3.11/library/distutils.filelist.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.log",
+   "title": "Python stdlib: distutils/log.py",
+   "text": "Module distutils/log.py (CPython 3.11 standard library).\nA simple log mechanism styled after PEP 282.\nPublic API: Log, set_threshold, set_verbosity.",
+   "url": "https://docs.python.org/3.11/library/distutils.log.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.msvc9compiler",
+   "title": "Python stdlib: distutils/msvc9compiler.py",
+   "text": "Module distutils/msvc9compiler.py (CPython 3.11 standard library).\ndistutils.msvc9compiler\nPublic API: Reg, MacroExpander, get_build_version, normalize_and_reduce_paths, removeDuplicates, find_vcvarsall, query_vcvarsall, MSVCCompiler.",
+   "url": "https://docs.python.org/3.11/library/distutils.msvc9compiler.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.msvccompiler",
+   "title": "Python stdlib: distutils/msvccompiler.py",
+   "text": "Module distutils/msvccompiler.py (CPython 3.11 standard library).\ndistutils.msvccompiler\nPublic API: read_keys, read_values, convert_mbcs, MacroExpander, get_build_version, get_build_architecture, normalize_and_reduce_paths, MSVCCompiler.",
+   "url": "https://docs.python.org/3.11/library/distutils.msvccompiler.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.spawn",
+   "title": "Python stdlib: distutils/spawn.py",
+   "text": "Module distutils/spawn.py (CPython 3.11 standard library).\ndistutils.spawn\nPublic API: spawn, find_executable.",
+   "url": "https://docs.python.org/3.11/library/distutils.spawn.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.sysconfig",
+   "title": "Python stdlib: distutils/sysconfig.py",
+   "text": "Module distutils/sysconfig.py (CPython 3.11 standard library).\nProvide access to Python's configuration information.  The specific\nconfiguration variables available depend heavily on the platform and\nconfiguration.  The values may be retrieved using\nget_config_var(name), and the list of variables is available via\nget_config_vars().keys().  Additional convenience functions are also\navailable.\nPublic API: parse_config_h, parse_makefile, customize_compiler, is_virtual_environment, get_python_inc, get_python_lib.",
+   "url": "https://docs.python.org/3.11/library/distutils.sysconfig.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.text_file",
+   "title": "Python stdlib: distutils/text_file.py",
+   "text": "Module distutils/text_file.py (CPython 3.11 standard library).\ntext_file\nPublic API: TextFile.",
+   "url": "https://docs.python.org/3.11/library/distutils.text_file.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.unixccompiler",
+   "title": "Python stdlib: distutils/unixccompiler.py",
+   "text": "Module distutils/unixccompiler.py (CPython 3.11 standard library).\ndistutils.unixccompiler\nPublic API: UnixCCompiler.",
+   "url": "https://docs.python.org/3.11/library/distutils.unixccompiler.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.util",
+   "title": "Python stdlib: distutils/util.py",
+   "text": "Module distutils/util.py (CPython 3.11 standard library).\ndistutils.util\nPublic API: get_host_platform, get_platform, convert_path, change_root, check_environ, subst_vars, grok_environment_error, split_quoted, execute, strtobool, byte_compile, rfc822_escape, run_2to3, copydir_run_2to3, Mixin2to3.",
+   "url": "https://docs.python.org/3.11/library/distutils.util.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.version",
+   "title": "Python stdlib: distutils/version.py",
+   "text": "Module distutils/version.py (CPython 3.11 standard library).\nProvides classes to represent module version numbers (one class for\neach style of version numbering).  There are currently two such classes\nimplemented: StrictVersion and LooseVersion.\nPublic API: Version, StrictVersion, LooseVersion.",
+   "url": "https://docs.python.org/3.11/library/distutils.version.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-distutils.versionpredicate",
+   "title": "Python stdlib: distutils/versionpredicate.py",
+   "text": "Module distutils/versionpredicate.py (CPython 3.11 standard library).\nModule for parsing and testing package version predicate strings.\nPublic API: splitUp, VersionPredicate, split_provision.",
+   "url": "https://docs.python.org/3.11/library/distutils.versionpredicate.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-doctest",
+   "title": "Python stdlib: doctest.py",
+   "text": "Module doctest.py (CPython 3.11 standard library).\nModule doctest -- a framework for running examples in docstrings.\nPublic API: register_optionflag, Example, DocTest, DocTestParser, DocTestFinder, DocTestRunner, OutputChecker, DocTestFailure, UnexpectedException, DebugRunner, testmod, testfile, run_docstring_examples, set_unittest_reportflags, DocTestCase, SkipDocTestCase, DocTestSuite, DocFileCase, DocFileTest, DocFileSuite, script_from_examples, testsource, debug_src, debug_script.",
+   "url": "https://docs.python.org/3.11/library/doctest.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email.__init__",
+   "title": "Python stdlib: email/__init__.py",
+   "text": "Module email/__init__.py (CPython 3.11 standard library).\nA package for parsing, handling, and generating email messages.\nPublic API: message_from_string, message_from_bytes, message_from_file, message_from_binary_file.",
+   "url": "https://docs.python.org/3.11/library/email.__init__.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email._encoded_words",
+   "title": "Python stdlib: email/_encoded_words.py",
+   "text": "Module email/_encoded_words.py (CPython 3.11 standard library).\nRoutines for manipulating RFC2047 encoded words.\nPublic API: decode_q, encode_q, len_q, decode_b, encode_b, len_b, decode, encode.",
+   "url": "https://docs.python.org/3.11/library/email._encoded_words.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email._header_value_parser",
+   "title": "Python stdlib: email/_header_value_parser.py",
+   "text": "Module email/_header_value_parser.py (CPython 3.11 standard library).\nHeader value parser implementing various email-related RFC parsing rules.\nPublic API: make_parenthesis_pairs, quote_string, TokenList, WhiteSpaceTokenList, UnstructuredTokenList, Phrase, Word, CFWSList, Atom, Token, EncodedWord, QuotedString, BareQuotedString, Comment, AddressList, Address, MailboxList, GroupList, Group, NameAddr, AngleAddr, ObsRoute, Mailbox, InvalidMailbox.",
+   "url": "https://docs.python.org/3.11/library/email._header_value_parser.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email._parseaddr",
+   "title": "Python stdlib: email/_parseaddr.py",
+   "text": "Module email/_parseaddr.py (CPython 3.11 standard library).\nEmail address parsing code.\nPublic API: parsedate_tz, parsedate, mktime_tz, quote, AddrlistClass, AddressList.",
+   "url": "https://docs.python.org/3.11/library/email._parseaddr.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email._policybase",
+   "title": "Python stdlib: email/_policybase.py",
+   "text": "Module email/_policybase.py (CPython 3.11 standard library).\nPolicy framework for the email package.\nPublic API: Policy, Compat32.",
+   "url": "https://docs.python.org/3.11/library/email._policybase.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email.base64mime",
+   "title": "Python stdlib: email/base64mime.py",
+   "text": "Module email/base64mime.py (CPython 3.11 standard library).\nBase64 content transfer encoding per RFCs 2045-2047.\nPublic API: header_length, header_encode, body_encode, decode.",
+   "url": "https://docs.python.org/3.11/library/email.base64mime.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email.charset",
+   "title": "Python stdlib: email/charset.py",
+   "text": "Module email/charset.py (CPython 3.11 standard library).\n\nPublic API: add_charset, add_alias, add_codec, Charset.",
+   "url": "https://docs.python.org/3.11/library/email.charset.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email.contentmanager",
+   "title": "Python stdlib: email/contentmanager.py",
+   "text": "Module email/contentmanager.py (CPython 3.11 standard library).\n\nPublic API: ContentManager, get_text_content, get_non_text_content, get_message_content, get_and_fixup_unknown_message_content, set_text_content, set_message_content, set_bytes_content.",
+   "url": "https://docs.python.org/3.11/library/email.contentmanager.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email.encoders",
+   "title": "Python stdlib: email/encoders.py",
+   "text": "Module email/encoders.py (CPython 3.11 standard library).\nEncodings and related functions.\nPublic API: encode_base64, encode_quopri, encode_7or8bit, encode_noop.",
+   "url": "https://docs.python.org/3.11/library/email.encoders.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email.errors",
+   "title": "Python stdlib: email/errors.py",
+   "text": "Module email/errors.py (CPython 3.11 standard library).\nemail package exception classes.\nPublic API: MessageError, MessageParseError, HeaderParseError, BoundaryError, MultipartConversionError, CharsetError, HeaderWriteError, MessageDefect, NoBoundaryInMultipartDefect, StartBoundaryNotFoundDefect, CloseBoundaryNotFoundDefect, FirstHeaderLineIsContinuationDefect, MisplacedEnvelopeHeaderDefect, MissingHeaderBodySeparatorDefect, MultipartInvariantViolationDefect, InvalidMultipartContentTransferEncodingDefect, UndecodableBytesDefect, InvalidBase64PaddingDefect, InvalidBase64CharactersDefect, InvalidBase64LengthDefect, HeaderDefect, InvalidHeaderDefect, HeaderMissingRequiredValue, NonPrintableDefect.",
+   "url": "https://docs.python.org/3.11/library/email.errors.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email.feedparser",
+   "title": "Python stdlib: email/feedparser.py",
+   "text": "Module email/feedparser.py (CPython 3.11 standard library).\nFeedParser - An email feed parser.\nPublic API: BufferedSubFile, FeedParser, BytesFeedParser.",
+   "url": "https://docs.python.org/3.11/library/email.feedparser.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email.generator",
+   "title": "Python stdlib: email/generator.py",
+   "text": "Module email/generator.py (CPython 3.11 standard library).\nClasses to generate plain text from a message object tree.\nPublic API: Generator, BytesGenerator, DecodedGenerator.",
+   "url": "https://docs.python.org/3.11/library/email.generator.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email.header",
+   "title": "Python stdlib: email/header.py",
+   "text": "Module email/header.py (CPython 3.11 standard library).\nHeader encoding and decoding functionality.\nPublic API: decode_header, make_header, Header.",
+   "url": "https://docs.python.org/3.11/library/email.header.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email.headerregistry",
+   "title": "Python stdlib: email/headerregistry.py",
+   "text": "Module email/headerregistry.py (CPython 3.11 standard library).\nRepresenting and manipulating email headers via custom objects.\nPublic API: Address, Group, BaseHeader, UnstructuredHeader, UniqueUnstructuredHeader, DateHeader, UniqueDateHeader, AddressHeader, UniqueAddressHeader, SingleAddressHeader, UniqueSingleAddressHeader, MIMEVersionHeader, ParameterizedMIMEHeader, ContentTypeHeader, ContentDispositionHeader, ContentTransferEncodingHeader, MessageIDHeader, HeaderRegistry.",
+   "url": "https://docs.python.org/3.11/library/email.headerregistry.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email.iterators",
+   "title": "Python stdlib: email/iterators.py",
+   "text": "Module email/iterators.py (CPython 3.11 standard library).\nVarious types of useful iterators and generators.\nPublic API: walk, body_line_iterator, typed_subpart_iterator.",
+   "url": "https://docs.python.org/3.11/library/email.iterators.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email.message",
+   "title": "Python stdlib: email/message.py",
+   "text": "Module email/message.py (CPython 3.11 standard library).\nBasic message object for the email package object model.\nPublic API: Message, MIMEPart, EmailMessage.",
+   "url": "https://docs.python.org/3.11/library/email.message.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email.mime.application",
+   "title": "Python stdlib: email/mime/application.py",
+   "text": "Module email/mime/application.py (CPython 3.11 standard library).\nClass representing application/* type MIME documents.\nPublic API: MIMEApplication.",
+   "url": "https://docs.python.org/3.11/library/email.mime.application.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email.mime.audio",
+   "title": "Python stdlib: email/mime/audio.py",
+   "text": "Module email/mime/audio.py (CPython 3.11 standard library).\nClass representing audio/* type MIME documents.\nPublic API: MIMEAudio, rule.",
+   "url": "https://docs.python.org/3.11/library/email.mime.audio.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email.mime.base",
+   "title": "Python stdlib: email/mime/base.py",
+   "text": "Module email/mime/base.py (CPython 3.11 standard library).\nBase class for MIME specializations.\nPublic API: MIMEBase.",
+   "url": "https://docs.python.org/3.11/library/email.mime.base.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email.mime.image",
+   "title": "Python stdlib: email/mime/image.py",
+   "text": "Module email/mime/image.py (CPython 3.11 standard library).\nClass representing image/* type MIME documents.\nPublic API: MIMEImage, rule.",
+   "url": "https://docs.python.org/3.11/library/email.mime.image.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email.mime.message",
+   "title": "Python stdlib: email/mime/message.py",
+   "text": "Module email/mime/message.py (CPython 3.11 standard library).\nClass representing message/* MIME documents.\nPublic API: MIMEMessage.",
+   "url": "https://docs.python.org/3.11/library/email.mime.message.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email.mime.multipart",
+   "title": "Python stdlib: email/mime/multipart.py",
+   "text": "Module email/mime/multipart.py (CPython 3.11 standard library).\nBase class for MIME multipart/* type messages.\nPublic API: MIMEMultipart.",
+   "url": "https://docs.python.org/3.11/library/email.mime.multipart.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email.mime.nonmultipart",
+   "title": "Python stdlib: email/mime/nonmultipart.py",
+   "text": "Module email/mime/nonmultipart.py (CPython 3.11 standard library).\nBase class for MIME type messages that are not multipart.\nPublic API: MIMENonMultipart.",
+   "url": "https://docs.python.org/3.11/library/email.mime.nonmultipart.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email.mime.text",
+   "title": "Python stdlib: email/mime/text.py",
+   "text": "Module email/mime/text.py (CPython 3.11 standard library).\nClass representing text/* type MIME documents.\nPublic API: MIMEText.",
+   "url": "https://docs.python.org/3.11/library/email.mime.text.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email.parser",
+   "title": "Python stdlib: email/parser.py",
+   "text": "Module email/parser.py (CPython 3.11 standard library).\nA parser of RFC 2822 and MIME email messages.\nPublic API: Parser, HeaderParser, BytesParser, BytesHeaderParser.",
+   "url": "https://docs.python.org/3.11/library/email.parser.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email.policy",
+   "title": "Python stdlib: email/policy.py",
+   "text": "Module email/policy.py (CPython 3.11 standard library).\nThis will be the home for the policy that hooks in the new\ncode that adds all the email6 features.\nPublic API: EmailPolicy.",
+   "url": "https://docs.python.org/3.11/library/email.policy.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email.quoprimime",
+   "title": "Python stdlib: email/quoprimime.py",
+   "text": "Module email/quoprimime.py (CPython 3.11 standard library).\nQuoted-printable content transfer encoding per RFCs 2045-2047.\nPublic API: header_check, body_check, header_length, body_length, unquote, quote, header_encode, body_encode, decode, header_decode.",
+   "url": "https://docs.python.org/3.11/library/email.quoprimime.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-email.utils",
+   "title": "Python stdlib: email/utils.py",
+   "text": "Module email/utils.py (CPython 3.11 standard library).\nMiscellaneous utilities.\nPublic API: formataddr, getaddresses, formatdate, format_datetime, make_msgid, parsedate_to_datetime, parseaddr, unquote, decode_rfc2231, encode_rfc2231, decode_params, collapse_rfc2231_value, localtime.",
+   "url": "https://docs.python.org/3.11/library/email.utils.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.__init__",
+   "title": "Python stdlib: encodings/__init__.py",
+   "text": "Module encodings/__init__.py (CPython 3.11 standard library).\nStandard \"encodings\" Package\nPublic API: CodecRegistryError, normalize_encoding, search_function.",
+   "url": "https://docs.python.org/3.11/library/encodings.__init__.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.aliases",
+   "title": "Python stdlib: encodings/aliases.py",
+   "text": "Module encodings/aliases.py (CPython 3.11 standard library).\nEncoding Aliases Support\nPublic API: .",
+   "url": "https://docs.python.org/3.11/library/encodings.aliases.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.ascii",
+   "title": "Python stdlib: encodings/ascii.py",
+   "text": "Module encodings/ascii.py (CPython 3.11 standard library).\nPython 'ascii' Codec\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, StreamConverter, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.ascii.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.base64_codec",
+   "title": "Python stdlib: encodings/base64_codec.py",
+   "text": "Module encodings/base64_codec.py (CPython 3.11 standard library).\nPython 'base64_codec' Codec - base64 content transfer encoding.\nPublic API: base64_encode, base64_decode, Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.base64_codec.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.big5",
+   "title": "Python stdlib: encodings/big5.py",
+   "text": "Module encodings/big5.py (CPython 3.11 standard library).\n\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamReader, StreamWriter, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.big5.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.big5hkscs",
+   "title": "Python stdlib: encodings/big5hkscs.py",
+   "text": "Module encodings/big5hkscs.py (CPython 3.11 standard library).\n\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamReader, StreamWriter, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.big5hkscs.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.bz2_codec",
+   "title": "Python stdlib: encodings/bz2_codec.py",
+   "text": "Module encodings/bz2_codec.py (CPython 3.11 standard library).\nPython 'bz2_codec' Codec - bz2 compression encoding.\nPublic API: bz2_encode, bz2_decode, Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.bz2_codec.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.charmap",
+   "title": "Python stdlib: encodings/charmap.py",
+   "text": "Module encodings/charmap.py (CPython 3.11 standard library).\nGeneric Python Character Mapping Codec.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.charmap.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp037",
+   "title": "Python stdlib: encodings/cp037.py",
+   "text": "Module encodings/cp037.py (CPython 3.11 standard library).\nPython Character Mapping Codec cp037 generated from 'MAPPINGS/VENDORS/MICSFT/EBCDIC/CP037.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp037.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp1006",
+   "title": "Python stdlib: encodings/cp1006.py",
+   "text": "Module encodings/cp1006.py (CPython 3.11 standard library).\nPython Character Mapping Codec cp1006 generated from 'MAPPINGS/VENDORS/MISC/CP1006.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp1006.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp1026",
+   "title": "Python stdlib: encodings/cp1026.py",
+   "text": "Module encodings/cp1026.py (CPython 3.11 standard library).\nPython Character Mapping Codec cp1026 generated from 'MAPPINGS/VENDORS/MICSFT/EBCDIC/CP1026.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp1026.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp1125",
+   "title": "Python stdlib: encodings/cp1125.py",
+   "text": "Module encodings/cp1125.py (CPython 3.11 standard library).\nPython Character Mapping Codec for CP1125\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp1125.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp1140",
+   "title": "Python stdlib: encodings/cp1140.py",
+   "text": "Module encodings/cp1140.py (CPython 3.11 standard library).\nPython Character Mapping Codec cp1140 generated from 'python-mappings/CP1140.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp1140.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp1250",
+   "title": "Python stdlib: encodings/cp1250.py",
+   "text": "Module encodings/cp1250.py (CPython 3.11 standard library).\nPython Character Mapping Codec cp1250 generated from 'MAPPINGS/VENDORS/MICSFT/WINDOWS/CP1250.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp1250.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp1251",
+   "title": "Python stdlib: encodings/cp1251.py",
+   "text": "Module encodings/cp1251.py (CPython 3.11 standard library).\nPython Character Mapping Codec cp1251 generated from 'MAPPINGS/VENDORS/MICSFT/WINDOWS/CP1251.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp1251.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp1252",
+   "title": "Python stdlib: encodings/cp1252.py",
+   "text": "Module encodings/cp1252.py (CPython 3.11 standard library).\nPython Character Mapping Codec cp1252 generated from 'MAPPINGS/VENDORS/MICSFT/WINDOWS/CP1252.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp1252.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp1253",
+   "title": "Python stdlib: encodings/cp1253.py",
+   "text": "Module encodings/cp1253.py (CPython 3.11 standard library).\nPython Character Mapping Codec cp1253 generated from 'MAPPINGS/VENDORS/MICSFT/WINDOWS/CP1253.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp1253.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp1254",
+   "title": "Python stdlib: encodings/cp1254.py",
+   "text": "Module encodings/cp1254.py (CPython 3.11 standard library).\nPython Character Mapping Codec cp1254 generated from 'MAPPINGS/VENDORS/MICSFT/WINDOWS/CP1254.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp1254.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp1255",
+   "title": "Python stdlib: encodings/cp1255.py",
+   "text": "Module encodings/cp1255.py (CPython 3.11 standard library).\nPython Character Mapping Codec cp1255 generated from 'MAPPINGS/VENDORS/MICSFT/WINDOWS/CP1255.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp1255.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp1256",
+   "title": "Python stdlib: encodings/cp1256.py",
+   "text": "Module encodings/cp1256.py (CPython 3.11 standard library).\nPython Character Mapping Codec cp1256 generated from 'MAPPINGS/VENDORS/MICSFT/WINDOWS/CP1256.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp1256.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp1257",
+   "title": "Python stdlib: encodings/cp1257.py",
+   "text": "Module encodings/cp1257.py (CPython 3.11 standard library).\nPython Character Mapping Codec cp1257 generated from 'MAPPINGS/VENDORS/MICSFT/WINDOWS/CP1257.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp1257.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp1258",
+   "title": "Python stdlib: encodings/cp1258.py",
+   "text": "Module encodings/cp1258.py (CPython 3.11 standard library).\nPython Character Mapping Codec cp1258 generated from 'MAPPINGS/VENDORS/MICSFT/WINDOWS/CP1258.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp1258.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp273",
+   "title": "Python stdlib: encodings/cp273.py",
+   "text": "Module encodings/cp273.py (CPython 3.11 standard library).\nPython Character Mapping Codec cp273 generated from 'python-mappings/CP273.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp273.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp424",
+   "title": "Python stdlib: encodings/cp424.py",
+   "text": "Module encodings/cp424.py (CPython 3.11 standard library).\nPython Character Mapping Codec cp424 generated from 'MAPPINGS/VENDORS/MISC/CP424.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp424.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp437",
+   "title": "Python stdlib: encodings/cp437.py",
+   "text": "Module encodings/cp437.py (CPython 3.11 standard library).\nPython Character Mapping Codec cp437 generated from 'VENDORS/MICSFT/PC/CP437.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp437.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp500",
+   "title": "Python stdlib: encodings/cp500.py",
+   "text": "Module encodings/cp500.py (CPython 3.11 standard library).\nPython Character Mapping Codec cp500 generated from 'MAPPINGS/VENDORS/MICSFT/EBCDIC/CP500.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp500.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp720",
+   "title": "Python stdlib: encodings/cp720.py",
+   "text": "Module encodings/cp720.py (CPython 3.11 standard library).\nPython Character Mapping Codec cp720 generated on Windows:\nVista 6.0.6002 SP2 Multiprocessor Free with the command:\n  python Tools/unicode/genwincodec.py 720\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp720.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp737",
+   "title": "Python stdlib: encodings/cp737.py",
+   "text": "Module encodings/cp737.py (CPython 3.11 standard library).\nPython Character Mapping Codec cp737 generated from 'VENDORS/MICSFT/PC/CP737.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp737.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp775",
+   "title": "Python stdlib: encodings/cp775.py",
+   "text": "Module encodings/cp775.py (CPython 3.11 standard library).\nPython Character Mapping Codec cp775 generated from 'VENDORS/MICSFT/PC/CP775.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp775.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp850",
+   "title": "Python stdlib: encodings/cp850.py",
+   "text": "Module encodings/cp850.py (CPython 3.11 standard library).\nPython Character Mapping Codec generated from 'VENDORS/MICSFT/PC/CP850.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp850.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp852",
+   "title": "Python stdlib: encodings/cp852.py",
+   "text": "Module encodings/cp852.py (CPython 3.11 standard library).\nPython Character Mapping Codec generated from 'VENDORS/MICSFT/PC/CP852.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp852.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp855",
+   "title": "Python stdlib: encodings/cp855.py",
+   "text": "Module encodings/cp855.py (CPython 3.11 standard library).\nPython Character Mapping Codec generated from 'VENDORS/MICSFT/PC/CP855.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp855.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp856",
+   "title": "Python stdlib: encodings/cp856.py",
+   "text": "Module encodings/cp856.py (CPython 3.11 standard library).\nPython Character Mapping Codec cp856 generated from 'MAPPINGS/VENDORS/MISC/CP856.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp856.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp857",
+   "title": "Python stdlib: encodings/cp857.py",
+   "text": "Module encodings/cp857.py (CPython 3.11 standard library).\nPython Character Mapping Codec generated from 'VENDORS/MICSFT/PC/CP857.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp857.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp858",
+   "title": "Python stdlib: encodings/cp858.py",
+   "text": "Module encodings/cp858.py (CPython 3.11 standard library).\nPython Character Mapping Codec for CP858, modified from cp850.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp858.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp860",
+   "title": "Python stdlib: encodings/cp860.py",
+   "text": "Module encodings/cp860.py (CPython 3.11 standard library).\nPython Character Mapping Codec generated from 'VENDORS/MICSFT/PC/CP860.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp860.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp861",
+   "title": "Python stdlib: encodings/cp861.py",
+   "text": "Module encodings/cp861.py (CPython 3.11 standard library).\nPython Character Mapping Codec generated from 'VENDORS/MICSFT/PC/CP861.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp861.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp862",
+   "title": "Python stdlib: encodings/cp862.py",
+   "text": "Module encodings/cp862.py (CPython 3.11 standard library).\nPython Character Mapping Codec generated from 'VENDORS/MICSFT/PC/CP862.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp862.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp863",
+   "title": "Python stdlib: encodings/cp863.py",
+   "text": "Module encodings/cp863.py (CPython 3.11 standard library).\nPython Character Mapping Codec generated from 'VENDORS/MICSFT/PC/CP863.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp863.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp864",
+   "title": "Python stdlib: encodings/cp864.py",
+   "text": "Module encodings/cp864.py (CPython 3.11 standard library).\nPython Character Mapping Codec generated from 'VENDORS/MICSFT/PC/CP864.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp864.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp865",
+   "title": "Python stdlib: encodings/cp865.py",
+   "text": "Module encodings/cp865.py (CPython 3.11 standard library).\nPython Character Mapping Codec generated from 'VENDORS/MICSFT/PC/CP865.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp865.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp866",
+   "title": "Python stdlib: encodings/cp866.py",
+   "text": "Module encodings/cp866.py (CPython 3.11 standard library).\nPython Character Mapping Codec generated from 'VENDORS/MICSFT/PC/CP866.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp866.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp869",
+   "title": "Python stdlib: encodings/cp869.py",
+   "text": "Module encodings/cp869.py (CPython 3.11 standard library).\nPython Character Mapping Codec generated from 'VENDORS/MICSFT/PC/CP869.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp869.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp874",
+   "title": "Python stdlib: encodings/cp874.py",
+   "text": "Module encodings/cp874.py (CPython 3.11 standard library).\nPython Character Mapping Codec cp874 generated from 'MAPPINGS/VENDORS/MICSFT/WINDOWS/CP874.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp874.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp875",
+   "title": "Python stdlib: encodings/cp875.py",
+   "text": "Module encodings/cp875.py (CPython 3.11 standard library).\nPython Character Mapping Codec cp875 generated from 'MAPPINGS/VENDORS/MICSFT/EBCDIC/CP875.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp875.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp932",
+   "title": "Python stdlib: encodings/cp932.py",
+   "text": "Module encodings/cp932.py (CPython 3.11 standard library).\n\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamReader, StreamWriter, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp932.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp949",
+   "title": "Python stdlib: encodings/cp949.py",
+   "text": "Module encodings/cp949.py (CPython 3.11 standard library).\n\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamReader, StreamWriter, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp949.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.cp950",
+   "title": "Python stdlib: encodings/cp950.py",
+   "text": "Module encodings/cp950.py (CPython 3.11 standard library).\n\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamReader, StreamWriter, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.cp950.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.euc_jis_2004",
+   "title": "Python stdlib: encodings/euc_jis_2004.py",
+   "text": "Module encodings/euc_jis_2004.py (CPython 3.11 standard library).\n\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamReader, StreamWriter, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.euc_jis_2004.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.euc_jisx0213",
+   "title": "Python stdlib: encodings/euc_jisx0213.py",
+   "text": "Module encodings/euc_jisx0213.py (CPython 3.11 standard library).\n\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamReader, StreamWriter, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.euc_jisx0213.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.euc_jp",
+   "title": "Python stdlib: encodings/euc_jp.py",
+   "text": "Module encodings/euc_jp.py (CPython 3.11 standard library).\n\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamReader, StreamWriter, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.euc_jp.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.euc_kr",
+   "title": "Python stdlib: encodings/euc_kr.py",
+   "text": "Module encodings/euc_kr.py (CPython 3.11 standard library).\n\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamReader, StreamWriter, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.euc_kr.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.gb18030",
+   "title": "Python stdlib: encodings/gb18030.py",
+   "text": "Module encodings/gb18030.py (CPython 3.11 standard library).\n\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamReader, StreamWriter, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.gb18030.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.gb2312",
+   "title": "Python stdlib: encodings/gb2312.py",
+   "text": "Module encodings/gb2312.py (CPython 3.11 standard library).\n\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamReader, StreamWriter, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.gb2312.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.gbk",
+   "title": "Python stdlib: encodings/gbk.py",
+   "text": "Module encodings/gbk.py (CPython 3.11 standard library).\n\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamReader, StreamWriter, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.gbk.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.hex_codec",
+   "title": "Python stdlib: encodings/hex_codec.py",
+   "text": "Module encodings/hex_codec.py (CPython 3.11 standard library).\nPython 'hex_codec' Codec - 2-digit hex content transfer encoding.\nPublic API: hex_encode, hex_decode, Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.hex_codec.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.hp_roman8",
+   "title": "Python stdlib: encodings/hp_roman8.py",
+   "text": "Module encodings/hp_roman8.py (CPython 3.11 standard library).\nPython Character Mapping Codec generated from 'hp_roman8.txt' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.hp_roman8.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.hz",
+   "title": "Python stdlib: encodings/hz.py",
+   "text": "Module encodings/hz.py (CPython 3.11 standard library).\n\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamReader, StreamWriter, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.hz.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.idna",
+   "title": "Python stdlib: encodings/idna.py",
+   "text": "Module encodings/idna.py (CPython 3.11 standard library).\n\nPublic API: nameprep, ToASCII, ToUnicode, Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.idna.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.iso2022_jp",
+   "title": "Python stdlib: encodings/iso2022_jp.py",
+   "text": "Module encodings/iso2022_jp.py (CPython 3.11 standard library).\n\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamReader, StreamWriter, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.iso2022_jp.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.iso2022_jp_1",
+   "title": "Python stdlib: encodings/iso2022_jp_1.py",
+   "text": "Module encodings/iso2022_jp_1.py (CPython 3.11 standard library).\n\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamReader, StreamWriter, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.iso2022_jp_1.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.iso2022_jp_2",
+   "title": "Python stdlib: encodings/iso2022_jp_2.py",
+   "text": "Module encodings/iso2022_jp_2.py (CPython 3.11 standard library).\n\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamReader, StreamWriter, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.iso2022_jp_2.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.iso2022_jp_2004",
+   "title": "Python stdlib: encodings/iso2022_jp_2004.py",
+   "text": "Module encodings/iso2022_jp_2004.py (CPython 3.11 standard library).\n\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamReader, StreamWriter, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.iso2022_jp_2004.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.iso2022_jp_3",
+   "title": "Python stdlib: encodings/iso2022_jp_3.py",
+   "text": "Module encodings/iso2022_jp_3.py (CPython 3.11 standard library).\n\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamReader, StreamWriter, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.iso2022_jp_3.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.iso2022_jp_ext",
+   "title": "Python stdlib: encodings/iso2022_jp_ext.py",
+   "text": "Module encodings/iso2022_jp_ext.py (CPython 3.11 standard library).\n\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamReader, StreamWriter, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.iso2022_jp_ext.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.iso2022_kr",
+   "title": "Python stdlib: encodings/iso2022_kr.py",
+   "text": "Module encodings/iso2022_kr.py (CPython 3.11 standard library).\n\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamReader, StreamWriter, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.iso2022_kr.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.iso8859_1",
+   "title": "Python stdlib: encodings/iso8859_1.py",
+   "text": "Module encodings/iso8859_1.py (CPython 3.11 standard library).\nPython Character Mapping Codec iso8859_1 generated from 'MAPPINGS/ISO8859/8859-1.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.iso8859_1.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.iso8859_10",
+   "title": "Python stdlib: encodings/iso8859_10.py",
+   "text": "Module encodings/iso8859_10.py (CPython 3.11 standard library).\nPython Character Mapping Codec iso8859_10 generated from 'MAPPINGS/ISO8859/8859-10.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.iso8859_10.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.iso8859_11",
+   "title": "Python stdlib: encodings/iso8859_11.py",
+   "text": "Module encodings/iso8859_11.py (CPython 3.11 standard library).\nPython Character Mapping Codec iso8859_11 generated from 'MAPPINGS/ISO8859/8859-11.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.iso8859_11.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.iso8859_13",
+   "title": "Python stdlib: encodings/iso8859_13.py",
+   "text": "Module encodings/iso8859_13.py (CPython 3.11 standard library).\nPython Character Mapping Codec iso8859_13 generated from 'MAPPINGS/ISO8859/8859-13.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.iso8859_13.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.iso8859_14",
+   "title": "Python stdlib: encodings/iso8859_14.py",
+   "text": "Module encodings/iso8859_14.py (CPython 3.11 standard library).\nPython Character Mapping Codec iso8859_14 generated from 'MAPPINGS/ISO8859/8859-14.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.iso8859_14.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.iso8859_15",
+   "title": "Python stdlib: encodings/iso8859_15.py",
+   "text": "Module encodings/iso8859_15.py (CPython 3.11 standard library).\nPython Character Mapping Codec iso8859_15 generated from 'MAPPINGS/ISO8859/8859-15.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.iso8859_15.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.iso8859_16",
+   "title": "Python stdlib: encodings/iso8859_16.py",
+   "text": "Module encodings/iso8859_16.py (CPython 3.11 standard library).\nPython Character Mapping Codec iso8859_16 generated from 'MAPPINGS/ISO8859/8859-16.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.iso8859_16.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.iso8859_2",
+   "title": "Python stdlib: encodings/iso8859_2.py",
+   "text": "Module encodings/iso8859_2.py (CPython 3.11 standard library).\nPython Character Mapping Codec iso8859_2 generated from 'MAPPINGS/ISO8859/8859-2.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.iso8859_2.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.iso8859_3",
+   "title": "Python stdlib: encodings/iso8859_3.py",
+   "text": "Module encodings/iso8859_3.py (CPython 3.11 standard library).\nPython Character Mapping Codec iso8859_3 generated from 'MAPPINGS/ISO8859/8859-3.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.iso8859_3.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.iso8859_4",
+   "title": "Python stdlib: encodings/iso8859_4.py",
+   "text": "Module encodings/iso8859_4.py (CPython 3.11 standard library).\nPython Character Mapping Codec iso8859_4 generated from 'MAPPINGS/ISO8859/8859-4.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.iso8859_4.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.iso8859_5",
+   "title": "Python stdlib: encodings/iso8859_5.py",
+   "text": "Module encodings/iso8859_5.py (CPython 3.11 standard library).\nPython Character Mapping Codec iso8859_5 generated from 'MAPPINGS/ISO8859/8859-5.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.iso8859_5.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.iso8859_6",
+   "title": "Python stdlib: encodings/iso8859_6.py",
+   "text": "Module encodings/iso8859_6.py (CPython 3.11 standard library).\nPython Character Mapping Codec iso8859_6 generated from 'MAPPINGS/ISO8859/8859-6.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.iso8859_6.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.iso8859_7",
+   "title": "Python stdlib: encodings/iso8859_7.py",
+   "text": "Module encodings/iso8859_7.py (CPython 3.11 standard library).\nPython Character Mapping Codec iso8859_7 generated from 'MAPPINGS/ISO8859/8859-7.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.iso8859_7.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.iso8859_8",
+   "title": "Python stdlib: encodings/iso8859_8.py",
+   "text": "Module encodings/iso8859_8.py (CPython 3.11 standard library).\nPython Character Mapping Codec iso8859_8 generated from 'MAPPINGS/ISO8859/8859-8.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.iso8859_8.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.iso8859_9",
+   "title": "Python stdlib: encodings/iso8859_9.py",
+   "text": "Module encodings/iso8859_9.py (CPython 3.11 standard library).\nPython Character Mapping Codec iso8859_9 generated from 'MAPPINGS/ISO8859/8859-9.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.iso8859_9.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.johab",
+   "title": "Python stdlib: encodings/johab.py",
+   "text": "Module encodings/johab.py (CPython 3.11 standard library).\n\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamReader, StreamWriter, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.johab.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.koi8_r",
+   "title": "Python stdlib: encodings/koi8_r.py",
+   "text": "Module encodings/koi8_r.py (CPython 3.11 standard library).\nPython Character Mapping Codec koi8_r generated from 'MAPPINGS/VENDORS/MISC/KOI8-R.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.koi8_r.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.koi8_t",
+   "title": "Python stdlib: encodings/koi8_t.py",
+   "text": "Module encodings/koi8_t.py (CPython 3.11 standard library).\nPython Character Mapping Codec koi8_t\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.koi8_t.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.koi8_u",
+   "title": "Python stdlib: encodings/koi8_u.py",
+   "text": "Module encodings/koi8_u.py (CPython 3.11 standard library).\nPython Character Mapping Codec koi8_u generated from 'python-mappings/KOI8-U.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.koi8_u.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.kz1048",
+   "title": "Python stdlib: encodings/kz1048.py",
+   "text": "Module encodings/kz1048.py (CPython 3.11 standard library).\nPython Character Mapping Codec kz1048 generated from 'MAPPINGS/VENDORS/MISC/KZ1048.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.kz1048.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.latin_1",
+   "title": "Python stdlib: encodings/latin_1.py",
+   "text": "Module encodings/latin_1.py (CPython 3.11 standard library).\nPython 'latin-1' Codec\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, StreamConverter, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.latin_1.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.mac_arabic",
+   "title": "Python stdlib: encodings/mac_arabic.py",
+   "text": "Module encodings/mac_arabic.py (CPython 3.11 standard library).\nPython Character Mapping Codec generated from 'VENDORS/APPLE/ARABIC.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.mac_arabic.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.mac_croatian",
+   "title": "Python stdlib: encodings/mac_croatian.py",
+   "text": "Module encodings/mac_croatian.py (CPython 3.11 standard library).\nPython Character Mapping Codec mac_croatian generated from 'MAPPINGS/VENDORS/APPLE/CROATIAN.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.mac_croatian.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.mac_cyrillic",
+   "title": "Python stdlib: encodings/mac_cyrillic.py",
+   "text": "Module encodings/mac_cyrillic.py (CPython 3.11 standard library).\nPython Character Mapping Codec mac_cyrillic generated from 'MAPPINGS/VENDORS/APPLE/CYRILLIC.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.mac_cyrillic.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.mac_farsi",
+   "title": "Python stdlib: encodings/mac_farsi.py",
+   "text": "Module encodings/mac_farsi.py (CPython 3.11 standard library).\nPython Character Mapping Codec mac_farsi generated from 'MAPPINGS/VENDORS/APPLE/FARSI.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.mac_farsi.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.mac_greek",
+   "title": "Python stdlib: encodings/mac_greek.py",
+   "text": "Module encodings/mac_greek.py (CPython 3.11 standard library).\nPython Character Mapping Codec mac_greek generated from 'MAPPINGS/VENDORS/APPLE/GREEK.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.mac_greek.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.mac_iceland",
+   "title": "Python stdlib: encodings/mac_iceland.py",
+   "text": "Module encodings/mac_iceland.py (CPython 3.11 standard library).\nPython Character Mapping Codec mac_iceland generated from 'MAPPINGS/VENDORS/APPLE/ICELAND.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.mac_iceland.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.mac_latin2",
+   "title": "Python stdlib: encodings/mac_latin2.py",
+   "text": "Module encodings/mac_latin2.py (CPython 3.11 standard library).\nPython Character Mapping Codec mac_latin2 generated from 'MAPPINGS/VENDORS/MICSFT/MAC/LATIN2.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.mac_latin2.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.mac_roman",
+   "title": "Python stdlib: encodings/mac_roman.py",
+   "text": "Module encodings/mac_roman.py (CPython 3.11 standard library).\nPython Character Mapping Codec mac_roman generated from 'MAPPINGS/VENDORS/APPLE/ROMAN.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.mac_roman.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.mac_romanian",
+   "title": "Python stdlib: encodings/mac_romanian.py",
+   "text": "Module encodings/mac_romanian.py (CPython 3.11 standard library).\nPython Character Mapping Codec mac_romanian generated from 'MAPPINGS/VENDORS/APPLE/ROMANIAN.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.mac_romanian.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.mac_turkish",
+   "title": "Python stdlib: encodings/mac_turkish.py",
+   "text": "Module encodings/mac_turkish.py (CPython 3.11 standard library).\nPython Character Mapping Codec mac_turkish generated from 'MAPPINGS/VENDORS/APPLE/TURKISH.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.mac_turkish.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.mbcs",
+   "title": "Python stdlib: encodings/mbcs.py",
+   "text": "Module encodings/mbcs.py (CPython 3.11 standard library).\nPython 'mbcs' Codec for Windows\nPublic API: decode, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.mbcs.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.oem",
+   "title": "Python stdlib: encodings/oem.py",
+   "text": "Module encodings/oem.py (CPython 3.11 standard library).\nPython 'oem' Codec for Windows\nPublic API: decode, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.oem.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.palmos",
+   "title": "Python stdlib: encodings/palmos.py",
+   "text": "Module encodings/palmos.py (CPython 3.11 standard library).\nPython Character Mapping Codec for PalmOS 3.5.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.palmos.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.ptcp154",
+   "title": "Python stdlib: encodings/ptcp154.py",
+   "text": "Module encodings/ptcp154.py (CPython 3.11 standard library).\nPython Character Mapping Codec generated from 'PTCP154.txt' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.ptcp154.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.punycode",
+   "title": "Python stdlib: encodings/punycode.py",
+   "text": "Module encodings/punycode.py (CPython 3.11 standard library).\nCodec for the Punicode encoding, as specified in RFC 3492\nPublic API: segregate, selective_len, selective_find, insertion_unsort, T, generate_generalized_integer, adapt, generate_integers, punycode_encode, decode_generalized_number, insertion_sort, punycode_decode, Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.punycode.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.quopri_codec",
+   "title": "Python stdlib: encodings/quopri_codec.py",
+   "text": "Module encodings/quopri_codec.py (CPython 3.11 standard library).\nCodec for quoted-printable encoding.\nPublic API: quopri_encode, quopri_decode, Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.quopri_codec.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.raw_unicode_escape",
+   "title": "Python stdlib: encodings/raw_unicode_escape.py",
+   "text": "Module encodings/raw_unicode_escape.py (CPython 3.11 standard library).\nPython 'raw-unicode-escape' Codec\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.raw_unicode_escape.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.rot_13",
+   "title": "Python stdlib: encodings/rot_13.py",
+   "text": "Module encodings/rot_13.py (CPython 3.11 standard library).\nPython Character Mapping Codec for ROT13.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry, rot13.",
+   "url": "https://docs.python.org/3.11/library/encodings.rot_13.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.shift_jis",
+   "title": "Python stdlib: encodings/shift_jis.py",
+   "text": "Module encodings/shift_jis.py (CPython 3.11 standard library).\n\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamReader, StreamWriter, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.shift_jis.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.shift_jis_2004",
+   "title": "Python stdlib: encodings/shift_jis_2004.py",
+   "text": "Module encodings/shift_jis_2004.py (CPython 3.11 standard library).\n\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamReader, StreamWriter, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.shift_jis_2004.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.shift_jisx0213",
+   "title": "Python stdlib: encodings/shift_jisx0213.py",
+   "text": "Module encodings/shift_jisx0213.py (CPython 3.11 standard library).\n\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamReader, StreamWriter, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.shift_jisx0213.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.tis_620",
+   "title": "Python stdlib: encodings/tis_620.py",
+   "text": "Module encodings/tis_620.py (CPython 3.11 standard library).\nPython Character Mapping Codec tis_620 generated from 'python-mappings/TIS-620.TXT' with gencodec.py.\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.tis_620.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.undefined",
+   "title": "Python stdlib: encodings/undefined.py",
+   "text": "Module encodings/undefined.py (CPython 3.11 standard library).\nPython 'undefined' Codec\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.undefined.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.unicode_escape",
+   "title": "Python stdlib: encodings/unicode_escape.py",
+   "text": "Module encodings/unicode_escape.py (CPython 3.11 standard library).\nPython 'unicode-escape' Codec\nPublic API: Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.unicode_escape.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.utf_16",
+   "title": "Python stdlib: encodings/utf_16.py",
+   "text": "Module encodings/utf_16.py (CPython 3.11 standard library).\nPython 'utf-16' Codec\nPublic API: decode, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.utf_16.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.utf_16_be",
+   "title": "Python stdlib: encodings/utf_16_be.py",
+   "text": "Module encodings/utf_16_be.py (CPython 3.11 standard library).\nPython 'utf-16-be' Codec\nPublic API: decode, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.utf_16_be.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.utf_16_le",
+   "title": "Python stdlib: encodings/utf_16_le.py",
+   "text": "Module encodings/utf_16_le.py (CPython 3.11 standard library).\nPython 'utf-16-le' Codec\nPublic API: decode, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.utf_16_le.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.utf_32",
+   "title": "Python stdlib: encodings/utf_32.py",
+   "text": "Module encodings/utf_32.py (CPython 3.11 standard library).\nPython 'utf-32' Codec\nPublic API: decode, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.utf_32.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.utf_32_be",
+   "title": "Python stdlib: encodings/utf_32_be.py",
+   "text": "Module encodings/utf_32_be.py (CPython 3.11 standard library).\nPython 'utf-32-be' Codec\nPublic API: decode, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.utf_32_be.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.utf_32_le",
+   "title": "Python stdlib: encodings/utf_32_le.py",
+   "text": "Module encodings/utf_32_le.py (CPython 3.11 standard library).\nPython 'utf-32-le' Codec\nPublic API: decode, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.utf_32_le.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.utf_7",
+   "title": "Python stdlib: encodings/utf_7.py",
+   "text": "Module encodings/utf_7.py (CPython 3.11 standard library).\nPython 'utf-7' Codec\nPublic API: decode, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.utf_7.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.utf_8",
+   "title": "Python stdlib: encodings/utf_8.py",
+   "text": "Module encodings/utf_8.py (CPython 3.11 standard library).\nPython 'utf-8' Codec\nPublic API: decode, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.utf_8.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.utf_8_sig",
+   "title": "Python stdlib: encodings/utf_8_sig.py",
+   "text": "Module encodings/utf_8_sig.py (CPython 3.11 standard library).\nPython 'utf-8-sig' Codec\nThis work similar to UTF-8 with the following changes:\nPublic API: encode, decode, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.utf_8_sig.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.uu_codec",
+   "title": "Python stdlib: encodings/uu_codec.py",
+   "text": "Module encodings/uu_codec.py (CPython 3.11 standard library).\nPython 'uu_codec' Codec - UU content transfer encoding.\nPublic API: uu_encode, uu_decode, Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.uu_codec.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-encodings.zlib_codec",
+   "title": "Python stdlib: encodings/zlib_codec.py",
+   "text": "Module encodings/zlib_codec.py (CPython 3.11 standard library).\nPython 'zlib_codec' Codec - zlib compression encoding.\nPublic API: zlib_encode, zlib_decode, Codec, IncrementalEncoder, IncrementalDecoder, StreamWriter, StreamReader, getregentry.",
+   "url": "https://docs.python.org/3.11/library/encodings.zlib_codec.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-ensurepip.__init__",
+   "title": "Python stdlib: ensurepip/__init__.py",
+   "text": "Module ensurepip/__init__.py (CPython 3.11 standard library).\n\nPublic API: version, bootstrap.",
+   "url": "https://docs.python.org/3.11/library/ensurepip.__init__.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-ensurepip._uninstall",
+   "title": "Python stdlib: ensurepip/_uninstall.py",
+   "text": "Module ensurepip/_uninstall.py (CPython 3.11 standard library).\nBasic pip uninstallation support, helper for the Windows uninstaller\nPublic API: .",
+   "url": "https://docs.python.org/3.11/library/ensurepip._uninstall.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-enum",
+   "title": "Python stdlib: enum.py",
+   "text": "Module enum.py (CPython 3.11 standard library).\n\nPublic API: nonmember, member, show_flag_values, bin, auto, property, EnumType, Enum, ReprEnum, IntEnum, StrEnum, FlagBoundary, Flag, IntFlag, unique, global_enum_repr, global_flag_repr, global_str, global_enum, EnumCheck, verify.",
+   "url": "https://docs.python.org/3.11/library/enum.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-filecmp",
+   "title": "Python stdlib: filecmp.py",
+   "text": "Module filecmp.py (CPython 3.11 standard library).\nUtilities for comparing files and directories.\nPublic API: clear_cache, cmp, dircmp, cmpfiles, demo.",
+   "url": "https://docs.python.org/3.11/library/filecmp.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-fileinput",
+   "title": "Python stdlib: fileinput.py",
+   "text": "Module fileinput.py (CPython 3.11 standard library).\nHelper class to quickly write a loop over all standard input files.\nPublic API: input, close, nextfile, filename, lineno, filelineno, fileno, isfirstline, isstdin, FileInput, hook_compressed, hook_encoded.",
+   "url": "https://docs.python.org/3.11/library/fileinput.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-fnmatch",
+   "title": "Python stdlib: fnmatch.py",
+   "text": "Module fnmatch.py (CPython 3.11 standard library).\nFilename matching with shell patterns.\nPublic API: fnmatch, filter, fnmatchcase, translate.",
+   "url": "https://docs.python.org/3.11/library/fnmatch.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-fractions",
+   "title": "Python stdlib: fractions.py",
+   "text": "Module fractions.py (CPython 3.11 standard library).\nFraction, infinite-precision, rational numbers.\nPublic API: Fraction.",
+   "url": "https://docs.python.org/3.11/library/fractions.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-ftplib",
+   "title": "Python stdlib: ftplib.py",
+   "text": "Module ftplib.py (CPython 3.11 standard library).\nAn FTP client class and some helper functions.\nPublic API: Error, error_reply, error_temp, error_perm, error_proto, FTP, parse150, parse227, parse229, parse257, print_line, ftpcp, test.",
+   "url": "https://docs.python.org/3.11/library/ftplib.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-functools",
+   "title": "Python stdlib: functools.py",
+   "text": "Module functools.py (CPython 3.11 standard library).\nfunctools.py - Tools for working with functions and callable objects\nPublic API: update_wrapper, wraps, total_ordering, cmp_to_key, reduce, partial, partialmethod, lru_cache, cache, singledispatch, singledispatchmethod, cached_property.",
+   "url": "https://docs.python.org/3.11/library/functools.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-genericpath",
+   "title": "Python stdlib: genericpath.py",
+   "text": "Module genericpath.py (CPython 3.11 standard library).\nPath operations common to more than one OS\nDo not use directly.  The OS specific modules import the appropriate\nfunctions from this module themselves.\nPublic API: exists, isfile, isdir, getsize, getmtime, getatime, getctime, commonprefix, samestat, samefile, sameopenfile.",
+   "url": "https://docs.python.org/3.11/library/genericpath.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-getopt",
+   "title": "Python stdlib: getopt.py",
+   "text": "Module getopt.py (CPython 3.11 standard library).\nParser for command line options.\nPublic API: GetoptError, getopt, gnu_getopt, do_longs, long_has_args, do_shorts, short_has_arg.",
+   "url": "https://docs.python.org/3.11/library/getopt.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-getpass",
+   "title": "Python stdlib: getpass.py",
+   "text": "Module getpass.py (CPython 3.11 standard library).\nUtilities to get a password and/or the current user name.\nPublic API: GetPassWarning, unix_getpass, win_getpass, fallback_getpass, getuser.",
+   "url": "https://docs.python.org/3.11/library/getpass.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-gettext",
+   "title": "Python stdlib: gettext.py",
+   "text": "Module gettext.py (CPython 3.11 standard library).\nInternationalization and localization support.\nPublic API: c2py, NullTranslations, GNUTranslations, find, translation, install, textdomain, bindtextdomain, dgettext, dngettext, dpgettext, dnpgettext, gettext, ngettext, pgettext, npgettext.",
+   "url": "https://docs.python.org/3.11/library/gettext.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-glob",
+   "title": "Python stdlib: glob.py",
+   "text": "Module glob.py (CPython 3.11 standard library).\nFilename globbing utility.\nPublic API: glob, iglob, glob0, glob1, has_magic, escape.",
+   "url": "https://docs.python.org/3.11/library/glob.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-graphlib",
+   "title": "Python stdlib: graphlib.py",
+   "text": "Module graphlib.py (CPython 3.11 standard library).\n\nPublic API: CycleError, TopologicalSorter.",
+   "url": "https://docs.python.org/3.11/library/graphlib.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-gzip",
+   "title": "Python stdlib: gzip.py",
+   "text": "Module gzip.py (CPython 3.11 standard library).\nFunctions that read and write gzipped files.\nPublic API: open, write32u, BadGzipFile, GzipFile, compress, decompress, main.",
+   "url": "https://docs.python.org/3.11/library/gzip.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-hashlib",
+   "title": "Python stdlib: hashlib.py",
+   "text": "Module hashlib.py (CPython 3.11 standard library).\n\nPublic API: file_digest.",
+   "url": "https://docs.python.org/3.11/library/hashlib.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-heapq",
+   "title": "Python stdlib: heapq.py",
+   "text": "Module heapq.py (CPython 3.11 standard library).\nHeap queue algorithm (a.k.a. priority queue).\nPublic API: heappush, heappop, heapreplace, heappushpop, heapify, merge, nsmallest, nlargest.",
+   "url": "https://docs.python.org/3.11/library/heapq.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-hmac",
+   "title": "Python stdlib: hmac.py",
+   "text": "Module hmac.py (CPython 3.11 standard library).\nHMAC (Keyed-Hashing for Message Authentication) module.\nPublic API: HMAC, new, digest.",
+   "url": "https://docs.python.org/3.11/library/hmac.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-html.__init__",
+   "title": "Python stdlib: html/__init__.py",
+   "text": "Module html/__init__.py (CPython 3.11 standard library).\nGeneral functions for HTML manipulation.\nPublic API: escape, unescape.",
+   "url": "https://docs.python.org/3.11/library/html.__init__.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-html.entities",
+   "title": "Python stdlib: html/entities.py",
+   "text": "Module html/entities.py (CPython 3.11 standard library).\nHTML character entity references.\nPublic API: .",
+   "url": "https://docs.python.org/3.11/library/html.entities.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-html.parser",
+   "title": "Python stdlib: html/parser.py",
+   "text": "Module html/parser.py (CPython 3.11 standard library).\nA parser for HTML and XHTML.\nPublic API: HTMLParser.",
+   "url": "https://docs.python.org/3.11/library/html.parser.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-http.__init__",
+   "title": "Python stdlib: http/__init__.py",
+   "text": "Module http/__init__.py (CPython 3.11 standard library).\n\nPublic API: HTTPStatus, HTTPMethod.",
+   "url": "https://docs.python.org/3.11/library/http.__init__.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-http.client",
+   "title": "Python stdlib: http/client.py",
+   "text": "Module http/client.py (CPython 3.11 standard library).\nHTTP/1.1 client library\nPublic API: HTTPMessage, parse_headers, HTTPResponse, HTTPConnection, HTTPException, NotConnected, InvalidURL, UnknownProtocol, UnknownTransferEncoding, UnimplementedFileMode, IncompleteRead, ImproperConnectionState, CannotSendRequest, CannotSendHeader, ResponseNotReady, BadStatusLine, LineTooLong, RemoteDisconnected.",
+   "url": "https://docs.python.org/3.11/library/http.client.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-http.cookiejar",
+   "title": "Python stdlib: http/cookiejar.py",
+   "text": "Module http/cookiejar.py (CPython 3.11 standard library).\nHTTP cookie handling for web clients.\nPublic API: time2isoz, time2netscape, offset_from_tz_string, http2time, iso2time, unmatched, split_header_words, join_header_words, strip_quotes, parse_ns_headers, is_HDN, domain_match, liberal_is_HDN, user_domain_match, request_host, eff_request_host, request_path, request_port, uppercase_escaped_char, escape_path, reach, is_third_party, Cookie, CookiePolicy.",
+   "url": "https://docs.python.org/3.11/library/http.cookiejar.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-http.cookies",
+   "title": "Python stdlib: http/cookies.py",
+   "text": "Module http/cookies.py (CPython 3.11 standard library).\nHere's a sample session to show how to use this module.\nAt the moment, this is the only documentation.\nPublic API: CookieError, Morsel, BaseCookie, SimpleCookie.",
+   "url": "https://docs.python.org/3.11/library/http.cookies.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-http.server",
+   "title": "Python stdlib: http/server.py",
+   "text": "Module http/server.py (CPython 3.11 standard library).\nHTTP server classes.\nPublic API: HTTPServer, ThreadingHTTPServer, BaseHTTPRequestHandler, SimpleHTTPRequestHandler, nobody_uid, executable, CGIHTTPRequestHandler, test.",
+   "url": "https://docs.python.org/3.11/library/http.server.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-imaplib",
+   "title": "Python stdlib: imaplib.py",
+   "text": "Module imaplib.py (CPython 3.11 standard library).\nIMAP4 client.\nPublic API: IMAP4, IMAP4_stream, Internaldate2tuple, Int2AP, ParseFlags, Time2Internaldate.",
+   "url": "https://docs.python.org/3.11/library/imaplib.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-imghdr",
+   "title": "Python stdlib: imghdr.py",
+   "text": "Module imghdr.py (CPython 3.11 standard library).\nRecognize image file formats based on their first few bytes.\nPublic API: what, test_jpeg, test_png, test_gif, test_tiff, test_rgb, test_pbm, test_pgm, test_ppm, test_rast, test_xbm, test_bmp, test_webp, test_exr, test, testall.",
+   "url": "https://docs.python.org/3.11/library/imghdr.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-imp",
+   "title": "Python stdlib: imp.py",
+   "text": "Module imp.py (CPython 3.11 standard library).\nThis module provides the components needed to build your own __import__\nfunction.  Undocumented functions are obsolete.\nPublic API: new_module, get_magic, get_tag, cache_from_source, source_from_cache, get_suffixes, NullImporter, load_source, load_compiled, load_package, load_module, find_module, reload, init_builtin.",
+   "url": "https://docs.python.org/3.11/library/imp.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-importlib.__init__",
+   "title": "Python stdlib: importlib/__init__.py",
+   "text": "Module importlib/__init__.py (CPython 3.11 standard library).\nA pure Python implementation of import.\nPublic API: invalidate_caches, find_loader, import_module, reload.",
+   "url": "https://docs.python.org/3.11/library/importlib.__init__.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-importlib._abc",
+   "title": "Python stdlib: importlib/_abc.py",
+   "text": "Module importlib/_abc.py (CPython 3.11 standard library).\nSubset of importlib.abc used to reduce importlib.util imports.\nPublic API: Loader.",
+   "url": "https://docs.python.org/3.11/library/importlib._abc.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-importlib._bootstrap",
+   "title": "Python stdlib: importlib/_bootstrap.py",
+   "text": "Module importlib/_bootstrap.py (CPython 3.11 standard library).\nCore implementation of import.\nPublic API: ModuleSpec, spec_from_loader, module_from_spec, BuiltinImporter, FrozenImporter.",
+   "url": "https://docs.python.org/3.11/library/importlib._bootstrap.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-importlib._bootstrap_external",
+   "title": "Python stdlib: importlib/_bootstrap_external.py",
+   "text": "Module importlib/_bootstrap_external.py (CPython 3.11 standard library).\nCore implementation of path-based import.\nPublic API: cache_from_source, source_from_cache, decode_source, spec_from_file_location, WindowsRegistryFinder, SourceLoader, FileLoader, SourceFileLoader, SourcelessFileLoader, ExtensionFileLoader, NamespaceLoader, PathFinder, FileFinder.",
+   "url": "https://docs.python.org/3.11/library/importlib._bootstrap_external.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-importlib.abc",
+   "title": "Python stdlib: importlib/abc.py",
+   "text": "Module importlib/abc.py (CPython 3.11 standard library).\nAbstract base classes related to import.\nPublic API: Finder, MetaPathFinder, PathEntryFinder, ResourceLoader, InspectLoader, ExecutionLoader, FileLoader, SourceLoader.",
+   "url": "https://docs.python.org/3.11/library/importlib.abc.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-importlib.machinery",
+   "title": "Python stdlib: importlib/machinery.py",
+   "text": "Module importlib/machinery.py (CPython 3.11 standard library).\nThe machinery of importlib: finders, loaders, hooks, etc.\nPublic API: all_suffixes.",
+   "url": "https://docs.python.org/3.11/library/importlib.machinery.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-importlib.metadata.__init__",
+   "title": "Python stdlib: importlib/metadata/__init__.py",
+   "text": "Module importlib/metadata/__init__.py (CPython 3.11 standard library).\n\nPublic API: PackageNotFoundError, Sectioned, DeprecatedTuple, EntryPoint, DeprecatedList, EntryPoints, Deprecated, SelectableGroups, PackagePath, FileHash, Distribution, DistributionFinder, FastPath, Lookup, Prepared, MetadataPathFinder, PathDistribution, distribution, distributions, metadata, version, entry_points, files, requires.",
+   "url": "https://docs.python.org/3.11/library/importlib.metadata.__init__.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-importlib.metadata._adapters",
+   "title": "Python stdlib: importlib/metadata/_adapters.py",
+   "text": "Module importlib/metadata/_adapters.py (CPython 3.11 standard library).\n\nPublic API: Message.",
+   "url": "https://docs.python.org/3.11/library/importlib.metadata._adapters.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-importlib.metadata._collections",
+   "title": "Python stdlib: importlib/metadata/_collections.py",
+   "text": "Module importlib/metadata/_collections.py (CPython 3.11 standard library).\n\nPublic API: FreezableDefaultDict, Pair.",
+   "url": "https://docs.python.org/3.11/library/importlib.metadata._collections.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-importlib.metadata._functools",
+   "title": "Python stdlib: importlib/metadata/_functools.py",
+   "text": "Module importlib/metadata/_functools.py (CPython 3.11 standard library).\n\nPublic API: method_cache, pass_none.",
+   "url": "https://docs.python.org/3.11/library/importlib.metadata._functools.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-importlib.metadata._itertools",
+   "title": "Python stdlib: importlib/metadata/_itertools.py",
+   "text": "Module importlib/metadata/_itertools.py (CPython 3.11 standard library).\n\nPublic API: unique_everseen, always_iterable.",
+   "url": "https://docs.python.org/3.11/library/importlib.metadata._itertools.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-importlib.metadata._meta",
+   "title": "Python stdlib: importlib/metadata/_meta.py",
+   "text": "Module importlib/metadata/_meta.py (CPython 3.11 standard library).\n\nPublic API: PackageMetadata, SimplePath.",
+   "url": "https://docs.python.org/3.11/library/importlib.metadata._meta.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-importlib.metadata._text",
+   "title": "Python stdlib: importlib/metadata/_text.py",
+   "text": "Module importlib/metadata/_text.py (CPython 3.11 standard library).\n\nPublic API: FoldedCase.",
+   "url": "https://docs.python.org/3.11/library/importlib.metadata._text.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-importlib.readers",
+   "title": "Python stdlib: importlib/readers.py",
+   "text": "Module importlib/readers.py (CPython 3.11 standard library).\nCompatibility shim for .resources.readers as found on Python 3.10.\nPublic API: .",
+   "url": "https://docs.python.org/3.11/library/importlib.readers.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-importlib.resources.__init__",
+   "title": "Python stdlib: importlib/resources/__init__.py",
+   "text": "Module importlib/resources/__init__.py (CPython 3.11 standard library).\nRead resources contained within a package.\nPublic API: .",
+   "url": "https://docs.python.org/3.11/library/importlib.resources.__init__.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-importlib.resources._adapters",
+   "title": "Python stdlib: importlib/resources/_adapters.py",
+   "text": "Module importlib/resources/_adapters.py (CPython 3.11 standard library).\n\nPublic API: SpecLoaderAdapter, TraversableResourcesLoader, CompatibilityFiles, wrap_spec.",
+   "url": "https://docs.python.org/3.11/library/importlib.resources._adapters.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-importlib.resources._common",
+   "title": "Python stdlib: importlib/resources/_common.py",
+   "text": "Module importlib/resources/_common.py (CPython 3.11 standard library).\n\nPublic API: files, get_resource_reader, resolve, get_package, from_package, as_file.",
+   "url": "https://docs.python.org/3.11/library/importlib.resources._common.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-importlib.resources._itertools",
+   "title": "Python stdlib: importlib/resources/_itertools.py",
+   "text": "Module importlib/resources/_itertools.py (CPython 3.11 standard library).\n\nPublic API: unique_everseen.",
+   "url": "https://docs.python.org/3.11/library/importlib.resources._itertools.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-importlib.resources._legacy",
+   "title": "Python stdlib: importlib/resources/_legacy.py",
+   "text": "Module importlib/resources/_legacy.py (CPython 3.11 standard library).\n\nPublic API: deprecated, normalize_path, open_binary, read_binary, open_text, read_text, contents, is_resource, path.",
+   "url": "https://docs.python.org/3.11/library/importlib.resources._legacy.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-importlib.resources.abc",
+   "title": "Python stdlib: importlib/resources/abc.py",
+   "text": "Module importlib/resources/abc.py (CPython 3.11 standard library).\n\nPublic API: ResourceReader, Traversable, TraversableResources.",
+   "url": "https://docs.python.org/3.11/library/importlib.resources.abc.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-importlib.resources.readers",
+   "title": "Python stdlib: importlib/resources/readers.py",
+   "text": "Module importlib/resources/readers.py (CPython 3.11 standard library).\n\nPublic API: remove_duplicates, FileReader, ZipReader, MultiplexedPath, NamespaceReader.",
+   "url": "https://docs.python.org/3.11/library/importlib.resources.readers.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-importlib.resources.simple",
+   "title": "Python stdlib: importlib/resources/simple.py",
+   "text": "Module importlib/resources/simple.py (CPython 3.11 standard library).\nInterface adapters for low-level readers.\nPublic API: SimpleReader, ResourceHandle, ResourceContainer, TraversableReader.",
+   "url": "https://docs.python.org/3.11/library/importlib.resources.simple.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-importlib.simple",
+   "title": "Python stdlib: importlib/simple.py",
+   "text": "Module importlib/simple.py (CPython 3.11 standard library).\nCompatibility shim for .resources.simple as found on Python 3.10.\nPublic API: .",
+   "url": "https://docs.python.org/3.11/library/importlib.simple.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-importlib.util",
+   "title": "Python stdlib: importlib/util.py",
+   "text": "Module importlib/util.py (CPython 3.11 standard library).\nUtility code for constructing importers, etc.\nPublic API: source_hash, resolve_name, find_spec, set_package, set_loader, module_for_loader, LazyLoader.",
+   "url": "https://docs.python.org/3.11/library/importlib.util.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-inspect",
+   "title": "Python stdlib: inspect.py",
+   "text": "Module inspect.py (CPython 3.11 standard library).\nGet useful information from live Python objects.\nPublic API: get_annotations, ismodule, isclass, ismethod, ismethoddescriptor, isdatadescriptor, isfunction, isgeneratorfunction, iscoroutinefunction, isasyncgenfunction, isasyncgen, isgenerator, iscoroutine, isawaitable, istraceback, isframe, iscode, isbuiltin, ismethodwrapper, isroutine, isabstract, getmembers, getmembers_static, classify_class_attrs.",
+   "url": "https://docs.python.org/3.11/library/inspect.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-io",
+   "title": "Python stdlib: io.py",
+   "text": "Module io.py (CPython 3.11 standard library).\nThe io module provides the Python interfaces to stream handling. The\nbuiltin open function is defined in this module.\nPublic API: IOBase, RawIOBase, BufferedIOBase, TextIOBase.",
+   "url": "https://docs.python.org/3.11/library/io.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-ipaddress",
+   "title": "Python stdlib: ipaddress.py",
+   "text": "Module ipaddress.py (CPython 3.11 standard library).\nA fast, lightweight IPv4/IPv6 manipulation library in Python.\nPublic API: AddressValueError, NetmaskValueError, ip_address, ip_network, ip_interface, v4_int_to_packed, v6_int_to_packed, summarize_address_range, collapse_addresses, get_mixed_type_key, IPv4Address, IPv4Interface, IPv4Network, IPv6Address, IPv6Interface, IPv6Network.",
+   "url": "https://docs.python.org/3.11/library/ipaddress.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-json.__init__",
+   "title": "Python stdlib: json/__init__.py",
+   "text": "Module json/__init__.py (CPython 3.11 standard library).\nJSON (JavaScript Object Notation) <https://json.org> is a subset of\nJavaScript syntax (ECMA-262 3rd edition) used as a lightweight data\ninterchange format.\nPublic API: dump, dumps, detect_encoding, load, loads.",
+   "url": "https://docs.python.org/3.11/library/json.__init__.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-json.decoder",
+   "title": "Python stdlib: json/decoder.py",
+   "text": "Module json/decoder.py (CPython 3.11 standard library).\nImplementation of JSONDecoder\nPublic API: JSONDecodeError, py_scanstring, JSONObject, JSONArray, JSONDecoder.",
+   "url": "https://docs.python.org/3.11/library/json.decoder.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-json.encoder",
+   "title": "Python stdlib: json/encoder.py",
+   "text": "Module json/encoder.py (CPython 3.11 standard library).\nImplementation of JSONEncoder\nPublic API: py_encode_basestring, py_encode_basestring_ascii, JSONEncoder.",
+   "url": "https://docs.python.org/3.11/library/json.encoder.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-json.scanner",
+   "title": "Python stdlib: json/scanner.py",
+   "text": "Module json/scanner.py (CPython 3.11 standard library).\nJSON token scanner\nPublic API: py_make_scanner.",
+   "url": "https://docs.python.org/3.11/library/json.scanner.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-json.tool",
+   "title": "Python stdlib: json/tool.py",
+   "text": "Module json/tool.py (CPython 3.11 standard library).\nCommand-line tool to validate and pretty-print JSON\nPublic API: main.",
+   "url": "https://docs.python.org/3.11/library/json.tool.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-keyword",
+   "title": "Python stdlib: keyword.py",
+   "text": "Module keyword.py (CPython 3.11 standard library).\nKeywords (from \"Grammar/python.gram\")\nPublic API: .",
+   "url": "https://docs.python.org/3.11/library/keyword.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-linecache",
+   "title": "Python stdlib: linecache.py",
+   "text": "Module linecache.py (CPython 3.11 standard library).\nCache lines from Python source files.\nPublic API: clearcache, getline, getlines, checkcache, updatecache, lazycache.",
+   "url": "https://docs.python.org/3.11/library/linecache.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-locale",
+   "title": "Python stdlib: locale.py",
+   "text": "Module locale.py (CPython 3.11 standard library).\nLocale support module.\nPublic API: localeconv, format_string, format, currency, str, delocalize, localize, atof, atoi, normalize, getdefaultlocale, getlocale, setlocale, resetlocale.",
+   "url": "https://docs.python.org/3.11/library/locale.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-logging.__init__",
+   "title": "Python stdlib: logging/__init__.py",
+   "text": "Module logging/__init__.py (CPython 3.11 standard library).\nLogging package for Python. Based on PEP 282 and comments thereto in\ncomp.lang.python.\nPublic API: getLevelNamesMapping, getLevelName, addLevelName, LogRecord, setLogRecordFactory, getLogRecordFactory, makeLogRecord, PercentStyle, StrFormatStyle, StringTemplateStyle, Formatter, BufferingFormatter, Filter, Filterer, Handler, StreamHandler, FileHandler, PlaceHolder, setLoggerClass, getLoggerClass, Manager, Logger, RootLogger, LoggerAdapter.",
+   "url": "https://docs.python.org/3.11/library/logging.__init__.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-logging.config",
+   "title": "Python stdlib: logging/config.py",
+   "text": "Module logging/config.py (CPython 3.11 standard library).\nConfiguration functions for the logging package for Python. The core package\nis based on PEP 282 and comments thereto in comp.lang.python, and influenced\nby Apache's log4j system.\nPublic API: fileConfig, valid_ident, ConvertingMixin, ConvertingDict, ConvertingList, ConvertingTuple, BaseConfigurator, DictConfigurator, dictConfig, listen, stopListening.",
+   "url": "https://docs.python.org/3.11/library/logging.config.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-logging.handlers",
+   "title": "Python stdlib: logging/handlers.py",
+   "text": "Module logging/handlers.py (CPython 3.11 standard library).\nAdditional handlers for the logging package for Python. The core package is\nbased on PEP 282 and comments thereto in comp.lang.python.\nPublic API: BaseRotatingHandler, RotatingFileHandler, TimedRotatingFileHandler, WatchedFileHandler, SocketHandler, DatagramHandler, SysLogHandler, SMTPHandler, NTEventLogHandler, HTTPHandler, BufferingHandler, MemoryHandler, QueueHandler, QueueListener.",
+   "url": "https://docs.python.org/3.11/library/logging.handlers.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-lzma",
+   "title": "Python stdlib: lzma.py",
+   "text": "Module lzma.py (CPython 3.11 standard library).\nInterface to the liblzma compression library.\nPublic API: LZMAFile, open, compress, decompress.",
+   "url": "https://docs.python.org/3.11/library/lzma.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-mailbox",
+   "title": "Python stdlib: mailbox.py",
+   "text": "Module mailbox.py (CPython 3.11 standard library).\nRead/write support for Maildir, mbox, MH, Babyl, and MMDF mailboxes.\nPublic API: Mailbox, Maildir, mbox, MMDF, MH, Babyl, Message, MaildirMessage, mboxMessage, MHMessage, BabylMessage, MMDFMessage, Error, NoSuchMailboxError, NotEmptyError, ExternalClashError, FormatError.",
+   "url": "https://docs.python.org/3.11/library/mailbox.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-mailcap",
+   "title": "Python stdlib: mailcap.py",
+   "text": "Module mailcap.py (CPython 3.11 standard library).\nMailcap file handling.  See RFC 1524.\nPublic API: lineno_sort_key, UnsafeMailcapInput, getcaps, listmailcapfiles, readmailcapfile, parseline, parsefield, findmatch, lookup, subst, findparam, test, show.",
+   "url": "https://docs.python.org/3.11/library/mailcap.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-mimetypes",
+   "title": "Python stdlib: mimetypes.py",
+   "text": "Module mimetypes.py (CPython 3.11 standard library).\nGuess the MIME type of a file.\nPublic API: MimeTypes, guess_type, guess_all_extensions, guess_extension, add_type, init, read_mime_types.",
+   "url": "https://docs.python.org/3.11/library/mimetypes.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-modulefinder",
+   "title": "Python stdlib: modulefinder.py",
+   "text": "Module modulefinder.py (CPython 3.11 standard library).\nFind modules used by a script, using introspection.\nPublic API: AddPackagePath, ReplacePackage, Module, ModuleFinder, test.",
+   "url": "https://docs.python.org/3.11/library/modulefinder.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-multiprocessing.connection",
+   "title": "Python stdlib: multiprocessing/connection.py",
+   "text": "Module multiprocessing/connection.py (CPython 3.11 standard library).\n\nPublic API: arbitrary_address, address_type, Connection, Listener, Client, SocketListener, SocketClient, deliver_challenge, answer_challenge, ConnectionWrapper, XmlListener, XmlClient.",
+   "url": "https://docs.python.org/3.11/library/multiprocessing.connection.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-multiprocessing.context",
+   "title": "Python stdlib: multiprocessing/context.py",
+   "text": "Module multiprocessing/context.py (CPython 3.11 standard library).\n\nPublic API: ProcessError, BufferTooShort, TimeoutError, AuthenticationError, BaseContext, Process, DefaultContext, get_spawning_popen, set_spawning_popen, assert_spawning.",
+   "url": "https://docs.python.org/3.11/library/multiprocessing.context.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-multiprocessing.dummy.__init__",
+   "title": "Python stdlib: multiprocessing/dummy/__init__.py",
+   "text": "Module multiprocessing/dummy/__init__.py (CPython 3.11 standard library).\n\nPublic API: DummyProcess, active_children, freeze_support, Namespace, Array, Value, Manager, shutdown, Pool.",
+   "url": "https://docs.python.org/3.11/library/multiprocessing.dummy.__init__.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-multiprocessing.dummy.connection",
+   "title": "Python stdlib: multiprocessing/dummy/connection.py",
+   "text": "Module multiprocessing/dummy/connection.py (CPython 3.11 standard library).\n\nPublic API: Listener, Client, Pipe, Connection.",
+   "url": "https://docs.python.org/3.11/library/multiprocessing.dummy.connection.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-multiprocessing.forkserver",
+   "title": "Python stdlib: multiprocessing/forkserver.py",
+   "text": "Module multiprocessing/forkserver.py (CPython 3.11 standard library).\n\nPublic API: ForkServer, main, read_signed, write_signed.",
+   "url": "https://docs.python.org/3.11/library/multiprocessing.forkserver.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-multiprocessing.heap",
+   "title": "Python stdlib: multiprocessing/heap.py",
+   "text": "Module multiprocessing/heap.py (CPython 3.11 standard library).\n\nPublic API: Heap, BufferWrapper.",
+   "url": "https://docs.python.org/3.11/library/multiprocessing.heap.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-multiprocessing.managers",
+   "title": "Python stdlib: multiprocessing/managers.py",
+   "text": "Module multiprocessing/managers.py (CPython 3.11 standard library).\n\nPublic API: reduce_array, rebuild_as_list, Token, dispatch, convert_to_error, RemoteError, all_methods, public_methods, Server, State, BaseManager, ProcessLocalSet, BaseProxy, RebuildProxy, MakeProxyType, AutoProxy, Namespace, Value, Array, IteratorProxy, AcquirerProxy, ConditionProxy, EventProxy, BarrierProxy.",
+   "url": "https://docs.python.org/3.11/library/multiprocessing.managers.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-multiprocessing.pool",
+   "title": "Python stdlib: multiprocessing/pool.py",
+   "text": "Module multiprocessing/pool.py (CPython 3.11 standard library).\n\nPublic API: mapstar, starmapstar, RemoteTraceback, ExceptionWithTraceback, rebuild_exc, MaybeEncodingError, worker, Pool, ApplyResult, MapResult, IMapIterator, IMapUnorderedIterator, ThreadPool.",
+   "url": "https://docs.python.org/3.11/library/multiprocessing.pool.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-multiprocessing.popen_fork",
+   "title": "Python stdlib: multiprocessing/popen_fork.py",
+   "text": "Module multiprocessing/popen_fork.py (CPython 3.11 standard library).\n\nPublic API: Popen.",
+   "url": "https://docs.python.org/3.11/library/multiprocessing.popen_fork.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-multiprocessing.popen_forkserver",
+   "title": "Python stdlib: multiprocessing/popen_forkserver.py",
+   "text": "Module multiprocessing/popen_forkserver.py (CPython 3.11 standard library).\n\nPublic API: Popen.",
+   "url": "https://docs.python.org/3.11/library/multiprocessing.popen_forkserver.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-multiprocessing.popen_spawn_posix",
+   "title": "Python stdlib: multiprocessing/popen_spawn_posix.py",
+   "text": "Module multiprocessing/popen_spawn_posix.py (CPython 3.11 standard library).\n\nPublic API: Popen.",
+   "url": "https://docs.python.org/3.11/library/multiprocessing.popen_spawn_posix.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-multiprocessing.popen_spawn_win32",
+   "title": "Python stdlib: multiprocessing/popen_spawn_win32.py",
+   "text": "Module multiprocessing/popen_spawn_win32.py (CPython 3.11 standard library).\n\nPublic API: Popen.",
+   "url": "https://docs.python.org/3.11/library/multiprocessing.popen_spawn_win32.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-multiprocessing.process",
+   "title": "Python stdlib: multiprocessing/process.py",
+   "text": "Module multiprocessing/process.py (CPython 3.11 standard library).\n\nPublic API: current_process, active_children, parent_process, BaseProcess, AuthenticationString.",
+   "url": "https://docs.python.org/3.11/library/multiprocessing.process.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-multiprocessing.queues",
+   "title": "Python stdlib: multiprocessing/queues.py",
+   "text": "Module multiprocessing/queues.py (CPython 3.11 standard library).\n\nPublic API: Queue, JoinableQueue, SimpleQueue.",
+   "url": "https://docs.python.org/3.11/library/multiprocessing.queues.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-multiprocessing.reduction",
+   "title": "Python stdlib: multiprocessing/reduction.py",
+   "text": "Module multiprocessing/reduction.py (CPython 3.11 standard library).\n\nPublic API: ForkingPickler, dump, AbstractReducer.",
+   "url": "https://docs.python.org/3.11/library/multiprocessing.reduction.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-multiprocessing.resource_tracker",
+   "title": "Python stdlib: multiprocessing/resource_tracker.py",
+   "text": "Module multiprocessing/resource_tracker.py (CPython 3.11 standard library).\n\nPublic API: ResourceTracker, main.",
+   "url": "https://docs.python.org/3.11/library/multiprocessing.resource_tracker.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-multiprocessing.shared_memory",
+   "title": "Python stdlib: multiprocessing/shared_memory.py",
+   "text": "Module multiprocessing/shared_memory.py (CPython 3.11 standard library).\nProvides shared memory for direct access across processes.\nPublic API: SharedMemory, ShareableList.",
+   "url": "https://docs.python.org/3.11/library/multiprocessing.shared_memory.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-multiprocessing.sharedctypes",
+   "title": "Python stdlib: multiprocessing/sharedctypes.py",
+   "text": "Module multiprocessing/sharedctypes.py (CPython 3.11 standard library).\n\nPublic API: RawValue, RawArray, Value, Array, copy, synchronized, reduce_ctype, rebuild_ctype, make_property, SynchronizedBase, Synchronized, SynchronizedArray, SynchronizedString.",
+   "url": "https://docs.python.org/3.11/library/multiprocessing.sharedctypes.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-multiprocessing.spawn",
+   "title": "Python stdlib: multiprocessing/spawn.py",
+   "text": "Module multiprocessing/spawn.py (CPython 3.11 standard library).\n\nPublic API: set_executable, get_executable, is_forking, freeze_support, get_command_line, spawn_main, get_preparation_data, prepare, import_main_path.",
+   "url": "https://docs.python.org/3.11/library/multiprocessing.spawn.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-multiprocessing.synchronize",
+   "title": "Python stdlib: multiprocessing/synchronize.py",
+   "text": "Module multiprocessing/synchronize.py (CPython 3.11 standard library).\n\nPublic API: SemLock, Semaphore, BoundedSemaphore, Lock, RLock, Condition, Event, Barrier.",
+   "url": "https://docs.python.org/3.11/library/multiprocessing.synchronize.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-multiprocessing.util",
+   "title": "Python stdlib: multiprocessing/util.py",
+   "text": "Module multiprocessing/util.py (CPython 3.11 standard library).\n\nPublic API: sub_debug, debug, info, sub_warning, get_logger, log_to_stderr, is_abstract_socket_namespace, get_temp_dir, register_after_fork, Finalize, is_exiting, ForkAwareThreadLock, ForkAwareLocal, close_all_fds_except, spawnv_passfds, close_fds.",
+   "url": "https://docs.python.org/3.11/library/multiprocessing.util.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-netrc",
+   "title": "Python stdlib: netrc.py",
+   "text": "Module netrc.py (CPython 3.11 standard library).\nAn object-oriented interface to .netrc files.\nPublic API: NetrcParseError, netrc.",
+   "url": "https://docs.python.org/3.11/library/netrc.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-nntplib",
+   "title": "Python stdlib: nntplib.py",
+   "text": "Module nntplib.py (CPython 3.11 standard library).\nAn NNTP client class based on:\n- RFC 977: Network News Transfer Protocol\n- RFC 2980: Common NNTP Extensions\n- RFC 3977: Network News Transfer Protocol (version 2)\nPublic API: NNTPError, NNTPReplyError, NNTPTemporaryError, NNTPPermanentError, NNTPProtocolError, NNTPDataError, decode_header, NNTP.",
+   "url": "https://docs.python.org/3.11/library/nntplib.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-ntpath",
+   "title": "Python stdlib: ntpath.py",
+   "text": "Module ntpath.py (CPython 3.11 standard library).\nCommon pathname manipulations, WindowsNT/95 version.\nPublic API: isabs, join, splitdrive, split, splitext, basename, dirname, islink, lexists, ismount, expanduser, expandvars, relpath, commonpath.",
+   "url": "https://docs.python.org/3.11/library/ntpath.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-nturl2path",
+   "title": "Python stdlib: nturl2path.py",
+   "text": "Module nturl2path.py (CPython 3.11 standard library).\nConvert a NT pathname to a file URL and vice versa.\nPublic API: url2pathname, pathname2url.",
+   "url": "https://docs.python.org/3.11/library/nturl2path.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-numbers",
+   "title": "Python stdlib: numbers.py",
+   "text": "Module numbers.py (CPython 3.11 standard library).\nAbstract Base Classes (ABCs) for numbers, according to PEP 3141.\nPublic API: Number, Complex, Real, Rational, Integral.",
+   "url": "https://docs.python.org/3.11/library/numbers.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-opcode",
+   "title": "Python stdlib: opcode.py",
+   "text": "Module opcode.py (CPython 3.11 standard library).\nopcode module - potentially shared between dis and other modules which\noperate on bytecodes (e.g. peephole optimizers).\nPublic API: def_op, name_op, jrel_op, jabs_op.",
+   "url": "https://docs.python.org/3.11/library/opcode.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-operator",
+   "title": "Python stdlib: operator.py",
+   "text": "Module operator.py (CPython 3.11 standard library).\nOperator Interface\nPublic API: lt, le, eq, ne, ge, gt, not_, truth, is_, is_not, abs, add, and_, floordiv, index, inv, lshift, mod, mul, matmul, neg, or_, pos, pow.",
+   "url": "https://docs.python.org/3.11/library/operator.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  },
+  {
+   "source_id": "STDLIB-optparse",
+   "title": "Python stdlib: optparse.py",
+   "text": "Module optparse.py (CPython 3.11 standard library).\nA powerful, extensible, and easy-to-use option parser.\nPublic API: OptParseError, OptionError, OptionConflictError, OptionValueError, BadOptionError, AmbiguousOptionError, HelpFormatter, IndentedHelpFormatter, TitledHelpFormatter, check_builtin, check_choice, Option, Values, OptionContainer, OptionGroup, OptionParser.",
+   "url": "https://docs.python.org/3.11/library/optparse.html",
+   "source": "CPython 3.11 stdlib",
+   "license": "PSF-2.0",
+   "published_at": ""
+  }
+ ]
+}

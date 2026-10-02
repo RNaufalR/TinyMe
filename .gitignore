@@ -1,21 +1,25 @@
-# Python
+# ---- Python / tooling noise -------------------------------------------------
 __pycache__/
 *.py[cod]
-*.egg-info/
-.venv/
-venv/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+*.egg-info/
+.venv/
+build/
+dist/
 
-# Large generated artifacts (kept locally, excluded from Git)
-datasets/processed/*.bin
-datasets/processed/*.npy
-datasets/processed/shards/
-checkpoints/**/*.tmp
-*.log
-
-# OS / editor
-.DS_Store
-.idea/
-.vscode/
+# ---- Large, regenerable artefacts (kept out of git by policy) --------------
+# Model checkpoints: the historical EXP-001 baseline is already committed as
+# evidence; new training runs are reproducible from the scripts + configs and
+# are published as release artefacts instead.
+checkpoints/EXP-002-CORRECTED-NANO/
+checkpoints/EXP-002-PREP-VALIDATION/
+checkpoints/EXP-003-CORRECTED-BASE-PILOT/
+checkpoints/EXP-004-TOOL-SFT/
+checkpoints/EXP-005-QUANT/
+checkpoints/_test_np/
+# Packed token shards (rebuild with scripts/prepare_data_v2.py)
+datasets/processed/*/shards/
+# Sandbox scratch space
+/var/tmp/tinyme-sandbox/
