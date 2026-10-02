@@ -1,1 +1,1 @@
-# TinnyMe
+# TinyMe
