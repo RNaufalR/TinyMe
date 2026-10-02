@@ -14,11 +14,28 @@ from src.sandbox.isolation import detect_isolation, detected_summary, isolation_
 from src.sandbox.limits import limits_report
 from src.sandbox.policy import SandboxPolicy
 from src.sandbox.runner import run_python
+
 from src.sandbox.workspace import Workspace, WorkspaceError
 
 ROOT = Path(__file__).resolve().parents[1]
 CAPS = detect_isolation()
 HAS_NS = CAPS.unshare_net
+
+# --- environment-dependent isolation (audit §8/§9) --------------------------
+# Some assertions describe *strong* isolation (private network namespace, tmpfs
+# over the host home tree). GitHub-hosted runners and hardened kernels cannot
+# create unprivileged user namespaces, so those expectations are
+# environment-dependent by design and are skipped there with an explicit reason
+# — never silently passed. The rlimit-only fallback is itself covered by
+# test_degraded_isolation_still_runs_code_and_labels_itself_honestly.
+requires_userns = pytest.mark.skipif(
+    not CAPS.unshare_user,
+    reason=f"host cannot create user namespaces (isolation level {CAPS.level!r}); "
+           "network/mount isolation is environment-dependent — audit §9")
+requires_netns = pytest.mark.skipif(
+    not CAPS.unshare_net,
+    reason=f"host cannot create network namespaces (isolation level {CAPS.level!r}); "
+           "egress blocking is environment-dependent — audit §9")
 
 
 @pytest.fixture(scope="module")
@@ -104,6 +121,9 @@ CASES = {
 @pytest.mark.parametrize("case", sorted(CASES))
 def test_sandbox_case_matrix(case, policy, tmp_path):
     code, overrides, expect = CASES[case]
+    if case in ("05_network_egress_blocked", "06_dns_blocked") and not CAPS.unshare_net:
+        pytest.skip(f"{case}: requires a network namespace; host level is "
+                    f"{CAPS.level!r} — audit §9 env-dependent")
     pol = SandboxPolicy(**{**policy.to_dict(), **overrides})
     files = {"data.txt": "workspace content"} if case == "03_filesystem_read_of_workspace" else None
     result = run_python(code, policy=pol, files=files)
@@ -138,6 +158,7 @@ def test_escape_read_outside_workspace(tmp_path):
     assert result.exit_code == 0
 
 
+@requires_userns
 def test_escape_write_outside_workspace_is_denied(policy):
     target = Path("/home/user/pwned_by_sandbox_test.txt")
     code = (f"import pathlib\n"
@@ -159,6 +180,7 @@ def test_escape_read_absolute_project_file_is_denied(policy):
         assert result.stdout.strip() == "denied", result.stdout
 
 
+@requires_userns
 def test_escape_via_subprocess_is_still_sandboxed(policy):
     code = ("import subprocess, sys\n"
             "out = subprocess.run([sys.executable, '-c', "
@@ -194,6 +216,7 @@ def test_result_records_policy_and_limits(policy):
     assert report["ok"] is True and report["duration_s"] >= 0
 
 
+@requires_userns
 def test_escape_suite_covers_the_declared_matrix_and_reproduces():
     """Recorded evidence must be reproducible and cover all required categories.
 
@@ -225,3 +248,30 @@ def test_escape_suite_covers_the_declared_matrix_and_reproduces():
         text = recorded.read_text(encoding="utf-8")
         assert detected_summary()["honest_label"] in text, "recorded evidence is stale"
         assert f'"cases": {summary["cases"]}' in text, "recorded evidence count is stale"
+
+
+def test_degraded_isolation_still_runs_code_and_labels_itself_honestly():
+    """Forced rlimit-only isolation: code still runs, limits still apply, and the
+    label says exactly what is enforced (audit §8 honesty rule, §9).
+
+    The capability probe is cached per process, so the cache is explicitly
+    invalidated afterwards — a leaked degraded cache would make every later test
+    in the session run under the wrong isolation level.
+    """
+    from src.sandbox import isolation
+
+    os.environ["TINYME_FORCE_NO_USERNS"] = "1"
+    try:
+        caps = isolation.detect_isolation(force=True)
+        assert caps.unshare_user is False and caps.unshare_net is False
+        assert caps.level == "rlimit-only", caps.to_dict()
+        summary = isolation.detected_summary()
+        assert "rlimits only" in summary["enforced_by_default"]
+        result = run_python("print(6 * 7)")
+        assert result.ok and result.stdout.strip() == "42"
+        plan, iso = isolation.isolation_plan(SandboxPolicy())
+        assert iso["network_enforced"] is False
+        assert "rlimit" in iso["notes"].lower() or "declared honestly" in iso["notes"]
+    finally:
+        os.environ.pop("TINYME_FORCE_NO_USERNS", None)
+        isolation.detect_isolation(force=True)   # restore the real capability set

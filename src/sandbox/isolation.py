@@ -77,7 +77,12 @@ def detect_isolation(force: bool = False) -> IsolationCapabilities:
     with _lock:
         if _cached is not None and not force:
             return _cached
-        has_unshare = shutil.which("unshare") is not None
+        import os
+        # A test/CI hook: hosts that cannot create user namespaces (GitHub-hosted
+        # runners, hardened kernels) exercise the same degraded path by forcing
+        # it, so the fallback is covered instead of being dead code.
+        forced = os.environ.get("TINYME_FORCE_NO_USERNS", "").strip() not in ("", "0", "false")
+        has_unshare = shutil.which("unshare") is not None and not forced
         net = has_unshare and _probe(["unshare", "-Urn", sys.executable, "-c", _NET_PROBE], "NETWORK_BLOCKED")
         mount = False
         if net:
