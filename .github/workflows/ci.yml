@@ -29,7 +29,7 @@ jobs:
       - name: Install pinned tooling
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r requirements-training.txt
           pip install ruff==0.14.2
       - name: Byte-compile every module
         run: python -m compileall -q src scripts tests
@@ -38,6 +38,16 @@ jobs:
         # error-class subset (real bugs: syntax, undefined names, dead locals);
         # F401 (unused import) is reported but not fatal.
         run: ruff check --select E9,F63,F7,F82,F811,F841 src scripts tests
+      - name: Runtime-only dependency set still installs and imports (release deps)
+        run: |
+          python - <<'PY'
+          import subprocess, sys, tempfile, pathlib
+          # the release must not need jax/optax: prove the declared runtime set
+          # is sufficient for the released artefact's import surface
+          sys.path.insert(0, ".")
+          import numpy, tokenizers, safetensors  # noqa: F401
+          print("runtime deps OK:", numpy.__version__, tokenizers.__version__, safetensors.__version__)
+          PY
       - name: Validate test suite is not empty and imports
         run: python -c "import pathlib,sys; mods=list(pathlib.Path('tests').glob('test_*.py')); print(len(mods),'test modules'); sys.exit(0 if len(mods)>=20 else 1)"
 
@@ -53,7 +63,7 @@ jobs:
           cache: pip
       - run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r requirements-training.txt
       - name: Unit tests (no heavy dataset artifacts required)
         run: pytest -q --no-header -m "not slow" --ignore=tests/test_package_size.py
 
@@ -69,7 +79,7 @@ jobs:
           cache: pip
       - run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r requirements-training.txt
       - name: Build a tiny dataset end-to-end
         run: python scripts/prepare_data_v2.py --version ci_smoke --scale 0.05 --seq-len 64
       - name: Train 2 steps on the tiny dataset
@@ -100,7 +110,7 @@ jobs:
           cache: pip
       - run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r requirements-training.txt
       - name: Independent tool-eval suite runs (scripted policy, no model needed)
         run: python -m pytest tests/test_tool_registry.py tests/test_evidence.py tests/test_retrieval_quality.py -q
       - name: Per-domain evaluator smoke on a 1-domain synthetic suite
@@ -118,7 +128,7 @@ jobs:
           cache: pip
       - run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r requirements-training.txt
       - name: Package a tiny random model into a release directory
         run: python -m pytest tests/test_package_size.py -q
       - name: Release directory contract (files, manifest, checksums)

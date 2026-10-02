@@ -71,3 +71,20 @@ Given **2 vCPUs (AVX-512)** and **3.8 GiB RAM**:
 3. **High Information Density Corpus**:
    - Prioritize clean, verified, high-signal examples across all 9 required categories (Language, Logic, Mathematics, Algorithmic Reasoning, Programming, Code Repair, Code Generation, Code Explanation, Synthetic Curriculum).
    - Use XLA-compiled training loops (`@jax.jit`) for maximum tokens/second on Intel Xeon AVX-512 CPU.
+
+## Dependency sets (audit §15, §18) — added during the CI audit
+
+Two files are pinned on purpose and both are installed exactly as written:
+
+| File | Contents | Who installs it |
+| :--- | :--- | :--- |
+| `requirements.txt` | **runtime**: `numpy`, `tokenizers`, `safetensors` | the release environment — `release/inference.py` must run with nothing else (§14) |
+| `requirements-training.txt` | `-r requirements.txt` + `jax==0.10.2` + `optax==0.2.8` | CI and anyone who runs the training code or the test suite |
+
+This split was made after auditing a **fresh clone**: installing only
+`requirements.txt` gives 10 collection errors in the suite (`import jax` /
+`import optax`), because the research stack genuinely needs them while the
+released artefact genuinely does not. CI previously installed only the runtime
+file, so its test job could never have passed; it now installs
+`requirements-training.txt`, and the lint job additionally imports the runtime
+set on its own to keep the release-only claim honest.

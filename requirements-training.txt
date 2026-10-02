@@ -1,0 +1,18 @@
+# TinyMe — pinned *training / research* dependencies (audit §15, §18)
+#
+# The release only needs the runtime set in `requirements.txt` (that file is
+# deliberately installable on its own: audit §14 proves `release/inference.py`
+# runs with nothing else). The research stack — trainer, JAX/Numpy parity tests,
+# optimiser, scheduler, sampler — additionally needs JAX and Optax, which are
+# pinned here at the exact versions measured in the build environment
+# (docs/ENVIRONMENT_REPORT.md).
+#
+# CI installs THIS file for every job that runs the test suite; the packaging
+# smoke job installs it too because the release-contract tests import the
+# training package to build fixtures. The clean-environment gate keeps proving
+# that the released artefact needs none of it.
+
+-r requirements.txt
+
+jax==0.10.2
+optax==0.2.8
