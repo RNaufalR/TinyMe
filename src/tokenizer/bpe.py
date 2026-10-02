@@ -19,11 +19,18 @@ from ..utils.io_utils import REPO_ROOT, write_json
 logger = logging.getLogger("tinyme.tokenizer")
 
 SPECIAL_TOKENS = [
-    "<|pad|>", "<|bos|>", "<|eos|>", "<|unk|>",
-    "<|system|>", "<|user|>", "<|thought|>", "<|answer|>",
-    "<|assistant|>", "<|code|>", "<|endcode|>", "<|endoftext|>",
+    "<|pad|>", "<|bos|>", "<|eos|>", "<|unk|>", "<|endoftext|>",
+    "<|system|>", "<|user|>", "<|assistant|>", "<|thought|>", "<|answer|>",
+    "<|code|>", "<|endcode|>",
+    # Tool protocol (corrective audit §25).  The audit's canonical closing
+    # tokens carry an underscore; the compact aliases shipped earlier are kept
+    # so pre-existing text still round-trips, and the protocol parser accepts
+    # both spellings on input.
+    "<|tool_call|>", "<|end_tool_call|>", "<|tool_result|>", "<|end_tool_result|>",
+    "<|final|>",
+    "<|endtool_call|>", "<|endtool_result|>",
 ]
-TOKENIZER_VERSION = "tok-v1"
+TOKENIZER_VERSION = "tok-v2"
 
 
 class TinyMeTokenizer:
@@ -46,6 +53,26 @@ class TinyMeTokenizer:
 
     def decode(self, ids: Iterable[int], skip_special_tokens: bool = True) -> str:
         return self.tok.decode(list(ids), skip_special_tokens=skip_special_tokens)
+
+    # ---------------------------------------------------------------- hash
+    def sha256(self, path: str | Path | None = None) -> str:
+        """Hash of the serialized tokenizer (or of an existing file)."""
+        import hashlib
+
+        if path is not None and Path(path).exists():
+            return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+        import tempfile
+
+        with tempfile.NamedTemporaryFile(suffix=".json", delete=True) as fh:
+            self.tok.save(fh.name)
+            return hashlib.sha256(Path(fh.name).read_bytes()).hexdigest()
+
+    def vocab_hash(self) -> str:
+        import hashlib
+
+        vocab = self.tok.get_vocab()
+        payload = "|".join(f"{k}:{vocab[k]}" for k in sorted(vocab, key=lambda k: vocab[k]))
+        return hashlib.sha256(payload.encode()).hexdigest()[:16]
 
     # ------------------------------------------------------------------- io
     def save(self, path: str | Path) -> Path:
@@ -97,9 +124,18 @@ def build_tokenizer(vocab_size: int = 4096) -> Tokenizer:
 
 
 def train_tokenizer(texts: Iterable[str], vocab_size: int = 4096,
-                    min_frequency: int = 2) -> TinyMeTokenizer:
-    """Train a byte-level BPE tokenizer on the corpus."""
+                    min_frequency: int = 2, corpus_role: str = "train") -> TinyMeTokenizer:
+    """Train a byte-level BPE tokenizer on the corpus.
+
+    ``corpus_role`` documents which split the texts came from; corrective audit
+    P0-07 requires this to be exactly ``"train"`` for real runs. The value is
+    recorded in the tokenizer report so leakage cannot be silent.
+    """
+    if corpus_role not in ("train", "legacy-pre-split"):
+        raise ValueError(f"tokenizer must be trained on the train split, got {corpus_role!r}")
     texts = list(texts)
+    corpus_stats = {"corpus_role": corpus_role, "texts": len(texts),
+                    "chars": sum(len(t) for t in texts)}
     tok = build_tokenizer(vocab_size)
     trainer = trainers.BpeTrainer(
         vocab_size=vocab_size,
@@ -118,8 +154,11 @@ def train_tokenizer(texts: Iterable[str], vocab_size: int = 4096,
             ("<|eos|>", tok.token_to_id("<|eos|>")),
         ],
     )
-    logger.info("trained BPE tokenizer: vocab_size=%d on %d texts", tok.get_vocab_size(), len(texts))
-    return TinyMeTokenizer(tok)
+    logger.info("trained BPE tokenizer: vocab_size=%d on %d texts (%s)",
+                tok.get_vocab_size(), len(texts), corpus_role)
+    wrapper = TinyMeTokenizer(tok)
+    wrapper.corpus_stats = corpus_stats  # type: ignore[attr-defined]
+    return wrapper
 
 
 def tokenizer_report(tokenizer: TinyMeTokenizer, corpora: dict[str, list[str]],

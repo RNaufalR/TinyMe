@@ -1,18 +1,49 @@
-# TODO LIST (`TODO.md`)
+# TODO — corrective audit execution
 
-- [x] **REQ-01**: Inspect environment & create `docs/ENVIRONMENT_REPORT.md` (`VERIFIED`)
-- [x] **REQ-02**: Create project directory structure & state tracking files (`VERIFIED`)
-- [ ] **REQ-03**: Evaluate candidate architectures & create `docs/ARCHITECTURE_DECISION.md` (`IN_PROGRESS`)
-- [ ] **REQ-04**: Create `docs/LICENSE_POLICY.md` and `docs/DATA_PROVENANCE.json` (`IN_PROGRESS`)
-- [ ] **REQ-05**: Acquire real Hugging Face & GitHub & Python Stdlib datasets + build `data_sources/` adapters & 14-stage `src/data/` pipeline (`PENDING`)
-- [ ] **REQ-06**: Implement deterministic verified synthetic curriculum generators for Categories A–I (`PENDING`)
-- [ ] **REQ-07**: Run data quality scoring, multi-level deduplication, contamination check, and generate `docs/DATA_QUALITY_REPORT.md` (`PENDING`)
-- [ ] **REQ-08**: Train custom BPE tokenizer, evaluate token efficiency & footprint, and generate `docs/TOKENIZER_REPORT.md` (`PENDING`)
-- [ ] **REQ-09**: Implement JAX/XLA Transformer model (`src/model/`) & Training Engine (`src/training/`) with checkpoint/resume/recovery (`PENDING`)
-- [ ] **REQ-10**: Implement 9-domain Evaluation Engine (`src/evaluation/`) with sandboxed code execution (`PENDING`)
-- [ ] **REQ-11**: Implement Inference Engine (`src/inference/`, `infer.py`) (`PENDING`)
-- [ ] **REQ-12**: Execute baseline training (`EXP-001`), ablations (`EXP-002`, `EXP-003`), curriculum training (`EXP-004`), and iterative self-improvement (`EXP-005`) (`PENDING`)
-- [ ] **REQ-13**: Quantize best model (`FP32`, `FP16`, `INT8`, `INT4`), verify `< 50 MB`, build `release/` package (`PENDING`)
-- [ ] **REQ-14**: Implement & verify Continual Internet Training (`dataset_v1`, `dataset_v2`, `dataset_v3`) with regression protection (`MODEL_COMPARISON.md`) (`PENDING`)
-- [ ] **REQ-15**: Run full automated `pytest` test suite (`tests/`) (`PENDING`)
-- [ ] **REQ-16**: Write `README.md`, `docs/TRAINING_REPORT.md`, `docs/EVALUATION_REPORT.md`, and `FINAL_REPORT.md` (`PENDING`)
+Status legend: [x] done & verified · [~] in progress · [ ] pending
+
+## P0 — correctness (audit §5–§18)
+- [x] P0-01 content-aware preprocessing (code indentation/fences/control tokens preserved, AST on target only)
+- [x] P0-02 structured segmented record contract + `loss_mask`
+- [x] P0-03 task-aware loss masking (tool results context-only)
+- [x] P0-04 padding mask (pad_id → 0 loss, active/masked/padding reported)
+- [x] P0-05 real train/validation/test split with group separation + contamination report (PASS)
+- [x] P0-06 trainer loads `validation.jsonl`; never `train.jsonl[:32]`
+- [x] P0-07 tokenizer trained on the train split only + `TOKENIZER_REPORT.md` + vocab assert
+- [x] P0-08 single authoritative sequence builder (seq_len 256, target-aware truncation, packing)
+- [x] P0-09 true gradient accumulation (params frozen + numerical-equivalence test)
+- [x] P0-10 deterministic sampler with persisted state
+- [x] P0-11 atomic checkpoints with load/verify + fingerprint compatibility
+- [x] P0-12 scheduler/optimizer resume continuity (LR before == after)
+- [x] P0-13 RNG sync (python/numpy/JAX/data/synthetic)
+- [x] P0-14 RoPE + full-forward vs KV-cache parity tests
+- [x] P0-15 numerical stability (finite loss, NaN/Inf guard, grad-norm logging)
+- [x] P0-16 `compute_dtype` affects real computation and is recorded
+- [x] P0-17 tokenizer/checkpoint vocabulary assertion at startup
+
+## P1 — data, tools, sandbox, evaluation
+- [x] density rebuild without duplicate inflation; multi-stage dedup index
+- [x] code-specific quality handling (secret/PII/malware scan; no Python AST on non-Python)
+- [x] efficient shard writing (buffered + atomic `os.replace`)
+- [x] provenance + license policy; corpus growth beyond 55 k tokens (585 k active target tokens)
+- [x] two-stage schedule (A pretrain / B instruction+reasoning+tool SFT) in the data layer
+- [x] strict tool protocol + small model surface (search/fetch/compute/code/files)
+- [x] agent runtime: router, planner, executor, tool registry, evidence engine, loop/budget control
+- [x] sandbox: policy/limits/workspace/isolation/runner with honest auto-detected isolation
+- [~] independent domain evaluation incl. executable pass rate + tool metrics (`scripts/evaluate.py` written; run after training)
+- [ ] functional quantization comparison (FP32/FP16/INT8/INT4) — code ready, measurement after EXP-004
+- [ ] 21+ module test suite: 22 modules exist, `test_data_pipeline.py` / `test_package_size.py` pending final artefacts
+- [ ] release package (`release/` model.*, tokenizer, config, manifest, checksums, reports, inference entrypoint)
+
+## Training / experiments
+- [~] EXP-002-CORRECTED-NANO (canonical Stage-A run in progress, fresh init, never resumes EXP-001)
+- [ ] EXP-003-CORRECTED-BASE feasibility pilot
+- [ ] EXP-004-TOOL-SFT (Stage B, loss-masked tool/instruction training)
+- [ ] EXP-005-QUANT (quantized variants + functional comparison)
+
+## Documentation
+- [x] `docs/CORRECTIVE_AUDIT.md`, `docs/audit_evidence/*`, `docs/LICENSE_POLICY.md`, `docs/DATA_QUALITY_REPORT.md`,
+      `docs/TOKENIZER_REPORT.md`, `docs/SPLIT_SUMMARY.md`, `DATA_PROVENANCE.json`
+- [ ] `docs/TRAINING_REPORT.md`, `docs/MODEL_COMPARISON.md` (NOT COMPARABLE where protocol changed)
+- [ ] `FINAL_REPORT.md` (20 sections), `EXPERIMENT_LOG.md` entries, `README.md` rewrite
+- [~] `STATE.md` / `TODO.md` / `DECISIONS.md` / `EXECUTION_PLAN.md` kept in sync

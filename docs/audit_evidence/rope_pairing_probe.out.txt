@@ -1,0 +1,3 @@
+head_dim=4: max|delta| = 4.076150
+head_dim=6: max|delta| = 4.712302
+head_dim=8: max|delta| = 3.675680

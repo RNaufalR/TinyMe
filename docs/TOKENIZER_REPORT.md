@@ -1,18 +1,20 @@
 # TOKENIZER REPORT
 
-- **Algorithm:** byte-level BPE (Rust `tokenizers`), ByteLevel pre-tokenizer, ByteLevel decoder
-- **Tokenizer version:** tok-v1
+- **Algorithm:** byte-level BPE (`tokenizers`), ByteLevel pre-tokenizer/decoder
+- **Tokenizer version:** tok-v2
 - **Vocabulary size:** 4096
-- **Serialized `tokenizer.json` size:** 265,896 bytes (259.7 KiB) — **counts toward the <50 MB artifact**
-- **Special tokens:** <|pad|>, <|bos|>, <|eos|>, <|unk|>, <|system|>, <|user|>, <|thought|>, <|answer|>, <|assistant|>, <|code|>, <|endcode|>, <|endoftext|>
+- **Serialized `tokenizer.json` size:** 266,195 bytes (260.0 KiB) — **counts toward the <50 MB artifact**
+- **Special tokens:** <|pad|>, <|bos|>, <|eos|>, <|unk|>, <|endoftext|>, <|system|>, <|user|>, <|assistant|>, <|thought|>, <|answer|>, <|code|>, <|endcode|>, <|tool_call|>, <|end_tool_call|>, <|tool_result|>, <|end_tool_result|>, <|final|>, <|endtool_call|>, <|endtool_result|>
 
 ## Per-domain efficiency
 
 | Domain | Samples | Total tokens | Tokens/sample | Chars/token | UNK rate |
 | :--- | ---: | ---: | ---: | ---: | ---: |
-| all | 937 | 135545 | 144.658 | 3.7768 | 0.000000 |
-| code | 427 | 105416 | 246.876 | 3.4593 | 0.000000 |
-| math_logic | 375 | 21434 | 57.157 | 3.7396 | 0.000000 |
+| all_train | 3062 | 567543 | 185.35 | 3.7149 | 0.000000 |
+| code | 1877 | 457324 | 243.646 | 3.7397 | 0.000000 |
+| prose | 152 | 32279 | 212.362 | 3.2131 | 0.000000 |
+| math | 940 | 66510 | 70.755 | 3.8541 | 0.000000 |
+| tool_call_json | 1 | 21 | 21.0 | 3.1905 | 0.000000 |
 
 ## Interpretation
 
