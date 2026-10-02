@@ -86,6 +86,35 @@ def test_quality_scores_short_and_low_density_content_lower():
     assert not kept and reason == "too_short"
 
 
+def test_binary_reason_is_stable_regardless_of_parser_behaviour(monkeypatch):
+    """The rejection reason must not depend on which parser exception fires.
+
+    CPython < 3.12 raises ValueError for a NUL byte and SyntaxError for other
+    control characters; a newer interpreter can raise SyntaxError for both. The
+    record must be rejected as *binary* in every case, which is why the binary
+    check runs before the syntax check (this exact difference made the same
+    record 'binary_content' here and 'malformed_code_rejected' in CI).
+    """
+    import src.data.quality_filter as qf
+
+    binary = _record("programming", "python", [
+        Segment("assistant", "code\x00\x01\x02\x03def f():\n    pass\n", target=True)])
+
+    # simulate a parser that reports the payload as a syntax error instead of ValueError
+    real_score = qf.score_record
+
+    def syntax_error_score(rec):
+        scored = real_score(rec)
+        scored["syntax_valid"] = False
+        scored["syntax_note"] = "syntax_error: invalid non-printable character U+0000"
+        return scored
+
+    monkeypatch.setattr(qf, "score_record", syntax_error_score)
+    kept, _updated, reason = qf.filter_record(binary)
+    assert not kept
+    assert reason == "binary_content", reason
+
+
 def test_binary_and_minified_payloads_are_rejected():
     binary = _record("programming", "python", [
         Segment("assistant", "code\x00\x01\x02\x03def f():\n    pass\n", target=True)])

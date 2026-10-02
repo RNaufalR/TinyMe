@@ -241,6 +241,16 @@ def filter_record(rec: dict[str, Any], min_quality: float = 0.35,
     if q.get("safety_unsafe") and drop_unsafe:
         return False, rec, "unsafe_content"
     category = rec.get("category", "")
+    # Binary/garble detection comes FIRST on purpose: whether a payload is
+    # binary is a property of its bytes, not of the parser that happens to run
+    # next. Ordering it after the syntax check made the reported reason depend
+    # on the interpreter (CPython <3.11.? raises ValueError for NUL bytes,
+    # newer versions raise SyntaxError for non-printable characters), so the
+    # same record was labelled "binary_content" locally and
+    # "malformed_code_rejected" in CI. The record is rejected either way; the
+    # reason must be truthful and stable.
+    if q.get("is_binary_like"):
+        return False, rec, "binary_content"
     if (require_valid_syntax and category in ("programming", "code_gen", "code_explain",
                                               "algorithm")
             and q.get("syntax_valid") is False
@@ -248,8 +258,6 @@ def filter_record(rec: dict[str, Any], min_quality: float = 0.35,
         return False, rec, "malformed_code_rejected"
     if q.get("is_minified"):
         return False, rec, "minified_or_generated"
-    if q.get("is_binary_like"):
-        return False, rec, "binary_content"
     if q.get("length_chars", 0) < 25:
         return False, rec, "too_short"
     if q.get("language_confidence", 0.0) < 0.25:
