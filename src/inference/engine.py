@@ -112,6 +112,28 @@ class InferenceEngine:
         return self
 
     # ------------------------------------------------------------ weights
+    @staticmethod
+    def _normalize_key(key: str) -> str:
+        """``[blocks]/[0]/[ln1]`` (jax tree path) -> ``blocks/0/ln1``."""
+        return "/".join(part.strip("[]") for part in key.split("/"))
+
+    @staticmethod
+    def _decode_flat(flat: dict[str, np.ndarray], dtypes: dict[str, str]) -> dict[str, np.ndarray]:
+        """Cast tensors back to the dtypes recorded at save time (bf16-safe)."""
+        out: dict[str, np.ndarray] = {}
+        for key, value in flat.items():
+            want = dtypes.get(key, str(value.dtype))
+            if want in ("bfloat16", "float16"):
+                try:
+                    out[key] = np.asarray(value).astype(np.float32)
+                except TypeError:                      # ml_dtypes not installed
+                    out[key] = (np.asarray(value).view(np.uint16).astype(np.uint32) << 16).view(np.float32)
+            elif want == "bool":
+                out[key] = np.asarray(value).astype(bool)
+            else:
+                out[key] = np.asarray(value, dtype=np.float32)
+        return out
+
     def _load_params(self, model_path: str | Path) -> dict[str, np.ndarray]:
         from safetensors import safe_open
 
@@ -119,6 +141,18 @@ class InferenceEngine:
             meta = f.metadata() or {}
             dtype = meta.get("dtype", "float32")
             flat = {k: f.get_tensor(k) for k in f.keys()}
+
+        if any(k.startswith("params/") for k in flat):
+            # ``tinyme-ckpt-v2`` training checkpoint: ``params/<jax tree path>``
+            # plus optimizer state.  Strip the prefix and the bracket notation,
+            # then restore the stored dtypes.  (Without this the engine built a
+            # bogus top level ``{"params": ..., "opt": ...}`` tree and every
+            # forward pass raised ``KeyError: 'tok_emb'``.)
+            dtypes = {self._normalize_key(k): v for k, v in (meta.get("param_dtypes") or {}).items()}
+            params_flat = {self._normalize_key(k[len("params/"):]): v
+                           for k, v in flat.items() if k.startswith("params/")}
+            flat = self._decode_flat(params_flat, dtypes)
+            dtype = "float32"
 
         if dtype == "int8":
             from src.quantization.quantize import dequantize_int8
@@ -278,6 +312,12 @@ class InferenceEngine:
 
     # ------------------------------------------------- metrics / generation
     def sequence_loss(self, ids: list[int]) -> float:
+        # Documents longer than the context window are truncated to their head:
+        # positions beyond max_seq_len were never trained and would dominate the
+        # mean with out-of-distribution loss.
+        max_ctx = int(self.config.max_seq_len)
+        if len(ids) > max_ctx:
+            ids = ids[:max_ctx]
         arr = np.asarray([ids], dtype=np.int32)
         logits = self.forward(arr)[0].astype(np.float64)
         logits = logits - logits.max(-1, keepdims=True)

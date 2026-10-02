@@ -145,7 +145,26 @@ def build_suite(version: str, split: str = "test", *, max_samples: int | None = 
         raise ValueError("evaluation must use held-out splits; 'train' is refused")
     records = load_split_records(version, split)
     if max_samples:
-        records = records[: max(1, int(max_samples))]
+        # Stratified round-robin across categories: a bounded run must still see
+        # every domain (a plain head slice used to return 10 language records and
+        # report zero domains evaluated).
+        buckets: dict[str, list[dict]] = {}
+        for record in records:
+            buckets.setdefault(_domain_for(record) or "other", []).append(record)
+        picked: list[dict] = []
+        order = sorted(buckets, key=lambda name: (-len(buckets[name]), name))
+        cursor = {name: 0 for name in order}
+        while len(picked) < max(1, int(max_samples)):
+            progressed = False
+            for name in order:
+                idx = cursor[name]
+                if idx < len(buckets[name]) and len(picked) < max(1, int(max_samples)):
+                    picked.append(buckets[name][idx])
+                    cursor[name] = idx + 1
+                    progressed = True
+            if not progressed:
+                break
+        records = picked
     return records
 
 

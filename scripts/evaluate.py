@@ -36,8 +36,8 @@ from src.evaluation.evaluator import (  # noqa: E402
     EvaluationResult, build_suite, evaluate_model, write_evaluation_report)
 from src.inference.engine import InferenceEngine  # noqa: E402
 from src.model import TinyMeConfig, count_parameters  # noqa: E402
-from src.quantization.quantize import (dequantize_int4, dequantize_int8, quantize_int4,  # noqa: E402
-                                       quantize_int8, quantize_to_fp16)
+from src.quantization.quantize import (dequantize_int4, dequantize_int8, flatten_params,  # noqa: E402
+                                       quantize_int4, quantize_int8, unflatten_params)
 from src.sandbox.runner import detected_summary  # noqa: E402
 from src.training.checkpoint import verify_checkpoint  # noqa: E402
 from src.utils.io_utils import REPO_ROOT, human_bytes, read_json, write_json  # noqa: E402
@@ -55,13 +55,21 @@ def _model_config_for(params: dict, tokenizer, architecture: str) -> TinyMeConfi
     return cfg
 
 
+def _read_json_or(path: Path, default: dict) -> dict:
+    """``read_json`` with a default (the shared helper takes no default)."""
+    try:
+        return read_json(path)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return default
+
+
 def _load_engine(experiment: str, checkpoint: str, tokenizer, backend: str,
                  params_override: dict | None = None, arch: str | None = None) -> InferenceEngine:
     ckpt_dir = REPO_ROOT / "checkpoints" / experiment
     report = verify_checkpoint(ckpt_dir, checkpoint)
     if not report.get("ok"):
         raise SystemExit(f"checkpoint {experiment}/{checkpoint} failed verification: {report['errors']}")
-    run_cfg = read_json(REPO_ROOT / "experiments" / experiment / "run_config.json", {})
+    run_cfg = _read_json_or(REPO_ROOT / "experiments" / experiment / "run_config.json", {})
     architecture = arch or (run_cfg.get("model_config") or {}).get("architecture") or "nano"
     params_file = ckpt_dir / f"{checkpoint}.safetensors"
     engine = InferenceEngine(params_file, REPO_ROOT / "datasets" / "versions" /
@@ -69,28 +77,40 @@ def _load_engine(experiment: str, checkpoint: str, tokenizer, backend: str,
                              backend=backend)
     engine.config = _model_config_for(engine.params, tokenizer, architecture)
     if params_override is not None:
-        engine.params = params_override
-        if backend == "jax":
-            import jax.numpy as jnp
-            engine._jparams = {k: jnp.asarray(v) for k, v in params_override.items()}
+        engine.set_params(params_override)
     return engine
 
 
 def quantized_variants(params: dict, names: list[str]) -> dict[str, dict]:
+    """Apply the flat quantization API to the nested tree and rebuild it.
+
+    ``quantize_int8``/``quantize_int4`` operate on flat ``blocks/0/attn/q`` keys,
+    while the engine holds the nested tree - flatten -> quantize -> unflatten
+    (the direct call used to raise ``AttributeError: 'list' object has no
+    attribute 'ndim'``).
+    """
     out: dict[str, dict] = {}
     for name in names:
         if name == "fp32":
             out[name] = params
-        elif name == "fp16":
-            out[name] = quantize_to_fp16(params)
+            continue
+        flat = flatten_params(params)
+        if name == "fp16":
+            out[name] = unflatten_params({k: v.astype(np.float16) for k, v in flat.items()})
         elif name == "int8":
-            q, s = quantize_int8(params)
-            out[name] = dequantize_int8(q, s)
+            q, s = quantize_int8(flat)
+            out[name] = unflatten_params(dequantize_int8(q, s))
         elif name == "int4":
-            q, s = quantize_int4(params)
-            out[name] = dequantize_int4(q, s)
+            q, s = quantize_int4(flat)
+            out[name] = unflatten_params(dequantize_int4(q, s))
         else:
             raise SystemExit(f"unknown variant {name}")
+        # keep the float32 dtype the engine's numpy forward expects
+        out[name] = {k: (v.astype(np.float32) if hasattr(v, "astype") else v)
+                     for k, v in out[name].items()}
+        if isinstance(out[name].get("blocks"), list):
+            out[name]["blocks"] = [{kk: vv.astype(np.float32) for kk, vv in blk.items()}
+                                   for blk in out[name]["blocks"]]
     return out
 
 
@@ -111,7 +131,7 @@ def main() -> int:
                     help="copy the primary-variant report into release/evaluation_report.md")
     args = ap.parse_args()
 
-    run_cfg = read_json(REPO_ROOT / "experiments" / args.experiment / "run_config.json", {})
+    run_cfg = _read_json_or(REPO_ROOT / "experiments" / args.experiment / "run_config.json", {})
     version = args.dataset or run_cfg.get("dataset_version") or "dataset_v2"
     manifest = load_manifest(version)
     tokenizer = load_tokenizer(version)
@@ -126,10 +146,7 @@ def main() -> int:
     results: list[EvaluationResult] = []
     summaries: dict[str, dict] = {}
     for name in variant_names:
-        engine.params = params_by_variant[name]
-        if args.backend == "jax":
-            import jax.numpy as jnp
-            engine._jparams = {k: jnp.asarray(v) for k, v in params_by_variant[name].items()}
+        engine.set_params(params_by_variant[name])
         generate = lambda prompt, max_new_tokens=args.max_new_tokens: engine.generate(
             prompt, max_new_tokens=max_new_tokens, temperature=0.0, use_cache=True)
         started = time.time()
