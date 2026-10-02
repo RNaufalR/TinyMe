@@ -13,11 +13,16 @@ dist/
 # Model checkpoints: the historical EXP-001 baseline is already committed as
 # evidence; new training runs are reproducible from the scripts + configs and
 # are published as release artefacts instead.
-checkpoints/EXP-002-CORRECTED-NANO/
-checkpoints/EXP-002-PREP-VALIDATION/
-checkpoints/EXP-003-CORRECTED-BASE-PILOT/
-checkpoints/EXP-004-TOOL-SFT/
-checkpoints/EXP-005-QUANT/
+# (EXP-001 stays committed as historical evidence; every later run is
+# reproducible from scripts/configs and republished via release/.)
+checkpoints/EXP-002/
+checkpoints/EXP-002-*/
+checkpoints/EXP-003/
+checkpoints/EXP-003-*/
+checkpoints/EXP-004/
+checkpoints/EXP-004-*/
+checkpoints/EXP-005/
+checkpoints/EXP-005-*/
 checkpoints/_test_np/
 # Packed token shards (rebuild with scripts/prepare_data_v2.py)
 datasets/processed/*/shards/

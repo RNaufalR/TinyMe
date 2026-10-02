@@ -32,10 +32,25 @@ class RouteDecision:
                 "confidence": self.confidence}
 
 
+_QUESTION_VERBS = re.compile(
+    r"(?i)^\s*(what\s+is|what\s+are|how\s+much\s+is|compute|calculate|evaluate|"
+    r"what\s+does|how\s+many\s+is|solve)\s+")
+_NUMBER_WORDS = ("plus", "minus", "times", "divided by", "multiplied by", "percent of", "% of")
+
+
 def _looks_like_arithmetic(text: str) -> bool:
+    """True when the request is a closed arithmetic question (never a lookup)."""
     stripped = text.strip().rstrip("?.! ")
-    return bool(MATH_RE.search(stripped)) and bool(re.search(r"[\d]", stripped)) and bool(
-        re.search(r"[\+\-\*/%]|compute|calculate|evaluate", stripped.lower()))
+    lowered = stripped.lower()
+    for phrase in _NUMBER_WORDS:
+        lowered = lowered.replace(phrase, " ")
+    core = _QUESTION_VERBS.sub("", lowered).strip()
+    if not core or not re.search(r"\d", core):
+        return False
+    # remove words that are pure filler so "of", "the", "sum of" do not hide the math
+    core = re.sub(r"[a-z]{1,4}\b", " ", core)
+    core = core.replace(",", " ").strip()
+    return bool(core) and bool(MATH_RE.search(core)) or bool(re.fullmatch(r"[\d\s\.\+\-\*/%]+", core))
 
 
 _DIMENSIONLESS = {"it", "this", "that", "the expression", "the result"}

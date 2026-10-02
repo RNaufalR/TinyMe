@@ -173,6 +173,7 @@ class DedupReport:
     kept: int = 0
     lsh_index_size: int = 0
     duplicate_examples: list[str] = field(default_factory=list)
+    by_category: dict[str, dict[str, int]] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         d = dict(self.__dict__)
@@ -198,21 +199,29 @@ def deduplicate(records: Iterable[dict[str, Any]], similarity_threshold: float =
     code_index = MinHashLSH(num_perm=num_perm, bands=bands, threshold=code_threshold, seed=seed + 1)
     kept: list[dict[str, Any]] = []
 
+    by_category: dict[str, dict[str, int]] = {}
     for rec in records:
         report.total += 1
+        category = str(rec.get("category", "unknown"))
+        cat = by_category.setdefault(category, {"total": 0, "exact": 0, "normalized": 0,
+                                                "similar": 0, "code_similar": 0, "kept": 0})
+        cat["total"] += 1
         text = rec.get("text", "") or ""
         eh = exact_hash(text)
         if eh in seen_exact:
             report.exact_duplicates += 1
+            cat["exact"] += 1
             continue
         nh = normalized_hash(text)
         if nh in seen_norm:
             report.normalized_duplicates += 1
+            cat["normalized"] += 1
             continue
 
         sh = shingles(text)
         if sh and text_index.is_duplicate(sh) is not None:
             report.similar_duplicates += 1
+            cat["similar"] += 1
             if len(report.duplicate_examples) < 10:
                 report.duplicate_examples.append(rec.get("record_id", ""))
             continue
@@ -221,6 +230,7 @@ def deduplicate(records: Iterable[dict[str, Any]], similarity_threshold: float =
             ct = code_tokens(text)
             if ct and code_index.is_duplicate(ct) is not None:
                 report.code_similar_duplicates += 1
+                cat["code_similar"] += 1
                 continue
             if ct:
                 code_index.add(rec.get("record_id", "") or nh, ct)
@@ -229,8 +239,10 @@ def deduplicate(records: Iterable[dict[str, Any]], similarity_threshold: float =
             text_index.add(rec.get("record_id", "") or eh, sh)
         seen_exact.add(eh)
         seen_norm.add(nh)
+        cat["kept"] += 1
         kept.append(rec)
 
+    report.by_category = by_category
     report.kept = len(kept)
     report.lsh_index_size = text_index.size
     return kept, report

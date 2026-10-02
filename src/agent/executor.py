@@ -111,6 +111,7 @@ class AgentRuntime:
         started = time.monotonic()
         traj = Trajectory(request=request)
         history: list[str] = [f"<|user|>{request}"]
+        executed = 0
         for step_index in range(1, self.max_steps + 1):
             if time.monotonic() - started > self.max_seconds:
                 traj.stop_reason = f"wall_budget_exhausted({self.max_seconds}s)"
@@ -150,6 +151,7 @@ class AgentRuntime:
                 traj.steps.append(step)
                 break
             result = self.registry.call(call.name, call.arguments)
+            executed += 1
             self.context.calls += 1
             self.context.seconds += result.duration_s
             self.evidence.add_tool_result(call.name, result)
@@ -168,7 +170,8 @@ class AgentRuntime:
                               "problems": ["no_final_answer"]}
         traj.metrics = {
             "steps": len(traj.steps),
-            "tool_calls": sum(1 for s in traj.steps if s.call),
+            "tool_calls": executed,
+            "turns_with_tool_calls": sum(1 for s in traj.steps if s.call),
             "errors": [s.error for s in traj.steps if s.error],
             "total_seconds": round(time.monotonic() - started, 4),
             "context": self.context.summary(),

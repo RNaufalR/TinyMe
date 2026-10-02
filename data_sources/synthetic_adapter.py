@@ -5,6 +5,14 @@ EXECUTION / SYMBOLIC CHECKER -> ACCEPT ONLY VERIFIED EXAMPLES.
 
 Nothing is emitted unless the answer was recomputed by an independent
 implementation (or by executing real Python code in a sandboxed subprocess).
+
+SUPERSEDED by `data_sources/synthetic_v2.py` (2026-10-02).
+
+The v1 adapter's generators emitted unverified, duplicate-heavy samples; the v2
+generators verify every answer (subprocess tests, recomputation, executed
+instance examples) and report duplicates instead of re-emitting them. This file
+is kept only so older experiments remain readable and is not imported by the
+authoritative pipeline.
 """
 from __future__ import annotations
 

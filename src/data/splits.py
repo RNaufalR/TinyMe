@@ -42,23 +42,77 @@ def assign_splits(records: list[dict[str, Any]], seed: int = 1234,
             continue
         groups[_group_key(rec)].append(rec)
 
-    gids = _stable_order(groups.keys(), seed)
-    total = sum(len(v) for v in groups.values()) or 1
-    targets = {s: max(1, int(round(total * ratios.get(s, 0.0)))) for s in ("train", "validation", "test")}
     assigned: dict[str, list[dict[str, Any]]] = {s: [] for s in SPLITS}
-    for gid in gids:
-        items = groups[gid]
-        # greedy: place the family where the current deficit is largest
-        best = max(("train", "validation", "test"),
-                   key=lambda s: targets[s] - len(assigned[s]))
-        assigned[best].extend(items)
-        for rec in items:
-            rec["split"] = best
+
+    # ---------------------------------------------------------------- stratified
+    # Assign per *category*, so every split (most importantly the held-out test
+    # and validation sets) contains every task family that exists in the corpus.
+    # A plain global greedy split can starve whole domains — that actually
+    # happened on the first dataset_v2 build, where `test` had no code_gen,
+    # code_repair, tool_use or instruction records and those domains were
+    # therefore unmeasurable.
+    by_category: dict[str, list[str]] = defaultdict(list)
+    for gid, items in groups.items():
+        by_category[str(items[0].get("category", "unknown"))].append(gid)
+
+    per_category: dict[str, dict[str, int]] = {}
+    for category in sorted(by_category):
+        gids = _stable_order(by_category[category], seed)
+        n_groups = len(gids)
+        total_records = sum(len(groups[g]) for g in gids)
+        target_validation = int(round(total_records * ratios.get("validation", 0.1)))
+        target_test = int(round(total_records * ratios.get("test", 0.1)))
+
+        validation_gids: list[str] = []
+        if n_groups >= 3 and target_validation > 0:
+            count = 0
+            for gid in gids:
+                if count >= target_validation:
+                    break
+                validation_gids.append(gid)
+                count += len(groups[gid])
+            if not validation_gids:  # never leave a category uncovered
+                validation_gids = [gids[0]]
+        remaining = [g for g in gids if g not in set(validation_gids)]
+        test_gids: list[str] = []
+        if len(remaining) >= 2 and target_test > 0:
+            count = 0
+            for gid in remaining:
+                if count >= target_test:
+                    break
+                test_gids.append(gid)
+                count += len(groups[gid])
+            if not test_gids:
+                test_gids = [remaining[0]]
+        train_gids = [g for g in remaining if g not in set(test_gids)]
+
+        for gid in list(validation_gids):
+            for rec in groups[gid]:
+                rec["split"] = "validation"
+        for gid in list(test_gids):
+            for rec in groups[gid]:
+                rec["split"] = "test"
+        for gid in train_gids:
+            for rec in groups[gid]:
+                rec["split"] = "train"
+        per_category[category] = {
+            "groups": n_groups, "records": total_records,
+            "train": sum(len(groups[g]) for g in train_gids),
+            "validation": sum(len(groups[g]) for g in validation_gids),
+            "test": sum(len(groups[g]) for g in test_gids),
+        }
+        for gid in gids:
+            assigned[groups[gid][0]["split"]].extend(groups[gid])
+
     for rec in preset:
         assigned[rec["split"]].append(rec)
 
     out = [r for s in SPLITS for r in assigned[s]]
     report = split_report(assigned, ratios)
+    report["per_category"] = per_category
+    report["category_coverage"] = {
+        split: sorted({r.get("category", "unknown") for r in assigned.get(split, [])})
+        for split in SPLITS}
     return out, report
 
 
@@ -113,6 +167,10 @@ def split_summary_markdown(report: dict[str, Any]) -> str:
             continue
         row = [str(report["categories"][split].get(c, 0)) for c in cats]
         lines.append(f"| {split} | " + " | ".join(row) + " |")
+    lines += ["", "## Category coverage per split", ""]
+    for split in SPLITS:
+        if report["counts"].get(split):
+            lines.append(f"- **{split}**: {', '.join(report.get('category_coverage', {}).get(split, []))}")
     lines += ["", "## Contamination", "",
               f"- TRAIN/VALIDATION/TEST CONTAMINATION: "
               f"{'PASS' if report['contamination_free'] else 'FAIL'}"]

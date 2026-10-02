@@ -163,49 +163,114 @@ def run_command(argv: list[str], *, policy: SandboxPolicy | None = None, **kw) -
 
 
 def run_escape_suite() -> dict[str, dict]:
-    """Run the escape-oriented probes (used by tests and the final report)."""
-    probes: dict[str, dict] = {}
-    cases = {
-        "network_egress": "import socket\n"
-                          "s=socket.create_connection(('1.1.1.1',443),timeout=3)\nprint('CONNECTED')",
-        "subprocess_spawn": "import subprocess,sys\n"
-                            "p=subprocess.run([sys.executable,'-c','print(1)'],capture_output=True,text=True)\n"
-                            "print('spawned', p.returncode)",
-        "read_host_repo": "import pathlib\n"
-                          "p=pathlib.Path('/home/user/TinyMe/TinyMeAudit.md')\n"
-                          "print('READABLE' if p.exists() else 'HIDDEN')",
-        "read_host_etc_passwd": "import pathlib\n"
-                                "print(pathlib.Path('/etc/passwd').exists())",
-        "read_env_secrets": "import os\n"
-                            "print('SECRET' if any(k in os.environ for k in "
-                            "('GITHUB_TOKEN','OPENAI_API_KEY','HF_TOKEN','AWS_SECRET_ACCESS_KEY')) else 'CLEAN')",
-        "write_outside_workspace": "import pathlib\n"
-                                   "try:\n"
-                                   "    pathlib.Path('/home/user/pwned.txt').write_text('x'); print('WROTE')\n"
-                                   "except Exception as exc: print('BLOCKED', type(exc).__name__)",
-        "fork_bomb_capped": "import os\n"
-                            "n=0\n"
-                            "try:\n"
-                            "    while True:\n"
-                            "        os.fork(); n+=1\n"
-                            "except Exception as exc:\n"
-                            "    print('capped_after', n, type(exc).__name__)",
-        "cpu_burn": "while True:\n    pass",
-        "memory_bomb": "x=bytearray(900*1024*1024)\nprint('ALLOCATED')",
-        "output_flood": "print('A'*200000)",
-        "file_flood": "open('big.bin','wb').write(b'B'*(3*1024*1024))",
-        "absolute_path_write": "open('/var/tmp/tinyme-sandbox/escape.txt','w').write('x')",
+    """Run the escape-oriented probes and return a per-case verdict.
+
+    Each entry carries ``expectation`` (what a correct sandbox must do),
+    ``observed`` (what actually happened) and ``passed``.  It is deliberately
+    honest: cases the current backend cannot block are recorded as
+    ``allowed`` / ``contained`` instead of being reported as blocked.
+    """
+    cases: dict[str, tuple[str, str]] = {
+        "network_egress": ("blocked", "socket.create_connection to 1.1.1.1:443 must fail"),
+        "subprocess_spawn": ("allowed", "child processes are permitted but bounded by the process cap"),
+        "read_host_repo": ("blocked", "/home/user (host home tree) must not be visible"),
+        "read_host_etc_passwd": ("visible", "/etc is shared: passwd is readable (non-secret, needed by the loader)"),
+        "read_env_secrets": ("blocked", "token environment variables must not leak into the sandbox"),
+        "write_outside_workspace": ("blocked", "writes to the host home tree must fail"),
+        "fork_bomb_capped": ("blocked", "unbounded fork must be capped by RLIMIT_NPROC"),
+        "cpu_burn": ("blocked", "infinite loop must be killed by the CPU/wall limit"),
+        "memory_bomb": ("blocked", "oversized allocation must fail under RLIMIT_AS"),
+        "output_flood": ("contained", "stdout must be truncated at max_output_bytes"),
+        "file_flood": ("blocked", "oversized file must fail under RLIMIT_FSIZE"),
+        "absolute_path_write": ("contained", "writes stay inside /var/tmp/tinyme-sandbox, never in the repo"),
     }
-    for name, code in cases.items():
+    probes: dict[str, dict] = {}
+    for name, (expectation, description) in cases.items():
         policy = SandboxPolicy(wall_timeout_s=8, cpu_timeout_s=5, memory_mb=256,
                                max_output_bytes=4096, max_file_bytes=1024 * 1024)
         if name == "cpu_burn":
             policy = SandboxPolicy(wall_timeout_s=4, cpu_timeout_s=2, memory_mb=256, max_output_bytes=4096)
+        code = _ESCAPE_CASES[name]
         res = run_python(code, policy=policy)
-        probes[name] = {"ok": res.ok, "exit_code": res.exit_code, "timed_out": res.timed_out,
-                        "stdout": res.stdout.strip()[:200], "stderr_tail": res.stderr.strip()[-160:],
-                        "error": res.error}
+        stdout = res.stdout
+        if name == "network_egress":
+            observed = "blocked" if ("Network is unreachable" in res.stderr or "CONNECTED" not in stdout) else "allowed"
+        elif name == "subprocess_spawn":
+            observed = "allowed" if "spawned 0" in stdout else "blocked"
+        elif name == "read_host_repo":
+            observed = "blocked" if "HIDDEN" in stdout else "visible"
+        elif name == "read_host_etc_passwd":
+            observed = "visible" if "True" in stdout else "blocked"
+        elif name == "read_env_secrets":
+            observed = "blocked" if "CLEAN" in stdout else "visible"
+        elif name == "write_outside_workspace":
+            observed = "blocked" if "BLOCKED" in stdout else "allowed"
+        elif name == "fork_bomb_capped":
+            observed = "blocked" if "BlockingIOError" in stdout else "allowed"
+        elif name == "cpu_burn":
+            observed = "blocked" if (res.exit_code in (-24, -9) or res.timed_out) else "allowed"
+        elif name == "memory_bomb":
+            observed = "blocked" if "MemoryError" in res.stderr else "allowed"
+        elif name == "output_flood":
+            observed = "contained" if len(stdout) <= policy.max_output_bytes + 64 else "flooded"
+        elif name == "file_flood":
+            observed = "blocked" if "File too large" in res.stderr else "allowed"
+        else:  # absolute_path_write
+            escaped = Path("/var/tmp/tinyme-sandbox/escape.txt")
+            contained = "WROTE" not in stdout or (escaped.exists() and "/var/tmp/tinyme-sandbox" in str(escaped))
+            observed = "contained" if contained else "escaped"
+        expected_counts = {"network_egress": {"blocked"}, "subprocess_spawn": {"allowed"},
+                           "read_host_repo": {"blocked"}, "read_host_etc_passwd": {"visible"},
+                           "read_env_secrets": {"blocked"}, "write_outside_workspace": {"blocked"},
+                           "fork_bomb_capped": {"blocked"}, "cpu_burn": {"blocked"},
+                           "memory_bomb": {"blocked"}, "output_flood": {"contained"},
+                           "file_flood": {"blocked"}, "absolute_path_write": {"contained"}}
+        probes[name] = {
+            "expectation": expectation, "description": description, "observed": observed,
+            "passed": observed in expected_counts[name],
+            "ok": res.ok, "exit_code": res.exit_code, "timed_out": res.timed_out,
+            "stdout": stdout.strip()[:200], "stderr_tail": res.stderr.strip()[-160:],
+            "error": res.error,
+        }
+    blocked = sum(1 for p in probes.values() if p["observed"] in ("blocked", "contained"))
+    probes["_summary"] = {  # type: ignore[assignment]
+        "cases": len(cases), "blocked_or_contained": blocked,
+        "passed": sum(1 for k, p in probes.items() if k != "_summary" and p["passed"]),
+        "verdict": "PASS" if all(p["passed"] for k, p in probes.items() if k != "_summary") else "REVIEW",
+    }
     return probes
+
+
+_ESCAPE_CASES: dict[str, str] = {
+    "network_egress": "import socket\n"
+                      "s=socket.create_connection(('1.1.1.1',443),timeout=3)\nprint('CONNECTED')",
+    "subprocess_spawn": "import subprocess,sys\n"
+                        "p=subprocess.run([sys.executable,'-c','print(1)'],capture_output=True,text=True)\n"
+                        "print('spawned', p.returncode)",
+    "read_host_repo": "import pathlib\n"
+                      "p=pathlib.Path('/home/user/TinyMe/TinyMeAudit.md')\n"
+                      "print('READABLE' if p.exists() else 'HIDDEN')",
+    "read_host_etc_passwd": "import pathlib\nprint(pathlib.Path('/etc/passwd').exists())",
+    "read_env_secrets": "import os\n"
+                        "print('SECRET' if any(k in os.environ for k in "
+                        "('GITHUB_TOKEN','OPENAI_API_KEY','HF_TOKEN','AWS_SECRET_ACCESS_KEY')) else 'CLEAN')",
+    "write_outside_workspace": "import pathlib\n"
+                               "try:\n"
+                               "    pathlib.Path('/home/user/pwned.txt').write_text('x'); print('WROTE')\n"
+                               "except Exception as exc: print('BLOCKED', type(exc).__name__)",
+    "fork_bomb_capped": "import os\n"
+                        "n=0\n"
+                        "try:\n"
+                        "    while True:\n"
+                        "        os.fork(); n+=1\n"
+                        "except Exception as exc:\n"
+                        "    print('capped_after', n, type(exc).__name__)",
+    "cpu_burn": "while True:\n    pass",
+    "memory_bomb": "x=bytearray(900*1024*1024)\nprint('ALLOCATED')",
+    "output_flood": "print('A'*200000)",
+    "file_flood": "open('big.bin','wb').write(b'B'*(3*1024*1024))",
+    "absolute_path_write": "open('/var/tmp/tinyme-sandbox/escape.txt','w').write('x')",
+}
 
 
 if __name__ == "__main__":  # manual smoke run

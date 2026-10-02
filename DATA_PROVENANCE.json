@@ -1,31 +1,31 @@
 {
   "dataset_version": "dataset_v2",
-  "created": "2026-10-02T03:37:49",
+  "created": "2026-10-02T04:15:30",
   "seq_len": 256,
   "splits": {
-    "train": 3062,
-    "validation": 259,
-    "test": 259,
+    "train": 4227,
+    "validation": 741,
+    "test": 810,
     "challenge": 60
   },
-  "train_tokens_active": 585187,
-  "validation_tokens_active": 77467,
-  "test_tokens_active": 28244,
-  "challenge_tokens_active": 1842,
+  "train_tokens_active": 588816,
+  "validation_tokens_active": 105432,
+  "test_tokens_active": 82501,
+  "challenge_tokens_active": 1854,
   "tokenizer": {
     "version": "tok-v2",
     "vocab_size": 4096,
-    "sha256": "ef75489fa4946b2f719ca6b0bd49aad42b53ab46de63f0f45914aeae6bb2e6b1",
-    "bytes": 266195,
+    "sha256": "d2d47152426e0a9b307eee230e833b7763f60b50ec7316a080d2906528162230",
+    "bytes": 265717,
     "trained_on": "train split only",
-    "train_texts": 3062
+    "train_texts": 4227
   },
-  "tokenizer_hash": "ef75489fa4946b2f719ca6b0bd49aad42b53ab46de63f0f45914aeae6bb2e6b1",
+  "tokenizer_hash": "d2d47152426e0a9b307eee230e833b7763f60b50ec7316a080d2906528162230",
   "tokenizer_version": "tok-v2",
   "contamination": {
     "train_vs_validation": {
-      "eval_samples": 259,
-      "train_samples": 3062,
+      "eval_samples": 741,
+      "train_samples": 4227,
       "exact_overlap": 0,
       "normalized_overlap": 0,
       "minhash_overlap": 0,
@@ -35,8 +35,8 @@
       "contamination_free": true
     },
     "train_vs_test": {
-      "eval_samples": 259,
-      "train_samples": 3062,
+      "eval_samples": 810,
+      "train_samples": 4227,
       "exact_overlap": 0,
       "normalized_overlap": 0,
       "minhash_overlap": 0,
@@ -47,7 +47,7 @@
     },
     "train_vs_challenge": {
       "eval_samples": 60,
-      "train_samples": 3062,
+      "train_samples": 4227,
       "exact_overlap": 0,
       "normalized_overlap": 0,
       "minhash_overlap": 0,
@@ -57,8 +57,8 @@
       "contamination_free": true
     },
     "validation_vs_test": {
-      "eval_samples": 259,
-      "train_samples": 259,
+      "eval_samples": 810,
+      "train_samples": 741,
       "exact_overlap": 0,
       "normalized_overlap": 0,
       "minhash_overlap": 0,
@@ -69,7 +69,7 @@
     },
     "validation_vs_challenge": {
       "eval_samples": 60,
-      "train_samples": 259,
+      "train_samples": 741,
       "exact_overlap": 0,
       "normalized_overlap": 0,
       "minhash_overlap": 0,
@@ -82,64 +82,64 @@
   "train_validation_test_contamination": "PASS",
   "stage_stats": {
     "ingest": {
-      "records": 6759,
-      "chars": 4398944,
+      "records": 6508,
+      "chars": 4588401,
       "categories": {
         "programming": 1713,
-        "code_explain": 1036,
+        "code_explain": 1035,
         "language": 180,
-        "math": 1415,
+        "math": 1309,
         "code_gen": 515,
-        "logic": 500,
+        "logic": 488,
         "algorithm": 300,
         "code_repair": 350,
-        "instruction": 300,
-        "tool_use": 450
+        "instruction": 268,
+        "tool_use": 350
       },
       "sources": {
         "python_stdlib": 2614,
         "huggingface": 45,
-        "synthetic": 4100
+        "synthetic": 3849
       },
       "licenses": {
         "PSF-2.0": 2614,
         "MIT": 15,
         "CC-BY-4.0": 15,
         "CDLA-Sharing-1.0": 15,
-        "Synthetic-Verified": 4100
+        "Synthetic-Verified": 3849
       },
-      "families": 2478,
-      "verified_records": 6567,
+      "families": 2482,
+      "verified_records": 6316,
       "challenge_pool": 60
     },
     "license": {
-      "kept": 6759,
+      "kept": 6508,
       "distribution": {
         "PSF-2.0": 2614,
         "MIT": 15,
         "CC-BY-4.0": 15,
         "CDLA-Sharing-1.0": 15,
-        "Synthetic-Verified": 4100
+        "Synthetic-Verified": 3849
       }
     },
     "preprocess": {
-      "kept": 6757,
+      "kept": 6506,
       "rejected": {
         "rejected:invalid_code": 2
       }
     },
     "quality": {
-      "kept": 6757,
+      "kept": 6506,
       "dropped": {}
     },
     "dedup": {
-      "total": 6757,
-      "exact_duplicates": 2900,
+      "total": 6506,
+      "exact_duplicates": 311,
       "normalized_duplicates": 2,
-      "similar_duplicates": 275,
-      "code_similar_duplicates": 0,
-      "kept": 3580,
-      "lsh_index_size": 3580,
+      "similar_duplicates": 392,
+      "code_similar_duplicates": 23,
+      "kept": 5778,
+      "lsh_index_size": 5778,
       "duplicate_examples": [
         "627d40537aea51cbb5b84e9df19e19cb",
         "81854e1c6ead5e70b1e3b00695ecbf56",
@@ -152,48 +152,137 @@
         "61dca37d62b158bf92d52178ebc733d5",
         "e048fa0f601b54618fcf381f20f7f8bc"
       ],
-      "duplicate_percentage": 47.0179
+      "by_category": {
+        "programming": {
+          "total": 1713,
+          "exact": 309,
+          "normalized": 2,
+          "similar": 3,
+          "code_similar": 0,
+          "kept": 1399
+        },
+        "code_explain": {
+          "total": 1033,
+          "exact": 2,
+          "normalized": 0,
+          "similar": 352,
+          "code_similar": 0,
+          "kept": 679
+        },
+        "language": {
+          "total": 180,
+          "exact": 0,
+          "normalized": 0,
+          "similar": 0,
+          "code_similar": 0,
+          "kept": 180
+        },
+        "math": {
+          "total": 1309,
+          "exact": 0,
+          "normalized": 0,
+          "similar": 0,
+          "code_similar": 0,
+          "kept": 1309
+        },
+        "code_gen": {
+          "total": 515,
+          "exact": 0,
+          "normalized": 0,
+          "similar": 0,
+          "code_similar": 0,
+          "kept": 515
+        },
+        "logic": {
+          "total": 488,
+          "exact": 0,
+          "normalized": 0,
+          "similar": 0,
+          "code_similar": 0,
+          "kept": 488
+        },
+        "algorithm": {
+          "total": 300,
+          "exact": 0,
+          "normalized": 0,
+          "similar": 0,
+          "code_similar": 0,
+          "kept": 300
+        },
+        "code_repair": {
+          "total": 350,
+          "exact": 0,
+          "normalized": 0,
+          "similar": 0,
+          "code_similar": 0,
+          "kept": 350
+        },
+        "instruction": {
+          "total": 268,
+          "exact": 0,
+          "normalized": 0,
+          "similar": 0,
+          "code_similar": 0,
+          "kept": 268
+        },
+        "tool_use": {
+          "total": 350,
+          "exact": 0,
+          "normalized": 0,
+          "similar": 37,
+          "code_similar": 23,
+          "kept": 290
+        }
+      },
+      "duplicate_percentage": 11.1897
     },
     "splits": {
       "counts": {
-        "train": 3062,
-        "validation": 259,
-        "test": 259,
+        "train": 4227,
+        "validation": 741,
+        "test": 810,
         "challenge": 60
       },
       "groups": {
-        "train": 1592,
-        "validation": 258,
-        "test": 97,
+        "train": 1631,
+        "validation": 114,
+        "test": 206,
         "challenge": 5
       },
       "categories": {
         "train": {
-          "language": 152,
-          "programming": 1169,
-          "code_explain": 380,
-          "code_repair": 5,
-          "tool_use": 89,
-          "code_gen": 23,
-          "instruction": 4,
-          "logic": 29,
-          "math": 911,
-          "algorithm": 300
+          "algorithm": 300,
+          "code_explain": 515,
+          "code_gen": 350,
+          "code_repair": 191,
+          "instruction": 190,
+          "language": 144,
+          "logic": 300,
+          "math": 977,
+          "programming": 1098,
+          "tool_use": 162
         },
         "validation": {
-          "code_gen": 2,
-          "code_explain": 67,
+          "code_explain": 68,
+          "code_gen": 65,
+          "code_repair": 63,
+          "instruction": 36,
+          "language": 18,
+          "logic": 95,
+          "math": 154,
           "programming": 161,
-          "language": 24,
-          "tool_use": 3,
-          "instruction": 1,
-          "code_repair": 1
+          "tool_use": 81
         },
         "test": {
-          "programming": 69,
-          "language": 4,
-          "code_explain": 23,
-          "math": 163
+          "code_explain": 96,
+          "code_gen": 100,
+          "code_repair": 96,
+          "instruction": 42,
+          "language": 18,
+          "logic": 93,
+          "math": 178,
+          "programming": 140,
+          "tool_use": 47
         },
         "challenge": {
           "math": 19,
@@ -204,8 +293,8 @@
       },
       "contamination": {
         "train_vs_validation": {
-          "eval_samples": 259,
-          "train_samples": 3062,
+          "eval_samples": 741,
+          "train_samples": 4227,
           "exact_overlap": 0,
           "normalized_overlap": 0,
           "minhash_overlap": 0,
@@ -215,8 +304,8 @@
           "contamination_free": true
         },
         "train_vs_test": {
-          "eval_samples": 259,
-          "train_samples": 3062,
+          "eval_samples": 810,
+          "train_samples": 4227,
           "exact_overlap": 0,
           "normalized_overlap": 0,
           "minhash_overlap": 0,
@@ -227,7 +316,7 @@
         },
         "train_vs_challenge": {
           "eval_samples": 60,
-          "train_samples": 3062,
+          "train_samples": 4227,
           "exact_overlap": 0,
           "normalized_overlap": 0,
           "minhash_overlap": 0,
@@ -237,8 +326,8 @@
           "contamination_free": true
         },
         "validation_vs_test": {
-          "eval_samples": 259,
-          "train_samples": 259,
+          "eval_samples": 810,
+          "train_samples": 741,
           "exact_overlap": 0,
           "normalized_overlap": 0,
           "minhash_overlap": 0,
@@ -249,7 +338,7 @@
         },
         "validation_vs_challenge": {
           "eval_samples": 60,
-          "train_samples": 259,
+          "train_samples": 741,
           "exact_overlap": 0,
           "normalized_overlap": 0,
           "minhash_overlap": 0,
@@ -264,51 +353,165 @@
         "train": 0.8,
         "validation": 0.1,
         "test": 0.1
+      },
+      "per_category": {
+        "algorithm": {
+          "groups": 1,
+          "records": 300,
+          "train": 300,
+          "validation": 0,
+          "test": 0
+        },
+        "code_explain": {
+          "groups": 426,
+          "records": 679,
+          "train": 515,
+          "validation": 68,
+          "test": 96
+        },
+        "code_gen": {
+          "groups": 11,
+          "records": 515,
+          "train": 350,
+          "validation": 65,
+          "test": 100
+        },
+        "code_repair": {
+          "groups": 6,
+          "records": 350,
+          "train": 191,
+          "validation": 63,
+          "test": 96
+        },
+        "instruction": {
+          "groups": 7,
+          "records": 268,
+          "train": 190,
+          "validation": 36,
+          "test": 42
+        },
+        "language": {
+          "groups": 166,
+          "records": 180,
+          "train": 144,
+          "validation": 18,
+          "test": 18
+        },
+        "logic": {
+          "groups": 4,
+          "records": 488,
+          "train": 300,
+          "validation": 95,
+          "test": 93
+        },
+        "math": {
+          "groups": 10,
+          "records": 1309,
+          "train": 977,
+          "validation": 154,
+          "test": 178
+        },
+        "programming": {
+          "groups": 1312,
+          "records": 1399,
+          "train": 1098,
+          "validation": 161,
+          "test": 140
+        },
+        "tool_use": {
+          "groups": 8,
+          "records": 290,
+          "train": 162,
+          "validation": 81,
+          "test": 47
+        }
+      },
+      "category_coverage": {
+        "train": [
+          "algorithm",
+          "code_explain",
+          "code_gen",
+          "code_repair",
+          "instruction",
+          "language",
+          "logic",
+          "math",
+          "programming",
+          "tool_use"
+        ],
+        "validation": [
+          "code_explain",
+          "code_gen",
+          "code_repair",
+          "instruction",
+          "language",
+          "logic",
+          "math",
+          "programming",
+          "tool_use"
+        ],
+        "test": [
+          "code_explain",
+          "code_gen",
+          "code_repair",
+          "instruction",
+          "language",
+          "logic",
+          "math",
+          "programming",
+          "tool_use"
+        ],
+        "challenge": [
+          "code_repair",
+          "logic",
+          "math",
+          "tool_use"
+        ]
       }
     },
     "tokenizer": {
       "version": "tok-v2",
       "vocab_size": 4096,
-      "sha256": "ef75489fa4946b2f719ca6b0bd49aad42b53ab46de63f0f45914aeae6bb2e6b1",
-      "bytes": 266195,
+      "sha256": "d2d47152426e0a9b307eee230e833b7763f60b50ec7316a080d2906528162230",
+      "bytes": 265717,
       "trained_on": "train split only",
-      "train_texts": 3062
+      "train_texts": 4227
     },
     "tokens": {
       "train": {
-        "records": 3062,
-        "blocks": 3070,
+        "records": 4227,
+        "blocks": 3585,
         "rejected_records": 0,
-        "windows": 2734,
-        "active_target_tokens": 585187,
-        "padding_tokens": 112227,
-        "padding_ratio": 0.160919,
+        "windows": 2545,
+        "active_target_tokens": 588816,
+        "padding_tokens": 147321,
+        "padding_ratio": 0.200127,
         "stages": [
           "pretrain",
           "sft"
         ]
       },
       "validation": {
-        "records": 259,
-        "blocks": 373,
+        "records": 741,
+        "blocks": 641,
         "rejected_records": 0,
-        "windows": 383,
-        "active_target_tokens": 77467,
-        "padding_tokens": 12070,
-        "padding_ratio": 0.134805,
+        "windows": 425,
+        "active_target_tokens": 105432,
+        "padding_tokens": 21123,
+        "padding_ratio": 0.166908,
         "stages": [
           "pretrain",
           "sft"
         ]
       },
       "test": {
-        "records": 259,
-        "blocks": 155,
+        "records": 810,
+        "blocks": 587,
         "rejected_records": 0,
-        "windows": 138,
-        "active_target_tokens": 28244,
-        "padding_tokens": 4907,
-        "padding_ratio": 0.14802,
+        "windows": 324,
+        "active_target_tokens": 82501,
+        "padding_tokens": 26301,
+        "padding_ratio": 0.241733,
         "stages": [
           "pretrain",
           "sft"
@@ -319,15 +522,15 @@
         "blocks": 23,
         "rejected_records": 0,
         "windows": 0,
-        "active_target_tokens": 1842,
-        "padding_tokens": 1396,
-        "padding_ratio": 0.43113,
+        "active_target_tokens": 1854,
+        "padding_tokens": 1397,
+        "padding_ratio": 0.429714,
         "stages": [
           "sft"
         ]
       }
     },
-    "tokens_total_active": 692740
+    "tokens_total_active": 778603
   },
   "provenance_summary": {
     "sources": {
@@ -341,40 +544,40 @@
       "gsm8k": 15,
       "mbpp": 15,
       "tinystories": 15,
-      "syn/arithmetic": 650,
+      "syn/arithmetic": 591,
       "syn/word_problems": 450,
-      "syn/sequences": 300,
+      "syn/sequences": 253,
       "syn/boolean": 300,
-      "syn/deduction": 200,
+      "syn/deduction": 188,
       "syn/algorithm_trace": 300,
       "syn/code_gen": 500,
       "syn/code_repair": 350,
-      "syn/code_explain": 300,
-      "syn/instruction": 300,
-      "syn/tool_use": 450
+      "syn/code_explain": 299,
+      "syn/instruction": 268,
+      "syn/tool_use": 350
     }
   },
   "licenses": {
+    "Synthetic-Verified": 3769,
     "PSF-2.0": 2024,
-    "Synthetic-Verified": 1571,
+    "CDLA-Sharing-1.0": 15,
     "CC-BY-4.0": 15,
-    "MIT": 15,
-    "CDLA-Sharing-1.0": 15
+    "MIT": 15
   },
   "categories": {
+    "algorithm": 300,
+    "code_explain": 679,
+    "code_gen": 515,
+    "code_repair": 363,
+    "instruction": 268,
     "language": 180,
+    "logic": 502,
+    "math": 1328,
     "programming": 1399,
-    "code_explain": 470,
-    "code_repair": 19,
-    "tool_use": 106,
-    "code_gen": 25,
-    "instruction": 5,
-    "logic": 43,
-    "math": 1093,
-    "algorithm": 300
+    "tool_use": 304
   },
-  "verified_samples": 3507,
+  "verified_samples": 5705,
   "malformed_code_rate": 0.0,
-  "elapsed_seconds": 61.84,
-  "dataset_fingerprint": "5e28d274bfa7494a3a8c8cfb930ee594dccf766043b107774550e775f1aa452b"
+  "elapsed_seconds": 61.83,
+  "dataset_fingerprint": "a8f5c37a251d1a4200bdd5392a7582b4500645bcb3e01de4ed8e41fb45f74b8d"
 }

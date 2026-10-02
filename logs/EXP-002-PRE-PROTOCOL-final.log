@@ -1,0 +1,20 @@
+2026-10-02 04:04:47,202 | INFO     | tinyme.train.cli | train blocks=2205 active_targets=495438 | val blocks=380 active_targets=88154
+2026-10-02 04:04:47,208 | INFO     | jax._src.xla_bridge | Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2026-10-02 04:04:48,699 | INFO     | tinyme.train | no checkpoint 'latest' to resume
+2026-10-02 04:04:48,700 | INFO     | tinyme.train | training EXP-002-CORRECTED-NANO [pretrain]: 2557632 params, seq_len=256, micro_bs=8, accum=4, effective_batch=32, steps=400, dtype=float32
+2026-10-02 04:04:48,700 | INFO     | tinyme.train | dtypes: embeddings=float32 weights=float32 loss=float32
+2026-10-02 04:04:54,216 | INFO     | tinyme.train | step 1/400 loss=8.3623 lr=1.50e-05 grad_norm=0.895 tok/s=1336.0 epoch=0
+2026-10-02 04:05:13,967 | INFO     | tinyme.train | step 10/400 loss=8.2513 lr=1.50e-04 grad_norm=0.953 tok/s=2850.0 epoch=0
+2026-10-02 04:05:40,207 | INFO     | tinyme.train | step 20/400 loss=7.9182 lr=3.00e-04 grad_norm=1.096 tok/s=2772.9 epoch=0
+2026-10-02 04:06:03,649 | INFO     | tinyme.train | step 30/400 loss=7.3961 lr=4.50e-04 grad_norm=1.061 tok/s=2874.2 epoch=0
+2026-10-02 04:06:24,916 | INFO     | tinyme.train | step 40/400 loss=6.8300 lr=6.00e-04 grad_norm=0.893 tok/s=2971.0 epoch=0
+2026-10-02 04:06:45,973 | INFO     | tinyme.train | step 50/400 loss=6.5413 lr=5.99e-04 grad_norm=0.559 tok/s=3059.0 epoch=0
+2026-10-02 04:06:54,827 | INFO     | tinyme.train |   eval step 50: val_loss=6.5350 val_ppl=688.80 (active=88154)
+2026-10-02 04:07:15,746 | INFO     | tinyme.train | step 60/400 loss=6.4998 lr=5.96e-04 grad_norm=0.364 tok/s=2926.3 epoch=0
+2026-10-02 04:07:36,750 | INFO     | tinyme.train | step 70/400 loss=6.3831 lr=5.91e-04 grad_norm=0.415 tok/s=2995.1 epoch=1
+2026-10-02 04:07:57,004 | INFO     | tinyme.train | step 80/400 loss=6.1552 lr=5.84e-04 grad_norm=0.472 tok/s=3056.5 epoch=1
+2026-10-02 04:08:17,814 | INFO     | tinyme.train | step 90/400 loss=6.1615 lr=5.75e-04 grad_norm=0.406 tok/s=3098.3 epoch=1
+2026-10-02 04:08:47,152 | INFO     | tinyme.train | step 100/400 loss=6.1144 lr=5.64e-04 grad_norm=0.433 tok/s=3017.0 epoch=1
+2026-10-02 04:08:54,978 | INFO     | tinyme.train |   eval step 100: val_loss=5.9839 val_ppl=397.00 (active=88154)
+2026-10-02 04:09:17,052 | INFO     | tinyme.train | step 110/400 loss=5.9068 lr=5.51e-04 grad_norm=0.449 tok/s=2948.1 epoch=1
+2026-10-02 04:09:37,476 | INFO     | tinyme.train | step 120/400 loss=5.6420 lr=5.37e-04 grad_norm=0.509 tok/s=2990.0 epoch=1

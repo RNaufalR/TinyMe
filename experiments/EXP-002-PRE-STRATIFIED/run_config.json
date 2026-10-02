@@ -2,8 +2,8 @@
   "experiment_id": "EXP-002-CORRECTED-NANO",
   "stage": "pretrain",
   "dataset_version": "dataset_v2",
-  "dataset_fingerprint": "a8f5c37a251d1a4200bdd5392a7582b4500645bcb3e01de4ed8e41fb45f74b8d",
-  "tokenizer_hash": "d2d47152426e0a9b307eee230e833b7763f60b50ec7316a080d2906528162230",
+  "dataset_fingerprint": "5e28d274bfa7494a3a8c8cfb930ee594dccf766043b107774550e775f1aa452b",
+  "tokenizer_hash": "ef75489fa4946b2f719ca6b0bd49aad42b53ab46de63f0f45914aeae6bb2e6b1",
   "tokenizer_vocab": 4096,
   "model_config": {
     "name": "nano",
@@ -20,7 +20,7 @@
   },
   "train_config": {
     "experiment_id": "EXP-002-CORRECTED-NANO",
-    "experiment_name": "TinyMe Nano pretrain on protocol-exact dataset_v2",
+    "experiment_name": "corrected nano, fresh init, real validation split, 19-special tokenizer",
     "stage": "pretrain",
     "architecture": "nano",
     "dataset_version": "dataset_v2",
@@ -31,18 +31,18 @@
     "grad_accum_steps": 4,
     "learning_rate": 0.0006,
     "min_lr_ratio": 0.1,
-    "warmup_steps": 50,
+    "warmup_steps": 40,
     "weight_decay": 0.01,
     "grad_clip_norm": 1.0,
     "max_steps": 400,
-    "eval_every": 50,
-    "checkpoint_every": 100,
+    "eval_every": 20,
+    "checkpoint_every": 40,
     "keep_last_checkpoints": 3,
     "label_smoothing": 0.0,
     "compute_dtype": "float32",
     "max_val_batches": 16,
-    "notes": "restarted 2026-10-02 (3rd attempt) after the tool-protocol drift fix: corpus tool calls now use the exact runtime argument names and result envelopes (333/333 validated); dataset_v2 rebuilt, contamination PASS",
-    "resume": true,
+    "notes": "Stage A: content-aware preprocessing, structured segments, loss masking, true grad accumulation, group split",
+    "resume": false,
     "extra": {}
   },
   "train_stats": {
@@ -50,18 +50,18 @@
     "version": "dataset_v2",
     "stage": "pretrain",
     "source": "shards",
-    "blocks": 2203,
-    "active_target_tokens": 494571,
-    "padding_ratio": 0.123051
+    "blocks": 2374,
+    "active_target_tokens": 534039,
+    "padding_ratio": 0.121276
   },
   "val_stats": {
     "split": "validation",
     "version": "dataset_v2",
     "stage": "pretrain",
     "source": "shards",
-    "blocks": 378,
-    "active_target_tokens": 88000,
-    "padding_ratio": 0.090608
+    "blocks": 333,
+    "active_target_tokens": 75837,
+    "padding_ratio": 0.110396
   },
   "environment": {
     "python": "3.11.2",
@@ -77,9 +77,9 @@
     "numpy": "2.4.6",
     "tokenizers": "0.23.2",
     "safetensors": "0.8.0",
-    "git_commit": "a8b97182398367d8937282904ac7a48f125003f5",
+    "git_commit": "d3b0bd4c6e04510bf0d1a97bf25237529733a5b9",
     "git_dirty": true
   },
   "init_from": null,
-  "started_at": "2026-10-02T04:15:41"
+  "started_at": "2026-10-02T03:38:03"
 }

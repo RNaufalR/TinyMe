@@ -18,7 +18,6 @@ def run_code(ctx: ToolContext, code: str, timeout_s: int | None = None) -> dict:
     if timeout_s:
         policy.wall_timeout_s = float(min(int(timeout_s), 10))
         policy.cpu_timeout_s = int(min(int(timeout_s), 10)) + 1
-    ctx.calls += 1
     if ctx.workspace is None:
         ctx.workspace = Workspace.create(policy)
     result = run_python(code, policy=policy, workspace=ctx.workspace, keep_workspace=True,

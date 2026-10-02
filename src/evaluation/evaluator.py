@@ -42,19 +42,31 @@ DEFAULT_SANDBOX = SandboxPolicy(wall_timeout_s=10, cpu_timeout_s=5, memory_mb=51
 
 
 # --------------------------------------------------------------------- utils
-def render_prompt(record: dict) -> str:
+def _field(obj: Any, name: str, default: Any = None) -> Any:
+    """Read a field from a plain record dict or a ``TrainingRecord`` dataclass."""
+    if isinstance(obj, dict):
+        return obj.get(name, default)
+    return getattr(obj, name, default)
+
+
+def _segments(record: Any) -> list[Any]:
+    return _field(record, "segments", []) or []
+
+
+def render_prompt(record: Any) -> str:
     """Render every non-target segment as the model-facing prompt."""
     parts: list[str] = []
-    for seg in record.get("segments", []):
-        if seg.get("target"):
+    for seg in _segments(record):
+        if _field(seg, "target", False):
             continue
-        role = seg.get("role", "user")
-        parts.append(ROLE_TOKENS.get(role, "<|user|>") + "\n" + seg.get("text", ""))
+        role = _field(seg, "role", "user")
+        parts.append(ROLE_TOKENS.get(role, "<|user|>") + "\n" + _field(seg, "text", ""))
     return "\n".join(parts).strip() + "\n" + ROLE_TOKENS.get("assistant", "<|assistant|>") + "\n"
 
 
-def render_target(record: dict) -> str:
-    return "\n".join(seg.get("text", "") for seg in record.get("segments", []) if seg.get("target")).strip()
+def render_target(record: Any) -> str:
+    return "\n".join(_field(seg, "text", "") for seg in _segments(record)
+                      if _field(seg, "target", False)).strip()
 
 
 def extract_final(text: str) -> str:
@@ -142,7 +154,8 @@ def _domain_for(record: dict) -> str | None:
     return {"math": "math", "logic": "logic", "algorithm": "algorithmic_reasoning",
             "code_gen": "code_generation", "code_repair": "debugging",
             "programming": "code", "instruction": "instruction_following",
-            "tool_use": "tool_use", "code_explain": None, "language": None}.get(cat)
+            "tool_use": "tool_use", "code_explain": "code_explanation",
+            "language": "language"}.get(cat)
 
 
 # ------------------------------------------------------------------ evaluate
@@ -162,21 +175,27 @@ def evaluate_model(generate_fn: Callable[..., str], records: list[dict], *,
         buckets.setdefault(_domain_for(record) or "other", []).append(record)
 
     # ------------------------------------------------------------ language
-    language = buckets.get("language", [])
-    if language and perplexity_fn is not None:
-        ppls = []
-        for record in language:
-            try:
-                ppls.append(float(perplexity_fn(record["text"])))
-            except Exception as exc:  # pragma: no cover - diagnostic path
-                logger.warning("perplexity failed: %s", exc)
-        result.domains["language"] = {
-            "samples": len(language), "metric": "bits_per_byte", "perplexity": round(
-                sum(ppls) / len(ppls), 4) if ppls else None, "accuracy": None,
-            "note": "perplexity on held-out text (reported separately, not mixed into accuracy)"}
+    def text_domain(domain: str) -> None:
+        rows = buckets.get(domain, [])
+        if not rows:
+            return
+        ppls: list[float] = []
+        if perplexity_fn is not None:
+            for record in rows:
+                try:
+                    ppls.append(float(perplexity_fn(_field(record, "text", ""))))
+                except Exception as exc:  # pragma: no cover - diagnostic path
+                    logger.warning("perplexity failed: %s", exc)
+        result.domains[domain] = {
+            "samples": len(rows), "metric": "perplexity", "accuracy": None,
+            "perplexity": round(sum(ppls) / len(ppls), 4) if ppls else None,
+            "note": "perplexity on held-out text (never mixed into answer accuracy)"}
 
-    def exact_domain(domain: str, category: str) -> None:
-        rows = buckets.get(category, [])
+    text_domain("language")
+    text_domain("code_explanation")
+
+    def exact_domain(domain: str) -> None:
+        rows = buckets.get(domain, [])
         if not rows:
             return
         correct, answered = 0, 0
@@ -195,14 +214,14 @@ def evaluate_model(generate_fn: Callable[..., str], records: list[dict], *,
                                   "answered": answered, "accuracy": round(correct / len(rows), 4),
                                   "examples": examples}
 
-    exact_domain("math", "math")
-    exact_domain("logic", "logic")
-    exact_domain("algorithmic_reasoning", "algorithm")
-    exact_domain("instruction_following", "instruction")
+    exact_domain("math")
+    exact_domain("logic")
+    exact_domain("algorithmic_reasoning")
+    exact_domain("instruction_following")
 
     # ---------------------------------------------------------------- code
-    def code_domain(domain: str, category: str) -> None:
-        rows = buckets.get(category, [])
+    def code_domain(domain: str) -> None:
+        rows = buckets.get(domain, [])
         if not rows:
             return
         passed, executed, parseable = 0, 0, 0
@@ -234,14 +253,14 @@ def evaluate_model(generate_fn: Callable[..., str], records: list[dict], *,
             "accuracy": round(passed / len(rows), 4),
             "examples": examples}
 
-    code_domain("code_generation", "code_gen")
-    code_domain("debugging", "code_repair")
-    code_domain("code", "programming")
+    code_domain("code_generation")
+    code_domain("debugging")
+    code_domain("code")
 
     # ------------------------------------------------------------ tool use
     tool_rows = buckets.get("tool_use", [])
     if tool_rows:
-        syntax_ok_n = select_ok, args_ok, exec_ok, answer_ok = 0, 0, 0, 0, 0
+        syntax_ok_n = select_ok = args_ok = exec_ok = answer_ok = 0
         examples = []
         for record in tool_rows:
             prompt = render_prompt(record)

@@ -15,7 +15,6 @@ MAX_READ_CHARS = 8000
 
 
 def files(ctx: ToolContext, action: str, path: str | None = None) -> dict:
-    ctx.calls += 1
     if ctx.workspace is None:
         return {"ok": False, "error": "no_workspace_for_this_episode", "action": action}
     if action == "list":

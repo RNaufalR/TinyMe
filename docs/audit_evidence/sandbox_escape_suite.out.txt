@@ -1,0 +1,24 @@
+# Sandbox escape suite — recorded evidence
+
+date: 2026-10-02 | wall: 3.04s
+isolation capabilities: {"bwrap": false, "unshare_net": true, "unshare_mount": true, "unshare_user": true, "rlimit": true, "platform": "linux"}
+honest label: namespace(net+mount)
+
+case                     expectation  observed    passed  exit  detail
+network_egress           blocked      blocked     True       1    [stderr] 
+    raise exceptions[0]
+  File "/usr/lib/python3.11/socket.
+subprocess_spawn         allowed      allowed     True       0  spawned 0
+read_host_repo           blocked      blocked     True       0  HIDDEN
+read_host_etc_passwd     visible      visible     True       0  True
+read_env_secrets         blocked      blocked     True       0  CLEAN
+write_outside_workspace  blocked      blocked     True       0  BLOCKED FileNotFoundError
+fork_bomb_capped         blocked      blocked     True       0  capped_after 15 BlockingIOError | capped_after 6 BlockingIOErr
+cpu_burn                 blocked      blocked     True     -24  
+memory_bomb              blocked      blocked     True       1    [stderr] t):
+  File "/var/tmp/tinyme-sandbox/run-da968ad4f043a63b/mai
+output_flood             contained    contained   True       0  AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+file_flood               blocked      blocked     True       1    [stderr] /var/tmp/tinyme-sandbox/run-8d90db804d962f21/main.py", line 
+absolute_path_write      contained    contained   True       0  
+
+summary: {'cases': 12, 'blocked_or_contained': 10, 'passed': 12, 'verdict': 'PASS'}
