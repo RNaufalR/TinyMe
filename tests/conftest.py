@@ -113,3 +113,34 @@ def masked_batch_inputs(cfg, batch_size=2, seq_len=16, seed=0):
     mask[:, -4:] = False
     labels[:, -4:] = -100
     return tokens, labels, mask
+
+
+@pytest.fixture(scope="session")
+def packed_dataset():
+    """Build a small dataset with the *real* builder and return its version name.
+
+    Packed shards are regenerable and git-ignored, so a fresh clone (and CI) has
+    no shards. The shard-first loading tests must not silently skip (audit §17)
+    and must not assert against an artefact CI cannot have, so this fixture runs
+    ``scripts/prepare_data_v2.py`` — the production pipeline, including license,
+    preprocessing, quality, dedup, split and packing stages — over a small scale
+    and returns the version it built. The build is skipped when the recorded
+    ``shards_fingerprint`` still matches the shards on disk.
+    """
+    import json
+    import subprocess
+
+    from src.data import dataset_api
+    from src.data.dataset_api import shard_fingerprint
+
+    version = "ci_unit"
+    manifest_path = ROOT / "datasets" / "versions" / version / "manifest.json"
+    shard_dir = dataset_api.PROCESSED_DIR / version / "shards"
+    if manifest_path.exists() and shard_dir.exists():
+        recorded = json.loads(manifest_path.read_text(encoding="utf-8")).get("shards_fingerprint")
+        if recorded and shard_fingerprint(shard_dir) == recorded:
+            return version
+    subprocess.run([sys.executable, "scripts/prepare_data_v2.py", "--version", version,
+                    "--scale", "0.05", "--seq-len", "64"],
+                   cwd=ROOT, check=True, capture_output=True)
+    return version

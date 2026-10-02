@@ -29,5 +29,8 @@ checkpoints/CURRIC-*/
 checkpoints/_test_np/
 # Packed token shards (rebuild with scripts/prepare_data_v2.py)
 datasets/processed/*/shards/
+# CI/unit-test fixture datasets built on demand by tests/conftest.py
+datasets/versions/ci_*/
+datasets/processed/ci_*/
 # Sandbox scratch space
 /var/tmp/tinyme-sandbox/

@@ -27,8 +27,8 @@ auditor can reproduce every claim.
 | §13 | Packaging audit (order, no fallback config) | `scripts/package_model.py` | strict `InferenceEngine(..., strict_config=True)` | regression tests in `tests/test_package_size.py` | VERIFIED |
 | §14 | Clean-environment release gate | `release/inference.py` | manual probe `/tmp/cleanrel2` (`env -i`, empty `PYTHONPATH`, only release files): loads 2,557,632 params, generates | `tests/test_release_contract.py::test_clean_environment_release_gate` | VERIFIED for **portability**; the generated answer is wrong — portability and capability are reported separately |
 | §15/§25 | Pinned deps + reproducibility | `requirements.txt` | versions recorded in `docs/ENVIRONMENT_REPORT.md` | `pip install -r requirements.txt` used by CI | VERIFIED |
-| §16 | Test-suite completeness (24+ modules) | `tests/` (33 modules) | `pytest -q` | no empty/existence-only module | VERIFIED |
-| §17 | No false-pass tests | `tests/` | skip inventory (every skip has a reason + artefact gate) | skips re-audited in this matrix | VERIFIED |
+| §16 | Test-suite completeness (24+ modules) | `tests/` (33 modules) | `pytest -q` → **273 passed** locally; **260 passed / 0 failed** in a fresh clone (CI layout) after the fixture fix below | no empty/existence-only module; the 5 remaining skips are artefact-gated with explicit reasons | VERIFIED |
+| §17 | No false-pass tests | `tests/` | skip inventory: 5 skips, each gated by `requires_shards` with a printed reason (never unconditional); CI lint gate `\|\| true` **removed** so it can fail again | `pytest -rs` output in a fresh clone; `ruff check --select E9,F63,F7,F82,F811,F841` clean | VERIFIED |
 | §18 | CI pipeline | `.github/workflows/ci.yml` | lint → unit → integration → eval smoke → package smoke | workflow file present, jobs mirror local commands | VERIFIED (file), see limits |
 | §19 | Synthetic generate→solve→verify→reject | `data_sources/synthetic_v2.py` | `datasets/versions/dataset_v3/manifest.json` (`verified_samples`) | independent solver/verifier per family | VERIFIED |
 | §20 | Data scale/quality + exact token count | `scripts/prepare_data_v2.py` | manifest `train_tokens_active` | reconstructed from `labels != -100` | VERIFIED |
@@ -118,3 +118,10 @@ rather than hidden behind a good loss curve.
 | `release/evaluation_report.md` was rendered with **0 samples scored / empty tables** because `package_model.py` expected a schema `evaluate.py` never wrote | generated report against `EXP-004-TOOL-SFT-V3` | `_normalise_results()` understands both the evaluator and tool-suite schemas | report now lists 176 scored samples and every domain |
 | The packager's `fp32_bytes` mixed **serialized file size** with **raw tensor payload** | `tests/test_package_size.py` failed: 10,230,528 ≠ 10,233,776 | `fp32_bytes` = serialized artifact; `fp32_tensor_bytes` = payload | `tests/test_package_size.py` (14 passed) |
 | `package_model.py::_write_readme` raised **`KeyError: 'files'`** (README quoted an inventory that did not exist yet) | packager crash traceback | `_inventory()` helper; inventory → README → recompute inventory | release assembly runs clean |
+
+## CI defect found and fixed by auditing a fresh clone (this stretch)
+
+| Defect | Evidence it was real | Fix | Verified by |
+| :--- | :--- | :--- | :--- |
+| Four `test_dataset_api.py` tests **failed in CI** (and in any fresh clone): they load packed shards, which are git-ignored build artefacts, so the runner had nothing to load | `git clone --depth 1` of the pushed branch + the exact CI command → 4 failed / 256 passed, job exit 2 | new session fixture `packed_dataset` runs the **real** builder (`scripts/prepare_data_v2.py --version ci_unit --scale 0.05 --seq-len 64`) and the tests assert against that artifact, skipping the build only when the recorded `shards_fingerprint` still matches disk | fresh-clone run of the exact CI command → **260 passed, 5 skipped, 0 failed** |
+| The CI lint gate ended in `|| true`, so it could never fail the build | `.github/workflows/ci.yml` line 37 | gate now fails: `ruff check --select E9,F63,F7,F82,F811,F841 src scripts tests`; the three real findings it exposed (two dead locals, one unused binding) were removed | `ruff check` → *All checks passed*; the same command is what CI runs |
