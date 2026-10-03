@@ -4,6 +4,7 @@
 #   bash scripts/run_audit_pipeline.sh EXP-004-TOOL-SFT-V2 [checkpoint]
 #
 # Stages (each writes the artefact the audit matrix cites):
+#   0. capability diagnosis + coverage of the held-out mechanisms
 #   1. data contract + unit tests
 #   2. sandbox escape matrix            -> docs/audit_evidence/sandbox_escape_suite.out.txt
 #   3. independent tool-use evaluation  -> experiments/<exp>/evaluation_tools_<ckpt>.{json,md}
@@ -19,7 +20,8 @@ cd "$(dirname "$0")/.."
 
 EXP="${1:?usage: run_audit_pipeline.sh <experiment> [checkpoint]}"
 CKPT="${2:-best}"
-DATASET="${DATASET:-dataset_v3}"
+DATASET="${DATASET:-dataset_v8}"
+MAX_SAMPLES="${MAX_SAMPLES:-300}"   # stratified round-robin; the report states the denominator
 
 step() { printf '\n=== %s ===\n' "$1"; }
 
@@ -33,19 +35,24 @@ step "3/8 independent tool-use evaluation"
 python3 scripts/evaluate_tools.py --experiment "$EXP" --checkpoint "$CKPT" \
     --variants fp32,fp16,int8,int4 --backend numpy --max-new-tokens 96
 
-step "4/8 per-domain evaluation (test split, full set)"
+step "4/8 per-domain evaluation (test split, stratified sample of $MAX_SAMPLES)"
 python3 scripts/evaluate.py --experiment "$EXP" --checkpoint "$CKPT" --dataset "$DATASET" \
-    --split test --backend numpy --variants fp32,fp16,int8,int4
+    --split test --backend numpy --max-samples "$MAX_SAMPLES" --variants fp32,fp16,int8,int4
 
-step "5/8 per-domain evaluation (challenge split, full set)"
+step "5/8 per-domain evaluation (challenge split, full set) + independent suite"
 python3 scripts/evaluate.py --experiment "$EXP" --checkpoint "$CKPT" --dataset "$DATASET" \
     --split challenge --backend numpy --variants fp32
+python3 scripts/evaluate.py --experiment "$EXP" --checkpoint "$CKPT" --dataset "$DATASET" \
+    --suite datasets/evaluation/independent_v1.jsonl --backend numpy --variants fp32 \
+    --tag independent_independent_v1
 
 step "6/8 quantization artefact sizes"
 python3 scripts/quantize.py --experiment "$EXP" --checkpoint "$CKPT" --arch nano --out release/
 
-step "7/8 packaging + size gate (release/)"
+step "7/8 packaging + size gate (release/) + standalone local model"
 python3 scripts/package_model.py --experiment "$EXP" --checkpoint "$CKPT" --dataset "$DATASET"
+python3 scripts/build_local_model.py
+python3 scripts/validate_local_model.py
 
 step "8/8 release contract + clean-environment gate"
 python3 -m pytest tests/test_package_size.py tests/test_release_contract.py -q
