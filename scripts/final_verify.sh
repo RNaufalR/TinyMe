@@ -78,13 +78,13 @@ step "local-model" python3 scripts/validate_local_model.py --package local_model
     --out docs/audit_evidence/local_model_validation.json
 
 # 7 ── GGUF: the artefact must exist, load in the real runtime, and generate
-step "gguf-runtime" python3 scripts/verify_gguf.py --gguf release/tinyme-f16.gguf \
+step "gguf-runtime" python3 scripts/verify_gguf.py --gguf release/gguf/tinyme-f16.gguf \
     --reference checkpoints/"$EXP"/"$CKPT".safetensors \
     --out docs/audit_evidence/gguf_runtime_test.json
 
 # 8 ── GGUF parity at logit level: same tokens in, same distribution out
 step "gguf-logit-parity" python3 scripts/verify_gguf_logits.py \
-    --gguf release/tinyme-f16.gguf \
+    --gguf release/gguf/tinyme-f16.gguf \
     --reference checkpoints/"$EXP"/"$CKPT".safetensors \
     --out docs/audit_evidence/gguf_logit_parity.json
 
