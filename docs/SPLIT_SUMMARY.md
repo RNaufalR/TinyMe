@@ -1,17 +1,17 @@
 # SPLIT SUMMARY
 
-- **train**: 14787 records / 1714 template families
-- **validation**: 2389 records / 142 template families
-- **test**: 2265 records / 224 template families
+- **train**: 20088 records / 2020 template families
+- **validation**: 2886 records / 25 template families
+- **test**: 3768 records / 27 template families
 - **challenge**: 90 records / 11 template families
 
 ## Category distribution
 
 | split | algorithm | code_explain | code_gen | code_repair | instruction | language | logic | math | programming | tool_use |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| train | 1283 | 449 | 140 | 76 | 6439 | 144 | 125 | 393 | 1098 | 4640 |
-| validation | 256 | 60 | 35 | 25 | 1034 | 18 | 33 | 64 | 161 | 703 |
-| test | 181 | 57 | 40 | 39 | 1006 | 18 | 41 | 102 | 140 | 641 |
+| train | 1151 | 542 | 180 | 102 | 10440 | 164 | 125 | 520 | 1397 | 5467 |
+| validation | 251 | 12 | 20 | 25 | 1413 | 15 | 33 | 24 | 1 | 1092 |
+| test | 318 | 12 | 15 | 13 | 2290 | 1 | 41 | 15 | 1 | 1062 |
 | challenge | 0 | 0 | 8 | 8 | 8 | 8 | 8 | 12 | 0 | 38 |
 
 ## Category coverage per split

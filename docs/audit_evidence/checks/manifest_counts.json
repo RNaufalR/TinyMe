@@ -1,0 +1,21 @@
+{
+  "check": "manifest_counts",
+  "detail": "declared={'train': 18863, 'validation': 2773, 'test': 3677, 'challenge': 90} recounted={'train': 18863, 'validation': 2773, 'test': 3677, 'challenge': 90}",
+  "evidence": {
+    "dataset": "dataset_v7",
+    "declared": {
+      "challenge": 90,
+      "test": 3677,
+      "train": 18863,
+      "validation": 2773
+    },
+    "recounted": {
+      "challenge": 90,
+      "test": 3677,
+      "train": 18863,
+      "validation": 2773
+    }
+  },
+  "ok": true,
+  "recorded_utc": "2026-10-03T07:06:38Z"
+}

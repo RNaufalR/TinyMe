@@ -1,0 +1,19 @@
+{
+  "check": "shards_fingerprint",
+  "detail": "7 shard indexes; manifest fingerprint=237abf07225fe956c45eadfcebfe1a480667527ed615a8c3148769454b29cf0e",
+  "evidence": {
+    "dataset": "dataset_v7",
+    "indexes": {
+      "challenge_sft_index.json": null,
+      "test_pretrain_index.json": null,
+      "test_sft_index.json": null,
+      "train_pretrain_index.json": null,
+      "train_sft_index.json": null,
+      "validation_pretrain_index.json": null,
+      "validation_sft_index.json": null
+    },
+    "manifest_fingerprint": "237abf07225fe956c45eadfcebfe1a480667527ed615a8c3148769454b29cf0e"
+  },
+  "ok": true,
+  "recorded_utc": "2026-10-03T07:09:19Z"
+}

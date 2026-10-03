@@ -1,0 +1,7 @@
+{
+  "check": "capability_measurement",
+  "detail": "FileNotFoundError: [Errno 2] No such file or directory: '/home/user/TinyMe/experiments/EXP-010-TOOL-SFT-V7/evaluation_tools_best.json'",
+  "evidence": {},
+  "ok": false,
+  "recorded_utc": "2026-10-03T07:09:35Z"
+}

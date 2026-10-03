@@ -1,0 +1,15 @@
+{
+  "check": "tokenizer",
+  "detail": "trained_on='train split only' vocab=4096 sha256_match=True leaked_pieces=0",
+  "evidence": {
+    "dataset": "dataset_v7",
+    "leaked_pieces": [],
+    "manifest_sha256": "2df19755e03b8ce561f04cc30643cb3b8341e87586e6be567baf454e0e949474",
+    "sha256": "2df19755e03b8ce561f04cc30643cb3b8341e87586e6be567baf454e0e949474",
+    "trained_on": "train split only",
+    "version": "tok-v3",
+    "vocab_size": 4096
+  },
+  "ok": true,
+  "recorded_utc": "2026-10-03T07:09:19Z"
+}

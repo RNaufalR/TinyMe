@@ -14,7 +14,7 @@ so the diagnosis cannot disagree with the reported numbers.
 
 Usage::
 
-    python scripts/diagnose_capability.py --experiment EXP-010-TOOL-SFT-V7
+    python scripts/diagnose_capability.py --experiment EXP-012-TOOL-SFT-V8
 """
 from __future__ import annotations
 
@@ -77,7 +77,7 @@ def first_failure(row: dict) -> str | None:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--experiment", default="EXP-010-TOOL-SFT-V7")
+    ap.add_argument("--experiment", default="EXP-012-TOOL-SFT-V8")
     ap.add_argument("--variant", default="fp32")
     ap.add_argument("--out", default="docs/audit_evidence/capability_diagnosis.json")
     ap.add_argument("--md", default="docs/CAPABILITY_DIAGNOSIS.md")

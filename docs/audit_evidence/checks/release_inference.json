@@ -1,0 +1,16 @@
+{
+  "check": "release_inference",
+  "detail": "exit=0 standalone_output='[weights=float32 params=2,557,632]\\n<|tool_call|>\\nWork through the result, the result.'",
+  "evidence": {
+    "cwd": "release/",
+    "env": {
+      "PATH": "/usr/bin:/bin",
+      "PYTHONPATH": ""
+    },
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "[weights=float32 params=2,557,632]\n<|tool_call|>\nWork through the result, the result."
+  },
+  "ok": true,
+  "recorded_utc": "2026-10-03T07:09:35Z"
+}

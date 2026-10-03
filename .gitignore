@@ -34,3 +34,20 @@ datasets/versions/ci_*/
 datasets/processed/ci_*/
 # Sandbox scratch space
 /var/tmp/tinyme-sandbox/
+
+# ---- Session-audit runs (2026-10-03) ---------------------------------------
+# Weights and packed corpora of the v7/v8 retraining lineage are regenerable
+# from the committed scripts + manifests (the manifests carry the dataset
+# fingerprint and per-file sha256, and docs/VERIFICATION_MATRIX.md records the
+# exact rebuild command).  Committing them would add ~150 MB of binaries to the
+# repository for data that a documented rebuild reproduces.
+checkpoints/EXP-00[6-9]*/
+checkpoints/EXP-01[0-9]*/
+datasets/versions/dataset_v7/train.jsonl
+datasets/versions/dataset_v7/validation.jsonl
+datasets/versions/dataset_v7/test.jsonl
+datasets/versions/dataset_v7/challenge.jsonl
+datasets/versions/dataset_v8/train.jsonl
+datasets/versions/dataset_v8/validation.jsonl
+datasets/versions/dataset_v8/test.jsonl
+datasets/versions/dataset_v8/challenge.jsonl

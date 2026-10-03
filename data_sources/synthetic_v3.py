@@ -124,6 +124,33 @@ _CODE_REPAIR_PHRASINGS = [
     "Repair the broken implementation below and verify it by running the tests:\n```python\n{c}\n```",
 ]
 
+#: v6 repair phrasings: the request states the failing code *and* the verified
+#: cases the repaired implementation must satisfy.  The v5 pool produced only 24
+#: distinct trajectories per 100 draws (``_SPEC_LIBRARY`` x mutation vocabulary is
+#: small), which the corpus-dedup step then collapsed to 47 surviving repair
+#: records across all splits — the F family of the held-out suite had almost no
+#: supervision.  Including the drawn examples makes every record distinct for the
+#: same reasons the held-out prompts are distinct, and is the same presentation.
+_CODE_REPAIR_PHRASINGS_V6 = [
+    "The tests fail for this code:\n```python\n{c}\n```\nVerified cases the repair must satisfy:\n{ex}\n"
+    "Fix it, run the tests in the sandbox, and report the result.",
+    "This program fails its assertions:\n```python\n{c}\n```\nCases that must pass after the fix:\n{ex}\n"
+    "Repair it and run it with the code tool.",
+    "Debug this program so the assertions pass, then execute it:\n```python\n{c}\n```\n"
+    "The corrected function must still satisfy:\n{ex}",
+    "This code does not satisfy its tests:\n```python\n{c}\n```\nExpected behaviour (verified):\n{ex}\n"
+    "Correct it and run the tests.",
+    "Repair the broken implementation below and verify it by running the tests:\n```python\n{c}\n```\n"
+    "Cases the repair must keep passing:\n{ex}",
+    "The implementation below is wrong; make the listed cases pass and run it:\n```python\n{c}\n```\n"
+    "Verified examples:\n{ex}",
+    "Fix the failing program and prove it with the sandbox:\n```python\n{c}\n```\n"
+    "It must satisfy these checked cases:\n{ex}",
+    "This function returns the wrong values.  Correct it, run it, and report:\n```python\n{c}\n```\n"
+    "Verified cases:\n{ex}",
+]
+
+
 _NO_TOOL_ADD = ["What is {a} + {b}?", "Add {a} and {b}.", "What is the sum of {a} and {b}?",
                 "Compute {a} + {b} without a tool.", "What do you get when you add {a} and {b}?",
                 "{a} + {b} = ?"]
@@ -715,6 +742,7 @@ def gen_tool_use_v3(rng: random.Random, n: int) -> list[Any]:
                 final, template, f"syn/tool3/code/{i}", "code", [run_id],
                 group_id=_gid(template, ph)))
         elif kind == 5:
+            extra = ""
             if i % 2 == 0:
                 spec, buggy = _buggy_program(rng, seed_i=i)
                 tests_all = spec["tests"]
@@ -735,7 +763,8 @@ def gen_tool_use_v3(rng: random.Random, n: int) -> list[Any]:
                                "stdout": "", "stderr": (out_bad.splitlines()[-1] if out_bad else "AssertionError")}
             r_good = _mock_code((out_good + "\n") if out_good else "all assertions passed\n",
                                 code=spec["solution"])
-            user, ph = _pick_idx(rng, _CODE_REPAIR_PHRASINGS, c=buggy)
+            pool = _CODE_REPAIR_PHRASINGS_V6 if PROFILE == "v6" else _CODE_REPAIR_PHRASINGS
+            user, ph = _pick_idx(rng, pool, c=buggy, ex=extra or spec["tests"])
             final = (f"All assertions passed after the repair; stdout was {out_good!r} "
                      f"[{r_good['result']['citation']}].")
             template = "tool/code_repair"

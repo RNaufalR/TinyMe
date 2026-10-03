@@ -1,0 +1,66 @@
+{
+  "check": "instrument_selftest",
+  "detail": "oracle task_completion=1.0 garbage task_completion=0.0",
+  "evidence": {
+    "garbage": {
+      "argument_accuracy": 0.0,
+      "argument_validity": 0.0,
+      "by_family": {
+        "A": 0.0,
+        "B": 0.0,
+        "C": 0.0,
+        "D": 0.0,
+        "E": 0.0,
+        "F": 0.0,
+        "G": 0.0
+      },
+      "cases": 25,
+      "citation_validity": 0.0,
+      "error_recovery_success": 0.0,
+      "execution_success": 0.0,
+      "grounded_final_answer": 1.0,
+      "multi_step_success": 0.0,
+      "needed_cases": 20,
+      "not_needed_cases": 5,
+      "task_completion": 0.0,
+      "tool_name_accuracy": 0.0,
+      "tool_needed_accuracy": 0.0,
+      "tool_not_needed_accuracy": 1.0,
+      "tool_syntax_validity": 1.0
+    },
+    "oracle": {
+      "argument_accuracy": 1.0,
+      "argument_validity": 1.0,
+      "by_family": {
+        "A": 1.0,
+        "B": 1.0,
+        "C": 1.0,
+        "D": 1.0,
+        "E": 1.0,
+        "F": 1.0,
+        "G": 1.0
+      },
+      "cases": 25,
+      "citation_validity": 1.0,
+      "error_recovery_success": 1.0,
+      "execution_success": 1.0,
+      "grounded_final_answer": 1.0,
+      "multi_step_success": 0.75,
+      "needed_cases": 20,
+      "not_needed_cases": 5,
+      "task_completion": 1.0,
+      "tool_name_accuracy": 1.0,
+      "tool_needed_accuracy": 1.0,
+      "tool_not_needed_accuracy": 1.0,
+      "tool_syntax_validity": 1.0
+    },
+    "verdict": {
+      "garbage_task_completion": 0.0,
+      "instrument_credits_correct_behaviour": true,
+      "instrument_rejects_nonsense": true,
+      "oracle_task_completion": 1.0
+    }
+  },
+  "ok": true,
+  "recorded_utc": "2026-10-03T07:09:35Z"
+}

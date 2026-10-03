@@ -452,7 +452,7 @@ EVIDENCE_DIR = ROOT / "docs" / "audit_evidence" / "checks"
 
 #: The release/check pointer is part of the contract: a release built from any
 #: other experiment is stale by definition and must not pass the audit.
-CURRENT_RELEASE_EXPERIMENT = "EXP-010-TOOL-SFT-V7"
+CURRENT_RELEASE_EXPERIMENT = "EXP-012-TOOL-SFT-V8"
 
 
 def _evidence(name: str, ok: bool, detail: str, payload: dict) -> tuple[bool, str]:
@@ -479,7 +479,7 @@ def _read_jsonl(path: Path, limit: int | None = None) -> list[dict]:
     return out
 
 
-def _checks(dataset: str = "dataset_v7", seq_len: int = 512) -> dict[str, tuple[bool, str]]:
+def _checks(dataset: str = "dataset_v8", seq_len: int = 512) -> dict[str, tuple[bool, str]]:
     """Artefact-level audits the matrix refers to (each returns pass/fail + detail).
 
     Every check re-derives its verdict from artefacts on disk — shards, JSONL
@@ -1133,7 +1133,7 @@ def main() -> int:
                          "passes on the real artefacts")
     ap.add_argument("--checks", default=None, nargs="?", const="all",
                     help="comma separated artefact audits to run (default: all)")
-    ap.add_argument("--dataset", default="dataset_v7", help="dataset version the checks audit")
+    ap.add_argument("--dataset", default="dataset_v8", help="dataset version the checks audit")
     ap.add_argument("--seq-len", type=int, default=512, help="packing width for the packing audit")
     ap.add_argument("--report", action="store_true", help="print the recomputed counts only")
     args = ap.parse_args()

@@ -25,15 +25,19 @@ except ImportError:  # pragma: no cover - evaluator import is optional here
     render_prompt = None
 
 def _current_version() -> str:
-    """The newest built dataset revision (the one the pipeline writes today)."""
+    """The newest built dataset revision (the one the pipeline writes today).
+
+    When no dataset is built — a fresh clone or CI — this returns the ``ci_unit``
+    version that the session-scoped ``packed_dataset`` fixture builds with the
+    production pipeline, so the contract is exercised instead of skipped (audit
+    §17: no unconditional skips, and no locally-generated-artefact dependence).
+    """
     built = [d for d in VERSIONS_DIR.glob("dataset_v*")
              if (d / "manifest.json").exists() and d.name[9:].isdigit()]
     if built:
         # newest by revision number (dataset_v10 > dataset_v9), not alphabetically
         return max(built, key=lambda d: int(d.name[9:])).name
-    if (VERSIONS_DIR / "ci_unit" / "manifest.json").exists():
-        return "ci_unit"
-    pytest.skip("no dataset version built - run scripts/prepare_data_v2.py")
+    return "ci_unit"
 
 
 DATASET = _current_version()

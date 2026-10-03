@@ -1,0 +1,6008 @@
+{
+  "check": "family_coverage",
+  "detail": "18/18 multi-phrasing families present in train+validation+test; uncovered=[]",
+  "evidence": {
+    "covered": 18,
+    "dataset": "dataset_v7",
+    "multi_phrasing_families": 18,
+    "per_family": {
+      "algorithm/binary_search_trace": {
+        "test": 186,
+        "train": 880,
+        "validation": 120
+      },
+      "algorithm/running_max_trace": {
+        "test": 139,
+        "train": 270,
+        "validation": 125
+      },
+      "code/explain/binary_search": {
+        "validation": 12
+      },
+      "code/explain/caesar": {
+        "train": 6
+      },
+      "code/explain/count_words": {
+        "train": 12
+      },
+      "code/explain/flatten": {
+        "train": 12
+      },
+      "code/explain/gcd": {
+        "train": 5
+      },
+      "code/explain/is_palindrome": {
+        "train": 11
+      },
+      "code/explain/matrix_transpose": {
+        "train": 12
+      },
+      "code/explain/running_max": {
+        "train": 12
+      },
+      "code/explain/sum_even": {
+        "test": 12
+      },
+      "code/explain/unique_sorted": {
+        "train": 12
+      },
+      "code/gen/binary_search": {
+        "train": 20
+      },
+      "code/gen/caesar": {
+        "train": 20
+      },
+      "code/gen/count_words": {
+        "train": 20
+      },
+      "code/gen/flatten": {
+        "train": 20
+      },
+      "code/gen/gcd": {
+        "train": 20
+      },
+      "code/gen/is_palindrome": {
+        "train": 20
+      },
+      "code/gen/matrix_transpose": {
+        "train": 20
+      },
+      "code/gen/running_max": {
+        "train": 20
+      },
+      "code/gen/sum_even": {
+        "validation": 20
+      },
+      "code/gen/unique_sorted": {
+        "train": 20
+      },
+      "code/repair/forget_zero": {
+        "train": 25
+      },
+      "code/repair/modulo_bug": {
+        "train": 25
+      },
+      "code/repair/reset_accumulator": {
+        "train": 26
+      },
+      "code/repair/skip_nested": {
+        "train": 26
+      },
+      "code/repair/swap_order": {
+        "validation": 25
+      },
+      "code/repair/wrong_comparison": {
+        "test": 13
+      },
+      "copy/span/kind0": {
+        "train": 750
+      },
+      "copy/span/kind1": {
+        "train": 750
+      },
+      "copy/span/kind2": {
+        "train": 750
+      },
+      "copy/span/kind3": {
+        "test": 749
+      },
+      "copy/span/kind4": {
+        "train": 750
+      },
+      "copy/span/kind5": {
+        "train": 750
+      },
+      "copy/span/kind6": {
+        "train": 750
+      },
+      "copy/span/kind7": {
+        "train": 750
+      },
+      "hf/gsm8k/v1": {
+        "test": 15
+      },
+      "hf/mbpp/v1": {
+        "test": 15
+      },
+      "hf/tinystories/v1": {
+        "validation": 15
+      },
+      "instruction/json_recomputation": {
+        "train": 29
+      },
+      "instruction/range_recomputation": {
+        "train": 15
+      },
+      "instruction/replace_recomputation": {
+        "train": 28
+      },
+      "instruction/reverse_recomputation": {
+        "train": 28
+      },
+      "instruction/sort_recomputation": {
+        "train": 28
+      },
+      "instruction/split_recomputation": {
+        "train": 29
+      },
+      "instruction/upper_recomputation": {
+        "test": 28
+      },
+      "logic/boolean/and": {
+        "validation": 33
+      },
+      "logic/boolean/or": {
+        "test": 41
+      },
+      "logic/boolean/xor": {
+        "train": 46
+      },
+      "logic/deduction/syllogism": {
+        "train": 79
+      },
+      "math/arithmetic/kind0": {
+        "train": 65
+      },
+      "math/arithmetic/kind1": {
+        "train": 65
+      },
+      "math/arithmetic/kind2": {
+        "train": 65
+      },
+      "math/arithmetic/kind3": {
+        "train": 64
+      },
+      "math/sequence/kind0": {
+        "train": 31
+      },
+      "math/sequence/kind1": {
+        "validation": 24
+      },
+      "math/sequence/kind2": {
+        "train": 28
+      },
+      "math/sequence/kind3": {
+        "train": 22
+      },
+      "math/word_problem/kind0": {
+        "train": 180
+      },
+      "no_tool/arith/add": {
+        "test": 279,
+        "train": 1042,
+        "validation": 272
+      },
+      "no_tool/arith/mul": {
+        "test": 257,
+        "train": 1058,
+        "validation": 269
+      },
+      "no_tool/arith/sub": {
+        "test": 285,
+        "train": 1050,
+        "validation": 248
+      },
+      "no_tool/simple_math_add": {
+        "test": 58,
+        "train": 214,
+        "validation": 60
+      },
+      "no_tool/simple_math_mul": {
+        "test": 29,
+        "train": 148,
+        "validation": 33
+      },
+      "no_tool/simple_math_sub": {
+        "test": 60,
+        "train": 213,
+        "validation": 60
+      },
+      "no_tool/text_edit/reverse": {
+        "test": 363,
+        "train": 930,
+        "validation": 306
+      },
+      "no_tool/text_edit/upper": {
+        "test": 329,
+        "train": 953,
+        "validation": 318
+      },
+      "stdlib/abc/ABC": {
+        "train": 1
+      },
+      "stdlib/abc/ABC.doc": {
+        "train": 1
+      },
+      "stdlib/abc/abstractclassmethod": {
+        "train": 1
+      },
+      "stdlib/abc/abstractclassmethod.doc": {
+        "train": 1
+      },
+      "stdlib/abc/abstractmethod": {
+        "train": 1
+      },
+      "stdlib/abc/abstractmethod.doc": {
+        "train": 1
+      },
+      "stdlib/abc/abstractproperty": {
+        "train": 1
+      },
+      "stdlib/abc/abstractproperty.doc": {
+        "train": 1
+      },
+      "stdlib/abc/abstractstaticmethod": {
+        "train": 1
+      },
+      "stdlib/abc/abstractstaticmethod.doc": {
+        "train": 1
+      },
+      "stdlib/abc/update_abstractmethods": {
+        "train": 1
+      },
+      "stdlib/aifc.overview": {
+        "train": 1
+      },
+      "stdlib/aifc/open": {
+        "train": 1
+      },
+      "stdlib/argparse.overview": {
+        "train": 1
+      },
+      "stdlib/argparse/Action": {
+        "train": 1
+      },
+      "stdlib/argparse/Action.doc": {
+        "train": 1
+      },
+      "stdlib/argparse/ArgumentDefaultsHelpFormatter": {
+        "train": 1
+      },
+      "stdlib/argparse/ArgumentDefaultsHelpFormatter.doc": {
+        "train": 1
+      },
+      "stdlib/argparse/ArgumentError": {
+        "train": 1
+      },
+      "stdlib/argparse/ArgumentError.doc": {
+        "train": 1
+      },
+      "stdlib/argparse/MetavarTypeHelpFormatter": {
+        "train": 1
+      },
+      "stdlib/argparse/MetavarTypeHelpFormatter.doc": {
+        "train": 1
+      },
+      "stdlib/argparse/RawDescriptionHelpFormatter": {
+        "train": 1
+      },
+      "stdlib/argparse/RawDescriptionHelpFormatter.doc": {
+        "train": 1
+      },
+      "stdlib/argparse/RawTextHelpFormatter": {
+        "train": 1
+      },
+      "stdlib/argparse/RawTextHelpFormatter.doc": {
+        "train": 1
+      },
+      "stdlib/ast.overview": {
+        "train": 1
+      },
+      "stdlib/ast/copy_location": {
+        "train": 1
+      },
+      "stdlib/ast/copy_location.doc": {
+        "train": 1
+      },
+      "stdlib/ast/dump": {
+        "train": 1
+      },
+      "stdlib/ast/fix_missing_locations": {
+        "train": 1
+      },
+      "stdlib/ast/increment_lineno": {
+        "train": 1
+      },
+      "stdlib/ast/increment_lineno.doc": {
+        "train": 1
+      },
+      "stdlib/ast/literal_eval": {
+        "train": 1
+      },
+      "stdlib/ast/parse": {
+        "train": 1
+      },
+      "stdlib/ast/parse.doc": {
+        "train": 1
+      },
+      "stdlib/asynchat.overview": {
+        "train": 1
+      },
+      "stdlib/asynchat/find_prefix_at_end": {
+        "train": 1
+      },
+      "stdlib/asynchat/simple_producer": {
+        "train": 1
+      },
+      "stdlib/asyncio.base_events.overview": {
+        "train": 1
+      },
+      "stdlib/asyncio.base_events/Server": {
+        "train": 1
+      },
+      "stdlib/asyncio.base_futures/isfuture": {
+        "train": 1
+      },
+      "stdlib/asyncio.base_futures/isfuture.doc": {
+        "train": 1
+      },
+      "stdlib/asyncio.base_subprocess/ReadSubprocessPipeProto": {
+        "train": 1
+      },
+      "stdlib/asyncio.base_subprocess/WriteSubprocessPipeProto": {
+        "train": 1
+      },
+      "stdlib/asyncio.coroutines/iscoroutine": {
+        "train": 1
+      },
+      "stdlib/asyncio.coroutines/iscoroutinefunction": {
+        "train": 1
+      },
+      "stdlib/asyncio.events/AbstractEventLoopPolicy": {
+        "train": 1
+      },
+      "stdlib/asyncio.events/AbstractServer": {
+        "train": 1
+      },
+      "stdlib/asyncio.events/BaseDefaultEventLoopPolicy": {
+        "train": 1
+      },
+      "stdlib/asyncio.events/Handle": {
+        "train": 1
+      },
+      "stdlib/asyncio.events/TimerHandle": {
+        "train": 1
+      },
+      "stdlib/asyncio.events/get_running_loop": {
+        "train": 1
+      },
+      "stdlib/asyncio.events/get_running_loop.doc": {
+        "train": 1
+      },
+      "stdlib/asyncio.exceptions/IncompleteReadError": {
+        "train": 1
+      },
+      "stdlib/asyncio.exceptions/IncompleteReadError.doc": {
+        "train": 1
+      },
+      "stdlib/asyncio.exceptions/LimitOverrunError": {
+        "train": 1
+      },
+      "stdlib/asyncio.exceptions/LimitOverrunError.doc": {
+        "train": 1
+      },
+      "stdlib/asyncio.exceptions/SendfileNotAvailableError": {
+        "train": 1
+      },
+      "stdlib/asyncio.exceptions/SendfileNotAvailableError.doc": {
+        "train": 1
+      },
+      "stdlib/asyncio.format_helpers/extract_stack": {
+        "train": 1
+      },
+      "stdlib/asyncio.format_helpers/extract_stack.doc": {
+        "train": 1
+      },
+      "stdlib/asyncio.futures/wrap_future": {
+        "train": 1
+      },
+      "stdlib/asyncio.locks/Barrier": {
+        "train": 1
+      },
+      "stdlib/asyncio.locks/Barrier.doc": {
+        "train": 1
+      },
+      "stdlib/asyncio.locks/BoundedSemaphore": {
+        "train": 1
+      },
+      "stdlib/asyncio.locks/BoundedSemaphore.doc": {
+        "train": 1
+      },
+      "stdlib/asyncio.locks/Condition": {
+        "train": 1
+      },
+      "stdlib/asyncio.locks/Condition.doc": {
+        "train": 1
+      },
+      "stdlib/asyncio.locks/Event": {
+        "train": 1
+      },
+      "stdlib/asyncio.locks/Lock": {
+        "train": 1
+      },
+      "stdlib/asyncio.locks/Lock.doc": {
+        "train": 1
+      },
+      "stdlib/asyncio.locks/Semaphore": {
+        "train": 1
+      },
+      "stdlib/asyncio.proactor_events.overview": {
+        "train": 1
+      },
+      "stdlib/asyncio.protocols/BaseProtocol": {
+        "train": 1
+      },
+      "stdlib/asyncio.protocols/BufferedProtocol": {
+        "train": 1
+      },
+      "stdlib/asyncio.protocols/DatagramProtocol": {
+        "train": 1
+      },
+      "stdlib/asyncio.protocols/Protocol": {
+        "train": 1
+      },
+      "stdlib/asyncio.protocols/SubprocessProtocol": {
+        "train": 1
+      },
+      "stdlib/asyncio.queues/LifoQueue": {
+        "train": 1
+      },
+      "stdlib/asyncio.queues/LifoQueue.doc": {
+        "train": 1
+      },
+      "stdlib/asyncio.queues/PriorityQueue": {
+        "train": 1
+      },
+      "stdlib/asyncio.queues/PriorityQueue.doc": {
+        "train": 1
+      },
+      "stdlib/asyncio.runners/Runner": {
+        "train": 1
+      },
+      "stdlib/asyncio.runners/Runner.doc": {
+        "train": 1
+      },
+      "stdlib/asyncio.runners/run": {
+        "train": 1
+      },
+      "stdlib/asyncio.selector_events.overview": {
+        "train": 1
+      },
+      "stdlib/asyncio.sslproto/AppProtocolState": {
+        "train": 1
+      },
+      "stdlib/asyncio.sslproto/SSLProtocolState": {
+        "train": 1
+      },
+      "stdlib/asyncio.sslproto/add_flowcontrol_defaults": {
+        "train": 1
+      },
+      "stdlib/asyncio.staggered/staggered_race": {
+        "train": 1
+      },
+      "stdlib/asyncio.staggered/staggered_race.doc": {
+        "train": 1
+      },
+      "stdlib/asyncio.streams/FlowControlMixin": {
+        "train": 1
+      },
+      "stdlib/asyncio.streams/StreamReaderProtocol": {
+        "train": 1
+      },
+      "stdlib/asyncio.streams/StreamReaderProtocol.doc": {
+        "train": 1
+      },
+      "stdlib/asyncio.streams/StreamWriter": {
+        "train": 1
+      },
+      "stdlib/asyncio.streams/open_connection": {
+        "train": 1
+      },
+      "stdlib/asyncio.streams/start_server": {
+        "train": 1
+      },
+      "stdlib/asyncio.subprocess/Process": {
+        "train": 1
+      },
+      "stdlib/asyncio.subprocess/SubprocessStreamProtocol": {
+        "train": 1
+      },
+      "stdlib/asyncio.subprocess/create_subprocess_exec": {
+        "train": 1
+      },
+      "stdlib/asyncio.subprocess/create_subprocess_shell": {
+        "train": 1
+      },
+      "stdlib/asyncio.tasks/all_tasks": {
+        "train": 1
+      },
+      "stdlib/asyncio.tasks/as_completed": {
+        "train": 1
+      },
+      "stdlib/asyncio.tasks/create_task": {
+        "train": 1
+      },
+      "stdlib/asyncio.tasks/create_task.doc": {
+        "train": 1
+      },
+      "stdlib/asyncio.tasks/current_task": {
+        "train": 1
+      },
+      "stdlib/asyncio.tasks/wait": {
+        "train": 1
+      },
+      "stdlib/asyncio.tasks/wait_for": {
+        "train": 1
+      },
+      "stdlib/asyncio.threads/to_thread": {
+        "train": 1
+      },
+      "stdlib/asyncio.threads/to_thread.doc": {
+        "train": 1
+      },
+      "stdlib/asyncio.timeouts/Timeout": {
+        "train": 1
+      },
+      "stdlib/asyncio.timeouts/timeout": {
+        "train": 1
+      },
+      "stdlib/asyncio.timeouts/timeout.doc": {
+        "train": 1
+      },
+      "stdlib/asyncio.timeouts/timeout_at": {
+        "train": 1
+      },
+      "stdlib/asyncio.timeouts/timeout_at.doc": {
+        "train": 1
+      },
+      "stdlib/asyncio.transports/BaseTransport": {
+        "train": 1
+      },
+      "stdlib/asyncio.transports/DatagramTransport": {
+        "train": 1
+      },
+      "stdlib/asyncio.transports/ReadTransport": {
+        "train": 1
+      },
+      "stdlib/asyncio.transports/SubprocessTransport": {
+        "train": 1
+      },
+      "stdlib/asyncio.transports/Transport": {
+        "train": 1
+      },
+      "stdlib/asyncio.transports/Transport.doc": {
+        "train": 1
+      },
+      "stdlib/asyncio.transports/WriteTransport": {
+        "train": 1
+      },
+      "stdlib/asyncio.trsock/TransportSocket": {
+        "train": 1
+      },
+      "stdlib/asyncio.unix_events/AbstractChildWatcher": {
+        "train": 1
+      },
+      "stdlib/asyncio.unix_events/BaseChildWatcher": {
+        "train": 1
+      },
+      "stdlib/asyncio.unix_events/FastChildWatcher": {
+        "train": 1
+      },
+      "stdlib/asyncio.unix_events/PidfdChildWatcher": {
+        "train": 1
+      },
+      "stdlib/asyncio.unix_events/SafeChildWatcher": {
+        "train": 1
+      },
+      "stdlib/asyncio.unix_events/waitstatus_to_exitcode": {
+        "train": 1
+      },
+      "stdlib/asyncio.windows_events/PipeServer": {
+        "train": 1
+      },
+      "stdlib/asyncio.windows_events/ProactorEventLoop": {
+        "train": 1
+      },
+      "stdlib/asyncio.windows_utils/PipeHandle": {
+        "train": 1
+      },
+      "stdlib/asyncio.windows_utils/Popen": {
+        "train": 1
+      },
+      "stdlib/asyncio.windows_utils/pipe": {
+        "train": 1
+      },
+      "stdlib/asyncore.overview": {
+        "train": 1
+      },
+      "stdlib/asyncore/loop": {
+        "train": 1
+      },
+      "stdlib/asyncore/poll": {
+        "train": 1
+      },
+      "stdlib/asyncore/poll2": {
+        "train": 1
+      },
+      "stdlib/asyncore/read": {
+        "train": 1
+      },
+      "stdlib/asyncore/readwrite": {
+        "train": 1
+      },
+      "stdlib/asyncore/write": {
+        "train": 1
+      },
+      "stdlib/base64": {
+        "train": 14
+      },
+      "stdlib/base64/b64encode.doc": {
+        "train": 1
+      },
+      "stdlib/base64/standard_b64decode.doc": {
+        "train": 1
+      },
+      "stdlib/base64/standard_b64encode.doc": {
+        "train": 1
+      },
+      "stdlib/base64/urlsafe_b64decode.doc": {
+        "train": 1
+      },
+      "stdlib/base64/urlsafe_b64encode.doc": {
+        "train": 1
+      },
+      "stdlib/bdb/Breakpoint": {
+        "train": 1
+      },
+      "stdlib/bdb/Breakpoint.doc": {
+        "train": 1
+      },
+      "stdlib/bdb/Tdb": {
+        "train": 1
+      },
+      "stdlib/bdb/checkfuncname": {
+        "train": 1
+      },
+      "stdlib/bdb/effective": {
+        "train": 1
+      },
+      "stdlib/bisect": {
+        "train": 6
+      },
+      "stdlib/bisect/insort_left.doc": {
+        "train": 1
+      },
+      "stdlib/bisect/insort_right.doc": {
+        "train": 1
+      },
+      "stdlib/bz2.overview": {
+        "train": 1
+      },
+      "stdlib/bz2/compress": {
+        "train": 1
+      },
+      "stdlib/bz2/compress.doc": {
+        "train": 1
+      },
+      "stdlib/bz2/decompress": {
+        "train": 1
+      },
+      "stdlib/bz2/decompress.doc": {
+        "train": 1
+      },
+      "stdlib/bz2/open": {
+        "train": 1
+      },
+      "stdlib/cProfile/Profile": {
+        "train": 1
+      },
+      "stdlib/cProfile/label": {
+        "train": 1
+      },
+      "stdlib/cProfile/main": {
+        "train": 1
+      },
+      "stdlib/cProfile/runctx": {
+        "train": 1
+      },
+      "stdlib/calendar.overview": {
+        "train": 1
+      },
+      "stdlib/calendar/IllegalMonthError": {
+        "train": 1
+      },
+      "stdlib/calendar/IllegalWeekdayError": {
+        "train": 1
+      },
+      "stdlib/calendar/isleap": {
+        "train": 1
+      },
+      "stdlib/calendar/leapdays": {
+        "train": 1
+      },
+      "stdlib/calendar/leapdays.doc": {
+        "train": 1
+      },
+      "stdlib/calendar/monthrange": {
+        "train": 1
+      },
+      "stdlib/calendar/monthrange.doc": {
+        "train": 1
+      },
+      "stdlib/calendar/weekday": {
+        "train": 1
+      },
+      "stdlib/calendar/weekday.doc": {
+        "train": 1
+      },
+      "stdlib/cgi.overview": {
+        "train": 1
+      },
+      "stdlib/cgi/closelog": {
+        "train": 1
+      },
+      "stdlib/cgi/dolog": {
+        "train": 1
+      },
+      "stdlib/cgi/dolog.doc": {
+        "train": 1
+      },
+      "stdlib/cgi/initlog": {
+        "train": 1
+      },
+      "stdlib/cgi/parse": {
+        "train": 1
+      },
+      "stdlib/cgi/parse_header": {
+        "train": 1
+      },
+      "stdlib/cgi/parse_header.doc": {
+        "train": 1
+      },
+      "stdlib/cgi/parse_multipart": {
+        "train": 1
+      },
+      "stdlib/cgitb.overview": {
+        "train": 1
+      },
+      "stdlib/cgitb/Hook": {
+        "train": 1
+      },
+      "stdlib/cgitb/html": {
+        "train": 1
+      },
+      "stdlib/cgitb/lookup": {
+        "train": 1
+      },
+      "stdlib/cgitb/reset": {
+        "train": 1
+      },
+      "stdlib/cgitb/reset.doc": {
+        "train": 1
+      },
+      "stdlib/cgitb/scanvars": {
+        "train": 1
+      },
+      "stdlib/cgitb/scanvars.doc": {
+        "train": 1
+      },
+      "stdlib/cgitb/text": {
+        "train": 1
+      },
+      "stdlib/chunk.overview": {
+        "train": 1
+      },
+      "stdlib/chunk/Chunk": {
+        "train": 1
+      },
+      "stdlib/cmd.overview": {
+        "train": 1
+      },
+      "stdlib/code/InteractiveConsole": {
+        "train": 1
+      },
+      "stdlib/code/InteractiveConsole.doc": {
+        "train": 1
+      },
+      "stdlib/code/InteractiveInterpreter": {
+        "train": 1
+      },
+      "stdlib/code/InteractiveInterpreter.doc": {
+        "train": 1
+      },
+      "stdlib/code/interact": {
+        "train": 1
+      },
+      "stdlib/code/interact.doc": {
+        "train": 1
+      },
+      "stdlib/codecs.overview": {
+        "train": 1
+      },
+      "stdlib/codecs/BufferedIncrementalDecoder": {
+        "train": 1
+      },
+      "stdlib/codecs/BufferedIncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/codecs/Codec": {
+        "train": 1
+      },
+      "stdlib/codecs/CodecInfo": {
+        "train": 1
+      },
+      "stdlib/codecs/IncrementalDecoder": {
+        "train": 1
+      },
+      "stdlib/codecs/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/codeop.overview": {
+        "train": 1
+      },
+      "stdlib/codeop/CommandCompiler": {
+        "train": 1
+      },
+      "stdlib/codeop/Compile": {
+        "train": 1
+      },
+      "stdlib/codeop/Compile.doc": {
+        "train": 1
+      },
+      "stdlib/codeop/compile_command": {
+        "train": 1
+      },
+      "stdlib/codeop/compile_command.doc": {
+        "train": 1
+      },
+      "stdlib/collections": {
+        "train": 3
+      },
+      "stdlib/colorsys.overview": {
+        "train": 1
+      },
+      "stdlib/colorsys/hls_to_rgb": {
+        "train": 1
+      },
+      "stdlib/colorsys/hsv_to_rgb": {
+        "train": 1
+      },
+      "stdlib/colorsys/rgb_to_hls": {
+        "train": 1
+      },
+      "stdlib/colorsys/rgb_to_hsv": {
+        "train": 1
+      },
+      "stdlib/colorsys/rgb_to_yiq": {
+        "train": 1
+      },
+      "stdlib/colorsys/yiq_to_rgb": {
+        "train": 1
+      },
+      "stdlib/compileall.overview": {
+        "train": 1
+      },
+      "stdlib/compileall/compile_dir": {
+        "train": 1
+      },
+      "stdlib/compileall/compile_path": {
+        "train": 1
+      },
+      "stdlib/compileall/compile_path.doc": {
+        "train": 1
+      },
+      "stdlib/concurrent.futures.process.overview": {
+        "train": 1
+      },
+      "stdlib/concurrent.futures.process/BrokenProcessPool": {
+        "train": 1
+      },
+      "stdlib/concurrent.futures.process/BrokenProcessPool.doc": {
+        "train": 1
+      },
+      "stdlib/concurrent.futures.thread/BrokenThreadPool": {
+        "train": 1
+      },
+      "stdlib/concurrent.futures.thread/BrokenThreadPool.doc": {
+        "train": 1
+      },
+      "stdlib/concurrent.futures.thread/ThreadPoolExecutor": {
+        "train": 1
+      },
+      "stdlib/configparser.overview": {
+        "train": 1
+      },
+      "stdlib/configparser/DuplicateOptionError": {
+        "train": 1
+      },
+      "stdlib/configparser/DuplicateOptionError.doc": {
+        "train": 1
+      },
+      "stdlib/configparser/DuplicateSectionError": {
+        "train": 1
+      },
+      "stdlib/configparser/DuplicateSectionError.doc": {
+        "train": 1
+      },
+      "stdlib/configparser/Error": {
+        "train": 1
+      },
+      "stdlib/configparser/InterpolationError": {
+        "train": 1
+      },
+      "stdlib/configparser/NoOptionError": {
+        "train": 1
+      },
+      "stdlib/configparser/NoSectionError": {
+        "train": 1
+      },
+      "stdlib/contextlib/AbstractAsyncContextManager": {
+        "train": 1
+      },
+      "stdlib/contextlib/AbstractContextManager": {
+        "train": 1
+      },
+      "stdlib/contextlib/AsyncContextDecorator": {
+        "train": 1
+      },
+      "stdlib/contextlib/AsyncContextDecorator.doc": {
+        "train": 1
+      },
+      "stdlib/contextlib/ContextDecorator": {
+        "train": 1
+      },
+      "stdlib/contextlib/ContextDecorator.doc": {
+        "train": 1
+      },
+      "stdlib/contextlib/asynccontextmanager": {
+        "train": 1
+      },
+      "stdlib/contextlib/asynccontextmanager.doc": {
+        "train": 1
+      },
+      "stdlib/contextlib/contextmanager": {
+        "train": 1
+      },
+      "stdlib/contextlib/contextmanager.doc": {
+        "train": 1
+      },
+      "stdlib/copy": {
+        "train": 4
+      },
+      "stdlib/copy.overview": {
+        "train": 1
+      },
+      "stdlib/copy/copy.doc": {
+        "train": 1
+      },
+      "stdlib/copyreg.overview": {
+        "train": 1
+      },
+      "stdlib/copyreg/add_extension": {
+        "train": 1
+      },
+      "stdlib/copyreg/pickle": {
+        "train": 1
+      },
+      "stdlib/copyreg/remove_extension": {
+        "train": 1
+      },
+      "stdlib/crypt/crypt": {
+        "train": 1
+      },
+      "stdlib/crypt/crypt.doc": {
+        "train": 1
+      },
+      "stdlib/crypt/mksalt": {
+        "train": 1
+      },
+      "stdlib/csv": {
+        "train": 4
+      },
+      "stdlib/csv/Dialect.doc": {
+        "train": 1
+      },
+      "stdlib/csv/DictReader": {
+        "train": 1
+      },
+      "stdlib/csv/DictWriter": {
+        "train": 1
+      },
+      "stdlib/csv/excel": {
+        "train": 1
+      },
+      "stdlib/csv/excel_tab.doc": {
+        "train": 1
+      },
+      "stdlib/csv/unix_dialect": {
+        "train": 1
+      },
+      "stdlib/ctypes.util/test": {
+        "train": 1
+      },
+      "stdlib/ctypes.wintypes/MSG": {
+        "train": 1
+      },
+      "stdlib/ctypes.wintypes/RECT": {
+        "train": 1
+      },
+      "stdlib/ctypes.wintypes/VARIANT_BOOL": {
+        "train": 1
+      },
+      "stdlib/ctypes.wintypes/WIN32_FIND_DATAA": {
+        "train": 1
+      },
+      "stdlib/ctypes.wintypes/WIN32_FIND_DATAW": {
+        "train": 1
+      },
+      "stdlib/curses.ascii/unctrl": {
+        "train": 1
+      },
+      "stdlib/curses.has_key/has_key": {
+        "train": 1
+      },
+      "stdlib/curses.textpad/rectangle": {
+        "train": 1
+      },
+      "stdlib/curses.textpad/rectangle.doc": {
+        "train": 1
+      },
+      "stdlib/dataclasses/Field": {
+        "train": 1
+      },
+      "stdlib/dataclasses/InitVar": {
+        "train": 1
+      },
+      "stdlib/dataclasses/dataclass": {
+        "train": 1
+      },
+      "stdlib/dataclasses/field": {
+        "train": 1
+      },
+      "stdlib/dataclasses/fields": {
+        "train": 1
+      },
+      "stdlib/dataclasses/fields.doc": {
+        "train": 1
+      },
+      "stdlib/dataclasses/is_dataclass": {
+        "train": 1
+      },
+      "stdlib/dataclasses/is_dataclass.doc": {
+        "train": 1
+      },
+      "stdlib/datetime.overview": {
+        "train": 1
+      },
+      "stdlib/datetime/IsoCalendarDate": {
+        "train": 1
+      },
+      "stdlib/datetime/timezone": {
+        "train": 1
+      },
+      "stdlib/datetime/tzinfo": {
+        "train": 1
+      },
+      "stdlib/dbm.dumb.overview": {
+        "train": 1
+      },
+      "stdlib/dbm.dumb/open": {
+        "train": 1
+      },
+      "stdlib/difflib": {
+        "train": 11
+      },
+      "stdlib/difflib.overview": {
+        "train": 1
+      },
+      "stdlib/difflib/IS_CHARACTER_JUNK.doc": {
+        "train": 1
+      },
+      "stdlib/difflib/IS_LINE_JUNK.doc": {
+        "train": 1
+      },
+      "stdlib/dis/Instruction": {
+        "train": 1
+      },
+      "stdlib/dis/code_info": {
+        "train": 1
+      },
+      "stdlib/dis/dis": {
+        "train": 1
+      },
+      "stdlib/dis/distb": {
+        "train": 1
+      },
+      "stdlib/dis/pretty_flags": {
+        "train": 1
+      },
+      "stdlib/dis/show_code": {
+        "train": 1
+      },
+      "stdlib/dis/show_code.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.archive_util/check_archive_formats": {
+        "train": 1
+      },
+      "stdlib/distutils.archive_util/check_archive_formats.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.archive_util/make_archive": {
+        "train": 1
+      },
+      "stdlib/distutils.archive_util/make_tarball": {
+        "train": 1
+      },
+      "stdlib/distutils.archive_util/make_zipfile": {
+        "train": 1
+      },
+      "stdlib/distutils.bcppcompiler.overview": {
+        "train": 1
+      },
+      "stdlib/distutils.ccompiler.overview": {
+        "train": 1
+      },
+      "stdlib/distutils.ccompiler/gen_lib_options": {
+        "train": 1
+      },
+      "stdlib/distutils.ccompiler/gen_preprocess_options": {
+        "train": 1
+      },
+      "stdlib/distutils.ccompiler/get_default_compiler": {
+        "train": 1
+      },
+      "stdlib/distutils.ccompiler/get_default_compiler.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.ccompiler/new_compiler": {
+        "train": 1
+      },
+      "stdlib/distutils.ccompiler/show_compilers": {
+        "train": 1
+      },
+      "stdlib/distutils.ccompiler/show_compilers.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.command.bdist/bdist": {
+        "train": 1
+      },
+      "stdlib/distutils.command.bdist/show_formats": {
+        "train": 1
+      },
+      "stdlib/distutils.command.bdist/show_formats.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.command.bdist_dumb.overview": {
+        "train": 1
+      },
+      "stdlib/distutils.command.bdist_dumb/bdist_dumb": {
+        "train": 1
+      },
+      "stdlib/distutils.command.build/build": {
+        "train": 1
+      },
+      "stdlib/distutils.command.build_clib.overview": {
+        "train": 1
+      },
+      "stdlib/distutils.command.build_ext.overview": {
+        "train": 1
+      },
+      "stdlib/distutils.command.build_py/build_py_2to3": {
+        "train": 1
+      },
+      "stdlib/distutils.command.build_scripts/build_scripts": {
+        "train": 1
+      },
+      "stdlib/distutils.command.build_scripts/build_scripts_2to3": {
+        "train": 1
+      },
+      "stdlib/distutils.command.check/check": {
+        "train": 1
+      },
+      "stdlib/distutils.command.clean/clean": {
+        "train": 1
+      },
+      "stdlib/distutils.command.config.overview": {
+        "train": 1
+      },
+      "stdlib/distutils.command.config/dump_file": {
+        "train": 1
+      },
+      "stdlib/distutils.command.config/dump_file.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.command.install_data.overview": {
+        "train": 1
+      },
+      "stdlib/distutils.command.install_data/install_data": {
+        "train": 1
+      },
+      "stdlib/distutils.command.install_egg_info.overview": {
+        "train": 1
+      },
+      "stdlib/distutils.command.install_egg_info/install_egg_info": {
+        "train": 1
+      },
+      "stdlib/distutils.command.install_egg_info/safe_name": {
+        "train": 1
+      },
+      "stdlib/distutils.command.install_egg_info/safe_name.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.command.install_egg_info/safe_version": {
+        "train": 1
+      },
+      "stdlib/distutils.command.install_egg_info/safe_version.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.command.install_egg_info/to_filename": {
+        "train": 1
+      },
+      "stdlib/distutils.command.install_egg_info/to_filename.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.command.install_headers.overview": {
+        "train": 1
+      },
+      "stdlib/distutils.command.install_headers/install_headers": {
+        "train": 1
+      },
+      "stdlib/distutils.command.install_scripts/install_scripts": {
+        "train": 1
+      },
+      "stdlib/distutils.command.sdist/show_formats": {
+        "train": 1
+      },
+      "stdlib/distutils.command.sdist/show_formats.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.config.overview": {
+        "train": 1
+      },
+      "stdlib/distutils.config/PyPIRCCommand": {
+        "train": 1
+      },
+      "stdlib/distutils.core.overview": {
+        "train": 1
+      },
+      "stdlib/distutils.core/run_setup": {
+        "train": 1
+      },
+      "stdlib/distutils.core/setup": {
+        "train": 1
+      },
+      "stdlib/distutils.core/setup.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.cygwinccompiler.overview": {
+        "train": 1
+      },
+      "stdlib/distutils.cygwinccompiler/Mingw32CCompiler": {
+        "train": 1
+      },
+      "stdlib/distutils.cygwinccompiler/check_config_h": {
+        "train": 1
+      },
+      "stdlib/distutils.cygwinccompiler/get_msvcr": {
+        "train": 1
+      },
+      "stdlib/distutils.cygwinccompiler/get_msvcr.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.cygwinccompiler/get_versions": {
+        "train": 1
+      },
+      "stdlib/distutils.cygwinccompiler/get_versions.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.cygwinccompiler/is_cygwingcc": {
+        "train": 1
+      },
+      "stdlib/distutils.cygwinccompiler/is_cygwingcc.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.dep_util.overview": {
+        "train": 1
+      },
+      "stdlib/distutils.dep_util/newer": {
+        "train": 1
+      },
+      "stdlib/distutils.dep_util/newer.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.dep_util/newer_group": {
+        "train": 1
+      },
+      "stdlib/distutils.dep_util/newer_pairwise": {
+        "train": 1
+      },
+      "stdlib/distutils.dep_util/newer_pairwise.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.dir_util/copy_tree": {
+        "train": 1
+      },
+      "stdlib/distutils.dir_util/create_tree": {
+        "train": 1
+      },
+      "stdlib/distutils.dir_util/create_tree.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.dir_util/ensure_relative": {
+        "train": 1
+      },
+      "stdlib/distutils.dir_util/ensure_relative.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.dir_util/mkpath": {
+        "train": 1
+      },
+      "stdlib/distutils.dir_util/remove_tree": {
+        "train": 1
+      },
+      "stdlib/distutils.dir_util/remove_tree.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.dist.overview": {
+        "train": 1
+      },
+      "stdlib/distutils.dist/fix_help_options": {
+        "train": 1
+      },
+      "stdlib/distutils.dist/fix_help_options.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.errors.overview": {
+        "train": 1
+      },
+      "stdlib/distutils.errors/DistutilsArgError": {
+        "train": 1
+      },
+      "stdlib/distutils.errors/DistutilsArgError.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.errors/DistutilsClassError": {
+        "train": 1
+      },
+      "stdlib/distutils.errors/DistutilsClassError.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.errors/DistutilsFileError": {
+        "train": 1
+      },
+      "stdlib/distutils.errors/DistutilsFileError.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.errors/DistutilsModuleError": {
+        "train": 1
+      },
+      "stdlib/distutils.errors/DistutilsModuleError.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.errors/DistutilsOptionError": {
+        "train": 1
+      },
+      "stdlib/distutils.errors/DistutilsOptionError.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.errors/DistutilsSetupError": {
+        "test": 1
+      },
+      "stdlib/distutils.errors/DistutilsSetupError.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.extension/Extension": {
+        "train": 1
+      },
+      "stdlib/distutils.extension/Extension.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.extension/read_setup_file": {
+        "train": 1
+      },
+      "stdlib/distutils.fancy_getopt.overview": {
+        "train": 1
+      },
+      "stdlib/distutils.fancy_getopt/OptionDummy": {
+        "train": 1
+      },
+      "stdlib/distutils.fancy_getopt/OptionDummy.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.fancy_getopt/fancy_getopt": {
+        "train": 1
+      },
+      "stdlib/distutils.fancy_getopt/translate_longopt": {
+        "train": 1
+      },
+      "stdlib/distutils.fancy_getopt/translate_longopt.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.fancy_getopt/wrap_text": {
+        "train": 1
+      },
+      "stdlib/distutils.file_util/copy_file": {
+        "train": 1
+      },
+      "stdlib/distutils.file_util/copy_file.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.file_util/move_file": {
+        "train": 1
+      },
+      "stdlib/distutils.file_util/write_file": {
+        "train": 1
+      },
+      "stdlib/distutils.file_util/write_file.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.filelist/findall": {
+        "train": 1
+      },
+      "stdlib/distutils.filelist/findall.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.filelist/glob_to_re": {
+        "train": 1
+      },
+      "stdlib/distutils.filelist/translate_pattern": {
+        "train": 1
+      },
+      "stdlib/distutils.log/Log": {
+        "train": 1
+      },
+      "stdlib/distutils.log/set_threshold": {
+        "train": 1
+      },
+      "stdlib/distutils.log/set_verbosity": {
+        "train": 1
+      },
+      "stdlib/distutils.msvc9compiler.overview": {
+        "train": 1
+      },
+      "stdlib/distutils.msvc9compiler/MacroExpander": {
+        "train": 1
+      },
+      "stdlib/distutils.msvc9compiler/Reg": {
+        "train": 1
+      },
+      "stdlib/distutils.msvc9compiler/find_vcvarsall": {
+        "train": 1
+      },
+      "stdlib/distutils.msvc9compiler/get_build_version": {
+        "train": 1
+      },
+      "stdlib/distutils.msvc9compiler/get_build_version.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.msvc9compiler/normalize_and_reduce_paths": {
+        "train": 1
+      },
+      "stdlib/distutils.msvc9compiler/normalize_and_reduce_paths.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.msvc9compiler/removeDuplicates": {
+        "train": 1
+      },
+      "stdlib/distutils.msvccompiler.overview": {
+        "train": 1
+      },
+      "stdlib/distutils.msvccompiler/MacroExpander": {
+        "train": 1
+      },
+      "stdlib/distutils.msvccompiler/convert_mbcs": {
+        "train": 1
+      },
+      "stdlib/distutils.msvccompiler/get_build_architecture": {
+        "train": 1
+      },
+      "stdlib/distutils.msvccompiler/get_build_architecture.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.msvccompiler/read_keys": {
+        "train": 1
+      },
+      "stdlib/distutils.msvccompiler/read_values": {
+        "train": 1
+      },
+      "stdlib/distutils.msvccompiler/read_values.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.spawn.overview": {
+        "train": 1
+      },
+      "stdlib/distutils.spawn/find_executable": {
+        "train": 1
+      },
+      "stdlib/distutils.spawn/spawn": {
+        "train": 1
+      },
+      "stdlib/distutils.sysconfig.overview": {
+        "train": 1
+      },
+      "stdlib/distutils.sysconfig/customize_compiler": {
+        "train": 1
+      },
+      "stdlib/distutils.sysconfig/customize_compiler.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.sysconfig/get_python_inc": {
+        "train": 1
+      },
+      "stdlib/distutils.sysconfig/get_python_lib": {
+        "train": 1
+      },
+      "stdlib/distutils.sysconfig/parse_makefile": {
+        "train": 1
+      },
+      "stdlib/distutils.sysconfig/parse_makefile.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.text_file.overview": {
+        "train": 1
+      },
+      "stdlib/distutils.unixccompiler.overview": {
+        "train": 1
+      },
+      "stdlib/distutils.util/change_root": {
+        "train": 1
+      },
+      "stdlib/distutils.util/change_root.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.util/check_environ": {
+        "train": 1
+      },
+      "stdlib/distutils.util/check_environ.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.util/convert_path": {
+        "train": 1
+      },
+      "stdlib/distutils.util/get_host_platform": {
+        "train": 1
+      },
+      "stdlib/distutils.util/get_platform": {
+        "train": 1
+      },
+      "stdlib/distutils.util/subst_vars": {
+        "train": 1
+      },
+      "stdlib/distutils.util/subst_vars.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.version.overview": {
+        "train": 1
+      },
+      "stdlib/distutils.version/LooseVersion": {
+        "train": 1
+      },
+      "stdlib/distutils.version/StrictVersion": {
+        "train": 1
+      },
+      "stdlib/distutils.version/Version": {
+        "train": 1
+      },
+      "stdlib/distutils.version/Version.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.versionpredicate/VersionPredicate": {
+        "train": 1
+      },
+      "stdlib/distutils.versionpredicate/VersionPredicate.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.versionpredicate/splitUp": {
+        "train": 1
+      },
+      "stdlib/distutils.versionpredicate/splitUp.doc": {
+        "train": 1
+      },
+      "stdlib/distutils.versionpredicate/split_provision": {
+        "train": 1
+      },
+      "stdlib/distutils.versionpredicate/split_provision.doc": {
+        "train": 1
+      },
+      "stdlib/doctest.overview": {
+        "train": 1
+      },
+      "stdlib/doctest/DebugRunner": {
+        "train": 1
+      },
+      "stdlib/doctest/DocTest": {
+        "train": 1
+      },
+      "stdlib/doctest/DocTestFailure": {
+        "train": 1
+      },
+      "stdlib/doctest/DocTestFailure.doc": {
+        "train": 1
+      },
+      "stdlib/doctest/Example": {
+        "train": 1
+      },
+      "stdlib/doctest/UnexpectedException": {
+        "train": 1
+      },
+      "stdlib/doctest/UnexpectedException.doc": {
+        "train": 1
+      },
+      "stdlib/doctest/register_optionflag": {
+        "train": 1
+      },
+      "stdlib/email.base64mime.overview": {
+        "train": 1
+      },
+      "stdlib/email.base64mime/body_encode": {
+        "train": 1
+      },
+      "stdlib/email.base64mime/body_encode.doc": {
+        "train": 1
+      },
+      "stdlib/email.base64mime/decode": {
+        "train": 1
+      },
+      "stdlib/email.base64mime/decode.doc": {
+        "train": 1
+      },
+      "stdlib/email.base64mime/header_encode": {
+        "train": 1
+      },
+      "stdlib/email.base64mime/header_encode.doc": {
+        "train": 1
+      },
+      "stdlib/email.base64mime/header_length": {
+        "train": 1
+      },
+      "stdlib/email.charset/add_alias": {
+        "train": 1
+      },
+      "stdlib/email.charset/add_alias.doc": {
+        "train": 1
+      },
+      "stdlib/email.charset/add_charset": {
+        "train": 1
+      },
+      "stdlib/email.charset/add_codec": {
+        "train": 1
+      },
+      "stdlib/email.charset/add_codec.doc": {
+        "train": 1
+      },
+      "stdlib/email.contentmanager/ContentManager": {
+        "train": 1
+      },
+      "stdlib/email.contentmanager/get_and_fixup_unknown_message_content": {
+        "train": 1
+      },
+      "stdlib/email.contentmanager/get_text_content": {
+        "train": 1
+      },
+      "stdlib/email.contentmanager/set_bytes_content": {
+        "train": 1
+      },
+      "stdlib/email.contentmanager/set_message_content": {
+        "train": 1
+      },
+      "stdlib/email.contentmanager/set_text_content": {
+        "train": 1
+      },
+      "stdlib/email.encoders/encode_7or8bit": {
+        "train": 1
+      },
+      "stdlib/email.encoders/encode_base64": {
+        "train": 1
+      },
+      "stdlib/email.encoders/encode_base64.doc": {
+        "train": 1
+      },
+      "stdlib/email.encoders/encode_quopri": {
+        "train": 1
+      },
+      "stdlib/email.encoders/encode_quopri.doc": {
+        "train": 1
+      },
+      "stdlib/email.errors/CloseBoundaryNotFoundDefect": {
+        "train": 1
+      },
+      "stdlib/email.errors/CloseBoundaryNotFoundDefect.doc": {
+        "train": 1
+      },
+      "stdlib/email.errors/FirstHeaderLineIsContinuationDefect": {
+        "train": 1
+      },
+      "stdlib/email.errors/MessageDefect": {
+        "train": 1
+      },
+      "stdlib/email.errors/MisplacedEnvelopeHeaderDefect": {
+        "train": 1
+      },
+      "stdlib/email.errors/MisplacedEnvelopeHeaderDefect.doc": {
+        "train": 1
+      },
+      "stdlib/email.errors/MissingHeaderBodySeparatorDefect": {
+        "train": 1
+      },
+      "stdlib/email.errors/MissingHeaderBodySeparatorDefect.doc": {
+        "train": 1
+      },
+      "stdlib/email.errors/NoBoundaryInMultipartDefect": {
+        "train": 1
+      },
+      "stdlib/email.errors/NoBoundaryInMultipartDefect.doc": {
+        "train": 1
+      },
+      "stdlib/email.feedparser.overview": {
+        "train": 1
+      },
+      "stdlib/email.feedparser/BufferedSubFile": {
+        "train": 1
+      },
+      "stdlib/email.feedparser/BytesFeedParser": {
+        "train": 1
+      },
+      "stdlib/email.generator/BytesGenerator": {
+        "train": 1
+      },
+      "stdlib/email.generator/DecodedGenerator": {
+        "train": 1
+      },
+      "stdlib/email.header/decode_header": {
+        "train": 1
+      },
+      "stdlib/email.header/decode_header.doc": {
+        "train": 1
+      },
+      "stdlib/email.header/make_header": {
+        "train": 1
+      },
+      "stdlib/email.header/make_header.doc": {
+        "train": 1
+      },
+      "stdlib/email.headerregistry.overview": {
+        "train": 1
+      },
+      "stdlib/email.headerregistry/Address": {
+        "train": 1
+      },
+      "stdlib/email.headerregistry/AddressHeader": {
+        "train": 1
+      },
+      "stdlib/email.headerregistry/BaseHeader": {
+        "train": 1
+      },
+      "stdlib/email.headerregistry/BaseHeader.doc": {
+        "train": 1
+      },
+      "stdlib/email.headerregistry/DateHeader": {
+        "train": 1
+      },
+      "stdlib/email.headerregistry/Group": {
+        "train": 1
+      },
+      "stdlib/email.headerregistry/UnstructuredHeader": {
+        "train": 1
+      },
+      "stdlib/email.iterators/body_line_iterator": {
+        "train": 1
+      },
+      "stdlib/email.iterators/body_line_iterator.doc": {
+        "train": 1
+      },
+      "stdlib/email.iterators/typed_subpart_iterator": {
+        "train": 1
+      },
+      "stdlib/email.iterators/typed_subpart_iterator.doc": {
+        "train": 1
+      },
+      "stdlib/email.iterators/walk": {
+        "train": 1
+      },
+      "stdlib/email.iterators/walk.doc": {
+        "train": 1
+      },
+      "stdlib/email.message/EmailMessage": {
+        "train": 1
+      },
+      "stdlib/email.mime.application/MIMEApplication": {
+        "train": 1
+      },
+      "stdlib/email.mime.audio/MIMEAudio": {
+        "train": 1
+      },
+      "stdlib/email.mime.base/MIMEBase": {
+        "train": 1
+      },
+      "stdlib/email.mime.image/MIMEImage": {
+        "train": 1
+      },
+      "stdlib/email.mime.message/MIMEMessage": {
+        "train": 1
+      },
+      "stdlib/email.mime.multipart/MIMEMultipart": {
+        "train": 1
+      },
+      "stdlib/email.mime.nonmultipart/MIMENonMultipart": {
+        "train": 1
+      },
+      "stdlib/email.mime.text/MIMEText": {
+        "train": 1
+      },
+      "stdlib/email.parser/BytesHeaderParser": {
+        "train": 1
+      },
+      "stdlib/email.parser/BytesParser": {
+        "train": 1
+      },
+      "stdlib/email.parser/HeaderParser": {
+        "train": 1
+      },
+      "stdlib/email.parser/Parser": {
+        "train": 1
+      },
+      "stdlib/email.quoprimime.overview": {
+        "train": 1
+      },
+      "stdlib/email.quoprimime/body_check": {
+        "train": 1
+      },
+      "stdlib/email.quoprimime/body_check.doc": {
+        "train": 1
+      },
+      "stdlib/email.quoprimime/body_length": {
+        "train": 1
+      },
+      "stdlib/email.quoprimime/body_length.doc": {
+        "train": 1
+      },
+      "stdlib/email.quoprimime/header_check": {
+        "train": 1
+      },
+      "stdlib/email.quoprimime/header_check.doc": {
+        "train": 1
+      },
+      "stdlib/email.quoprimime/header_encode": {
+        "train": 1
+      },
+      "stdlib/email.quoprimime/header_length": {
+        "train": 1
+      },
+      "stdlib/email.quoprimime/header_length.doc": {
+        "train": 1
+      },
+      "stdlib/email.quoprimime/unquote": {
+        "train": 1
+      },
+      "stdlib/email.quoprimime/unquote.doc": {
+        "train": 1
+      },
+      "stdlib/email.utils/format_datetime": {
+        "train": 1
+      },
+      "stdlib/email.utils/format_datetime.doc": {
+        "train": 1
+      },
+      "stdlib/email.utils/formataddr": {
+        "train": 1
+      },
+      "stdlib/email.utils/formatdate": {
+        "train": 1
+      },
+      "stdlib/email.utils/getaddresses": {
+        "train": 1
+      },
+      "stdlib/email.utils/make_msgid": {
+        "train": 1
+      },
+      "stdlib/email.utils/make_msgid.doc": {
+        "train": 1
+      },
+      "stdlib/email.utils/parsedate_to_datetime": {
+        "train": 1
+      },
+      "stdlib/encodings.aliases.overview": {
+        "train": 1
+      },
+      "stdlib/encodings.ascii.overview": {
+        "train": 1
+      },
+      "stdlib/encodings.ascii/Codec": {
+        "train": 1
+      },
+      "stdlib/encodings.ascii/IncrementalDecoder": {
+        "train": 1
+      },
+      "stdlib/encodings.ascii/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.ascii/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.base64_codec.overview": {
+        "train": 1
+      },
+      "stdlib/encodings.base64_codec/Codec": {
+        "train": 1
+      },
+      "stdlib/encodings.base64_codec/IncrementalDecoder": {
+        "train": 1
+      },
+      "stdlib/encodings.base64_codec/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.base64_codec/base64_decode": {
+        "train": 1
+      },
+      "stdlib/encodings.base64_codec/base64_encode": {
+        "train": 1
+      },
+      "stdlib/encodings.base64_codec/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.big5/IncrementalDecoder": {
+        "train": 1
+      },
+      "stdlib/encodings.big5/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.big5/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.big5hkscs/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.bz2_codec.overview": {
+        "train": 1
+      },
+      "stdlib/encodings.bz2_codec/Codec": {
+        "train": 1
+      },
+      "stdlib/encodings.bz2_codec/IncrementalDecoder": {
+        "train": 1
+      },
+      "stdlib/encodings.bz2_codec/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.bz2_codec/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.charmap.overview": {
+        "train": 1
+      },
+      "stdlib/encodings.charmap/Codec": {
+        "train": 1
+      },
+      "stdlib/encodings.charmap/IncrementalDecoder": {
+        "train": 1
+      },
+      "stdlib/encodings.charmap/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.charmap/StreamReader": {
+        "train": 1
+      },
+      "stdlib/encodings.charmap/StreamWriter": {
+        "train": 1
+      },
+      "stdlib/encodings.charmap/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp037/Codec": {
+        "train": 1
+      },
+      "stdlib/encodings.cp037/IncrementalDecoder": {
+        "train": 1
+      },
+      "stdlib/encodings.cp037/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.cp037/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp1006/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp1026/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp1125/Codec": {
+        "train": 1
+      },
+      "stdlib/encodings.cp1125/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.cp1125/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp1140/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp1250/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp1251/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp1252/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp1253/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp1254/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp1255/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp1256/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp1257/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp1258/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp273/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp424/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp437/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp500/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp720.overview": {
+        "train": 1
+      },
+      "stdlib/encodings.cp720/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp737/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp775/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp850/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp852/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp855/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp856/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp857/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp858/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp860/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp861/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp862/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp863/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp864/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp865/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp866/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp869/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp874/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp875/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp932/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp949/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.cp950/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.euc_jis_2004/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.euc_jisx0213/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.euc_jp/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.euc_kr/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.gb18030/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.gb2312/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.gbk/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.hex_codec.overview": {
+        "train": 1
+      },
+      "stdlib/encodings.hex_codec/Codec": {
+        "train": 1
+      },
+      "stdlib/encodings.hex_codec/IncrementalDecoder": {
+        "train": 1
+      },
+      "stdlib/encodings.hex_codec/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.hex_codec/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.hp_roman8.overview": {
+        "train": 1
+      },
+      "stdlib/encodings.hp_roman8/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.hz/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.idna/Codec": {
+        "train": 1
+      },
+      "stdlib/encodings.idna/IncrementalDecoder": {
+        "train": 1
+      },
+      "stdlib/encodings.idna/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.idna/ToASCII": {
+        "train": 1
+      },
+      "stdlib/encodings.idna/ToUnicode": {
+        "train": 1
+      },
+      "stdlib/encodings.idna/nameprep": {
+        "train": 1
+      },
+      "stdlib/encodings.iso2022_jp/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.iso2022_jp_1/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.iso2022_jp_2/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.iso2022_jp_2004/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.iso2022_jp_3/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.iso2022_jp_ext/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.iso2022_kr/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.iso8859_1/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.iso8859_10/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.iso8859_11/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.iso8859_13/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.iso8859_14/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.iso8859_15/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.iso8859_16/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.iso8859_2/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.iso8859_3/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.iso8859_4/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.iso8859_5/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.iso8859_6/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.iso8859_7/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.iso8859_8/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.iso8859_9/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.johab/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.koi8_r/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.koi8_t/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.koi8_u/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.kz1048/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.latin_1.overview": {
+        "train": 1
+      },
+      "stdlib/encodings.latin_1/Codec": {
+        "train": 1
+      },
+      "stdlib/encodings.latin_1/IncrementalDecoder": {
+        "train": 1
+      },
+      "stdlib/encodings.latin_1/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.latin_1/StreamConverter": {
+        "train": 1
+      },
+      "stdlib/encodings.mac_arabic/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.mac_croatian/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.mac_cyrillic/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.mac_farsi/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.mac_greek/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.mac_iceland/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.mac_latin2.overview": {
+        "train": 1
+      },
+      "stdlib/encodings.mac_latin2/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.mac_roman/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.mac_romanian/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.mac_turkish/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.mbcs.overview": {
+        "train": 1
+      },
+      "stdlib/encodings.mbcs/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.mbcs/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.oem/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.oem/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.palmos/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.ptcp154.overview": {
+        "train": 1
+      },
+      "stdlib/encodings.ptcp154/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.punycode/T": {
+        "train": 1
+      },
+      "stdlib/encodings.punycode/generate_generalized_integer": {
+        "train": 1
+      },
+      "stdlib/encodings.punycode/insertion_unsort": {
+        "train": 1
+      },
+      "stdlib/encodings.punycode/segregate": {
+        "train": 1
+      },
+      "stdlib/encodings.punycode/selective_find": {
+        "train": 1
+      },
+      "stdlib/encodings.punycode/selective_find.doc": {
+        "train": 1
+      },
+      "stdlib/encodings.punycode/selective_len": {
+        "train": 1
+      },
+      "stdlib/encodings.punycode/selective_len.doc": {
+        "train": 1
+      },
+      "stdlib/encodings.quopri_codec/Codec": {
+        "train": 1
+      },
+      "stdlib/encodings.quopri_codec/IncrementalDecoder": {
+        "train": 1
+      },
+      "stdlib/encodings.quopri_codec/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.quopri_codec/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.quopri_codec/quopri_decode": {
+        "train": 1
+      },
+      "stdlib/encodings.quopri_codec/quopri_encode": {
+        "train": 1
+      },
+      "stdlib/encodings.raw_unicode_escape.overview": {
+        "train": 1
+      },
+      "stdlib/encodings.raw_unicode_escape/Codec": {
+        "train": 1
+      },
+      "stdlib/encodings.raw_unicode_escape/IncrementalDecoder": {
+        "train": 1
+      },
+      "stdlib/encodings.raw_unicode_escape/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.raw_unicode_escape/StreamReader": {
+        "train": 1
+      },
+      "stdlib/encodings.raw_unicode_escape/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.rot_13.overview": {
+        "train": 1
+      },
+      "stdlib/encodings.rot_13/Codec": {
+        "train": 1
+      },
+      "stdlib/encodings.rot_13/IncrementalDecoder": {
+        "train": 1
+      },
+      "stdlib/encodings.rot_13/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.rot_13/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.shift_jis/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.shift_jis_2004/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.shift_jisx0213/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.tis_620/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.undefined.overview": {
+        "train": 1
+      },
+      "stdlib/encodings.undefined/Codec": {
+        "train": 1
+      },
+      "stdlib/encodings.undefined/IncrementalDecoder": {
+        "train": 1
+      },
+      "stdlib/encodings.undefined/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.undefined/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.unicode_escape.overview": {
+        "train": 1
+      },
+      "stdlib/encodings.unicode_escape/Codec": {
+        "train": 1
+      },
+      "stdlib/encodings.unicode_escape/IncrementalDecoder": {
+        "train": 1
+      },
+      "stdlib/encodings.unicode_escape/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.unicode_escape/StreamReader": {
+        "train": 1
+      },
+      "stdlib/encodings.unicode_escape/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_16.overview": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_16/IncrementalDecoder": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_16/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_16/StreamReader": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_16/StreamWriter": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_16/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_16_be.overview": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_16_be/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_16_be/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_16_le.overview": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_16_le/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_16_le/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_32/IncrementalDecoder": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_32/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_32/StreamReader": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_32/StreamWriter": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_32/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_32_be/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_32_be/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_32_le/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_32_le/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_7/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_7/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_8.overview": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_8/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_8/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_8_sig.overview": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_8_sig/IncrementalDecoder": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_8_sig/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_8_sig/StreamReader": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_8_sig/StreamWriter": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_8_sig/decode": {
+        "train": 1
+      },
+      "stdlib/encodings.utf_8_sig/encode": {
+        "train": 1
+      },
+      "stdlib/encodings.uu_codec.overview": {
+        "train": 1
+      },
+      "stdlib/encodings.uu_codec/Codec": {
+        "train": 1
+      },
+      "stdlib/encodings.uu_codec/IncrementalDecoder": {
+        "train": 1
+      },
+      "stdlib/encodings.uu_codec/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.uu_codec/getregentry": {
+        "train": 1
+      },
+      "stdlib/encodings.uu_codec/uu_decode": {
+        "train": 1
+      },
+      "stdlib/encodings.uu_codec/uu_encode": {
+        "train": 1
+      },
+      "stdlib/encodings.zlib_codec.overview": {
+        "train": 1
+      },
+      "stdlib/encodings.zlib_codec/Codec": {
+        "train": 1
+      },
+      "stdlib/encodings.zlib_codec/IncrementalDecoder": {
+        "train": 1
+      },
+      "stdlib/encodings.zlib_codec/IncrementalEncoder": {
+        "train": 1
+      },
+      "stdlib/encodings.zlib_codec/getregentry": {
+        "train": 1
+      },
+      "stdlib/enum": {
+        "train": 13
+      },
+      "stdlib/enum/StrEnum": {
+        "train": 1
+      },
+      "stdlib/enum/auto.doc": {
+        "train": 1
+      },
+      "stdlib/enum/bin.doc": {
+        "train": 1
+      },
+      "stdlib/enum/member": {
+        "train": 1
+      },
+      "stdlib/enum/nonmember.doc": {
+        "train": 1
+      },
+      "stdlib/filecmp.overview": {
+        "train": 1
+      },
+      "stdlib/filecmp/cmp": {
+        "train": 1
+      },
+      "stdlib/filecmp/cmpfiles": {
+        "train": 1
+      },
+      "stdlib/filecmp/cmpfiles.doc": {
+        "train": 1
+      },
+      "stdlib/filecmp/demo": {
+        "train": 1
+      },
+      "stdlib/fileinput.overview": {
+        "train": 1
+      },
+      "stdlib/fileinput/close": {
+        "train": 1
+      },
+      "stdlib/fileinput/filelineno": {
+        "train": 1
+      },
+      "stdlib/fileinput/filelineno.doc": {
+        "train": 1
+      },
+      "stdlib/fileinput/filename": {
+        "train": 1
+      },
+      "stdlib/fileinput/filename.doc": {
+        "train": 1
+      },
+      "stdlib/fileinput/input": {
+        "train": 1
+      },
+      "stdlib/fileinput/input.doc": {
+        "train": 1
+      },
+      "stdlib/fileinput/lineno": {
+        "train": 1
+      },
+      "stdlib/fileinput/lineno.doc": {
+        "train": 1
+      },
+      "stdlib/fileinput/nextfile": {
+        "train": 1
+      },
+      "stdlib/fileinput/nextfile.doc": {
+        "train": 1
+      },
+      "stdlib/fnmatch.overview": {
+        "train": 1
+      },
+      "stdlib/fnmatch/filter": {
+        "train": 1
+      },
+      "stdlib/fnmatch/filter.doc": {
+        "train": 1
+      },
+      "stdlib/fnmatch/fnmatch": {
+        "train": 1
+      },
+      "stdlib/fnmatch/fnmatch.doc": {
+        "train": 1
+      },
+      "stdlib/fnmatch/fnmatchcase": {
+        "train": 1
+      },
+      "stdlib/fnmatch/fnmatchcase.doc": {
+        "train": 1
+      },
+      "stdlib/fnmatch/translate": {
+        "train": 1
+      },
+      "stdlib/fnmatch/translate.doc": {
+        "train": 1
+      },
+      "stdlib/ftplib.overview": {
+        "train": 1
+      },
+      "stdlib/ftplib/ftpcp": {
+        "train": 1
+      },
+      "stdlib/ftplib/parse150": {
+        "train": 1
+      },
+      "stdlib/ftplib/parse150.doc": {
+        "train": 1
+      },
+      "stdlib/ftplib/parse227": {
+        "train": 1
+      },
+      "stdlib/ftplib/parse227.doc": {
+        "train": 1
+      },
+      "stdlib/ftplib/parse229": {
+        "train": 1
+      },
+      "stdlib/ftplib/parse229.doc": {
+        "train": 1
+      },
+      "stdlib/ftplib/parse257": {
+        "train": 1
+      },
+      "stdlib/ftplib/parse257.doc": {
+        "train": 1
+      },
+      "stdlib/ftplib/test": {
+        "train": 1
+      },
+      "stdlib/functools": {
+        "train": 15
+      },
+      "stdlib/functools/cmp_to_key": {
+        "train": 1
+      },
+      "stdlib/functools/partial": {
+        "train": 1
+      },
+      "stdlib/functools/reduce": {
+        "train": 1
+      },
+      "stdlib/functools/total_ordering": {
+        "train": 1
+      },
+      "stdlib/functools/wraps.doc": {
+        "train": 1
+      },
+      "stdlib/genericpath.overview": {
+        "train": 1
+      },
+      "stdlib/genericpath/exists": {
+        "train": 1
+      },
+      "stdlib/genericpath/exists.doc": {
+        "train": 1
+      },
+      "stdlib/genericpath/getatime": {
+        "train": 1
+      },
+      "stdlib/genericpath/getatime.doc": {
+        "train": 1
+      },
+      "stdlib/genericpath/getctime": {
+        "train": 1
+      },
+      "stdlib/genericpath/getctime.doc": {
+        "train": 1
+      },
+      "stdlib/genericpath/getmtime": {
+        "train": 1
+      },
+      "stdlib/genericpath/getmtime.doc": {
+        "train": 1
+      },
+      "stdlib/genericpath/isdir": {
+        "train": 1
+      },
+      "stdlib/genericpath/isdir.doc": {
+        "train": 1
+      },
+      "stdlib/genericpath/isfile": {
+        "train": 1
+      },
+      "stdlib/getopt.overview": {
+        "train": 1
+      },
+      "stdlib/getopt/GetoptError": {
+        "train": 1
+      },
+      "stdlib/getopt/do_longs": {
+        "train": 1
+      },
+      "stdlib/getopt/do_shorts": {
+        "train": 1
+      },
+      "stdlib/getopt/getopt": {
+        "train": 1
+      },
+      "stdlib/getopt/gnu_getopt": {
+        "train": 1
+      },
+      "stdlib/getopt/long_has_args": {
+        "train": 1
+      },
+      "stdlib/gettext.overview": {
+        "train": 1
+      },
+      "stdlib/gettext/GNUTranslations": {
+        "train": 1
+      },
+      "stdlib/gettext/NullTranslations": {
+        "train": 1
+      },
+      "stdlib/gettext/c2py": {
+        "train": 1
+      },
+      "stdlib/gettext/find": {
+        "train": 1
+      },
+      "stdlib/gettext/install": {
+        "train": 1
+      },
+      "stdlib/gettext/translation": {
+        "train": 1
+      },
+      "stdlib/glob/escape": {
+        "train": 1
+      },
+      "stdlib/glob/glob": {
+        "train": 1
+      },
+      "stdlib/glob/glob.doc": {
+        "train": 1
+      },
+      "stdlib/glob/has_magic": {
+        "train": 1
+      },
+      "stdlib/glob/iglob": {
+        "train": 1
+      },
+      "stdlib/graphlib/CycleError": {
+        "train": 1
+      },
+      "stdlib/graphlib/CycleError.doc": {
+        "train": 1
+      },
+      "stdlib/gzip.overview": {
+        "train": 1
+      },
+      "stdlib/gzip/compress": {
+        "train": 1
+      },
+      "stdlib/gzip/compress.doc": {
+        "train": 1
+      },
+      "stdlib/gzip/decompress": {
+        "train": 1
+      },
+      "stdlib/gzip/main": {
+        "train": 1
+      },
+      "stdlib/gzip/open": {
+        "train": 1
+      },
+      "stdlib/gzip/write32u": {
+        "train": 1
+      },
+      "stdlib/hashlib": {
+        "train": 4
+      },
+      "stdlib/heapq": {
+        "train": 7
+      },
+      "stdlib/heapq.overview": {
+        "train": 1
+      },
+      "stdlib/heapq/heapify": {
+        "train": 1
+      },
+      "stdlib/heapq/heappop.doc": {
+        "train": 1
+      },
+      "stdlib/heapq/heappush": {
+        "train": 1
+      },
+      "stdlib/heapq/heappushpop": {
+        "train": 1
+      },
+      "stdlib/heapq/heapreplace.doc": {
+        "train": 1
+      },
+      "stdlib/hmac/HMAC": {
+        "train": 1
+      },
+      "stdlib/hmac/HMAC.doc": {
+        "train": 1
+      },
+      "stdlib/hmac/digest": {
+        "train": 1
+      },
+      "stdlib/hmac/new": {
+        "train": 1
+      },
+      "stdlib/http.client.overview": {
+        "train": 1
+      },
+      "stdlib/http.client/BadStatusLine": {
+        "train": 1
+      },
+      "stdlib/http.client/HTTPException": {
+        "train": 1
+      },
+      "stdlib/http.client/HTTPMessage": {
+        "train": 1
+      },
+      "stdlib/http.client/IncompleteRead": {
+        "train": 1
+      },
+      "stdlib/http.client/UnknownProtocol": {
+        "train": 1
+      },
+      "stdlib/http.client/parse_headers": {
+        "train": 1
+      },
+      "stdlib/http.client/parse_headers.doc": {
+        "train": 1
+      },
+      "stdlib/http.cookiejar.overview": {
+        "train": 1
+      },
+      "stdlib/http.cookiejar/http2time": {
+        "train": 1
+      },
+      "stdlib/http.cookiejar/iso2time": {
+        "train": 1
+      },
+      "stdlib/http.cookiejar/offset_from_tz_string": {
+        "train": 1
+      },
+      "stdlib/http.cookiejar/time2isoz": {
+        "train": 1
+      },
+      "stdlib/http.cookiejar/time2isoz.doc": {
+        "train": 1
+      },
+      "stdlib/http.cookiejar/time2netscape": {
+        "train": 1
+      },
+      "stdlib/http.cookiejar/time2netscape.doc": {
+        "train": 1
+      },
+      "stdlib/http.cookiejar/unmatched": {
+        "train": 1
+      },
+      "stdlib/http.cookies.overview": {
+        "train": 1
+      },
+      "stdlib/http.cookies/BaseCookie": {
+        "train": 1
+      },
+      "stdlib/http.cookies/Morsel": {
+        "train": 1
+      },
+      "stdlib/http.cookies/Morsel.doc": {
+        "train": 1
+      },
+      "stdlib/http.cookies/SimpleCookie": {
+        "train": 1
+      },
+      "stdlib/http.cookies/SimpleCookie.doc": {
+        "train": 1
+      },
+      "stdlib/http.server.overview": {
+        "train": 1
+      },
+      "stdlib/http.server/HTTPServer": {
+        "train": 1
+      },
+      "stdlib/http.server/nobody_uid": {
+        "train": 1
+      },
+      "stdlib/http.server/test": {
+        "train": 1
+      },
+      "stdlib/http.server/test.doc": {
+        "train": 1
+      },
+      "stdlib/imaplib.overview": {
+        "train": 1
+      },
+      "stdlib/imaplib/IMAP4_stream": {
+        "train": 1
+      },
+      "stdlib/imaplib/Int2AP": {
+        "train": 1
+      },
+      "stdlib/imaplib/Internaldate2tuple": {
+        "train": 1
+      },
+      "stdlib/imaplib/ParseFlags": {
+        "train": 1
+      },
+      "stdlib/imaplib/Time2Internaldate": {
+        "train": 1
+      },
+      "stdlib/imghdr/test_jpeg": {
+        "train": 1
+      },
+      "stdlib/imghdr/test_pbm": {
+        "train": 1
+      },
+      "stdlib/imghdr/test_pgm": {
+        "train": 1
+      },
+      "stdlib/imghdr/test_ppm": {
+        "train": 1
+      },
+      "stdlib/imghdr/test_tiff": {
+        "train": 1
+      },
+      "stdlib/imghdr/what": {
+        "train": 1
+      },
+      "stdlib/imp.overview": {
+        "train": 1
+      },
+      "stdlib/imp/NullImporter": {
+        "train": 1
+      },
+      "stdlib/imp/cache_from_source": {
+        "train": 1
+      },
+      "stdlib/imp/cache_from_source.doc": {
+        "train": 1
+      },
+      "stdlib/imp/get_magic": {
+        "train": 1
+      },
+      "stdlib/imp/get_suffixes": {
+        "train": 1
+      },
+      "stdlib/imp/new_module": {
+        "train": 1
+      },
+      "stdlib/imp/new_module.doc": {
+        "train": 1
+      },
+      "stdlib/imp/source_from_cache": {
+        "train": 1
+      },
+      "stdlib/imp/source_from_cache.doc": {
+        "train": 1
+      },
+      "stdlib/importlib.abc/ExecutionLoader": {
+        "train": 1
+      },
+      "stdlib/importlib.abc/ExecutionLoader.doc": {
+        "train": 1
+      },
+      "stdlib/importlib.abc/Finder": {
+        "train": 1
+      },
+      "stdlib/importlib.abc/InspectLoader": {
+        "train": 1
+      },
+      "stdlib/importlib.abc/MetaPathFinder": {
+        "train": 1
+      },
+      "stdlib/importlib.abc/PathEntryFinder": {
+        "train": 1
+      },
+      "stdlib/importlib.abc/ResourceLoader": {
+        "train": 1
+      },
+      "stdlib/importlib.abc/ResourceLoader.doc": {
+        "train": 1
+      },
+      "stdlib/importlib.machinery/all_suffixes": {
+        "train": 1
+      },
+      "stdlib/importlib.machinery/all_suffixes.doc": {
+        "train": 1
+      },
+      "stdlib/importlib.readers.overview": {
+        "train": 1
+      },
+      "stdlib/importlib.resources.abc/ResourceReader": {
+        "train": 1
+      },
+      "stdlib/importlib.resources.abc/Traversable": {
+        "train": 1
+      },
+      "stdlib/importlib.resources.abc/TraversableResources": {
+        "train": 1
+      },
+      "stdlib/importlib.resources.readers/FileReader": {
+        "train": 1
+      },
+      "stdlib/importlib.resources.readers/MultiplexedPath": {
+        "train": 1
+      },
+      "stdlib/importlib.resources.readers/NamespaceReader": {
+        "train": 1
+      },
+      "stdlib/importlib.resources.readers/ZipReader": {
+        "train": 1
+      },
+      "stdlib/importlib.resources.simple/ResourceContainer": {
+        "train": 1
+      },
+      "stdlib/importlib.resources.simple/ResourceContainer.doc": {
+        "train": 1
+      },
+      "stdlib/importlib.resources.simple/ResourceHandle": {
+        "train": 1
+      },
+      "stdlib/importlib.resources.simple/SimpleReader": {
+        "train": 1
+      },
+      "stdlib/importlib.resources.simple/SimpleReader.doc": {
+        "train": 1
+      },
+      "stdlib/importlib.resources.simple/TraversableReader": {
+        "train": 1
+      },
+      "stdlib/importlib.resources.simple/TraversableReader.doc": {
+        "train": 1
+      },
+      "stdlib/importlib.simple.overview": {
+        "train": 1
+      },
+      "stdlib/importlib.util/find_spec": {
+        "train": 1
+      },
+      "stdlib/importlib.util/module_for_loader": {
+        "train": 1
+      },
+      "stdlib/importlib.util/resolve_name": {
+        "train": 1
+      },
+      "stdlib/importlib.util/set_loader": {
+        "train": 1
+      },
+      "stdlib/importlib.util/set_loader.doc": {
+        "train": 1
+      },
+      "stdlib/importlib.util/set_package": {
+        "train": 1
+      },
+      "stdlib/importlib.util/set_package.doc": {
+        "train": 1
+      },
+      "stdlib/importlib.util/source_hash": {
+        "train": 1
+      },
+      "stdlib/importlib.util/source_hash.doc": {
+        "train": 1
+      },
+      "stdlib/inspect.overview": {
+        "train": 1
+      },
+      "stdlib/inspect/get_annotations": {
+        "train": 1
+      },
+      "stdlib/inspect/get_annotations.doc": {
+        "train": 1
+      },
+      "stdlib/inspect/isclass": {
+        "train": 1
+      },
+      "stdlib/inspect/isclass.doc": {
+        "train": 1
+      },
+      "stdlib/inspect/isdatadescriptor": {
+        "train": 1
+      },
+      "stdlib/inspect/isdatadescriptor.doc": {
+        "train": 1
+      },
+      "stdlib/inspect/ismethod": {
+        "train": 1
+      },
+      "stdlib/inspect/ismethod.doc": {
+        "train": 1
+      },
+      "stdlib/inspect/ismethoddescriptor": {
+        "train": 1
+      },
+      "stdlib/inspect/ismodule": {
+        "train": 1
+      },
+      "stdlib/inspect/ismodule.doc": {
+        "train": 1
+      },
+      "stdlib/io.overview": {
+        "train": 1
+      },
+      "stdlib/ipaddress.overview": {
+        "train": 1
+      },
+      "stdlib/ipaddress/ip_address": {
+        "train": 1
+      },
+      "stdlib/ipaddress/ip_address.doc": {
+        "train": 1
+      },
+      "stdlib/ipaddress/ip_interface": {
+        "train": 1
+      },
+      "stdlib/ipaddress/ip_network": {
+        "train": 1
+      },
+      "stdlib/ipaddress/ip_network.doc": {
+        "train": 1
+      },
+      "stdlib/ipaddress/summarize_address_range": {
+        "train": 1
+      },
+      "stdlib/ipaddress/v4_int_to_packed": {
+        "train": 1
+      },
+      "stdlib/ipaddress/v4_int_to_packed.doc": {
+        "train": 1
+      },
+      "stdlib/ipaddress/v6_int_to_packed": {
+        "train": 1
+      },
+      "stdlib/ipaddress/v6_int_to_packed.doc": {
+        "train": 1
+      },
+      "stdlib/json": {
+        "train": 4
+      },
+      "stdlib/json.decoder/JSONArray": {
+        "train": 1
+      },
+      "stdlib/json.decoder/JSONDecodeError": {
+        "train": 1
+      },
+      "stdlib/json.decoder/JSONDecodeError.doc": {
+        "train": 1
+      },
+      "stdlib/json.decoder/JSONDecoder": {
+        "train": 1
+      },
+      "stdlib/json.decoder/JSONDecoder.doc": {
+        "train": 1
+      },
+      "stdlib/json.decoder/JSONObject": {
+        "train": 1
+      },
+      "stdlib/json.decoder/py_scanstring": {
+        "train": 1
+      },
+      "stdlib/json.encoder/py_encode_basestring": {
+        "train": 1
+      },
+      "stdlib/json.encoder/py_encode_basestring_ascii": {
+        "train": 1
+      },
+      "stdlib/json.scanner/py_make_scanner": {
+        "train": 1
+      },
+      "stdlib/json.tool.overview": {
+        "train": 1
+      },
+      "stdlib/json.tool/main": {
+        "train": 1
+      },
+      "stdlib/keyword.overview": {
+        "train": 1
+      },
+      "stdlib/linecache.overview": {
+        "train": 1
+      },
+      "stdlib/linecache/checkcache": {
+        "train": 1
+      },
+      "stdlib/linecache/checkcache.doc": {
+        "train": 1
+      },
+      "stdlib/linecache/getline": {
+        "train": 1
+      },
+      "stdlib/linecache/getline.doc": {
+        "train": 1
+      },
+      "stdlib/linecache/getlines": {
+        "train": 1
+      },
+      "stdlib/linecache/getlines.doc": {
+        "train": 1
+      },
+      "stdlib/linecache/lazycache": {
+        "train": 1
+      },
+      "stdlib/linecache/updatecache": {
+        "train": 1
+      },
+      "stdlib/locale.overview": {
+        "train": 1
+      },
+      "stdlib/locale/currency": {
+        "train": 1
+      },
+      "stdlib/locale/delocalize": {
+        "train": 1
+      },
+      "stdlib/locale/delocalize.doc": {
+        "train": 1
+      },
+      "stdlib/locale/format": {
+        "train": 1
+      },
+      "stdlib/locale/format_string": {
+        "train": 1
+      },
+      "stdlib/locale/localeconv": {
+        "train": 1
+      },
+      "stdlib/locale/localize": {
+        "train": 1
+      },
+      "stdlib/locale/localize.doc": {
+        "train": 1
+      },
+      "stdlib/logging.config.overview": {
+        "train": 1
+      },
+      "stdlib/logging.config/ConvertingDict": {
+        "train": 1
+      },
+      "stdlib/logging.config/ConvertingList": {
+        "train": 1
+      },
+      "stdlib/logging.config/ConvertingMixin": {
+        "train": 1
+      },
+      "stdlib/logging.config/ConvertingMixin.doc": {
+        "train": 1
+      },
+      "stdlib/logging.config/ConvertingTuple": {
+        "train": 1
+      },
+      "stdlib/logging.config/fileConfig": {
+        "train": 1
+      },
+      "stdlib/logging.config/fileConfig.doc": {
+        "train": 1
+      },
+      "stdlib/logging.config/valid_ident": {
+        "train": 1
+      },
+      "stdlib/logging.handlers.overview": {
+        "train": 1
+      },
+      "stdlib/logging.handlers/BaseRotatingHandler": {
+        "train": 1
+      },
+      "stdlib/logging.handlers/DatagramHandler": {
+        "train": 1
+      },
+      "stdlib/logging.handlers/RotatingFileHandler": {
+        "train": 1
+      },
+      "stdlib/logging.handlers/RotatingFileHandler.doc": {
+        "train": 1
+      },
+      "stdlib/logging.handlers/SMTPHandler": {
+        "train": 1
+      },
+      "stdlib/logging.handlers/SocketHandler": {
+        "train": 1
+      },
+      "stdlib/logging.handlers/SocketHandler.doc": {
+        "train": 1
+      },
+      "stdlib/logging.handlers/WatchedFileHandler": {
+        "train": 1
+      },
+      "stdlib/lzma.overview": {
+        "train": 1
+      },
+      "stdlib/lzma/compress": {
+        "train": 1
+      },
+      "stdlib/lzma/compress.doc": {
+        "train": 1
+      },
+      "stdlib/lzma/decompress": {
+        "train": 1
+      },
+      "stdlib/lzma/decompress.doc": {
+        "train": 1
+      },
+      "stdlib/lzma/open": {
+        "train": 1
+      },
+      "stdlib/mailbox/BabylMessage": {
+        "train": 1
+      },
+      "stdlib/mailbox/MHMessage": {
+        "train": 1
+      },
+      "stdlib/mailbox/MMDF": {
+        "train": 1
+      },
+      "stdlib/mailbox/MaildirMessage": {
+        "train": 1
+      },
+      "stdlib/mailbox/Message": {
+        "train": 1
+      },
+      "stdlib/mailbox/mbox": {
+        "train": 1
+      },
+      "stdlib/mailcap/getcaps": {
+        "train": 1
+      },
+      "stdlib/mailcap/getcaps.doc": {
+        "train": 1
+      },
+      "stdlib/mailcap/lineno_sort_key": {
+        "train": 1
+      },
+      "stdlib/mailcap/listmailcapfiles": {
+        "train": 1
+      },
+      "stdlib/mailcap/parsefield": {
+        "train": 1
+      },
+      "stdlib/mailcap/parseline": {
+        "train": 1
+      },
+      "stdlib/mailcap/readmailcapfile": {
+        "train": 1
+      },
+      "stdlib/mailcap/readmailcapfile.doc": {
+        "train": 1
+      },
+      "stdlib/mimetypes.overview": {
+        "train": 1
+      },
+      "stdlib/mimetypes/add_type": {
+        "train": 1
+      },
+      "stdlib/mimetypes/add_type.doc": {
+        "train": 1
+      },
+      "stdlib/mimetypes/guess_all_extensions": {
+        "train": 1
+      },
+      "stdlib/mimetypes/guess_all_extensions.doc": {
+        "train": 1
+      },
+      "stdlib/mimetypes/guess_extension": {
+        "train": 1
+      },
+      "stdlib/mimetypes/guess_extension.doc": {
+        "train": 1
+      },
+      "stdlib/mimetypes/guess_type": {
+        "train": 1
+      },
+      "stdlib/mimetypes/init": {
+        "train": 1
+      },
+      "stdlib/mimetypes/read_mime_types": {
+        "train": 1
+      },
+      "stdlib/modulefinder/Module": {
+        "train": 1
+      },
+      "stdlib/modulefinder/test": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.connection/Client": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.connection/Connection": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.connection/Listener": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.connection/SocketListener": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.connection/address_type": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.connection/address_type.doc": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.connection/arbitrary_address": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.context/DefaultContext": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.context/Process": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.context/assert_spawning": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.dummy.connection/Connection": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.dummy.connection/Listener": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.forkserver/ForkServer": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.forkserver/main": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.forkserver/read_signed": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.forkserver/write_signed": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.heap/BufferWrapper": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.managers/ProcessLocalSet": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.managers/Token": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.managers/all_methods": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.managers/convert_to_error": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.managers/dispatch": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.managers/dispatch.doc": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.managers/public_methods": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.managers/public_methods.doc": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.pool/ApplyResult": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.pool/ExceptionWithTraceback": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.pool/MapResult": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.pool/MaybeEncodingError": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.pool/MaybeEncodingError.doc": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.pool/RemoteTraceback": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.pool/worker": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.popen_fork/Popen": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.popen_forkserver/Popen": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.popen_spawn_posix/Popen": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.popen_spawn_win32/Popen": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.process/AuthenticationString": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.process/active_children": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.process/active_children.doc": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.process/current_process": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.process/parent_process": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.queues/JoinableQueue": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.queues/SimpleQueue": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.reduction/AbstractReducer": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.reduction/AbstractReducer.doc": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.reduction/ForkingPickler": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.reduction/dump": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.resource_tracker/ResourceTracker": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.resource_tracker/main": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.shared_memory.overview": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.sharedctypes/Array": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.sharedctypes/RawArray": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.sharedctypes/RawValue": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.sharedctypes/Value": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.sharedctypes/reduce_ctype": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.sharedctypes/synchronized": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.spawn/freeze_support": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.spawn/get_command_line": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.spawn/get_command_line.doc": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.spawn/get_preparation_data": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.spawn/is_forking": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.spawn/set_executable": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.spawn/spawn_main": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.synchronize/BoundedSemaphore": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.synchronize/Condition": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.synchronize/Lock": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.synchronize/RLock": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.synchronize/SemLock": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.synchronize/Semaphore": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.util/Finalize": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.util/get_logger": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.util/get_temp_dir": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.util/is_abstract_socket_namespace": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.util/is_exiting": {
+        "train": 1
+      },
+      "stdlib/multiprocessing.util/log_to_stderr": {
+        "train": 1
+      },
+      "stdlib/netrc/NetrcParseError": {
+        "train": 1
+      },
+      "stdlib/netrc/netrc": {
+        "train": 1
+      },
+      "stdlib/nntplib.overview": {
+        "train": 1
+      },
+      "stdlib/nntplib/NNTPError": {
+        "train": 1
+      },
+      "stdlib/nntplib/decode_header": {
+        "train": 1
+      },
+      "stdlib/nntplib/decode_header.doc": {
+        "train": 1
+      },
+      "stdlib/ntpath.overview": {
+        "train": 1
+      },
+      "stdlib/ntpath/isabs": {
+        "train": 1
+      },
+      "stdlib/ntpath/islink": {
+        "train": 1
+      },
+      "stdlib/ntpath/islink.doc": {
+        "train": 1
+      },
+      "stdlib/ntpath/join": {
+        "train": 1
+      },
+      "stdlib/ntpath/split": {
+        "train": 1
+      },
+      "stdlib/ntpath/split.doc": {
+        "train": 1
+      },
+      "stdlib/ntpath/splitdrive": {
+        "train": 1
+      },
+      "stdlib/ntpath/splitext": {
+        "train": 1
+      },
+      "stdlib/nturl2path.overview": {
+        "train": 1
+      },
+      "stdlib/nturl2path/pathname2url": {
+        "train": 1
+      },
+      "stdlib/nturl2path/url2pathname": {
+        "train": 1
+      },
+      "stdlib/numbers.overview": {
+        "train": 1
+      },
+      "stdlib/numbers/Complex": {
+        "train": 1
+      },
+      "stdlib/numbers/Integral": {
+        "train": 1
+      },
+      "stdlib/numbers/Number": {
+        "train": 1
+      },
+      "stdlib/numbers/Number.doc": {
+        "train": 1
+      },
+      "stdlib/numbers/Rational": {
+        "train": 1
+      },
+      "stdlib/numbers/Real": {
+        "train": 1
+      },
+      "stdlib/operator": {
+        "train": 6
+      },
+      "stdlib/operator.overview": {
+        "train": 1
+      },
+      "stdlib/operator/concat": {
+        "train": 1
+      },
+      "stdlib/operator/countOf.doc": {
+        "train": 1
+      },
+      "stdlib/operator/indexOf": {
+        "train": 1
+      },
+      "stdlib/optparse.overview": {
+        "train": 1
+      },
+      "stdlib/optparse/AmbiguousOptionError": {
+        "train": 1
+      },
+      "stdlib/optparse/BadOptionError": {
+        "train": 1
+      },
+      "stdlib/optparse/OptParseError": {
+        "train": 1
+      },
+      "stdlib/optparse/OptionConflictError": {
+        "train": 1
+      },
+      "stdlib/optparse/OptionError": {
+        "train": 1
+      },
+      "stdlib/optparse/OptionError.doc": {
+        "train": 1
+      },
+      "stdlib/optparse/OptionValueError": {
+        "train": 1
+      },
+      "stdlib/optparse/OptionValueError.doc": {
+        "train": 1
+      },
+      "stdlib/os.overview": {
+        "train": 1
+      },
+      "stdlib/os/execl": {
+        "train": 1
+      },
+      "stdlib/os/execl.doc": {
+        "train": 1
+      },
+      "stdlib/os/execle": {
+        "train": 1
+      },
+      "stdlib/os/execle.doc": {
+        "train": 1
+      },
+      "stdlib/os/makedirs": {
+        "train": 1
+      },
+      "stdlib/os/removedirs": {
+        "train": 1
+      },
+      "stdlib/os/removedirs.doc": {
+        "train": 1
+      },
+      "stdlib/os/renames": {
+        "train": 1
+      },
+      "stdlib/os/walk": {
+        "train": 1
+      },
+      "stdlib/pathlib/PosixPath": {
+        "train": 1
+      },
+      "stdlib/pathlib/PosixPath.doc": {
+        "train": 1
+      },
+      "stdlib/pathlib/PurePosixPath": {
+        "train": 1
+      },
+      "stdlib/pathlib/PurePosixPath.doc": {
+        "train": 1
+      },
+      "stdlib/pathlib/PureWindowsPath": {
+        "train": 1
+      },
+      "stdlib/pathlib/PureWindowsPath.doc": {
+        "train": 1
+      },
+      "stdlib/pathlib/WindowsPath": {
+        "train": 1
+      },
+      "stdlib/pathlib/WindowsPath.doc": {
+        "train": 1
+      },
+      "stdlib/pdb.overview": {
+        "train": 1
+      },
+      "stdlib/pdb/find_function": {
+        "train": 1
+      },
+      "stdlib/pdb/getsourcelines": {
+        "train": 1
+      },
+      "stdlib/pdb/lasti2lineno": {
+        "train": 1
+      },
+      "stdlib/pdb/main": {
+        "train": 1
+      },
+      "stdlib/pdb/post_mortem": {
+        "train": 1
+      },
+      "stdlib/pdb/set_trace": {
+        "train": 1
+      },
+      "stdlib/pickle.overview": {
+        "train": 1
+      },
+      "stdlib/pickle/PicklingError": {
+        "train": 1
+      },
+      "stdlib/pickle/PicklingError.doc": {
+        "train": 1
+      },
+      "stdlib/pickle/UnpicklingError": {
+        "train": 1
+      },
+      "stdlib/pickle/UnpicklingError.doc": {
+        "train": 1
+      },
+      "stdlib/pickle/decode_long": {
+        "train": 1
+      },
+      "stdlib/pickle/decode_long.doc": {
+        "train": 1
+      },
+      "stdlib/pickle/encode_long": {
+        "train": 1
+      },
+      "stdlib/pickle/encode_long.doc": {
+        "train": 1
+      },
+      "stdlib/pickle/whichmodule": {
+        "train": 1
+      },
+      "stdlib/pickletools.overview": {
+        "train": 1
+      },
+      "stdlib/pickletools/ArgumentDescriptor": {
+        "train": 1
+      },
+      "stdlib/pickletools/read_int4": {
+        "train": 1
+      },
+      "stdlib/pickletools/read_int4.doc": {
+        "train": 1
+      },
+      "stdlib/pickletools/read_uint1": {
+        "train": 1
+      },
+      "stdlib/pickletools/read_uint2": {
+        "train": 1
+      },
+      "stdlib/pickletools/read_uint2.doc": {
+        "train": 1
+      },
+      "stdlib/pickletools/read_uint4": {
+        "train": 1
+      },
+      "stdlib/pickletools/read_uint4.doc": {
+        "train": 1
+      },
+      "stdlib/pickletools/read_uint8": {
+        "train": 1
+      },
+      "stdlib/pickletools/read_uint8.doc": {
+        "train": 1
+      },
+      "stdlib/pipes.overview": {
+        "train": 1
+      },
+      "stdlib/pipes/Template": {
+        "train": 1
+      },
+      "stdlib/pipes/makepipeline": {
+        "train": 1
+      },
+      "stdlib/pkgutil/ImpImporter": {
+        "train": 1
+      },
+      "stdlib/pkgutil/ImpLoader": {
+        "train": 1
+      },
+      "stdlib/pkgutil/ImpLoader.doc": {
+        "train": 1
+      },
+      "stdlib/pkgutil/iter_importer_modules": {
+        "train": 1
+      },
+      "stdlib/pkgutil/iter_modules": {
+        "train": 1
+      },
+      "stdlib/pkgutil/iter_modules.doc": {
+        "train": 1
+      },
+      "stdlib/pkgutil/read_code": {
+        "train": 1
+      },
+      "stdlib/pkgutil/walk_packages": {
+        "train": 1
+      },
+      "stdlib/platform.overview": {
+        "train": 1
+      },
+      "stdlib/platform/java_ver": {
+        "train": 1
+      },
+      "stdlib/platform/libc_ver": {
+        "train": 1
+      },
+      "stdlib/platform/mac_ver": {
+        "train": 1
+      },
+      "stdlib/platform/mac_ver.doc": {
+        "train": 1
+      },
+      "stdlib/platform/system_alias": {
+        "train": 1
+      },
+      "stdlib/platform/win32_edition": {
+        "train": 1
+      },
+      "stdlib/platform/win32_ver": {
+        "train": 1
+      },
+      "stdlib/plistlib.overview": {
+        "train": 1
+      },
+      "stdlib/plistlib/InvalidFileException": {
+        "train": 1
+      },
+      "stdlib/plistlib/UID": {
+        "train": 1
+      },
+      "stdlib/plistlib/dump": {
+        "train": 1
+      },
+      "stdlib/plistlib/dump.doc": {
+        "train": 1
+      },
+      "stdlib/plistlib/dumps": {
+        "train": 1
+      },
+      "stdlib/plistlib/load": {
+        "train": 1
+      },
+      "stdlib/plistlib/load.doc": {
+        "train": 1
+      },
+      "stdlib/plistlib/loads": {
+        "train": 1
+      },
+      "stdlib/plistlib/loads.doc": {
+        "train": 1
+      },
+      "stdlib/posixpath.overview": {
+        "train": 1
+      },
+      "stdlib/posixpath/basename": {
+        "train": 1
+      },
+      "stdlib/posixpath/isabs": {
+        "train": 1
+      },
+      "stdlib/posixpath/join": {
+        "train": 1
+      },
+      "stdlib/posixpath/join.doc": {
+        "train": 1
+      },
+      "stdlib/posixpath/split": {
+        "train": 1
+      },
+      "stdlib/posixpath/split.doc": {
+        "train": 1
+      },
+      "stdlib/posixpath/splitdrive": {
+        "train": 1
+      },
+      "stdlib/posixpath/splitdrive.doc": {
+        "train": 1
+      },
+      "stdlib/posixpath/splitext": {
+        "train": 1
+      },
+      "stdlib/pprint": {
+        "train": 7
+      },
+      "stdlib/pprint.overview": {
+        "train": 1
+      },
+      "stdlib/pprint/isreadable": {
+        "train": 1
+      },
+      "stdlib/pprint/isrecursive": {
+        "train": 1
+      },
+      "stdlib/pprint/pformat.doc": {
+        "train": 1
+      },
+      "stdlib/pprint/pp": {
+        "train": 1
+      },
+      "stdlib/pprint/pprint.doc": {
+        "train": 1
+      },
+      "stdlib/pprint/saferepr.doc": {
+        "train": 1
+      },
+      "stdlib/profile/main": {
+        "train": 1
+      },
+      "stdlib/profile/run": {
+        "train": 1
+      },
+      "stdlib/profile/run.doc": {
+        "train": 1
+      },
+      "stdlib/profile/runctx": {
+        "train": 1
+      },
+      "stdlib/profile/runctx.doc": {
+        "train": 1
+      },
+      "stdlib/pstats/FunctionProfile": {
+        "train": 1
+      },
+      "stdlib/pstats/SortKey": {
+        "train": 1
+      },
+      "stdlib/pstats/StatsProfile": {
+        "train": 1
+      },
+      "stdlib/pstats/TupleComp": {
+        "train": 1
+      },
+      "stdlib/pstats/TupleComp.doc": {
+        "train": 1
+      },
+      "stdlib/pstats/add_func_stats": {
+        "train": 1
+      },
+      "stdlib/pstats/func_std_string": {
+        "train": 1
+      },
+      "stdlib/pty/fork": {
+        "train": 1
+      },
+      "stdlib/pty/master_open": {
+        "train": 1
+      },
+      "stdlib/pty/master_open.doc": {
+        "train": 1
+      },
+      "stdlib/pty/openpty": {
+        "train": 1
+      },
+      "stdlib/pty/openpty.doc": {
+        "train": 1
+      },
+      "stdlib/pty/slave_open": {
+        "train": 1
+      },
+      "stdlib/pty/slave_open.doc": {
+        "train": 1
+      },
+      "stdlib/pty/spawn": {
+        "train": 1
+      },
+      "stdlib/py_compile/PyCompileError": {
+        "train": 1
+      },
+      "stdlib/py_compile/compile": {
+        "train": 1
+      },
+      "stdlib/py_compile/compile.doc": {
+        "train": 1
+      },
+      "stdlib/py_compile/main": {
+        "train": 1
+      },
+      "stdlib/pyclbr.overview": {
+        "train": 1
+      },
+      "stdlib/pyclbr/Class": {
+        "train": 1
+      },
+      "stdlib/pyclbr/Function": {
+        "train": 1
+      },
+      "stdlib/pyclbr/readmodule": {
+        "train": 1
+      },
+      "stdlib/pyclbr/readmodule.doc": {
+        "train": 1
+      },
+      "stdlib/pyclbr/readmodule_ex": {
+        "train": 1
+      },
+      "stdlib/pyclbr/readmodule_ex.doc": {
+        "train": 1
+      },
+      "stdlib/queue": {
+        "train": 7
+      },
+      "stdlib/queue/LifoQueue.doc": {
+        "train": 1
+      },
+      "stdlib/queue/PriorityQueue.doc": {
+        "train": 1
+      },
+      "stdlib/quopri/decode": {
+        "train": 1
+      },
+      "stdlib/quopri/decodestring": {
+        "train": 1
+      },
+      "stdlib/quopri/encode": {
+        "train": 1
+      },
+      "stdlib/quopri/encodestring": {
+        "train": 1
+      },
+      "stdlib/quopri/needsquoting": {
+        "train": 1
+      },
+      "stdlib/quopri/needsquoting.doc": {
+        "train": 1
+      },
+      "stdlib/quopri/quote": {
+        "train": 1
+      },
+      "stdlib/random": {
+        "train": 1
+      },
+      "stdlib/random.overview": {
+        "train": 1
+      },
+      "stdlib/reprlib": {
+        "train": 2
+      },
+      "stdlib/reprlib/Repr": {
+        "train": 1
+      },
+      "stdlib/reprlib/recursive_repr.doc": {
+        "train": 1
+      },
+      "stdlib/rlcompleter.overview": {
+        "train": 1
+      },
+      "stdlib/rlcompleter/Completer": {
+        "train": 1
+      },
+      "stdlib/rlcompleter/get_class_members": {
+        "train": 1
+      },
+      "stdlib/runpy.overview": {
+        "test": 1
+      },
+      "stdlib/runpy/run_module": {
+        "train": 1
+      },
+      "stdlib/runpy/run_path": {
+        "train": 1
+      },
+      "stdlib/sched.overview": {
+        "train": 1
+      },
+      "stdlib/sched/scheduler": {
+        "train": 1
+      },
+      "stdlib/secrets.overview": {
+        "train": 1
+      },
+      "stdlib/secrets/randbelow": {
+        "train": 1
+      },
+      "stdlib/secrets/token_bytes": {
+        "train": 1
+      },
+      "stdlib/secrets/token_bytes.doc": {
+        "train": 1
+      },
+      "stdlib/secrets/token_hex": {
+        "train": 1
+      },
+      "stdlib/secrets/token_hex.doc": {
+        "train": 1
+      },
+      "stdlib/secrets/token_urlsafe": {
+        "train": 1
+      },
+      "stdlib/secrets/token_urlsafe.doc": {
+        "train": 1
+      },
+      "stdlib/selectors.overview": {
+        "train": 1
+      },
+      "stdlib/selectors/BaseSelector": {
+        "train": 1
+      },
+      "stdlib/selectors/BaseSelector.doc": {
+        "train": 1
+      },
+      "stdlib/selectors/SelectSelector": {
+        "train": 1
+      },
+      "stdlib/shelve.overview": {
+        "train": 1
+      },
+      "stdlib/shelve/BsdDbShelf": {
+        "train": 1
+      },
+      "stdlib/shelve/DbfilenameShelf": {
+        "train": 1
+      },
+      "stdlib/shelve/DbfilenameShelf.doc": {
+        "train": 1
+      },
+      "stdlib/shelve/Shelf": {
+        "train": 1
+      },
+      "stdlib/shelve/open": {
+        "train": 1
+      },
+      "stdlib/shelve/open.doc": {
+        "train": 1
+      },
+      "stdlib/shutil.overview": {
+        "train": 1
+      },
+      "stdlib/shutil/RegistryError": {
+        "train": 1
+      },
+      "stdlib/shutil/RegistryError.doc": {
+        "train": 1
+      },
+      "stdlib/shutil/SpecialFileError": {
+        "train": 1
+      },
+      "stdlib/shutil/SpecialFileError.doc": {
+        "train": 1
+      },
+      "stdlib/shutil/copyfile": {
+        "train": 1
+      },
+      "stdlib/shutil/copyfileobj": {
+        "train": 1
+      },
+      "stdlib/shutil/copyfileobj.doc": {
+        "train": 1
+      },
+      "stdlib/shutil/copymode": {
+        "train": 1
+      },
+      "stdlib/shutil/copymode.doc": {
+        "train": 1
+      },
+      "stdlib/shutil/copystat": {
+        "train": 1
+      },
+      "stdlib/signal/signal": {
+        "train": 1
+      },
+      "stdlib/site.overview": {
+        "train": 1
+      },
+      "stdlib/site/abs_paths": {
+        "train": 1
+      },
+      "stdlib/site/abs_paths.doc": {
+        "train": 1
+      },
+      "stdlib/site/addpackage": {
+        "train": 1
+      },
+      "stdlib/site/addsitedir": {
+        "train": 1
+      },
+      "stdlib/site/addsitedir.doc": {
+        "train": 1
+      },
+      "stdlib/site/check_enableusersite": {
+        "train": 1
+      },
+      "stdlib/site/check_enableusersite.doc": {
+        "train": 1
+      },
+      "stdlib/site/makepath": {
+        "train": 1
+      },
+      "stdlib/site/removeduppaths": {
+        "train": 1
+      },
+      "stdlib/site/removeduppaths.doc": {
+        "train": 1
+      },
+      "stdlib/smtpd.overview": {
+        "train": 1
+      },
+      "stdlib/smtpd/DebuggingServer": {
+        "train": 1
+      },
+      "stdlib/smtpd/PureProxy": {
+        "train": 1
+      },
+      "stdlib/smtpd/SMTPServer": {
+        "train": 1
+      },
+      "stdlib/smtpd/parseargs": {
+        "train": 1
+      },
+      "stdlib/smtpd/usage": {
+        "train": 1
+      },
+      "stdlib/smtplib.overview": {
+        "train": 1
+      },
+      "stdlib/smtplib/SMTPAuthenticationError": {
+        "train": 1
+      },
+      "stdlib/smtplib/SMTPAuthenticationError.doc": {
+        "train": 1
+      },
+      "stdlib/smtplib/SMTPNotSupportedError": {
+        "train": 1
+      },
+      "stdlib/smtplib/SMTPNotSupportedError.doc": {
+        "train": 1
+      },
+      "stdlib/smtplib/SMTPRecipientsRefused": {
+        "train": 1
+      },
+      "stdlib/smtplib/SMTPRecipientsRefused.doc": {
+        "train": 1
+      },
+      "stdlib/smtplib/SMTPResponseException": {
+        "train": 1
+      },
+      "stdlib/smtplib/SMTPResponseException.doc": {
+        "train": 1
+      },
+      "stdlib/smtplib/SMTPSenderRefused": {
+        "train": 1
+      },
+      "stdlib/smtplib/SMTPSenderRefused.doc": {
+        "train": 1
+      },
+      "stdlib/smtplib/SMTPServerDisconnected": {
+        "train": 1
+      },
+      "stdlib/smtplib/SMTPServerDisconnected.doc": {
+        "train": 1
+      },
+      "stdlib/sndhdr.overview": {
+        "train": 1
+      },
+      "stdlib/sndhdr/test_aifc": {
+        "train": 1
+      },
+      "stdlib/sndhdr/test_au": {
+        "train": 1
+      },
+      "stdlib/sndhdr/test_hcom": {
+        "train": 1
+      },
+      "stdlib/sndhdr/test_voc": {
+        "train": 1
+      },
+      "stdlib/sndhdr/test_wav": {
+        "train": 1
+      },
+      "stdlib/sndhdr/whathdr": {
+        "train": 1
+      },
+      "stdlib/socket.overview": {
+        "train": 1
+      },
+      "stdlib/socket/SocketIO": {
+        "train": 1
+      },
+      "stdlib/socket/SocketIO.doc": {
+        "train": 1
+      },
+      "stdlib/socket/create_connection": {
+        "train": 1
+      },
+      "stdlib/socket/create_server": {
+        "train": 1
+      },
+      "stdlib/socket/fromfd": {
+        "train": 1
+      },
+      "stdlib/socket/fromfd.doc": {
+        "train": 1
+      },
+      "stdlib/socket/getfqdn": {
+        "train": 1
+      },
+      "stdlib/socket/getfqdn.doc": {
+        "train": 1
+      },
+      "stdlib/socket/has_dualstack_ipv6": {
+        "validation": 1
+      },
+      "stdlib/socket/has_dualstack_ipv6.doc": {
+        "train": 1
+      },
+      "stdlib/socketserver.overview": {
+        "train": 1
+      },
+      "stdlib/socketserver/BaseRequestHandler": {
+        "train": 1
+      },
+      "stdlib/socketserver/DatagramRequestHandler": {
+        "train": 1
+      },
+      "stdlib/socketserver/StreamRequestHandler": {
+        "train": 1
+      },
+      "stdlib/socketserver/TCPServer": {
+        "train": 1
+      },
+      "stdlib/socketserver/TCPServer.doc": {
+        "train": 1
+      },
+      "stdlib/socketserver/ThreadingMixIn": {
+        "train": 1
+      },
+      "stdlib/socketserver/UDPServer": {
+        "train": 1
+      },
+      "stdlib/sqlite3.dbapi2/enable_shared_cache": {
+        "train": 1
+      },
+      "stdlib/sqlite3.dbapi2/register_adapters_and_converters": {
+        "train": 1
+      },
+      "stdlib/ssl.overview": {
+        "train": 1
+      },
+      "stdlib/ssl/Purpose": {
+        "train": 1
+      },
+      "stdlib/ssl/Purpose.doc": {
+        "train": 1
+      },
+      "stdlib/ssl/SSLObject": {
+        "train": 1
+      },
+      "stdlib/ssl/SSLObject.doc": {
+        "train": 1
+      },
+      "stdlib/ssl/TLSVersion": {
+        "train": 1
+      },
+      "stdlib/ssl/create_default_context": {
+        "train": 1
+      },
+      "stdlib/ssl/get_default_verify_paths": {
+        "train": 1
+      },
+      "stdlib/ssl/match_hostname": {
+        "train": 1
+      },
+      "stdlib/stat/S_IFMT": {
+        "train": 1
+      },
+      "stdlib/stat/S_IFMT.doc": {
+        "train": 1
+      },
+      "stdlib/stat/S_IMODE": {
+        "train": 1
+      },
+      "stdlib/stat/S_IMODE.doc": {
+        "train": 1
+      },
+      "stdlib/stat/S_ISBLK": {
+        "train": 1
+      },
+      "stdlib/stat/S_ISCHR": {
+        "train": 1
+      },
+      "stdlib/stat/S_ISCHR.doc": {
+        "train": 1
+      },
+      "stdlib/stat/filemode": {
+        "train": 1
+      },
+      "stdlib/statistics": {
+        "train": 10
+      },
+      "stdlib/statistics.overview": {
+        "train": 1
+      },
+      "stdlib/statistics/geometric_mean.doc": {
+        "train": 1
+      },
+      "stdlib/statistics/harmonic_mean": {
+        "train": 1
+      },
+      "stdlib/statistics/mean.doc": {
+        "train": 1
+      },
+      "stdlib/statistics/median": {
+        "train": 1
+      },
+      "stdlib/statistics/median.doc": {
+        "train": 1
+      },
+      "stdlib/statistics/median_low": {
+        "train": 1
+      },
+      "stdlib/statistics/median_low.doc": {
+        "train": 1
+      },
+      "stdlib/string": {
+        "train": 2
+      },
+      "stdlib/string.overview": {
+        "train": 1
+      },
+      "stdlib/string/Formatter": {
+        "train": 1
+      },
+      "stdlib/string/Template": {
+        "train": 1
+      },
+      "stdlib/string/capwords.doc": {
+        "train": 1
+      },
+      "stdlib/stringprep.overview": {
+        "train": 1
+      },
+      "stdlib/stringprep/in_table_a1": {
+        "train": 1
+      },
+      "stdlib/stringprep/in_table_c22": {
+        "train": 1
+      },
+      "stdlib/stringprep/in_table_c4": {
+        "train": 1
+      },
+      "stdlib/stringprep/map_table_b2": {
+        "train": 1
+      },
+      "stdlib/subprocess.overview": {
+        "train": 1
+      },
+      "stdlib/subprocess/CalledProcessError": {
+        "train": 1
+      },
+      "stdlib/subprocess/CompletedProcess": {
+        "train": 1
+      },
+      "stdlib/subprocess/TimeoutExpired": {
+        "train": 1
+      },
+      "stdlib/subprocess/TimeoutExpired.doc": {
+        "train": 1
+      },
+      "stdlib/subprocess/call": {
+        "train": 1
+      },
+      "stdlib/subprocess/call.doc": {
+        "train": 1
+      },
+      "stdlib/subprocess/check_call": {
+        "train": 1
+      },
+      "stdlib/subprocess/check_call.doc": {
+        "train": 1
+      },
+      "stdlib/subprocess/check_output": {
+        "train": 1
+      },
+      "stdlib/sunau.overview": {
+        "train": 1
+      },
+      "stdlib/sunau/Au_read": {
+        "train": 1
+      },
+      "stdlib/sunau/open": {
+        "train": 1
+      },
+      "stdlib/symtable/Class": {
+        "train": 1
+      },
+      "stdlib/symtable/Function": {
+        "train": 1
+      },
+      "stdlib/symtable/Symbol": {
+        "train": 1
+      },
+      "stdlib/symtable/SymbolTable": {
+        "train": 1
+      },
+      "stdlib/symtable/SymbolTableFactory": {
+        "train": 1
+      },
+      "stdlib/symtable/symtable": {
+        "train": 1
+      },
+      "stdlib/symtable/symtable.doc": {
+        "train": 1
+      },
+      "stdlib/sysconfig/get_config_h_filename": {
+        "train": 1
+      },
+      "stdlib/sysconfig/get_makefile_filename": {
+        "train": 1
+      },
+      "stdlib/sysconfig/get_preferred_scheme": {
+        "train": 1
+      },
+      "stdlib/sysconfig/get_scheme_names": {
+        "train": 1
+      },
+      "stdlib/sysconfig/is_python_build": {
+        "train": 1
+      },
+      "stdlib/sysconfig/parse_config_h": {
+        "train": 1
+      },
+      "stdlib/sysconfig/parse_config_h.doc": {
+        "train": 1
+      },
+      "stdlib/tabnanny.overview": {
+        "train": 1
+      },
+      "stdlib/tabnanny/NannyNag": {
+        "train": 1
+      },
+      "stdlib/tabnanny/NannyNag.doc": {
+        "train": 1
+      },
+      "stdlib/tabnanny/Whitespace": {
+        "train": 1
+      },
+      "stdlib/tabnanny/check": {
+        "train": 1
+      },
+      "stdlib/tabnanny/errprint": {
+        "train": 1
+      },
+      "stdlib/tabnanny/format_witnesses": {
+        "train": 1
+      },
+      "stdlib/tabnanny/main": {
+        "train": 1
+      },
+      "stdlib/tarfile/calc_chksums": {
+        "train": 1
+      },
+      "stdlib/tarfile/calc_chksums.doc": {
+        "train": 1
+      },
+      "stdlib/tarfile/copyfileobj": {
+        "train": 1
+      },
+      "stdlib/tarfile/copyfileobj.doc": {
+        "train": 1
+      },
+      "stdlib/tarfile/itn": {
+        "train": 1
+      },
+      "stdlib/tarfile/nti": {
+        "train": 1
+      },
+      "stdlib/tarfile/nts": {
+        "train": 1
+      },
+      "stdlib/tarfile/stn": {
+        "train": 1
+      },
+      "stdlib/telnetlib.overview": {
+        "train": 1
+      },
+      "stdlib/telnetlib/test": {
+        "train": 1
+      },
+      "stdlib/telnetlib/test.doc": {
+        "train": 1
+      },
+      "stdlib/tempfile.overview": {
+        "train": 1
+      },
+      "stdlib/tempfile/NamedTemporaryFile": {
+        "train": 1
+      },
+      "stdlib/tempfile/gettempprefix": {
+        "train": 1
+      },
+      "stdlib/tempfile/gettempprefixb": {
+        "train": 1
+      },
+      "stdlib/tempfile/mkdtemp": {
+        "train": 1
+      },
+      "stdlib/tempfile/mkstemp": {
+        "train": 1
+      },
+      "stdlib/tempfile/mktemp": {
+        "train": 1
+      },
+      "stdlib/test.ann_module/Meta": {
+        "train": 1
+      },
+      "stdlib/test.ann_module/dec": {
+        "train": 1
+      },
+      "stdlib/test.ann_module3.overview": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.cmdline/Namespace": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.cmdline/huntrleaks": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.cmdline/relative_filename": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.cmdline/resources_list": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.pgo/setup_pgo_tests": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.refleak/dash_R": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.refleak/dash_R.doc": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.refleak/dash_R_cleanup": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.refleak/warm_caches": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.runtest/Failed": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.runtest/TestResult": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.runtest/Timeout": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.runtest/UncaughtException": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.runtest/findtests": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.runtest/is_failed": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.runtest_mp/MultiprocessIterator": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.runtest_mp/MultiprocessResult": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.runtest_mp/must_stop": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.runtest_mp/parse_worker_args": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.runtest_mp/run_test_in_subprocess": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.runtest_mp/run_tests_worker": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.setup/replace_stdout": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.setup/replace_stdout.doc": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.setup/setup_tests": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.utils/format_duration": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.utils/printlist": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.utils/printlist.doc": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.utils/regrtest_threading_excepthook": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.utils/regrtest_unraisable_hook": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.utils/removepy": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.utils/setup_unraisable_hook": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.win_utils/WindowsLoadTracker": {
+        "train": 1
+      },
+      "stdlib/test.libregrtest.win_utils/WindowsLoadTracker.doc": {
+        "train": 1
+      },
+      "stdlib/test.support.bytecode_helper/BytecodeTestCase": {
+        "train": 1
+      },
+      "stdlib/test.support.hashlib_helper/requires_hashdigest": {
+        "train": 1
+      },
+      "stdlib/test.support.import_helper/CleanImport": {
+        "train": 1
+      },
+      "stdlib/test.support.import_helper/forget": {
+        "train": 1
+      },
+      "stdlib/test.support.import_helper/forget.doc": {
+        "train": 1
+      },
+      "stdlib/test.support.import_helper/frozen_modules": {
+        "train": 1
+      },
+      "stdlib/test.support.import_helper/frozen_modules.doc": {
+        "train": 1
+      },
+      "stdlib/test.support.import_helper/import_fresh_module": {
+        "train": 1
+      },
+      "stdlib/test.support.import_helper/import_module": {
+        "train": 1
+      },
+      "stdlib/test.support.import_helper/import_module.doc": {
+        "train": 1
+      },
+      "stdlib/test.support.import_helper/make_legacy_pyc": {
+        "train": 1
+      },
+      "stdlib/test.support.import_helper/make_legacy_pyc.doc": {
+        "train": 1
+      },
+      "stdlib/test.support.interpreters/Interpreter": {
+        "train": 1
+      },
+      "stdlib/test.support.interpreters/create": {
+        "train": 1
+      },
+      "stdlib/test.support.interpreters/create_channel": {
+        "train": 1
+      },
+      "stdlib/test.support.interpreters/create_channel.doc": {
+        "train": 1
+      },
+      "stdlib/test.support.interpreters/get_current": {
+        "train": 1
+      },
+      "stdlib/test.support.interpreters/list_all": {
+        "train": 1
+      },
+      "stdlib/test.support.interpreters/list_all_channels": {
+        "train": 1
+      },
+      "stdlib/test.support.logging_helper/TestHandler": {
+        "train": 1
+      },
+      "stdlib/test.support.os_helper/can_chmod": {
+        "train": 1
+      },
+      "stdlib/test.support.os_helper/can_symlink": {
+        "train": 1
+      },
+      "stdlib/test.support.os_helper/can_xattr": {
+        "train": 1
+      },
+      "stdlib/test.support.os_helper/make_bad_fd": {
+        "train": 1
+      },
+      "stdlib/test.support.os_helper/make_bad_fd.doc": {
+        "train": 1
+      },
+      "stdlib/test.support.os_helper/skip_unless_symlink": {
+        "train": 1
+      },
+      "stdlib/test.support.os_helper/skip_unless_xattr": {
+        "train": 1
+      },
+      "stdlib/test.support.os_helper/skip_unless_xattr.doc": {
+        "train": 1
+      },
+      "stdlib/test.support.script_helper/assert_python_failure": {
+        "train": 1
+      },
+      "stdlib/test.support.script_helper/assert_python_failure.doc": {
+        "train": 1
+      },
+      "stdlib/test.support.script_helper/assert_python_ok": {
+        "train": 1
+      },
+      "stdlib/test.support.script_helper/assert_python_ok.doc": {
+        "train": 1
+      },
+      "stdlib/test.support.script_helper/interpreter_requires_environment": {
+        "train": 1
+      },
+      "stdlib/test.support.script_helper/kill_python": {
+        "train": 1
+      },
+      "stdlib/test.support.script_helper/kill_python.doc": {
+        "train": 1
+      },
+      "stdlib/test.support.script_helper/run_python_until_end": {
+        "train": 1
+      },
+      "stdlib/test.support.script_helper/spawn_python": {
+        "train": 1
+      },
+      "stdlib/test.support.socket_helper/bind_port": {
+        "train": 1
+      },
+      "stdlib/test.support.socket_helper/bind_unix_socket": {
+        "train": 1
+      },
+      "stdlib/test.support.socket_helper/bind_unix_socket.doc": {
+        "train": 1
+      },
+      "stdlib/test.support.socket_helper/find_unused_port": {
+        "train": 1
+      },
+      "stdlib/test.support.socket_helper/find_unused_port.doc": {
+        "train": 1
+      },
+      "stdlib/test.support.socket_helper/get_socket_conn_refused_errs": {
+        "train": 1
+      },
+      "stdlib/test.support.socket_helper/get_socket_conn_refused_errs.doc": {
+        "train": 1
+      },
+      "stdlib/test.support.socket_helper/skip_unless_bind_unix_socket": {
+        "train": 1
+      },
+      "stdlib/test.support.socket_helper/skip_unless_bind_unix_socket.doc": {
+        "train": 1
+      },
+      "stdlib/test.support.socket_helper/transient_internet": {
+        "train": 1
+      },
+      "stdlib/test.support.testresult/QuietRegressionTestRunner": {
+        "train": 1
+      },
+      "stdlib/test.support.testresult/RegressionTestResult": {
+        "train": 1
+      },
+      "stdlib/test.support.testresult/get_test_runner": {
+        "train": 1
+      },
+      "stdlib/test.support.testresult/get_test_runner_class": {
+        "train": 1
+      },
+      "stdlib/test.support.threading_helper/catch_threading_exception": {
+        "train": 1
+      },
+      "stdlib/test.support.threading_helper/join_thread": {
+        "train": 1
+      },
+      "stdlib/test.support.threading_helper/join_thread.doc": {
+        "train": 1
+      },
+      "stdlib/test.support.threading_helper/reap_threads": {
+        "train": 1
+      },
+      "stdlib/test.support.threading_helper/reap_threads.doc": {
+        "train": 1
+      },
+      "stdlib/test.support.threading_helper/start_threads": {
+        "train": 1
+      },
+      "stdlib/test.support.threading_helper/threading_cleanup": {
+        "train": 1
+      },
+      "stdlib/test.support.threading_helper/wait_threads_exit": {
+        "train": 1
+      },
+      "stdlib/test.support.warnings_helper/WarningsRecorder": {
+        "train": 1
+      },
+      "stdlib/test.support.warnings_helper/WarningsRecorder.doc": {
+        "train": 1
+      },
+      "stdlib/test.support.warnings_helper/check_no_warnings": {
+        "train": 1
+      },
+      "stdlib/test.support.warnings_helper/check_no_warnings.doc": {
+        "train": 1
+      },
+      "stdlib/test.support.warnings_helper/check_syntax_warning": {
+        "train": 1
+      },
+      "stdlib/test.support.warnings_helper/check_warnings": {
+        "train": 1
+      },
+      "stdlib/test.support.warnings_helper/check_warnings.doc": {
+        "train": 1
+      },
+      "stdlib/test.support.warnings_helper/ignore_warnings": {
+        "train": 1
+      },
+      "stdlib/test.support.warnings_helper/ignore_warnings.doc": {
+        "train": 1
+      },
+      "stdlib/test.support.warnings_helper/import_deprecated": {
+        "train": 1
+      },
+      "stdlib/textwrap": {
+        "train": 9
+      },
+      "stdlib/textwrap/fill.doc": {
+        "train": 1
+      },
+      "stdlib/textwrap/indent.doc": {
+        "train": 1
+      },
+      "stdlib/textwrap/shorten.doc": {
+        "train": 1
+      },
+      "stdlib/textwrap/wrap.doc": {
+        "train": 1
+      },
+      "stdlib/threading/BoundedSemaphore": {
+        "train": 1
+      },
+      "stdlib/threading/Event": {
+        "train": 1
+      },
+      "stdlib/threading/RLock": {
+        "train": 1
+      },
+      "stdlib/threading/RLock.doc": {
+        "train": 1
+      },
+      "stdlib/threading/Semaphore": {
+        "train": 1
+      },
+      "stdlib/threading/Semaphore.doc": {
+        "train": 1
+      },
+      "stdlib/threading/setprofile": {
+        "train": 1
+      },
+      "stdlib/threading/setprofile.doc": {
+        "train": 1
+      },
+      "stdlib/threading/settrace": {
+        "train": 1
+      },
+      "stdlib/threading/settrace.doc": {
+        "train": 1
+      },
+      "stdlib/timeit.overview": {
+        "train": 1
+      },
+      "stdlib/timeit/Timer": {
+        "train": 1
+      },
+      "stdlib/timeit/Timer.doc": {
+        "train": 1
+      },
+      "stdlib/timeit/main": {
+        "train": 1
+      },
+      "stdlib/timeit/main.doc": {
+        "train": 1
+      },
+      "stdlib/timeit/reindent": {
+        "train": 1
+      },
+      "stdlib/timeit/repeat": {
+        "train": 1
+      },
+      "stdlib/timeit/repeat.doc": {
+        "train": 1
+      },
+      "stdlib/timeit/timeit": {
+        "train": 1
+      },
+      "stdlib/timeit/timeit.doc": {
+        "train": 1
+      },
+      "stdlib/tokenize.overview": {
+        "train": 1
+      },
+      "stdlib/tokenize/TokenInfo": {
+        "train": 1
+      },
+      "stdlib/tokenize/Untokenizer": {
+        "train": 1
+      },
+      "stdlib/tokenize/detect_encoding": {
+        "train": 1
+      },
+      "stdlib/tokenize/open": {
+        "train": 1
+      },
+      "stdlib/tokenize/open.doc": {
+        "train": 1
+      },
+      "stdlib/tokenize/tokenize": {
+        "train": 1
+      },
+      "stdlib/tokenize/untokenize": {
+        "train": 1
+      },
+      "stdlib/trace.overview": {
+        "train": 1
+      },
+      "stdlib/traceback/extract_tb": {
+        "train": 1
+      },
+      "stdlib/traceback/extract_tb.doc": {
+        "train": 1
+      },
+      "stdlib/traceback/format_list": {
+        "train": 1
+      },
+      "stdlib/traceback/format_list.doc": {
+        "train": 1
+      },
+      "stdlib/traceback/format_tb": {
+        "train": 1
+      },
+      "stdlib/traceback/print_exception": {
+        "train": 1
+      },
+      "stdlib/traceback/print_exception.doc": {
+        "train": 1
+      },
+      "stdlib/traceback/print_list": {
+        "train": 1
+      },
+      "stdlib/traceback/print_list.doc": {
+        "train": 1
+      },
+      "stdlib/traceback/print_tb": {
+        "train": 1
+      },
+      "stdlib/traceback/print_tb.doc": {
+        "train": 1
+      },
+      "stdlib/tracemalloc/Frame": {
+        "train": 1
+      },
+      "stdlib/tracemalloc/Statistic": {
+        "train": 1
+      },
+      "stdlib/tracemalloc/StatisticDiff": {
+        "train": 1
+      },
+      "stdlib/tracemalloc/Trace": {
+        "train": 1
+      },
+      "stdlib/tracemalloc/Traceback": {
+        "train": 1
+      },
+      "stdlib/tracemalloc/get_object_traceback": {
+        "train": 1
+      },
+      "stdlib/tracemalloc/get_object_traceback.doc": {
+        "train": 1
+      },
+      "stdlib/tty/setcbreak": {
+        "train": 1
+      },
+      "stdlib/tty/setraw": {
+        "train": 1
+      },
+      "stdlib/turtle.overview": {
+        "train": 1
+      },
+      "stdlib/turtle/ScrolledCanvas": {
+        "train": 1
+      },
+      "stdlib/turtle/ScrolledCanvas.doc": {
+        "train": 1
+      },
+      "stdlib/turtle/Shape": {
+        "train": 1
+      },
+      "stdlib/turtle/Terminator": {
+        "train": 1
+      },
+      "stdlib/turtle/Terminator.doc": {
+        "train": 1
+      },
+      "stdlib/turtle/Vec2D": {
+        "train": 1
+      },
+      "stdlib/turtle/config_dict": {
+        "train": 1
+      },
+      "stdlib/turtle/readconfig": {
+        "train": 1
+      },
+      "stdlib/types": {
+        "train": 4
+      },
+      "stdlib/types/coroutine": {
+        "train": 1
+      },
+      "stdlib/types/new_class.doc": {
+        "train": 1
+      },
+      "stdlib/types/resolve_bases": {
+        "train": 1
+      },
+      "stdlib/typing.overview": {
+        "train": 1
+      },
+      "stdlib/typing/Any": {
+        "train": 1
+      },
+      "stdlib/typing/Any.doc": {
+        "train": 1
+      },
+      "stdlib/typing/ClassVar": {
+        "train": 1
+      },
+      "stdlib/typing/ClassVar.doc": {
+        "train": 1
+      },
+      "stdlib/typing/LiteralString": {
+        "train": 1
+      },
+      "stdlib/typing/LiteralString.doc": {
+        "train": 1
+      },
+      "stdlib/typing/Never": {
+        "train": 1
+      },
+      "stdlib/typing/Never.doc": {
+        "train": 1
+      },
+      "stdlib/typing/NoReturn": {
+        "train": 1
+      },
+      "stdlib/typing/NoReturn.doc": {
+        "train": 1
+      },
+      "stdlib/typing/Self": {
+        "train": 1
+      },
+      "stdlib/typing/Self.doc": {
+        "train": 1
+      },
+      "stdlib/unittest.async_case/IsolatedAsyncioTestCase": {
+        "train": 1
+      },
+      "stdlib/unittest.case/SkipTest": {
+        "train": 1
+      },
+      "stdlib/unittest.case/SkipTest.doc": {
+        "train": 1
+      },
+      "stdlib/unittest.case/addModuleCleanup": {
+        "train": 1
+      },
+      "stdlib/unittest.case/addModuleCleanup.doc": {
+        "train": 1
+      },
+      "stdlib/unittest.case/doModuleCleanups": {
+        "train": 1
+      },
+      "stdlib/unittest.case/doModuleCleanups.doc": {
+        "train": 1
+      },
+      "stdlib/unittest.case/enterModuleContext": {
+        "train": 1
+      },
+      "stdlib/unittest.case/skip": {
+        "train": 1
+      },
+      "stdlib/unittest.case/skipIf": {
+        "train": 1
+      },
+      "stdlib/unittest.loader/findTestCases": {
+        "train": 1
+      },
+      "stdlib/unittest.loader/getTestCaseNames": {
+        "train": 1
+      },
+      "stdlib/unittest.loader/makeSuite": {
+        "train": 1
+      },
+      "stdlib/unittest.mock/Base": {
+        "train": 1
+      },
+      "stdlib/unittest.mock/CallableMixin": {
+        "train": 1
+      },
+      "stdlib/unittest.mock/MagicMixin": {
+        "train": 1
+      },
+      "stdlib/unittest.mock/Mock": {
+        "train": 1
+      },
+      "stdlib/unittest.mock/NonCallableMagicMock": {
+        "train": 1
+      },
+      "stdlib/unittest.mock/patch": {
+        "train": 1
+      },
+      "stdlib/unittest.mock/patch.doc": {
+        "train": 1
+      },
+      "stdlib/unittest.result/failfast": {
+        "train": 1
+      },
+      "stdlib/unittest.runner/TextTestResult": {
+        "train": 1
+      },
+      "stdlib/unittest.runner/TextTestResult.doc": {
+        "train": 1
+      },
+      "stdlib/unittest.runner/TextTestRunner": {
+        "train": 1
+      },
+      "stdlib/unittest.runner/TextTestRunner.doc": {
+        "train": 1
+      },
+      "stdlib/unittest.signals/installHandler": {
+        "train": 1
+      },
+      "stdlib/unittest.signals/removeHandler": {
+        "train": 1
+      },
+      "stdlib/unittest.suite/BaseTestSuite": {
+        "train": 1
+      },
+      "stdlib/unittest.util/safe_repr": {
+        "train": 1
+      },
+      "stdlib/unittest.util/sorted_list_difference": {
+        "train": 1
+      },
+      "stdlib/unittest.util/unorderable_list_difference": {
+        "train": 1
+      },
+      "stdlib/unittest.util/unorderable_list_difference.doc": {
+        "train": 1
+      },
+      "stdlib/urllib.error.overview": {
+        "train": 1
+      },
+      "stdlib/urllib.error/ContentTooShortError": {
+        "train": 1
+      },
+      "stdlib/urllib.error/ContentTooShortError.doc": {
+        "train": 1
+      },
+      "stdlib/urllib.error/HTTPError": {
+        "train": 1
+      },
+      "stdlib/urllib.error/HTTPError.doc": {
+        "train": 1
+      },
+      "stdlib/urllib.error/URLError": {
+        "train": 1
+      },
+      "stdlib/urllib.parse.overview": {
+        "train": 1
+      },
+      "stdlib/urllib.parse/DefragResult": {
+        "train": 1
+      },
+      "stdlib/urllib.parse/DefragResultBytes": {
+        "train": 1
+      },
+      "stdlib/urllib.parse/ParseResult": {
+        "train": 1
+      },
+      "stdlib/urllib.parse/SplitResult": {
+        "train": 1
+      },
+      "stdlib/urllib.parse/SplitResultBytes": {
+        "train": 1
+      },
+      "stdlib/urllib.parse/clear_cache": {
+        "train": 1
+      },
+      "stdlib/urllib.parse/clear_cache.doc": {
+        "train": 1
+      },
+      "stdlib/urllib.response.overview": {
+        "train": 1
+      },
+      "stdlib/urllib.response/addbase": {
+        "train": 1
+      },
+      "stdlib/urllib.response/addbase.doc": {
+        "train": 1
+      },
+      "stdlib/urllib.response/addclosehook": {
+        "train": 1
+      },
+      "stdlib/urllib.response/addinfo": {
+        "train": 1
+      },
+      "stdlib/urllib.response/addinfourl": {
+        "train": 1
+      },
+      "stdlib/urllib.robotparser.overview": {
+        "train": 1
+      },
+      "stdlib/urllib.robotparser/Entry": {
+        "train": 1
+      },
+      "stdlib/urllib.robotparser/RuleLine": {
+        "train": 1
+      },
+      "stdlib/urllib.robotparser/RuleLine.doc": {
+        "train": 1
+      },
+      "stdlib/uu.overview": {
+        "train": 1
+      },
+      "stdlib/uu/decode": {
+        "train": 1
+      },
+      "stdlib/uu/encode": {
+        "train": 1
+      },
+      "stdlib/uu/test": {
+        "train": 1
+      },
+      "stdlib/uuid.overview": {
+        "train": 1
+      },
+      "stdlib/uuid/getnode": {
+        "train": 1
+      },
+      "stdlib/uuid/getnode.doc": {
+        "train": 1
+      },
+      "stdlib/uuid/uuid1": {
+        "train": 1
+      },
+      "stdlib/uuid/uuid3": {
+        "train": 1
+      },
+      "stdlib/uuid/uuid3.doc": {
+        "train": 1
+      },
+      "stdlib/uuid/uuid5": {
+        "train": 1
+      },
+      "stdlib/uuid/uuid5.doc": {
+        "train": 1
+      },
+      "stdlib/warnings/filterwarnings": {
+        "train": 1
+      },
+      "stdlib/warnings/formatwarning": {
+        "train": 1
+      },
+      "stdlib/warnings/resetwarnings": {
+        "train": 1
+      },
+      "stdlib/warnings/resetwarnings.doc": {
+        "train": 1
+      },
+      "stdlib/warnings/showwarning": {
+        "train": 1
+      },
+      "stdlib/warnings/simplefilter": {
+        "train": 1
+      },
+      "stdlib/warnings/simplefilter.doc": {
+        "train": 1
+      },
+      "stdlib/warnings/warn": {
+        "train": 1
+      },
+      "stdlib/wave.overview": {
+        "train": 1
+      },
+      "stdlib/wave/Wave_read": {
+        "train": 1
+      },
+      "stdlib/wave/Wave_read.doc": {
+        "train": 1
+      },
+      "stdlib/wave/open": {
+        "train": 1
+      },
+      "stdlib/weakref/KeyedRef": {
+        "train": 1
+      },
+      "stdlib/weakref/KeyedRef.doc": {
+        "train": 1
+      },
+      "stdlib/weakref/WeakKeyDictionary": {
+        "train": 1
+      },
+      "stdlib/weakref/WeakKeyDictionary.doc": {
+        "train": 1
+      },
+      "stdlib/weakref/WeakMethod": {
+        "train": 1
+      },
+      "stdlib/weakref/finalize": {
+        "train": 1
+      },
+      "stdlib/weakref/finalize.doc": {
+        "train": 1
+      },
+      "stdlib/webbrowser/BaseBrowser": {
+        "train": 1
+      },
+      "stdlib/webbrowser/get": {
+        "train": 1
+      },
+      "stdlib/webbrowser/get.doc": {
+        "train": 1
+      },
+      "stdlib/webbrowser/open": {
+        "train": 1
+      },
+      "stdlib/webbrowser/open.doc": {
+        "train": 1
+      },
+      "stdlib/webbrowser/open_new": {
+        "train": 1
+      },
+      "stdlib/webbrowser/open_new.doc": {
+        "train": 1
+      },
+      "stdlib/webbrowser/open_new_tab": {
+        "train": 1
+      },
+      "stdlib/webbrowser/open_new_tab.doc": {
+        "train": 1
+      },
+      "stdlib/webbrowser/register": {
+        "train": 1
+      },
+      "stdlib/wsgiref.handlers/BaseCGIHandler": {
+        "train": 1
+      },
+      "stdlib/wsgiref.handlers/BaseCGIHandler.doc": {
+        "train": 1
+      },
+      "stdlib/wsgiref.handlers/CGIHandler": {
+        "train": 1
+      },
+      "stdlib/wsgiref.handlers/IISCGIHandler": {
+        "train": 1
+      },
+      "stdlib/wsgiref.handlers/SimpleHandler": {
+        "train": 1
+      },
+      "stdlib/wsgiref.handlers/format_date_time": {
+        "train": 1
+      },
+      "stdlib/wsgiref.handlers/read_environ": {
+        "train": 1
+      },
+      "stdlib/wsgiref.headers.overview": {
+        "train": 1
+      },
+      "stdlib/wsgiref.simple_server.overview": {
+        "train": 1
+      },
+      "stdlib/wsgiref.simple_server/ServerHandler": {
+        "train": 1
+      },
+      "stdlib/wsgiref.simple_server/WSGIRequestHandler": {
+        "train": 1
+      },
+      "stdlib/wsgiref.simple_server/WSGIServer": {
+        "train": 1
+      },
+      "stdlib/wsgiref.simple_server/demo_app": {
+        "train": 1
+      },
+      "stdlib/wsgiref.simple_server/make_server": {
+        "train": 1
+      },
+      "stdlib/wsgiref.simple_server/make_server.doc": {
+        "train": 1
+      },
+      "stdlib/wsgiref.types/ErrorStream": {
+        "train": 1
+      },
+      "stdlib/wsgiref.types/FileWrapper": {
+        "train": 1
+      },
+      "stdlib/wsgiref.types/InputStream": {
+        "train": 1
+      },
+      "stdlib/wsgiref.types/StartResponse": {
+        "train": 1
+      },
+      "stdlib/wsgiref.util/FileWrapper": {
+        "train": 1
+      },
+      "stdlib/wsgiref.util/application_uri": {
+        "train": 1
+      },
+      "stdlib/wsgiref.util/application_uri.doc": {
+        "train": 1
+      },
+      "stdlib/wsgiref.util/guess_scheme": {
+        "train": 1
+      },
+      "stdlib/wsgiref.util/guess_scheme.doc": {
+        "train": 1
+      },
+      "stdlib/wsgiref.util/request_uri": {
+        "train": 1
+      },
+      "stdlib/wsgiref.util/request_uri.doc": {
+        "train": 1
+      },
+      "stdlib/wsgiref.util/setup_testing_defaults": {
+        "train": 1
+      },
+      "stdlib/wsgiref.util/shift_path_info": {
+        "train": 1
+      },
+      "stdlib/wsgiref.validate.overview": {
+        "train": 1
+      },
+      "stdlib/wsgiref.validate/ErrorWrapper": {
+        "train": 1
+      },
+      "stdlib/wsgiref.validate/InputWrapper": {
+        "train": 1
+      },
+      "stdlib/wsgiref.validate/PartialIteratorWrapper": {
+        "train": 1
+      },
+      "stdlib/wsgiref.validate/WriteWrapper": {
+        "train": 1
+      },
+      "stdlib/wsgiref.validate/check_string_type": {
+        "train": 1
+      },
+      "stdlib/wsgiref.validate/validator": {
+        "train": 1
+      },
+      "stdlib/xdrlib/Error": {
+        "train": 1
+      },
+      "stdlib/xdrlib/Error.doc": {
+        "train": 1
+      },
+      "stdlib/xdrlib/Packer": {
+        "train": 1
+      },
+      "stdlib/xdrlib/Unpacker": {
+        "train": 1
+      },
+      "stdlib/xdrlib/raise_conversion_error": {
+        "train": 1
+      },
+      "stdlib/xml.dom.NodeFilter/NodeFilter": {
+        "train": 1
+      },
+      "stdlib/xml.dom.NodeFilter/NodeFilter.doc": {
+        "train": 1
+      },
+      "stdlib/xml.dom.domreg.overview": {
+        "train": 1
+      },
+      "stdlib/xml.dom.domreg/getDOMImplementation": {
+        "train": 1
+      },
+      "stdlib/xml.dom.domreg/registerDOMImplementation": {
+        "train": 1
+      },
+      "stdlib/xml.dom.domreg/registerDOMImplementation.doc": {
+        "train": 1
+      },
+      "stdlib/xml.dom.expatbuilder.overview": {
+        "train": 1
+      },
+      "stdlib/xml.dom.expatbuilder/ElementInfo": {
+        "train": 1
+      },
+      "stdlib/xml.dom.expatbuilder/FilterCrutch": {
+        "train": 1
+      },
+      "stdlib/xml.dom.expatbuilder/FilterVisibilityController": {
+        "train": 1
+      },
+      "stdlib/xml.dom.expatbuilder/FragmentBuilder": {
+        "train": 1
+      },
+      "stdlib/xml.dom.expatbuilder/FragmentBuilder.doc": {
+        "train": 1
+      },
+      "stdlib/xml.dom.expatbuilder/Rejecter": {
+        "train": 1
+      },
+      "stdlib/xml.dom.expatbuilder/Skipper": {
+        "train": 1
+      },
+      "stdlib/xml.dom.minicompat.overview": {
+        "train": 1
+      },
+      "stdlib/xml.dom.minicompat/EmptyNodeList": {
+        "train": 1
+      },
+      "stdlib/xml.dom.minicompat/NodeList": {
+        "train": 1
+      },
+      "stdlib/xml.dom.minicompat/defproperty": {
+        "train": 1
+      },
+      "stdlib/xml.dom.minidom.overview": {
+        "train": 1
+      },
+      "stdlib/xml.dom.minidom/Attr": {
+        "train": 1
+      },
+      "stdlib/xml.dom.minidom/Childless": {
+        "train": 1
+      },
+      "stdlib/xml.dom.minidom/Childless.doc": {
+        "train": 1
+      },
+      "stdlib/xml.dom.minidom/DocumentFragment": {
+        "train": 1
+      },
+      "stdlib/xml.dom.minidom/NamedNodeMap": {
+        "train": 1
+      },
+      "stdlib/xml.dom.minidom/NamedNodeMap.doc": {
+        "train": 1
+      },
+      "stdlib/xml.dom.minidom/ProcessingInstruction": {
+        "train": 1
+      },
+      "stdlib/xml.dom.minidom/TypeInfo": {
+        "train": 1
+      },
+      "stdlib/xml.dom.pulldom/DOMEventStream": {
+        "train": 1
+      },
+      "stdlib/xml.dom.pulldom/ErrorHandler": {
+        "train": 1
+      },
+      "stdlib/xml.dom.pulldom/SAX2DOM": {
+        "train": 1
+      },
+      "stdlib/xml.dom.pulldom/parse": {
+        "train": 1
+      },
+      "stdlib/xml.dom.pulldom/parseString": {
+        "train": 1
+      },
+      "stdlib/xml.dom.xmlbuilder/DOMBuilderFilter": {
+        "train": 1
+      },
+      "stdlib/xml.dom.xmlbuilder/DOMBuilderFilter.doc": {
+        "train": 1
+      },
+      "stdlib/xml.dom.xmlbuilder/DOMEntityResolver": {
+        "train": 1
+      },
+      "stdlib/xml.dom.xmlbuilder/DOMImplementationLS": {
+        "train": 1
+      },
+      "stdlib/xml.dom.xmlbuilder/DOMInputSource": {
+        "train": 1
+      },
+      "stdlib/xml.dom.xmlbuilder/DocumentLS": {
+        "train": 1
+      },
+      "stdlib/xml.dom.xmlbuilder/DocumentLS.doc": {
+        "train": 1
+      },
+      "stdlib/xml.dom.xmlbuilder/Options": {
+        "train": 1
+      },
+      "stdlib/xml.dom.xmlbuilder/Options.doc": {
+        "train": 1
+      },
+      "stdlib/xml.etree.ElementInclude/default_loader": {
+        "train": 1
+      },
+      "stdlib/xml.etree.ElementInclude/include": {
+        "train": 1
+      },
+      "stdlib/xml.etree.ElementPath/get_parent_map": {
+        "train": 1
+      },
+      "stdlib/xml.etree.ElementPath/prepare_child": {
+        "train": 1
+      },
+      "stdlib/xml.etree.ElementPath/prepare_descendant": {
+        "train": 1
+      },
+      "stdlib/xml.etree.ElementPath/prepare_parent": {
+        "train": 1
+      },
+      "stdlib/xml.etree.ElementPath/prepare_star": {
+        "train": 1
+      },
+      "stdlib/xml.etree.ElementPath/xpath_tokenizer": {
+        "train": 1
+      },
+      "stdlib/xml.etree.ElementTree.overview": {
+        "train": 1
+      },
+      "stdlib/xml.etree.ElementTree/Comment": {
+        "train": 1
+      },
+      "stdlib/xml.etree.ElementTree/Comment.doc": {
+        "train": 1
+      },
+      "stdlib/xml.etree.ElementTree/ParseError": {
+        "train": 1
+      },
+      "stdlib/xml.etree.ElementTree/ParseError.doc": {
+        "train": 1
+      },
+      "stdlib/xml.etree.ElementTree/ProcessingInstruction": {
+        "train": 1
+      },
+      "stdlib/xml.etree.ElementTree/ProcessingInstruction.doc": {
+        "train": 1
+      },
+      "stdlib/xml.etree.ElementTree/QName": {
+        "train": 1
+      },
+      "stdlib/xml.etree.ElementTree/SubElement": {
+        "train": 1
+      },
+      "stdlib/xml.etree.ElementTree/SubElement.doc": {
+        "train": 1
+      },
+      "stdlib/xml.etree.ElementTree/register_namespace": {
+        "train": 1
+      },
+      "stdlib/xml.etree.ElementTree/register_namespace.doc": {
+        "train": 1
+      },
+      "tool/code_repair": {
+        "test": 10,
+        "train": 28,
+        "validation": 9
+      },
+      "tool/code_run": {
+        "test": 186,
+        "train": 609,
+        "validation": 204
+      },
+      "tool/compute": {
+        "test": 85,
+        "train": 831,
+        "validation": 84
+      },
+      "tool/error_recovery": {
+        "test": 96,
+        "train": 449,
+        "validation": 97
+      },
+      "tool/fetch_direct": {
+        "test": 116,
+        "train": 641,
+        "validation": 105
+      },
+      "tool/search_fetch": {
+        "test": 149,
+        "train": 457,
+        "validation": 156
+      },
+      "tool/search_multi": {
+        "test": 173,
+        "train": 643,
+        "validation": 175
+      },
+      "tool/search_single": {
+        "test": 2,
+        "train": 10,
+        "validation": 2
+      }
+    },
+    "uncovered": []
+  },
+  "ok": true,
+  "recorded_utc": "2026-10-03T07:06:39Z"
+}

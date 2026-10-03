@@ -1,6 +1,6 @@
 {
-  "dataset_version": "dataset_v8",
-  "created": "2026-10-03T07:22:49",
+  "dataset_version": "dataset_v7",
+  "created": "2026-10-03T06:36:44",
   "sources": [
     {
       "source": "python_stdlib",
@@ -346,8 +346,8 @@
     },
     {
       "requested": 9000,
-      "emitted": 8299,
-      "duplicates_dropped": 701,
+      "emitted": 7844,
+      "duplicates_dropped": 1156,
       "source": "synthetic",
       "source_id": "synv3/tool_use",
       "source_url": "local://data_sources/synthetic_v3.py",
@@ -355,7 +355,7 @@
       "license": "Synthetic-Verified",
       "license_url": "",
       "category_family": "tool",
-      "records": 8299,
+      "records": 7844,
       "verified": true,
       "verifier": "python_recomputation | subprocess_execution | index_containment",
       "generator": "synthetic_v3.gen_tool_use_v3",

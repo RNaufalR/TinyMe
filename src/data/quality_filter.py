@@ -177,6 +177,21 @@ def score_record(rec: dict[str, Any], source_quality: float = 1.0,
                                             else "language_not_checked")
     else:
         syntax_ok, syntax_note = None, "not_applicable"
+    # The minified/generated heuristic exists to keep machine-formatted *source
+    # text* out of the corpus.  A structured trajectory contains machine-formatted
+    # protocol payloads by design (a tool_result is a JSON envelope, a tool_call
+    # carries JSON arguments), and those payloads are not even supervised.  Judging
+    # the whole record on them deleted every grounded-search trajectory from the
+    # corpus: measured on the v7 generator, 51/51 ``tool/search_single`` records
+    # were rejected as ``minified_or_generated`` because one JSON line exceeded
+    # 1000 characters.  The heuristic is now applied to the readable segments.
+    minified_text = text
+    segments = rec.get("segments")
+    if segments:
+        readable = "\n".join(str(sg.get("text", "")) for sg in segments
+                             if sg.get("role") not in ("tool_call", "tool_result"))
+        if readable.strip():
+            minified_text = readable
     length = len(text)
     lang_conf = language_confidence(text)
     density = information_density(text)
@@ -216,7 +231,7 @@ def score_record(rec: dict[str, Any], source_quality: float = 1.0,
         "safety_pii": safety["pii"],
         "safety_malware": safety["malware"],
         "safety_toxicity": safety["toxicity"],
-        "is_minified": is_minified(text),
+        "is_minified": is_minified(minified_text),
         "is_binary_like": is_binary_like(text),
         "quality_score": round(max(0.0, min(1.0, overall)), 4),
     }

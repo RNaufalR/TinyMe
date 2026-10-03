@@ -1,0 +1,7 @@
+{
+  "check": "packing_accounting",
+  "detail": "KeyError: 'records_packed'",
+  "evidence": {},
+  "ok": false,
+  "recorded_utc": "2026-10-03T07:09:33Z"
+}

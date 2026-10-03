@@ -1,0 +1,36 @@
+{
+  "check": "loss_mask_contract",
+  "detail": "tool_result spans located in 12 records, supervised payload tokens=0, records with a supervised tool_call span=12 (positive control)",
+  "evidence": {
+    "dataset": "dataset_v7",
+    "examples": [
+      {
+        "payload_positions": [
+          73
+        ],
+        "record_id": "3d64151e3aba52f58c53b412c72a5324",
+        "supervised_positions_inside_payload": []
+      },
+      {
+        "payload_positions": [
+          75
+        ],
+        "record_id": "9e4b3e253f4c5f7a80d9b0670740a78d",
+        "supervised_positions_inside_payload": []
+      },
+      {
+        "payload_positions": [
+          85
+        ],
+        "record_id": "b921517afe9f554e8cfc359b5c028e6d",
+        "supervised_positions_inside_payload": []
+      }
+    ],
+    "positive_control_records": 12,
+    "records_checked": 12,
+    "semantics": "tool_result payload must never be a training target",
+    "violations": 0
+  },
+  "ok": true,
+  "recorded_utc": "2026-10-03T07:09:35Z"
+}

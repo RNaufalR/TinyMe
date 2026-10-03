@@ -1,0 +1,20 @@
+{
+  "check": "exp001",
+  "detail": "EXP-001 referenced only in history/comparison documents: ['CORRECTIVE_AUDIT.md', 'EXPERIMENT_LOG.md', 'MODEL_COMPARISON.md', 'README.md', 'TINY_AI_TRAINING_LAB.md', 'TRAINING_REPORT.md', 'TinyMeAudit.md', 'TinyMeTask.md', 'VERIFICATION_MATRIX.md']",
+  "evidence": {
+    "documents": [
+      "CORRECTIVE_AUDIT.md",
+      "EXPERIMENT_LOG.md",
+      "MODEL_COMPARISON.md",
+      "README.md",
+      "TINY_AI_TRAINING_LAB.md",
+      "TRAINING_REPORT.md",
+      "TinyMeAudit.md",
+      "TinyMeTask.md",
+      "VERIFICATION_MATRIX.md"
+    ],
+    "note": "\u00a759: EXP-001 is never used as a current baseline"
+  },
+  "ok": true,
+  "recorded_utc": "2026-10-03T07:09:35Z"
+}

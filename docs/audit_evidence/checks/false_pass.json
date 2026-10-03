@@ -1,0 +1,57 @@
+{
+  "check": "false_pass",
+  "detail": "0 unconditional skip/failure-hiding patterns, 5 guarded, 6 conditional skips",
+  "evidence": {
+    "bare_patterns": [
+      "|| true",
+      "pytest.mark.skip(",
+      "pytest.mark.xfail(",
+      "@pytest.mark.skip\n",
+      "pytest.skip(",
+      "assert True  #"
+    ],
+    "conditional_skips": [
+      "tests/test_data_pipeline.py:51",
+      "tests/test_release_contract.py:28",
+      "tests/test_retrieval_quality.py:14",
+      "tests/test_sandbox.py:31",
+      "tests/test_sandbox.py:35",
+      "tests/test_tools.py:87"
+    ],
+    "findings": [
+      {
+        "context": "    data contract (``dataset_v3`` onwards).\n    \"\"\"\n    manifest = load_manifest(DATASET)\n    if manifest.get(\"loss_mask_semantics\") != \"control-tokens-supervised\":\n        pytest.skip(f\"{DATASET} predates the control-token/format fix (historical revision)\")",
+        "guarded": true,
+        "pattern": "pytest.skip(",
+        "where": "tests/test_data_pipeline.py:256"
+      },
+      {
+        "context": "    ``<|assistant|>``.\n    \"\"\"\n    manifest = load_manifest(DATASET)\n    if manifest.get(\"loss_mask_semantics\") != \"control-tokens-supervised\":\n        pytest.skip(f\"{DATASET} predates the control-token/format fix (historical revision)\")",
+        "guarded": true,
+        "pattern": "pytest.skip(",
+        "where": "tests/test_data_pipeline.py:282"
+      },
+      {
+        "context": "        return bad\n\n    sub = [r for r in suite if r.get(\"category\") == \"code_gen\"][:6]\n    if not sub:\n        pytest.skip(\"no code_gen records in the held-out split\")",
+        "guarded": true,
+        "pattern": "pytest.skip(",
+        "where": "tests/test_evaluation.py:98"
+      },
+      {
+        "context": "\n@pytest.fixture(scope=\"module\")\ndef manifest() -> dict:\n    if not MANIFEST.exists():\n        pytest.skip(\"release/ not packaged yet - run scripts/package_model.py\")",
+        "guarded": true,
+        "pattern": "pytest.skip(",
+        "where": "tests/test_package_size.py:31"
+      },
+      {
+        "context": "mark.parametrize(\"case\", sorted(CASES))\ndef test_sandbox_case_matrix(case, policy, tmp_path):\n    code, overrides, expect = CASES[case]\n    if case in (\"05_network_egress_blocked\", \"06_dns_blocked\") and not CAPS.unshare_net:\n        pytest.skip(f\"{case}: requires a network namespace; host level is \"",
+        "guarded": true,
+        "pattern": "pytest.skip(",
+        "where": "tests/test_sandbox.py:125"
+      }
+    ],
+    "unconditional": []
+  },
+  "ok": true,
+  "recorded_utc": "2026-10-03T07:09:35Z"
+}

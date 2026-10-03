@@ -1,21 +1,21 @@
-# DATA QUALITY REPORT — dataset_v5
+# DATA QUALITY REPORT — dataset_v8
 
-- Raw records ingested: **22292**
-- After license check: **22202**
-- After content-aware preprocessing: **22200** (rejected: {'rejected:invalid_code': 2})
-- After quality/safety filter: **20910** (dropped: {'minified_or_generated': 1290})
-- After deduplication: **19441** (exact=424, normalized=156, minhash=888, code=1)
+- Raw records ingested: **28146**
+- After license check: **28056**
+- After content-aware preprocessing: **28054** (rejected: {'rejected:invalid_code': 2})
+- After quality/safety filter: **28050** (dropped: {'unsafe_content': 2, 'minified_or_generated': 2})
+- After deduplication: **26742** (exact=327, normalized=15, minhash=966, code=0)
 - Malformed-code rate in the final corpus: **0.000000**
-- Verified records: **19398**
+- Verified records: **26699**
 
 ## Splits (group-aware, template families held out)
 
 | split | records | active target tokens | blocks |
 | :--- | ---: | ---: | ---: |
-| train | 14787 | 791339 | 6143 |
-| validation | 2389 | 155202 | 1283 |
-| test | 2265 | 102479 | 830 |
-| challenge | 90 | 3211 | 46 |
+| train | 20088 | 1559219 | 12348 |
+| validation | 2886 | 197997 | 2267 |
+| test | 3768 | 208023 | 2285 |
+| challenge | 90 | 5316 | 55 |
 
 ## Contamination gate
 
@@ -25,9 +25,9 @@ Checks performed: exact hash, normalized hash, MinHash/LSH similarity, code-AST 
 
 ## Tokenizer
 
-- Trained on the **train split only** (14787 texts).
-- Vocabulary: 4096; file 266659 bytes;
-  sha256 `2ad26a6d685d58395ef4c983577cf61d…`
+- Trained on the **train split only** (20088 texts).
+- Vocabulary: 4096; file 266299 bytes;
+  sha256 `8b28604653165f68d8b23a8b92d29f54…`
 
 ## Sources and licences
 
@@ -49,9 +49,9 @@ Checks performed: exact hash, normalized hash, MinHash/LSH similarity, code-AST 
 | syn/tool_use | 327 |
 | syn/word_problems | 180 |
 | synv3/algorithm | 1600 |
-| synv3/copy_span | 3059 |
-| synv3/no_tool | 5572 |
-| synv3/tool_use | 7804 |
+| synv3/copy_span | 6000 |
+| synv3/no_tool | 7990 |
+| synv3/tool_use | 8299 |
 | tinystories | 15 |
 
 | licence | records |
@@ -60,7 +60,7 @@ Checks performed: exact hash, normalized hash, MinHash/LSH similarity, code-AST 
 | CDLA-Sharing-1.0 | 15 |
 | MIT | 15 |
 | PSF-2.0 | 2024 |
-| Synthetic-Verified | 17462 |
+| Synthetic-Verified | 24763 |
 
 ## Category distribution
 
@@ -70,9 +70,9 @@ Checks performed: exact hash, normalized hash, MinHash/LSH similarity, code-AST 
 | code_explain | 566 |
 | code_gen | 223 |
 | code_repair | 148 |
-| instruction | 8487 |
+| instruction | 14151 |
 | language | 188 |
 | logic | 207 |
 | math | 571 |
 | programming | 1399 |
-| tool_use | 6022 |
+| tool_use | 7659 |

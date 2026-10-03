@@ -1,0 +1,15 @@
+{
+  "check": "padding",
+  "detail": "31 shards, 6906880 positions, pad&mask=0, pad&label=0, mask/label mismatch=0",
+  "evidence": {
+    "dataset": "dataset_v7",
+    "mask_label_mismatch": 0,
+    "padding_labelled": 0,
+    "padding_supervised": 0,
+    "positions": 6906880,
+    "seq_len": 512,
+    "shards": 31
+  },
+  "ok": true,
+  "recorded_utc": "2026-10-03T07:09:19Z"
+}

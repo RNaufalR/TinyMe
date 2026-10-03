@@ -1,0 +1,50 @@
+{
+  "check": "release",
+  "detail": "experiment=EXP-004-TOOL-SFT-V3 variants=['fp16', 'fp32', 'int4', 'int8'] total=19.40 MB (18.51 MiB) fresh=False problems=[]",
+  "evidence": {
+    "expected_experiment": "EXP-010-TOOL-SFT-V7",
+    "experiment_id": "EXP-004-TOOL-SFT-V3",
+    "fresh": false,
+    "loadable_tensors_sample": {
+      "fp16": [
+        "blocks/0/attn/k",
+        "blocks/0/attn/o",
+        "blocks/0/attn/q"
+      ],
+      "fp32": [
+        "blocks/0/attn/k",
+        "blocks/0/attn/o",
+        "blocks/0/attn/q"
+      ],
+      "int4": [
+        "blocks/0/attn/k",
+        "blocks/0/attn/k.__scale__",
+        "blocks/0/attn/o"
+      ],
+      "int8": [
+        "blocks/0/attn/k",
+        "blocks/0/attn/k.__scale__",
+        "blocks/0/attn/o"
+      ]
+    },
+    "problems": [],
+    "size_gate_50mb": true,
+    "sizes": {
+      "model_fp16.safetensors": 5118480,
+      "model_fp32.safetensors": 10233776,
+      "model_int4.safetensors": 1451272,
+      "model_int8.safetensors": 2600976
+    },
+    "total_bytes": 19404504,
+    "total_mb_decimal": 19.405,
+    "total_mib_binary": 18.506,
+    "variants": [
+      "fp16",
+      "fp32",
+      "int4",
+      "int8"
+    ]
+  },
+  "ok": false,
+  "recorded_utc": "2026-10-03T07:09:35Z"
+}

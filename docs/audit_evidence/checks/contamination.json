@@ -1,0 +1,112 @@
+{
+  "check": "contamination",
+  "detail": "train_vs_validation=free | train_vs_test=free | train_vs_challenge=free | validation_vs_test=free",
+  "evidence": {
+    "dataset": "dataset_v7",
+    "recomputed": {
+      "train_vs_challenge": {
+        "code_shingle_overlap": 0,
+        "contaminated_record_ids": [],
+        "contamination_free": true,
+        "eval_samples": 90,
+        "exact_overlap": 0,
+        "minhash_overlap": 0,
+        "normalized_overlap": 0,
+        "template_overlap": 0,
+        "train_samples": 18863
+      },
+      "train_vs_test": {
+        "code_shingle_overlap": 0,
+        "contaminated_record_ids": [],
+        "contamination_free": true,
+        "eval_samples": 3677,
+        "exact_overlap": 0,
+        "minhash_overlap": 0,
+        "normalized_overlap": 0,
+        "template_overlap": 0,
+        "train_samples": 18863
+      },
+      "train_vs_validation": {
+        "code_shingle_overlap": 0,
+        "contaminated_record_ids": [],
+        "contamination_free": true,
+        "eval_samples": 2773,
+        "exact_overlap": 0,
+        "minhash_overlap": 0,
+        "normalized_overlap": 0,
+        "template_overlap": 0,
+        "train_samples": 18863
+      },
+      "validation_vs_test": {
+        "code_shingle_overlap": 0,
+        "contaminated_record_ids": [],
+        "contamination_free": true,
+        "eval_samples": 3677,
+        "exact_overlap": 0,
+        "minhash_overlap": 0,
+        "normalized_overlap": 0,
+        "template_overlap": 0,
+        "train_samples": 2773
+      }
+    },
+    "stored_in_manifest": {
+      "train_vs_challenge": {
+        "code_shingle_overlap": 0,
+        "contaminated_record_ids": [],
+        "contamination_free": true,
+        "eval_samples": 90,
+        "exact_overlap": 0,
+        "minhash_overlap": 0,
+        "normalized_overlap": 0,
+        "template_overlap": 0,
+        "train_samples": 18863
+      },
+      "train_vs_test": {
+        "code_shingle_overlap": 0,
+        "contaminated_record_ids": [],
+        "contamination_free": true,
+        "eval_samples": 3677,
+        "exact_overlap": 0,
+        "minhash_overlap": 0,
+        "normalized_overlap": 0,
+        "template_overlap": 0,
+        "train_samples": 18863
+      },
+      "train_vs_validation": {
+        "code_shingle_overlap": 0,
+        "contaminated_record_ids": [],
+        "contamination_free": true,
+        "eval_samples": 2773,
+        "exact_overlap": 0,
+        "minhash_overlap": 0,
+        "normalized_overlap": 0,
+        "template_overlap": 0,
+        "train_samples": 18863
+      },
+      "validation_vs_challenge": {
+        "code_shingle_overlap": 0,
+        "contaminated_record_ids": [],
+        "contamination_free": true,
+        "eval_samples": 90,
+        "exact_overlap": 0,
+        "minhash_overlap": 0,
+        "normalized_overlap": 0,
+        "template_overlap": 0,
+        "train_samples": 2773
+      },
+      "validation_vs_test": {
+        "code_shingle_overlap": 0,
+        "contaminated_record_ids": [],
+        "contamination_free": true,
+        "eval_samples": 3677,
+        "exact_overlap": 0,
+        "minhash_overlap": 0,
+        "normalized_overlap": 0,
+        "template_overlap": 0,
+        "train_samples": 2773
+      }
+    }
+  },
+  "ok": true,
+  "recorded_utc": "2026-10-03T07:09:19Z"
+}

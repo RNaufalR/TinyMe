@@ -1,31 +1,31 @@
 {
-  "dataset_version": "dataset_v8",
-  "created": "2026-10-03T07:22:49",
+  "dataset_version": "dataset_v7",
+  "created": "2026-10-03T06:36:44",
   "seq_len": 512,
   "splits": {
-    "train": 20088,
-    "validation": 2886,
-    "test": 3768,
+    "train": 18863,
+    "validation": 2773,
+    "test": 3677,
     "challenge": 90
   },
-  "train_tokens_active": 1559219,
-  "validation_tokens_active": 197997,
-  "test_tokens_active": 208023,
+  "train_tokens_active": 1369040,
+  "validation_tokens_active": 182752,
+  "test_tokens_active": 193717,
   "challenge_tokens_active": 5316,
   "tokenizer": {
     "version": "tok-v3",
     "vocab_size": 4096,
-    "sha256": "8b28604653165f68d8b23a8b92d29f5445ce6be9661aa6e95b5d5ce3095afd7c",
-    "bytes": 266299,
+    "sha256": "2df19755e03b8ce561f04cc30643cb3b8341e87586e6be567baf454e0e949474",
+    "bytes": 266159,
     "trained_on": "train split only",
-    "train_texts": 20088
+    "train_texts": 18863
   },
-  "tokenizer_hash": "8b28604653165f68d8b23a8b92d29f5445ce6be9661aa6e95b5d5ce3095afd7c",
+  "tokenizer_hash": "2df19755e03b8ce561f04cc30643cb3b8341e87586e6be567baf454e0e949474",
   "tokenizer_version": "tok-v3",
   "contamination": {
     "train_vs_validation": {
-      "eval_samples": 2886,
-      "train_samples": 20088,
+      "eval_samples": 2773,
+      "train_samples": 18863,
       "exact_overlap": 0,
       "normalized_overlap": 0,
       "minhash_overlap": 0,
@@ -35,8 +35,8 @@
       "contamination_free": true
     },
     "train_vs_test": {
-      "eval_samples": 3768,
-      "train_samples": 20088,
+      "eval_samples": 3677,
+      "train_samples": 18863,
       "exact_overlap": 0,
       "normalized_overlap": 0,
       "minhash_overlap": 0,
@@ -47,7 +47,7 @@
     },
     "train_vs_challenge": {
       "eval_samples": 90,
-      "train_samples": 20088,
+      "train_samples": 18863,
       "exact_overlap": 0,
       "normalized_overlap": 0,
       "minhash_overlap": 0,
@@ -57,8 +57,8 @@
       "contamination_free": true
     },
     "validation_vs_test": {
-      "eval_samples": 3768,
-      "train_samples": 2886,
+      "eval_samples": 3677,
+      "train_samples": 2773,
       "exact_overlap": 0,
       "normalized_overlap": 0,
       "minhash_overlap": 0,
@@ -69,7 +69,7 @@
     },
     "validation_vs_challenge": {
       "eval_samples": 90,
-      "train_samples": 2886,
+      "train_samples": 2773,
       "exact_overlap": 0,
       "normalized_overlap": 0,
       "minhash_overlap": 0,
@@ -83,8 +83,8 @@
   "loss_mask_semantics": "control-tokens-supervised",
   "stage_stats": {
     "ingest": {
-      "records": 28056,
-      "chars": 19607602,
+      "records": 27601,
+      "chars": 18715837,
       "categories": {
         "programming": 1713,
         "code_explain": 856,
@@ -95,55 +95,55 @@
         "algorithm": 1720,
         "code_repair": 140,
         "instruction": 14175,
-        "tool_use": 8299
+        "tool_use": 7844
       },
       "sources": {
         "python_stdlib": 2614,
         "huggingface": 45,
-        "synthetic": 25397
+        "synthetic": 24942
       },
       "licenses": {
         "PSF-2.0": 2614,
         "MIT": 15,
         "CC-BY-4.0": 15,
         "CDLA-Sharing-1.0": 15,
-        "Synthetic-Verified": 25397
+        "Synthetic-Verified": 24942
       },
-      "families": 2603,
-      "verified_records": 27864,
+      "families": 2600,
+      "verified_records": 27409,
       "challenge_pool": 90
     },
     "license": {
-      "kept": 28056,
+      "kept": 27601,
       "distribution": {
         "PSF-2.0": 2614,
         "MIT": 15,
         "CC-BY-4.0": 15,
         "CDLA-Sharing-1.0": 15,
-        "Synthetic-Verified": 25397
+        "Synthetic-Verified": 24942
       }
     },
     "preprocess": {
-      "kept": 28054,
+      "kept": 27599,
       "rejected": {
         "rejected:invalid_code": 2
       }
     },
     "quality": {
-      "kept": 28050,
+      "kept": 26323,
       "dropped": {
         "unsafe_content": 2,
-        "minified_or_generated": 2
+        "minified_or_generated": 1274
       }
     },
     "dedup": {
-      "total": 28050,
+      "total": 26323,
       "exact_duplicates": 327,
-      "normalized_duplicates": 15,
-      "similar_duplicates": 966,
+      "normalized_duplicates": 28,
+      "similar_duplicates": 655,
       "code_similar_duplicates": 0,
-      "kept": 26742,
-      "lsh_index_size": 26742,
+      "kept": 25313,
+      "lsh_index_size": 25313,
       "duplicate_examples": [
         "627d40537aea51cbb5b84e9df19e19cb",
         "81854e1c6ead5e70b1e3b00695ecbf56",
@@ -230,32 +230,32 @@
           "kept": 14143
         },
         "tool_use": {
-          "total": 8297,
+          "total": 6570,
           "exact": 16,
-          "normalized": 10,
-          "similar": 650,
+          "normalized": 23,
+          "similar": 339,
           "code_similar": 0,
-          "kept": 7621
+          "kept": 6192
         }
       },
-      "duplicate_percentage": 4.6631
+      "duplicate_percentage": 3.8369
     },
     "splits": {
       "counts": {
-        "train": 20088,
-        "validation": 2886,
-        "test": 3768,
+        "train": 18863,
+        "validation": 2773,
+        "test": 3677,
         "challenge": 90
       },
       "groups": {
-        "train": 2020,
+        "train": 2011,
         "validation": 25,
         "test": 27,
         "challenge": 11
       },
       "categories": {
         "train": {
-          "algorithm": 1151,
+          "algorithm": 1150,
           "code_explain": 542,
           "code_gen": 180,
           "code_repair": 102,
@@ -264,10 +264,10 @@
           "logic": 125,
           "math": 520,
           "programming": 1397,
-          "tool_use": 5467
+          "tool_use": 4243
         },
         "validation": {
-          "algorithm": 251,
+          "algorithm": 245,
           "code_explain": 12,
           "code_gen": 20,
           "code_repair": 25,
@@ -276,10 +276,10 @@
           "logic": 33,
           "math": 24,
           "programming": 1,
-          "tool_use": 1092
+          "tool_use": 985
         },
         "test": {
-          "algorithm": 318,
+          "algorithm": 325,
           "code_explain": 12,
           "code_gen": 15,
           "code_repair": 13,
@@ -288,7 +288,7 @@
           "logic": 41,
           "math": 15,
           "programming": 1,
-          "tool_use": 1062
+          "tool_use": 964
         },
         "challenge": {
           "math": 12,
@@ -302,8 +302,8 @@
       },
       "contamination": {
         "train_vs_validation": {
-          "eval_samples": 2886,
-          "train_samples": 20088,
+          "eval_samples": 2773,
+          "train_samples": 18863,
           "exact_overlap": 0,
           "normalized_overlap": 0,
           "minhash_overlap": 0,
@@ -313,8 +313,8 @@
           "contamination_free": true
         },
         "train_vs_test": {
-          "eval_samples": 3768,
-          "train_samples": 20088,
+          "eval_samples": 3677,
+          "train_samples": 18863,
           "exact_overlap": 0,
           "normalized_overlap": 0,
           "minhash_overlap": 0,
@@ -325,7 +325,7 @@
         },
         "train_vs_challenge": {
           "eval_samples": 90,
-          "train_samples": 20088,
+          "train_samples": 18863,
           "exact_overlap": 0,
           "normalized_overlap": 0,
           "minhash_overlap": 0,
@@ -335,8 +335,8 @@
           "contamination_free": true
         },
         "validation_vs_test": {
-          "eval_samples": 3768,
-          "train_samples": 2886,
+          "eval_samples": 3677,
+          "train_samples": 2773,
           "exact_overlap": 0,
           "normalized_overlap": 0,
           "minhash_overlap": 0,
@@ -347,7 +347,7 @@
         },
         "validation_vs_challenge": {
           "eval_samples": 90,
-          "train_samples": 2886,
+          "train_samples": 2773,
           "exact_overlap": 0,
           "normalized_overlap": 0,
           "minhash_overlap": 0,
@@ -367,9 +367,9 @@
         "algorithm": {
           "groups": 11,
           "records": 1720,
-          "train": 1151,
-          "validation": 251,
-          "test": 318
+          "train": 1150,
+          "validation": 245,
+          "test": 325
         },
         "code_explain": {
           "groups": 426,
@@ -428,11 +428,11 @@
           "test": 1
         },
         "tool_use": {
-          "groups": 83,
-          "records": 7621,
-          "train": 5467,
-          "validation": 1092,
-          "test": 1062
+          "groups": 74,
+          "records": 6192,
+          "train": 4243,
+          "validation": 985,
+          "test": 964
         }
       },
       "family_coverage": {
@@ -468,8 +468,8 @@
             "records": 1593
           },
           "tool/error_recovery": {
-            "groups": 9,
-            "records": 903
+            "groups": 8,
+            "records": 642
           },
           "tool/code_run": {
             "groups": 5,
@@ -477,11 +477,11 @@
           },
           "tool/search_fetch": {
             "groups": 5,
-            "records": 772
+            "records": 762
           },
           "tool/search_single": {
-            "groups": 12,
-            "records": 689
+            "groups": 7,
+            "records": 14
           },
           "no_tool/simple_math_sub": {
             "groups": 6,
@@ -489,27 +489,27 @@
           },
           "no_tool/simple_math_add": {
             "groups": 6,
-            "records": 334
+            "records": 332
           },
           "no_tool/simple_math_mul": {
             "groups": 6,
-            "records": 214
+            "records": 210
           },
           "tool/compute": {
             "groups": 12,
-            "records": 1001
+            "records": 1000
           },
           "tool/fetch_direct": {
             "groups": 8,
-            "records": 853
+            "records": 862
           },
           "tool/code_repair": {
-            "groups": 8,
-            "records": 527
+            "groups": 5,
+            "records": 47
           },
           "tool/search_multi": {
             "groups": 6,
-            "records": 996
+            "records": 991
           }
         }
       },
@@ -564,46 +564,46 @@
     "tokenizer": {
       "version": "tok-v3",
       "vocab_size": 4096,
-      "sha256": "8b28604653165f68d8b23a8b92d29f5445ce6be9661aa6e95b5d5ce3095afd7c",
-      "bytes": 266299,
+      "sha256": "2df19755e03b8ce561f04cc30643cb3b8341e87586e6be567baf454e0e949474",
+      "bytes": 266159,
       "trained_on": "train split only",
-      "train_texts": 20088
+      "train_texts": 18863
     },
     "tokens": {
       "train": {
-        "records": 20083,
-        "blocks": 12348,
+        "records": 18858,
+        "blocks": 9378,
         "rejected_records": 5,
-        "windows": 2113,
-        "active_target_tokens": 1559219,
-        "padding_tokens": 1157814,
-        "padding_ratio": 0.426132,
+        "windows": 2099,
+        "active_target_tokens": 1369040,
+        "padding_tokens": 796248,
+        "padding_ratio": 0.367733,
         "stages": [
           "pretrain",
           "sft"
         ]
       },
       "validation": {
-        "records": 2886,
-        "blocks": 2267,
+        "records": 2773,
+        "blocks": 1996,
         "rejected_records": 0,
         "windows": 16,
-        "active_target_tokens": 197997,
-        "padding_tokens": 219250,
-        "padding_ratio": 0.525468,
+        "active_target_tokens": 182752,
+        "padding_tokens": 186742,
+        "padding_ratio": 0.505399,
         "stages": [
           "pretrain",
           "sft"
         ]
       },
       "test": {
-        "records": 3768,
-        "blocks": 2285,
+        "records": 3677,
+        "blocks": 2061,
         "rejected_records": 0,
         "windows": 2,
-        "active_target_tokens": 208023,
-        "padding_tokens": 208285,
-        "padding_ratio": 0.500315,
+        "active_target_tokens": 193717,
+        "padding_tokens": 182235,
+        "padding_ratio": 0.484729,
         "stages": [
           "pretrain",
           "sft"
@@ -615,14 +615,14 @@
         "rejected_records": 0,
         "windows": 0,
         "active_target_tokens": 5316,
-        "padding_tokens": 6184,
-        "padding_ratio": 0.537739,
+        "padding_tokens": 5946,
+        "padding_ratio": 0.52797,
         "stages": [
           "sft"
         ]
       }
     },
-    "tokens_total_active": 1970555
+    "tokens_total_active": 1750825
   },
   "provenance_summary": {
     "sources": {
@@ -649,12 +649,12 @@
       "syn/tool_use": 327,
       "synv3/copy_span": 6000,
       "synv3/no_tool": 7990,
-      "synv3/tool_use": 8299,
+      "synv3/tool_use": 7844,
       "synv3/algorithm": 1600
     }
   },
   "licenses": {
-    "Synthetic-Verified": 24763,
+    "Synthetic-Verified": 23334,
     "PSF-2.0": 2024,
     "CDLA-Sharing-1.0": 15,
     "CC-BY-4.0": 15,
@@ -670,11 +670,11 @@
     "logic": 207,
     "math": 571,
     "programming": 1399,
-    "tool_use": 7659
+    "tool_use": 6230
   },
-  "verified_samples": 26699,
+  "verified_samples": 25270,
   "malformed_code_rate": 0.0,
-  "elapsed_seconds": 518.74,
-  "dataset_fingerprint": "95bab5e55b7ac38b8513d70af89509c2fdfedffa269ac298c0abc3013ca3d524",
-  "shards_fingerprint": "a9a6e80fd3a3b2f5b9d54a55473e78113d19dea31d1732250a30aa51297bd5d8"
+  "elapsed_seconds": 516.46,
+  "dataset_fingerprint": "b936a75368736b8dd95a0a9fc691f0ee6752eb3ec9b50ef91ba3e59210b8ac63",
+  "shards_fingerprint": "237abf07225fe956c45eadfcebfe1a480667527ed615a8c3148769454b29cf0e"
 }

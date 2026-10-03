@@ -1,0 +1,35 @@
+{
+  "check": "retrieval",
+  "detail": "401/408 documents ranked first for their own key; deterministic=True",
+  "evidence": {
+    "deterministic": true,
+    "documents": 408,
+    "first_three_examples": {
+      "big-o of binary search": [
+        "FACT-2082DD"
+      ],
+      "capital of indonesia": [
+        "FACT-8334A1",
+        "FACT-F56310",
+        "FACT-988002"
+      ],
+      "definition of a prime number": [
+        "FACT-FCD206",
+        "STDLIB-numbers"
+      ],
+      "population of bandung": [
+        "FACT-F56310",
+        "FACT-988002"
+      ],
+      "population of jakarta": [
+        "FACT-988002",
+        "FACT-F56310",
+        "FACT-8334A1"
+      ]
+    },
+    "hit_rate": 0.9828,
+    "self_hits": 401
+  },
+  "ok": true,
+  "recorded_utc": "2026-10-03T07:09:34Z"
+}

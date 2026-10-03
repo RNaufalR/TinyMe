@@ -1,0 +1,22 @@
+{
+  "check": "provenance",
+  "detail": "20 provenance entries, 0 without licence, 3 distinct record sources",
+  "evidence": {
+    "dataset": "dataset_v7",
+    "declared_ids": [
+      "huggingface",
+      "python_stdlib",
+      "synthetic"
+    ],
+    "entries": 20,
+    "path": "DATA_PROVENANCE_dataset_v7.json",
+    "record_sources": [
+      "huggingface",
+      "python_stdlib",
+      "synthetic"
+    ],
+    "without_license": 0
+  },
+  "ok": true,
+  "recorded_utc": "2026-10-03T07:09:35Z"
+}
