@@ -66,3 +66,15 @@
 - **Context:** The §14 clean-room gate passed — `python3 inference.py` ran with empty `PYTHONPATH` and no repo — while producing the wrong answer (`-799` for a straightforward arithmetic prompt).
 - **Decision:** Report §14 as *portability* evidence, and report the correctness of the generated text separately under §4/§2C. A passing gate is never presented as capability.
 - **Status:** `VERIFIED` (`FINAL_REPORT.md` §3 and §7.5)
+
+## DEC-011: Pre-registered capability bar for the final candidate (2026-10-03)
+
+- **Context:** DEC-007 asks only for *non-zero* capability. The audit's §45 asks that the model "demonstrably learn the tool protocol", which needs a bar that is decidable before the run rather than chosen after seeing it.
+- **Decision (registered before the `EXP-010-TOOL-SFT-V7` measurement exists):** on the 25 held-out A–H cases from `src/evaluation/tool_cases.py`, executed through the real agent runtime with real tool execution, the candidate passes the capability gate when **all** hold:
+  - `tool_syntax_validity ≥ 0.90` and `argument_validity ≥ 0.90` (the protocol is emitted, not approximated),
+  - `tool_not_needed_accuracy ≥ 0.80` (the model does not call tools reflexively),
+  - `citation_validity ≥ 0.80` among answers that carry citations,
+  - `task_completion ≥ 0.50` (end-to-end: decide → call → read the real result → answer).
+  A pre-declared `task_completion` of 0.50 is used rather than "non-zero" because 1/25 cases must not count as having learned a protocol; it is used rather than a lose-rate (0.8+) because the code-synthesis family (F) is reported separately and is not required for the gate.
+- **Consequence:** If the candidate misses the bar, the result is published and the loop continues (data/training intervention), exactly as DEC-007 requires; the bar is never lowered and no evaluation case is edited. Loss/perplexity are still never acceptance evidence.
+- **Status:** `VERIFIED` (this entry was committed before the measurement; the measured result is recorded in `docs/CAPABILITY_DIAGNOSIS.md` and `FINAL_VERIFICATION_REPORT.md`)
