@@ -1,0 +1,128 @@
+{
+  "audit": "§61 no-hallucination rule",
+  "mechanism": "src/agent/evidence.py::EvidenceStore.verify via AgentRuntime.solve",
+  "scripted_policy": "src/agent/executor.py::scripted_policy (the model is replaced by fixed outputs so the runtime verdict is measured in isolation)",
+  "protocol": "tool calls use <|tool_call|>\\n{json}<|end_tool_call|>; the closing marker is required or the turn is a protocol error and no verdict is produced",
+  "scope": "the runtime guarantees that a citation which resolves to no runtime-issued evidence is reported; it does NOT guarantee that the model never states something false in prose, and a grounded-but-uncited answer is explicitly marked evidence_items=0",
+  "cases": [
+    {
+      "case": "real_citation_accepted",
+      "request": "What is the population of jakarta?",
+      "grounding": {
+        "grounded": true,
+        "evidence_items": 3,
+        "cited_urls": [],
+        "unsupported_urls": [],
+        "cited_ids": [
+          "FACT-988002"
+        ],
+        "unsupported_citations": [],
+        "unsupported_quotes": [],
+        "problems": []
+      },
+      "final": "Jakarta has 10,679,951 inhabitants [FACT-988002].",
+      "pass": true
+    },
+    {
+      "case": "forged_citation_rejected",
+      "request": "What is the population of jakarta? (forged id)",
+      "grounding": {
+        "grounded": false,
+        "evidence_items": 3,
+        "cited_urls": [],
+        "unsupported_urls": [],
+        "cited_ids": [
+          "FACT-000000"
+        ],
+        "unsupported_citations": [
+          "FACT-000000"
+        ],
+        "unsupported_quotes": [],
+        "problems": [
+          "unsupported_citations:['FACT-000000']"
+        ]
+      },
+      "final": "Jakarta has 10,679,951 inhabitants [FACT-000000].",
+      "pass": true
+    },
+    {
+      "case": "unsupported_quote_rejected",
+      "request": "Quote the stored source.",
+      "grounding": {
+        "grounded": false,
+        "evidence_items": 3,
+        "cited_urls": [],
+        "unsupported_urls": [],
+        "cited_ids": [
+          "FACT-988002"
+        ],
+        "unsupported_citations": [],
+        "unsupported_quotes": [
+          "contains 42 million llamas"
+        ],
+        "problems": [
+          "unsupported_quotes:1"
+        ]
+      },
+      "final": "The city \"contains 42 million llamas\" [FACT-988002].",
+      "pass": true
+    },
+    {
+      "case": "citation_without_evidence_rejected",
+      "request": "What is the population of jakarta? (no tool use)",
+      "grounding": {
+        "grounded": false,
+        "evidence_items": 0,
+        "cited_urls": [],
+        "unsupported_urls": [],
+        "cited_ids": [
+          "FACT-988002"
+        ],
+        "unsupported_citations": [
+          "FACT-988002"
+        ],
+        "unsupported_quotes": [],
+        "problems": [
+          "unsupported_citations:['FACT-988002']",
+          "citations_without_evidence"
+        ]
+      },
+      "final": "Jakarta has 10,679,951 inhabitants [FACT-988002].",
+      "pass": true
+    },
+    {
+      "case": "unknown_information_honest",
+      "request": "What is the population of the planet Zorgon?",
+      "grounding": {
+        "grounded": true,
+        "evidence_items": 0,
+        "cited_urls": [],
+        "unsupported_urls": [],
+        "cited_ids": [],
+        "unsupported_citations": [],
+        "unsupported_quotes": [],
+        "problems": []
+      },
+      "final": "I could not find this in the available sources.",
+      "pass": true
+    },
+    {
+      "case": "uncited_answer_not_verified",
+      "request": "What is 2 + 2?",
+      "grounding": {
+        "grounded": true,
+        "evidence_items": 0,
+        "cited_urls": [],
+        "unsupported_urls": [],
+        "cited_ids": [],
+        "unsupported_citations": [],
+        "unsupported_quotes": [],
+        "problems": []
+      },
+      "final": "Four.",
+      "pass": true
+    }
+  ],
+  "passed": 6,
+  "total": 6
+}

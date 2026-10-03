@@ -1,0 +1,54 @@
+{
+  "audit": "\u00a77 dataset reproducibility (same seed, same configuration, two independent process invocations)",
+  "command": "python3 scripts/prepare_data_v2.py --version dataset_v9 --generators v3 --synthetic-profile v6 --scale 1.0 --scale-v3 1.0 --seq-len 512",
+  "seed": 20261002,
+  "build_1": {
+    "note": "first build in this session; identity recorded before the second run",
+    "dataset_fingerprint": "7af8d4928071742aab3b8e2a09852ad285d2357ff46c6b419c4c83e7e7d2704e",
+    "tokenizer_hash": "d6d8c73709fecf4ff3f32513660d4f6ffae5ac2eba2f9210eeb61fbe2df246c5",
+    "shards_fingerprint": "74ae832d4140cdb5b331735211e2fe221d797adca64a13f7b133cfa49a8eb369",
+    "splits": {
+      "train": 19791,
+      "validation": 2836,
+      "test": 3705,
+      "challenge": 90
+    },
+    "active_target_tokens": {
+      "train": 1521617,
+      "validation": 191631,
+      "test": 200025,
+      "challenge": 5310
+    }
+  },
+  "build_2": {
+    "note": "second, independent process invocation (also steps 1/4 of run_final_training.sh)",
+    "dataset_fingerprint": "7af8d4928071742aab3b8e2a09852ad285d2357ff46c6b419c4c83e7e7d2704e",
+    "tokenizer_hash": "d6d8c73709fecf4ff3f32513660d4f6ffae5ac2eba2f9210eeb61fbe2df246c5",
+    "shards_fingerprint": "74ae832d4140cdb5b331735211e2fe221d797adca64a13f7b133cfa49a8eb369",
+    "splits": {
+      "train": 19791,
+      "validation": 2836,
+      "test": 3705,
+      "challenge": 90
+    },
+    "active_target_tokens": {
+      "train": 1521617,
+      "validation": 191631,
+      "test": 200025,
+      "challenge": 5310
+    }
+  },
+  "counts_recounted_from_files": {
+    "train": 19791,
+    "validation": 2836,
+    "test": 3705,
+    "challenge": 90
+  },
+  "contamination": "PASS",
+  "determinism_fixes": {
+    "no_runtime_duration_in_corpus": "src/tools/retrieval.py sorted(set(q_tokens)) (hash-order-independent float accumulation) + data_sources/synthetic_v3.py::_strip_volatile removes the runtime-measured duration_s before a result is serialized into a record; the mock envelopes used by the generators carry a constant 0.0001 so the training text is deterministic",
+    "deterministic_bm25": "search scores accumulate over sorted(set(query_tokens)); ties break on source_id",
+    "deterministic_records": "every generator consumes one seeded random.Random stream; no set iteration reaches a record"
+  },
+  "identical": true
+}
