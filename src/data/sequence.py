@@ -284,6 +284,119 @@ def build_sequence(record: dict[str, Any] | TrainingRecord, tokenizer: Any, seq_
                            split=str(record.get("split", "") if isinstance(record, dict) else record.split))
 
 
+def _segment_stream(record: dict[str, Any] | TrainingRecord, tokenizer: Any
+                    ) -> tuple[list[int], list[dict[str, Any]]]:
+    """Token stream of a structured record **with per-segment spans**.
+
+    Produces byte-identical tokens to :func:`build_sequence` (BOS, the assistant
+    turn-opener rule, role markers, EOS) but keeps the span boundaries so a long
+    trajectory can be cut at a semantic boundary instead of a random token index.
+    ``tests/test_sequence.py::test_segment_stream_matches_build_sequence`` pins
+    that equivalence.
+    """
+    bos_id = int(tokenizer.tok.token_to_id("<|bos|>"))
+    eos_id = int(tokenizer.tok.token_to_id("<|eos|>"))
+    ids: list[int] = [bos_id]
+    spans: list[dict[str, Any]] = []
+    in_model_turn = False
+    for seg in _segments_of(record):
+        is_target = seg.contributes_to_loss()
+        start = len(ids)
+        if is_target and not in_model_turn and seg.role != ROLE_ASSISTANT:
+            ids += tokenizer.encode_ids(ROLE_TOKENS["assistant"] + "\n")
+        seg_ids, _flags = encode_segment(seg, tokenizer)
+        ids += seg_ids
+        spans.append({"start": start, "end": len(ids), "role": seg.role,
+                      "target": is_target, "text": seg.text})
+        in_model_turn = is_target
+    ids.append(eos_id)
+    return ids, spans
+
+
+def turn_examples(record: dict[str, Any] | TrainingRecord, tokenizer: Any, seq_len: int,
+                  max_examples: int = 32) -> list[SequenceExample]:
+    """Expand an over-long trajectory into one example per supervised turn.
+
+    Why this exists (measured failure, 2026-10-03): with ``--seq-len 256`` the
+    SFT corpus lost 3335 of 14787 records - 75 % of the tool trajectories
+    (search / fetch / code), because a whole trajectory is 500-1300 tokens.  The
+    model therefore never trained on multi-step tool use and emitted
+    ``<|final|>`` immediately, while the audit could only measure it as
+    "capability 0.0".
+
+    Cutting the token stream into fixed windows would teach the model to
+    continue from the middle of a JSON tool result.  Instead each supervised
+    turn becomes its own example whose prompt is exactly what the runtime sends
+    at that step: the system+user preamble, the context segments (tool results)
+    produced since the previous model turn, then the turn to predict.  Context
+    is dropped oldest-first when the budget is tight; the current turn is never
+    dropped (a turn that cannot fit is reported by the caller as too long).
+    """
+    ids, spans = _segment_stream(record, tokenizer)
+    if len(ids) <= seq_len:
+        return []
+    target_positions = [i for i, s in enumerate(spans) if s["target"]]
+    if not target_positions:
+        return []
+    first_target = target_positions[0]
+    preamble_spans = [s for s in spans[:first_target] if not s["target"]]
+    turns: list[list[dict[str, Any]]] = []
+    i = 0
+    while i < len(spans):
+        if spans[i]["target"]:
+            j = i
+            while j + 1 < len(spans) and spans[j + 1]["target"]:
+                j += 1
+            turns.append(spans[i:j + 1])
+            i = j + 1
+        else:
+            i += 1
+
+    out: list[SequenceExample] = []
+    bos_id = int(tokenizer.tok.token_to_id("<|bos|>"))
+    eos_id = int(tokenizer.tok.token_to_id("<|eos|>"))
+    for t, turn in enumerate(turns[:max_examples]):
+        turn_start, turn_end = turn[0]["start"], turn[-1]["end"]
+        turn_ids = ids[turn_start:turn_end]
+        preamble_ids = [x for s in preamble_spans for x in ids[s["start"]:s["end"]]]
+        hist_spans = [s for s in spans[first_target:]
+                      if not s["target"] and s["end"] <= turn_start]
+        hist_spans.sort(key=lambda s: s["start"])
+
+        dropped_context = 0
+        pre_ids = preamble_ids
+        hist_ids: list[int] = []
+        for cut in range(len(hist_spans) + 1):          # drop oldest context first
+            candidate = [x for q in hist_spans[cut:] for x in ids[q["start"]:q["end"]]]
+            if len(pre_ids) + len(candidate) + len(turn_ids) + 2 <= seq_len:
+                hist_ids = candidate
+                dropped_context = cut
+                break
+        while len(pre_ids) + len(hist_ids) + len(turn_ids) + 2 > seq_len and pre_ids:
+            pre_ids = pre_ids[max(1, len(pre_ids) // 4):]
+            dropped_context += 1
+        if len(turn_ids) + len(pre_ids) + len(hist_ids) + 2 > seq_len:
+            continue                      # this turn cannot be preserved
+        seq = [bos_id] + pre_ids + hist_ids + turn_ids + [eos_id]
+        flags = ([False] * (1 + len(pre_ids) + len(hist_ids))
+                 + [True] * len(turn_ids) + [True])
+        input_ids = np.asarray(seq, dtype=np.int32)
+        labels = np.full_like(input_ids, IGNORE_INDEX)
+        loss_mask = np.zeros_like(input_ids, dtype=bool)
+        nxt_is_target = np.asarray(flags[1:], dtype=bool)
+        labels[:-1] = np.where(nxt_is_target, input_ids[1:], IGNORE_INDEX)
+        loss_mask[:-1] = nxt_is_target
+        rid = record.record_id if isinstance(record, TrainingRecord) else str(record.get("record_id", ""))
+        split = record.split if isinstance(record, TrainingRecord) else str(record.get("split", ""))
+        out.append(SequenceExample(input_ids=input_ids, labels=labels, loss_mask=loss_mask,
+                                   doc_ids=np.zeros_like(input_ids), n_active_targets=int(loss_mask.sum()),
+                                   n_padding=0, truncated=bool(dropped_context),
+                                   dropped_context_tokens=int(dropped_context),
+                                   truncated_target_tokens=0,
+                                   source_record_id=f"{rid}#turn{t}", split=split))
+    return out
+
+
 def build_packed_batch(records: Iterable[dict[str, Any]], tokenizer: Any, seq_len: int,
                        max_examples: int | None = None) -> tuple[dict[str, np.ndarray], dict[str, Any]]:
     """Pack multiple records into fixed-length blocks with document isolation.
@@ -394,7 +507,13 @@ def pack_records(records: Iterable[dict[str, Any]], tokenizer: Any, seq_len: int
     doc_counter = 0
     stats: dict[str, Any] = {"records_seen": 0, "records_rejected": 0, "blocks": 0,
                              "windows": 0, "truncated_windows": 0, "active_target_tokens": 0,
-                             "padding_tokens": 0}
+                             "padding_tokens": 0,
+                             # A structured record whose minimum encoding exceeds seq_len
+                             # cannot be packed without destroying its targets.  It is
+                             # expanded into per-turn examples; when even that fails it is
+                             # *counted* here (audit §2/§9: no silent data loss).
+                             "records_too_long": 0,
+                             "records_split_into_turns": 0, "turn_examples": 0}
 
     def flush() -> None:
         nonlocal cur, doc_counter
@@ -415,6 +534,7 @@ def pack_records(records: Iterable[dict[str, Any]], tokenizer: Any, seq_len: int
     def add(ids: list[int], labels: list[int], mask: list[bool]) -> None:
         nonlocal cur, doc_counter
         if len(ids) > seq_len:
+            stats["records_too_long"] += 1      # never a silent drop (audit §2/§9)
             return
         if len(cur["ids"]) + len(ids) > seq_len:
             flush()
@@ -455,6 +575,23 @@ def pack_records(records: Iterable[dict[str, Any]], tokenizer: Any, seq_len: int
             stats["records_rejected"] += 1
             continue
         n = len(ex.input_ids)
+        if n > seq_len:
+            # A whole trajectory (search -> fetch -> final) is 500-1300 tokens and
+            # cannot be packed into a fixed block.  Dropping it threw away 75 % of
+            # the tool corpus at seq-len 256, so multi-step tool use was unlearnable
+            # while the audit could only report "capability 0.0"; the record is now
+            # expanded into one example per supervised turn (audit §2/§9, §24/§25).
+            expanded = turn_examples(rec, tokenizer, seq_len)
+            if not expanded:
+                stats["records_too_long"] += 1
+                stats["records_rejected"] += 1
+                continue
+            stats["records_split_into_turns"] += 1
+            for e2 in expanded:
+                m = len(e2.input_ids)
+                add(e2.input_ids[:m].tolist(), e2.labels[:m].tolist(), e2.loss_mask[:m].tolist())
+                stats["turn_examples"] += 1
+            continue
         add(ex.input_ids[:n].tolist(), ex.labels[:n].tolist(), ex.loss_mask[:n].tolist())
     flush()
     if not blocks:

@@ -68,6 +68,9 @@ def main() -> int:
     ap.add_argument("--shard-capacity", type=int, default=512)
     ap.add_argument("--scale-v3", type=float, default=1.0,
                     help="independent scale for the v3 capability block")
+    ap.add_argument("--synthetic-profile", default="v5", choices=["v5", "v6"],
+                    help="diversity profile of the v3 generator block: v5 reproduces "
+                         "dataset_v5; v6 widens the operand/span shape distribution")
     ap.add_argument("--generators", default="v2", choices=["v2", "v3"],
                     help="synthetic generator block: v2 = dataset_v3 generators, "
                          "v3 = capability-scaled generators (synthetic_v3)")
@@ -88,7 +91,8 @@ def main() -> int:
     records, provenance = corpus_v2.build_corpus(seed=args.seed, scale=args.scale, use_hf=not args.no_hf,
                                                 stdlib_files=args.stdlib_files,
                                                 generator_set=args.generators,
-                                                scale_v3=args.scale_v3)
+                                                scale_v3=args.scale_v3,
+                                                synthetic_profile=args.synthetic_profile)
     challenge = [r.to_dict() for r in synthetic_v2.gen_challenge(__import__("random").Random(args.seed + 1),
                                                                  args.challenge_size)]
     if args.generators == "v3":

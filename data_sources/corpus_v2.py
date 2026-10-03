@@ -198,6 +198,7 @@ def build_corpus(seed: int = 20261002, scale: float = 1.0,
 
     if generator_set == "v3":
         recs3, prov3 = generate_corpus_v3(seed=seed + 7, counts=synthetic_counts_v3,
+                                          profile=synthetic_profile,
                                           scale=scale_v3)
         records.extend(recs3)
         provenance.extend(prov3)

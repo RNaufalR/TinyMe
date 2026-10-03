@@ -82,3 +82,57 @@ def test_packing_never_crosses_documents(fake_tokenizer):
             if data["loss_mask"][b, t] and doc_ids[t] != doc_ids[t + 1]:
                 raise AssertionError("label crosses a document boundary")
     assert stats["records_rejected"] == 0
+
+
+def test_segment_stream_matches_build_sequence(fake_tokenizer):
+    """The turn splitter must emit byte-identical tokens to build_sequence."""
+    from src.data.sequence import _segment_stream
+    rec = _rec([Segment("system", "You are TinyMe.", target=False),
+                Segment("user", "Search for X, then answer.", target=False),
+                Segment("assistant", "", target=True),
+                Segment("tool_call", '{"name": "search", "arguments": {"query": "X"}}', target=True),
+                Segment("tool_result", "X is documented in the manual.", target=False),
+                Segment("final", "X is 42.", target=True)])
+    ex = build_sequence(rec, fake_tokenizer, seq_len=128, mode="dynamic")
+    ids, spans = _segment_stream(rec, fake_tokenizer)
+    n = int((ex.loss_mask | (ex.input_ids != fake_tokenizer.tok.token_to_id("<|pad|>"))).sum())
+    assert ids == ex.input_ids[:n].tolist()
+    assert spans[0]["start"] == 1 and spans[-1]["end"] == len(ids) - 1
+    assert [s["role"] for s in spans] == ["system", "user", "assistant", "tool_call",
+                                          "tool_result", "final"]
+
+
+def test_long_trajectory_is_split_into_turns_not_dropped(fake_tokenizer):
+    """A trajectory longer than the block must train, not vanish.
+
+    Regression for the measured SFT defect: at seq-len 256 ``pack_records``
+    rejected 3335/14787 records (75 % of the tool corpus), so multi-step tool use
+    was unlearnable.  Every supervised turn must now be packed.
+    """
+    from src.data.sequence import pack_records, turn_examples
+    long_text = " ".join(f"alpha{i:04d}" for i in range(900))
+    assert len(fake_tokenizer.encode(long_text)) > 300, "fixture text must be genuinely long"
+    rec = _rec([Segment("system", "You are TinyMe.", target=False),
+                Segment("user", "Look this up and answer with a citation.", target=False),
+                Segment("tool_call", '{"name": "search", "arguments": {"query": "X"}}', target=True),
+                Segment("tool_result", long_text, target=False),
+                Segment("tool_call", '{"name": "fetch", "arguments": {"source_id": "S-1"}}', target=True),
+                Segment("tool_result", long_text, target=False),
+                Segment("final", "X is 42 [S-1].", target=True)])
+    exs = turn_examples(rec, fake_tokenizer, seq_len=128)
+    n_turns = sum(1 for seg in rec["segments"] if seg["target"] and seg["role"] != "assistant")
+    assert len(exs) == n_turns, "one example per supervised turn"
+    assert all(len(e.input_ids) <= 128 for e in exs)
+    assert all(e.loss_mask.any() for e in exs)
+    data, stats = pack_records([rec], fake_tokenizer, seq_len=128)
+    assert stats["records_rejected"] == 0
+    assert stats["records_too_long"] == 0
+    assert stats["records_split_into_turns"] == 1
+    assert stats["turn_examples"] == 3
+    assert int(data["loss_mask"].sum()) > 0
+    final_ids = fake_tokenizer.encode_ids("<|final|>")
+    n = len(final_ids)
+    found = any(np.array_equal(data["input_ids"][b, i:i + n], np.asarray(final_ids))
+                for b in range(data["input_ids"].shape[0])
+                for i in range(data["input_ids"].shape[1] - n))
+    assert found

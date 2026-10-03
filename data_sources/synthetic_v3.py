@@ -230,6 +230,115 @@ def gen_copy_span(rng: random.Random, n: int) -> list[Any]:
     return out
 
 
+
+# ----------------------------------------------------------------- v6 profile
+#: Active diversity profile.  ``v5`` reproduces dataset_v3/v5 byte-for-byte;
+#: ``v6`` widens the *shape* distribution after the measured failure in which the
+#: model answered "11 + 22" with "111 + 22" and "4837 * 962 + 71" with
+#: "4837 * 96 + 7": it had learned the training shape (fixed 2-3 digit operands)
+#: and rewrote unseen operands back into that shape.
+PROFILE = "v5"
+
+
+def set_profile(name: str) -> None:
+    global PROFILE
+    if name not in ("v5", "v6"):
+        raise ValueError(f"unknown synthetic profile {name!r}")
+    PROFILE = name
+
+
+_V6_COPY_TEMPLATES = [
+    "Copy the identifier exactly, ignoring the reference number {d}: {s}",
+    "Transcribe only the code that follows; ticket {d} is irrelevant. Code: {s}",
+    "Repeat verbatim the value after the label (case {d}): {s}",
+    "Duplicate the exact string, not the case id {d}: {s}",
+    "Write back exactly what is between the brackets (row {d}): [{s}]",
+    "Reproduce this token byte for byte; the request number {d} is a distractor: {s}",
+    "The auditor id {d} does not matter. Copy the payload exactly: {s}",
+    "Reply with the quoted value only, not the sequence number {d}: \"{s}\"",
+]
+
+
+def _v6_span(rng: random.Random, kind: int) -> str:
+    """One of eight span kinds, deliberately unlike the fixed v5 shapes."""
+    if kind == 0:                                  # grouped digits
+        return f"{rng.randint(10, 99)} {rng.randint(100, 999)} {rng.randint(10, 99)}"
+    if kind == 1:                                  # UUID-ish
+        hexd = "0123456789abcdef"
+        groups = [8, 4, 4, 4, 12]
+        return "-".join("".join(rng.choice(hexd) for _ in range(g)) for g in groups)
+    if kind == 2:                                  # decimal
+        return f"{rng.randint(100, 99999)}.{rng.randint(10, 999)}"
+    if kind == 3:                                  # random letters
+        return "".join(rng.choice("bcdfghjklmnpqrstvwxyz") for _ in range(rng.randint(6, 12)))
+    if kind == 4:                                  # mixed alphanumeric
+        return (rng.choice("abcdefghijklmnopqrstuvwxyz")
+                + "".join(rng.choice("0123456789abcdef") for _ in range(rng.randint(4, 8))))
+    if kind == 5:                                  # long digit run
+        return str(rng.randint(10 ** 6, 10 ** 8 - 1))
+    if kind == 6:                                  # hex literal
+        return "0x" + "".join(rng.choice("0123456789abcdef") for _ in range(rng.randint(4, 8)))
+    return " ".join(rng.choice(_WORD_POOL) for _ in range(rng.randint(2, 4)))
+
+
+def gen_copy_span_v6(rng: random.Random, n: int) -> list[Any]:
+    """v6 copy block: eight span kinds and eight templates, most with a distractor.
+
+    The verbatim invariant is still asserted, and each record keeps an
+    instance-level ``group_id`` so the family-aware splitter can hold whole
+    phrasings out.
+    """
+    out: list[Any] = []
+    for i in range(n):
+        kind = i % 8
+        ph = i % len(_V6_COPY_TEMPLATES)
+        span = _v6_span(rng, kind)
+        # a distractor number that must NOT be copied
+        d = rng.randint(100, 9999)
+        while str(d) in span:
+            d = rng.randint(100, 9999)
+        user = _V6_COPY_TEMPLATES[ph].format(d=d, s=span)
+        assert span in user, (span, user)
+        template = f"copy/span/kind{kind}"
+        segs = [Segment("system", _SYSTEM_COPY, target=False),
+                Segment("user", user, target=False),
+                Segment("assistant", f"<|final|>\n{span}", target=True)]
+        out.append(make_segment_record(segments=segs, category="instruction", source="synthetic",
+                                       source_id=f"syn/copy6/{kind}/{i}", task_type="instruction",
+                                       template_id=template, group_id=_gid(template, ph),
+                                       verified=True, verifier="verbatim_containment_check",
+                                       answer=span))
+    return out
+
+
+def _v6_operand(rng: random.Random, max_digits: int = 5) -> int:
+    """A 1..max_digits-digit operand (never 0, never leading-zero)."""
+    digits = rng.randint(1, max_digits)
+    low = 1 if digits == 1 else 10 ** (digits - 1)
+    return rng.randint(low, 10 ** digits - 1)
+
+
+def _expression_v6(rng: random.Random) -> tuple[str, Any]:
+    """1-3 operators over 1-5 digit operands; ``//`` only where it is exact."""
+    n_ops = rng.randint(1, 3)
+    parts = [str(_v6_operand(rng))]
+    for _ in range(n_ops):
+        op = rng.choice(["+", "-", "*", "//", "+", "-", "*"])
+        rhs = _v6_operand(rng, 4)
+        if op == "//":
+            lhs = int(parts[-1]) if parts[-1].isdigit() else None
+            if lhs is None or lhs == 0:
+                op, rhs = "+", _v6_operand(rng, 4)
+            else:
+                rhs = rng.randint(2, 9)
+                parts[-1] = str(lhs - (lhs % rhs) or rhs)     # make the division exact
+        parts += [op, str(rhs)]
+    expr = " ".join(parts)
+    value = eval(expr, {"__builtins__": {}})                   # noqa: S307 - generated digits only
+    assert isinstance(value, int), expr
+    return expr, value
+
+
 # --------------------------------------------------------------- arithmetic core
 def _expression(shape: str, a: int, b: int, c: int, rng: random.Random) -> tuple[str, Any]:
     """Build one arithmetic expression and its independently computed value."""
@@ -569,9 +678,12 @@ def gen_tool_use_v3(rng: random.Random, n: int) -> list[Any]:
                 template, f"syn/tool3/multi/{i}", "search",
                 [e1["source_id"], e2["source_id"]], group_id=_gid(template, ph)))
         elif kind == 3:
-            shape = rng.choice(["mul_add", "mul", "add_mul", "add_sub", "paren", "div_exact"])
-            expr, value = _expression(shape, rng.randint(37, 987), rng.randint(11, 89),
-                                      rng.randint(3, 40), rng)
+            if PROFILE == "v6":
+                expr, value = _expression_v6(rng)
+            else:
+                shape = rng.choice(["mul_add", "mul", "add_mul", "add_sub", "paren", "div_exact"])
+                expr, value = _expression(shape, rng.randint(37, 987), rng.randint(11, 89),
+                                          rng.randint(3, 40), rng)
             r1 = _mock_compute(expr, value)
             calc_id = r1["result"]["citation"]
             user, ph = _pick_idx(rng, _COMPUTE_PHRASINGS, e=expr)
@@ -847,31 +959,39 @@ def gen_no_tool_v3(rng: random.Random, n: int) -> list[Any]:
     out: list[Any] = []
     for i in range(n):
         sub = i % 5
+        v6 = PROFILE == "v6"
         if sub == 0:
-            a, b = rng.randint(11, 98), rng.randint(11, 98)
+            a, b = ((_v6_operand(rng), _v6_operand(rng)) if v6
+                    else (rng.randint(11, 98), rng.randint(11, 98)))
             user, ph = _pick_idx(rng, _NO_TOOL_ADD, a=a, b=b)
             ans = a + b
             assert eval(f"{a} + {b}") == ans
             template, verifier = "no_tool/arith/add", "python_recomputation"
         elif sub == 1:
-            a, b = rng.randint(21, 999), rng.randint(1, 20)
+            a, b = ((_v6_operand(rng), _v6_operand(rng, 3)) if v6
+                    else (rng.randint(21, 999), rng.randint(1, 20)))
             user, ph = _pick_idx(rng, _NO_TOOL_SUB, a=a, b=b)
             ans = a - b
             assert eval(f"{a} - {b}") == ans
             template, verifier = "no_tool/arith/sub", "python_recomputation"
         elif sub == 2:
-            a, b = rng.randint(2, 9), rng.randint(2, 9)
+            a, b = ((_v6_operand(rng, 4), _v6_operand(rng, 3)) if v6
+                    else (rng.randint(2, 9), rng.randint(2, 9)))
             user, ph = _pick_idx(rng, _NO_TOOL_MUL, a=a, b=b)
             ans = a * b
             assert eval(f"{a} * {b}") == ans
             template, verifier = "no_tool/arith/mul", "python_recomputation"
         elif sub == 3:
-            word = rng.choice(_WORD_POOL) + str(rng.randint(0, 99))
+            word = (("".join(rng.choice("abcdefghijklmnopqrstuvwxyz")
+                             for _ in range(rng.randint(5, 11))) + str(rng.randint(0, 999)))
+                    if v6 else rng.choice(_WORD_POOL) + str(rng.randint(0, 99)))
             user, ph = _pick_idx(rng, _NO_TOOL_UPPER, w=word)
             ans = word.upper()
             template, verifier = "no_tool/text_edit/upper", "upper_recomputation"
         else:
-            word = rng.choice(_WORD_POOL) + str(rng.randint(0, 99))
+            word = (("".join(rng.choice("abcdefghijklmnopqrstuvwxyz")
+                             for _ in range(rng.randint(5, 11))) + str(rng.randint(0, 999)))
+                    if v6 else rng.choice(_WORD_POOL) + str(rng.randint(0, 99)))
             user, ph = _pick_idx(rng, _NO_TOOL_REVERSE, w=word)
             ans = word[::-1]
             template, verifier = "no_tool/text_edit/reverse", "reverse_recomputation"
@@ -947,7 +1067,7 @@ def gen_tool_challenge(rng: random.Random, n: int) -> list[Any]:
 
 
 GENERATORS_V3: dict[str, tuple[Any, int, str]] = {
-    "copy_span": (gen_copy_span, 4000, "instruction"),
+    "copy_span": (gen_copy_span, 4000, "instruction"),  # v6 profile overrides below
     "no_tool": (gen_no_tool_v3, 6000, "instruction"),
     "tool_use": (gen_tool_use_v3, 9000, "tool"),
     "algorithm": (gen_algorithm_v3, 1600, "algorithm"),

@@ -65,3 +65,39 @@ def test_report_markdown_contains_gate():
 
     md = split_summary_markdown(report)
     assert "TRAIN/VALIDATION/TEST CONTAMINATION: PASS" in md
+
+
+def test_every_multi_phrasing_family_is_measurable_held_out():
+    """A family with >=3 phrasings must appear in train *and* in both held-out splits.
+
+    Measured defect (2026-10-03): the category-level loop put whole families in
+    one split, so 1610 of 1993 families had no held-out instance - including every
+    multi-step tool family, which made held-out tool capability unmeasurable.
+    """
+    recs = []
+    for fam, groups in (("tool/search", 4), ("copy/span", 5)):
+        for g in range(groups):
+            for i in range(3):
+                recs.append({"text": f"{fam} group {g} item {i} unique text {fam}{g}{i}",
+                             "record_id": f"{fam}-{g}-{i}", "category": "tool_use",
+                             "family": fam, "group_id": f"{fam}#{g}", "template_id": fam,
+                             "split": ""})
+    out, report = assign_splits(recs, seed=1234)
+    per_family = {}
+    for r in out:
+        per_family.setdefault(r["family"], set()).add(r["split"])
+    for fam in ("tool/search", "copy/span"):
+        assert {"train", "validation", "test"} <= per_family[fam], per_family[fam]
+    by_group: dict[str, set[str]] = {}
+    for r in out:
+        by_group.setdefault(r["group_id"], set()).add(r["split"])
+    assert all(len(v) == 1 for v in by_group.values())
+    assert report["contamination_free"] is True
+    assert report["family_coverage"]["families_with_held_out_instances"] >= 2
+
+
+def test_held_out_instance_counts_are_recorded_per_family():
+    recs, report = assign_splits(_records(n_families=4, per_family=6), seed=5)
+    assert report["family_coverage"]["families_with_held_out_instances"] + \
+        report["family_coverage"]["families_assigned_wholly"] == 4
+    assert report["counts"]["train"] > 0 and report["counts"]["validation"] > 0

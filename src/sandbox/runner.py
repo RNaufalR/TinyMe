@@ -30,9 +30,16 @@ from .limits import apply_limits, limits_report
 from .policy import SandboxPolicy
 from .workspace import Workspace
 
+#: Mount-masking prelude.  A failing mount used to be swallowed by a trailing
+#: no-op, which silently downgraded filesystem confinement without saying so.
+#: Failures are now printed with a machine-readable marker that ``run_python``
+#: parses back into ``SandboxResult.isolation["mount_masking_failures"]`` so the
+#: sandbox reports what it actually achieved (audit §9: label, never assume).
+_MOUNT_FAILURE_MARKER = "TINYME_MOUNT_MASK_FAILED:"
 _PREAMBLE = (
     'for d in /home /root /media /mnt /srv /var/log /tmp; do '
-    'mount -t tmpfs -o size=1m tmpfs "$d" 2>/dev/null || true; done; '
+    'mount -t tmpfs -o size=1m tmpfs "$d" 2>/dev/null '
+    f'|| echo "{_MOUNT_FAILURE_MARKER}$d" >&2; done; '
     'exec "$@"'
 )
 
@@ -145,6 +152,12 @@ def run_python(
         raw_err = err_path.read_bytes() if err_path.exists() else b""
         cap = int(policy.max_output_bytes)
         truncated = len(raw_out) > cap or len(raw_err) > cap
+        failures = [line.split(_MOUNT_FAILURE_MARKER, 1)[1].strip()
+                    for line in raw_err.decode("utf-8", "replace").splitlines()
+                    if _MOUNT_FAILURE_MARKER in line]
+        if failures:
+            iso = {**iso, "mount_masking_failures": failures,
+                   "notes": iso.get("notes", "") + f"; {len(failures)} path(s) could not be masked"}
         outputs = ws.list_outputs(skip={"tmp/_stdout.txt", "tmp/_stderr.txt"})
         return SandboxResult(
             exit_code=exit_code, stdout=raw_out[:cap].decode("utf-8", "replace"),

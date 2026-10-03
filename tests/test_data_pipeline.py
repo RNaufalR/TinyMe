@@ -26,9 +26,13 @@ except ImportError:  # pragma: no cover - evaluator import is optional here
 
 def _current_version() -> str:
     """The newest built dataset revision (the one the pipeline writes today)."""
-    for version in ("dataset_v3", "dataset_v2"):
-        if (VERSIONS_DIR / version / "manifest.json").exists():
-            return version
+    built = [d for d in VERSIONS_DIR.glob("dataset_v*")
+             if (d / "manifest.json").exists() and d.name[9:].isdigit()]
+    if built:
+        # newest by revision number (dataset_v10 > dataset_v9), not alphabetically
+        return max(built, key=lambda d: int(d.name[9:])).name
+    if (VERSIONS_DIR / "ci_unit" / "manifest.json").exists():
+        return "ci_unit"
     pytest.skip("no dataset version built - run scripts/prepare_data_v2.py")
 
 

@@ -56,47 +56,69 @@ def assign_splits(records: list[dict[str, Any]], seed: int = 1234,
         by_category[str(items[0].get("category", "unknown"))].append(gid)
 
     per_category: dict[str, dict[str, int]] = {}
+    family_coverage: dict[str, dict[str, int]] = {}
     for category in sorted(by_category):
         gids = _stable_order(by_category[category], seed)
-        n_groups = len(gids)
         total_records = sum(len(groups[g]) for g in gids)
         target_validation = int(round(total_records * ratios.get("validation", 0.1)))
         target_test = int(round(total_records * ratios.get("test", 0.1)))
 
+        # ------------------------------------------------------- per *family*
+        # A family is a template family (``family``/``template_id``).  A family
+        # with several phrasings keeps one phrasing in validation and one in
+        # test, so *every* measurable family is represented in the held-out
+        # splits.  The earlier category-only loop put whole families into train
+        # (1610 of 1993 families had no held-out instance at all - including
+        # every multi-step tool family, which is why tool capability could not be
+        # measured held-out).  Single-phrasing families are still assigned wholly
+        # to one split, because the contamination gate counts a shared group as
+        # contamination and splitting one would therefore be leakage.
+        by_family: dict[str, list[str]] = defaultdict(list)
+        for gid in gids:
+            first = groups[gid][0]
+            fam = str(first.get("family") or first.get("template_id") or gid)
+            by_family[fam].append(gid)
         validation_gids: list[str] = []
-        if n_groups >= 3 and target_validation > 0:
-            count = 0
-            for gid in gids:
-                if count >= target_validation:
-                    break
-                validation_gids.append(gid)
-                count += len(groups[gid])
-            if not validation_gids:  # never leave a category uncovered
-                validation_gids = [gids[0]]
-        remaining = [g for g in gids if g not in set(validation_gids)]
         test_gids: list[str] = []
-        if len(remaining) >= 2 and target_test > 0:
-            count = 0
-            for gid in remaining:
-                if count >= target_test:
-                    break
-                test_gids.append(gid)
-                count += len(groups[gid])
-            if not test_gids:
-                test_gids = [remaining[0]]
-        train_gids = [g for g in remaining if g not in set(test_gids)]
-
-        for gid in list(validation_gids):
+        train_gids: list[str] = []
+        for fam in _stable_order(by_family, seed):
+            fam_gids = _stable_order(by_family[fam], seed)
+            n_fam_records = sum(len(groups[g]) for g in fam_gids)
+            if len(fam_gids) >= 3:
+                validation_gids.append(fam_gids[0])
+                test_gids.append(fam_gids[1])
+                train_gids.extend(fam_gids[2:])
+                family_coverage[fam] = {"groups": len(fam_gids), "records": n_fam_records}
+            else:
+                key = int(hashlib.sha256(f"{seed}:{fam}".encode("utf-8")).hexdigest(), 16) % 10
+                if key == 0 and n_fam_records >= 8 and \
+                        sum(len(groups[g]) for g in validation_gids) < target_validation:
+                    validation_gids.extend(fam_gids)
+                elif key == 1 and n_fam_records >= 8 and \
+                        sum(len(groups[g]) for g in test_gids) < target_test:
+                    test_gids.extend(fam_gids)
+                else:
+                    train_gids.extend(fam_gids)
+        # Deterministic coverage floor: a category must never end up with an
+        # empty held-out split just because the hash order put every family in
+        # train.  Whole groups are moved, so group integrity (and therefore the
+        # contamination gate) is untouched.
+        while not validation_gids and len(train_gids) >= 2:
+            validation_gids.append(train_gids.pop(0))
+        while not test_gids and len(train_gids) >= 2:
+            test_gids.append(train_gids.pop(0))
+        train_gids = [g for g in train_gids if g not in set(validation_gids) | set(test_gids)]
+        for gid in validation_gids:
             for rec in groups[gid]:
                 rec["split"] = "validation"
-        for gid in list(test_gids):
+        for gid in test_gids:
             for rec in groups[gid]:
                 rec["split"] = "test"
         for gid in train_gids:
             for rec in groups[gid]:
                 rec["split"] = "train"
         per_category[category] = {
-            "groups": n_groups, "records": total_records,
+            "groups": len(gids), "records": total_records,
             "train": sum(len(groups[g]) for g in train_gids),
             "validation": sum(len(groups[g]) for g in validation_gids),
             "test": sum(len(groups[g]) for g in test_gids),
@@ -110,6 +132,11 @@ def assign_splits(records: list[dict[str, Any]], seed: int = 1234,
     out = [r for s in SPLITS for r in assigned[s]]
     report = split_report(assigned, ratios)
     report["per_category"] = per_category
+    report["family_coverage"] = {
+        "families_with_held_out_instances": len(family_coverage),
+        "families_assigned_wholly": len({str(groups[g][0].get("family") or groups[g][0].get("template_id") or g)
+                                        for g in groups}) - len(family_coverage),
+        "detail": family_coverage}
     report["category_coverage"] = {
         split: sorted({r.get("category", "unknown") for r in assigned.get(split, [])})
         for split in SPLITS}

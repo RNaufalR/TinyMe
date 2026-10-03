@@ -277,3 +277,54 @@ def test_phrase_pools_are_long_enough_to_avoid_target_repetition(pool_name):
     pool = getattr(s3, pool_name)
     assert len(pool) >= 5, (pool_name, len(pool))
     assert len(set(pool)) == len(pool), f"{pool_name} contains duplicates"
+
+
+def test_v6_profile_widens_the_shape_distribution():
+    """The v6 profile must break the fixed operand shape the model memorised.
+
+    Measured defect: the v5-trained model answered the held-out prompt
+    ``11 + 22`` with ``111 + 22`` - it rewrote unseen operands back into the
+    training shape (fixed 2-3 digit operands).  The v6 profile is only useful if
+    it actually produces a wider distribution, so that is asserted here.
+    """
+    import random as _random
+
+    from data_sources import synthetic_v3 as S
+
+    S.set_profile("v6")
+    try:
+        rng = _random.Random(20261003)
+        exprs = [S._expression_v6(rng)[0] for _ in range(2000)]
+        digits = [len(e.split()[0]) for e in exprs]
+        assert min(digits) == 1 and max(digits) >= 4, (min(digits), max(digits))
+        assert len(set(digits)) >= 3, sorted(set(digits))
+        values = [S._expression_v6(rng)[1] for _ in range(200)]
+        assert all(isinstance(v, int) for v in values)
+
+        spans = S.gen_copy_span_v6(_random.Random(5), 160)
+        kinds = {r.template_id for r in spans}
+        assert len(kinds) == 8, sorted(kinds)
+        assert len({r.answer for r in spans}) == 160, "spans must not repeat"
+        for rec in spans:
+            segs = rec.as_segments()
+            user = next(s.text for s in segs if s.role == "user")
+            assert rec.answer in user, "verbatim invariant"
+            assert rec.verifier == "verbatim_containment_check"
+
+        no_tool = S.gen_no_tool_v3(_random.Random(9), 100)
+        assert len(no_tool) == 100
+        assert all(r.answer for r in no_tool)
+    finally:
+        S.set_profile("v5")
+
+
+def test_v6_profile_is_opt_in():
+    """v5 must stay the default so dataset_v5 remains byte-reproducible."""
+    import random as _random
+
+    from data_sources import synthetic_v3 as S
+
+    assert S.PROFILE == "v5"
+    spans = S.gen_copy_span(_random.Random(3), 8)
+    assert {r.template_id for r in spans} == {"copy/span/kind0", "copy/span/kind1",
+                                              "copy/span/kind2", "copy/span/kind3"}
