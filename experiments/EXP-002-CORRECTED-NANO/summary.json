@@ -1,6 +1,6 @@
 {
   "experiment_id": "EXP-002-CORRECTED-NANO",
-  "experiment_name": "TinyMe Nano pretrain on protocol-exact dataset_v2",
+  "experiment_name": "EXP-002-CORRECTED-NANO (pretrain)",
   "stage": "pretrain",
   "architecture": "nano",
   "parameter_count": 2557632,
@@ -13,45 +13,45 @@
   "compute_dtype": "float32",
   "steps_executed": 400,
   "steps_this_run": 400,
-  "final_train_loss": 4.5151714233179865,
-  "final_val_loss": 4.804191317471591,
-  "final_val_perplexity": 122.02077504273828,
-  "final_val_active_tokens": 88000.0,
-  "best_val_loss": 4.804191317471591,
-  "tokens_processed": 2872417,
+  "final_train_loss": 4.487506596258092,
+  "final_val_loss": 6.377420880211059,
+  "final_val_perplexity": 588.4081738058269,
+  "final_val_active_tokens": 5733.0,
+  "best_val_loss": 6.377420880211059,
+  "tokens_processed": 2872506,
   "non_finite_steps": 0,
-  "epochs_completed": 5,
-  "wall_clock_seconds": 1078.66,
-  "avg_tokens_per_sec": 2662.9,
+  "epochs_completed": 4,
+  "wall_clock_seconds": 899.78,
+  "avg_tokens_per_sec": 3192.4,
   "checkpoint_bytes": 30703744,
   "fingerprints": {
     "experiment_id": "EXP-002-CORRECTED-NANO",
     "architecture": "nano",
     "model_config_hash": "a6885ef3bc597122",
-    "tokenizer_hash": "d2d47152426e0a9b307eee230e833b7763f60b50ec7316a080d2906528162230",
-    "dataset_fingerprint": "a8f5c37a251d1a4200bdd5392a7582b4500645bcb3e01de4ed8e41fb45f74b8d",
+    "tokenizer_hash": "dd71a73463c5405689c0da4af5746d98c57a41402cc750ab1464ecca2e935a7d",
+    "dataset_fingerprint": "730f1dbdf104e23105cc4b62434a81de8bdb820e8bf03906f8f3c05ac360189f",
     "seq_len": 256
   },
   "environment": {
-    "python": "3.11.2",
-    "platform": "Linux-6.1.158+-x86_64-with-glibc2.36",
+    "python": "3.13.16",
+    "platform": "Linux-6.18.44-fc-v64-x86_64-with-glibc2.39",
     "machine": "x86_64",
     "cpu_count": 2,
-    "jax": "0.10.2",
+    "jax": "0.11.2",
     "jax_backend": "cpu",
     "jax_devices": [
       "cpu:0"
     ],
     "optax": "0.2.8",
-    "numpy": "2.4.6",
+    "numpy": "2.5.3",
     "tokenizers": "0.23.2",
     "safetensors": "0.8.0",
-    "git_commit": "8446a0303049c49cd9b3a671011c61b4e7fa9757",
+    "git_commit": "a1663ba474d61c82d9672a241cb584dc7e4b5344",
     "git_dirty": true
   },
   "config": {
     "experiment_id": "EXP-002-CORRECTED-NANO",
-    "experiment_name": "TinyMe Nano pretrain on protocol-exact dataset_v2",
+    "experiment_name": "EXP-002-CORRECTED-NANO (pretrain)",
     "stage": "pretrain",
     "architecture": "nano",
     "dataset_version": "dataset_v2",
@@ -72,7 +72,7 @@
     "label_smoothing": 0.0,
     "compute_dtype": "float32",
     "max_val_batches": 16,
-    "notes": "reproducibility re-run of the canonical Stage-A baseline on an identical configuration (identical seed/dataset fingerprints); used to regenerate the gitignored checkpoints and to verify run-to-run determinism",
+    "notes": "",
     "resume": true,
     "extra": {}
   },
@@ -82,17 +82,17 @@
     "version": "dataset_v2",
     "stage": "pretrain",
     "source": "shards",
-    "blocks": 2203,
-    "active_target_tokens": 494571,
-    "padding_ratio": 0.123051
+    "blocks": 2650,
+    "active_target_tokens": 594714,
+    "padding_ratio": 0.123358
   },
   "val_stats": {
     "split": "validation",
     "version": "dataset_v2",
     "stage": "pretrain",
     "source": "shards",
-    "blocks": 378,
-    "active_target_tokens": 88000,
-    "padding_ratio": 0.090608
+    "blocks": 27,
+    "active_target_tokens": 5733,
+    "padding_ratio": 0.170573
   }
 }

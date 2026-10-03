@@ -1,24 +1,24 @@
 # Evaluation report — EXP-002-CORRECTED-NANO (test split)
 
-- Generated: 2026-10-02 04:50:14
+- Generated: 2026-10-03 21:32:10
 - Models: EXP-002-CORRECTED-NANO:fp32
 - Data: held-out `test`/`challenge` splits only (no training rows)
 
 | Domain | EXP-002-CORRECTED-NANO:fp32 |
 | :--- | ---: |
-| language | ppl=259.2335 |
-| logic | 0.000 (0/93) |
-| math | 0.000 (0/178) |
-| algorithmic_reasoning | — |
-| code | 0.000 (0/140) |
-| debugging | 0.000 (0/96) |
-| code_generation | 0.000 (0/100) |
-| instruction_following | 0.000 (0/42) |
-| tool_selection | 0.000 (0/47) |
-| tool_arguments | 0.000 (0/47) |
-| tool_syntax | 0.000 (0/47) |
-| tool_execution | 0.000 (0/47) |
-| grounding | 0.000 (0/47) |
+| language | ppl=244.2414 |
+| logic | 0.000 (0/5) |
+| math | 0.000 (0/4) |
+| algorithmic_reasoning | 0.000 (0/5) |
+| code | 0.000 (0/1) |
+| debugging | — |
+| code_generation | 0.000 (0/4) |
+| instruction_following | 0.000 (0/5) |
+| tool_selection | 0.000 (0/5) |
+| tool_arguments | 0.000 (0/5) |
+| tool_syntax | 0.000 (0/5) |
+| tool_execution | 0.000 (0/5) |
+| grounding | 0.000 (0/5) |
 | generalization | — |
 
 ## Notes

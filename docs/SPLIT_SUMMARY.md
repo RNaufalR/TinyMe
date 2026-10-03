@@ -1,23 +1,23 @@
 # SPLIT SUMMARY
 
-- **train**: 20088 records / 2020 template families
-- **validation**: 2886 records / 25 template families
-- **test**: 3768 records / 27 template families
-- **challenge**: 90 records / 11 template families
+- **train**: 5139 records / 1850 template families
+- **validation**: 360 records / 9 template families
+- **test**: 708 records / 10 template families
+- **challenge**: 60 records / 8 template families
 
 ## Category distribution
 
 | split | algorithm | code_explain | code_gen | code_repair | instruction | language | logic | math | programming | tool_use |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| train | 1151 | 542 | 180 | 102 | 10440 | 164 | 125 | 520 | 1397 | 5467 |
-| validation | 251 | 12 | 20 | 25 | 1413 | 15 | 33 | 24 | 1 | 1092 |
-| test | 318 | 12 | 15 | 13 | 2290 | 1 | 41 | 15 | 1 | 1062 |
-| challenge | 0 | 0 | 8 | 8 | 8 | 8 | 8 | 12 | 0 | 38 |
+| train | 0 | 632 | 450 | 254 | 302 | 139 | 300 | 1287 | 1372 | 403 |
+| validation | 0 | 1 | 50 | 63 | 71 | 15 | 92 | 51 | 1 | 16 |
+| test | 300 | 30 | 15 | 32 | 63 | 1 | 100 | 15 | 1 | 151 |
+| challenge | 0 | 0 | 8 | 8 | 8 | 8 | 8 | 12 | 0 | 8 |
 
 ## Category coverage per split
 
-- **train**: algorithm, code_explain, code_gen, code_repair, instruction, language, logic, math, programming, tool_use
-- **validation**: algorithm, code_explain, code_gen, code_repair, instruction, language, logic, math, programming, tool_use
+- **train**: code_explain, code_gen, code_repair, instruction, language, logic, math, programming, tool_use
+- **validation**: code_explain, code_gen, code_repair, instruction, language, logic, math, programming, tool_use
 - **test**: algorithm, code_explain, code_gen, code_repair, instruction, language, logic, math, programming, tool_use
 - **challenge**: code_gen, code_repair, instruction, language, logic, math, tool_use
 

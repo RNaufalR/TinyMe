@@ -1,10 +1,10 @@
 {
   "release_format": "tinyme-release-v1",
-  "experiment_id": "EXP-004-TOOL-SFT-V3",
+  "experiment_id": "EXP-002-CORRECTED-NANO",
   "checkpoint": "best",
-  "stage": "sft",
-  "step": 600,
-  "best_val_loss": 1.5305189694144425,
+  "stage": "pretrain",
+  "step": 400,
+  "best_val_loss": 6.377420880211059,
   "parameter_count": 2557632,
   "fp32_bytes": 10233776,
   "fp32_tensor_bytes": 10230528,
@@ -22,35 +22,35 @@
     "dropout": 0.0
   },
   "model_config_hash": "a6885ef3bc597122",
-  "dataset_version": "dataset_v3",
-  "dataset_fingerprint": "e6a905f467d8d0a91ebeb75d4c5586548bcec3cb0af03f6fbb75f6eec6a6c49a",
+  "dataset_version": "dataset_v2",
+  "dataset_fingerprint": "730f1dbdf104e23105cc4b62434a81de8bdb820e8bf03906f8f3c05ac360189f",
   "tokenizer_version": "tok-v2",
-  "tokenizer_hash": "d2d47152426e0a9b307eee230e833b7763f60b50ec7316a080d2906528162230",
+  "tokenizer_hash": "dd71a73463c5405689c0da4af5746d98c57a41402cc750ab1464ecca2e935a7d",
   "tokenizer_vocab_size": 4096,
   "train_config": {
-    "experiment_id": "EXP-004-TOOL-SFT-V3",
-    "experiment_name": "EXP-004-TOOL-SFT-V3 (pretrain)",
-    "stage": "sft",
+    "experiment_id": "EXP-002-CORRECTED-NANO",
+    "experiment_name": "EXP-002-CORRECTED-NANO (pretrain)",
+    "stage": "pretrain",
     "architecture": "nano",
-    "dataset_version": "dataset_v3",
+    "dataset_version": "dataset_v2",
     "tokenizer_version": "tok-v2",
     "seed": 20261002,
     "seq_len": 256,
     "micro_batch_size": 8,
     "grad_accum_steps": 4,
-    "learning_rate": 0.0003,
+    "learning_rate": 0.0006,
     "min_lr_ratio": 0.1,
-    "warmup_steps": 60,
+    "warmup_steps": 50,
     "weight_decay": 0.01,
     "grad_clip_norm": 1.0,
-    "max_steps": 600,
-    "eval_every": 150,
+    "max_steps": 400,
+    "eval_every": 50,
     "checkpoint_every": 100,
     "keep_last_checkpoints": 3,
     "label_smoothing": 0.0,
     "compute_dtype": "float32",
     "max_val_batches": 16,
-    "notes": "Iteration 3: thought-template diversity (1 distinct thought -> 6 phrasings per family), varied compute expression shapes, 600 steps at the plateau point (~1.67 val loss)",
+    "notes": "",
     "resume": true,
     "extra": {}
   },
@@ -65,28 +65,28 @@
         "file": "release/model_fp16.safetensors",
         "bytes": 5118480,
         "human": "4.88 MB",
-        "relative_rmse": 0.000212,
+        "relative_rmse": 0.000211,
         "max_abs_error": 0.000488
       },
       "int8": {
         "file": "release/model_int8.safetensors",
         "bytes": 2600976,
         "human": "2.48 MB",
-        "relative_rmse": 0.006438,
-        "max_abs_error": 0.001417
+        "relative_rmse": 0.006483,
+        "max_abs_error": 0.001408
       },
       "int4": {
         "file": "release/model_int4.safetensors",
         "bytes": 1451272,
         "human": "1.38 MB",
-        "relative_rmse": 0.096716,
-        "max_abs_error": 0.02541
+        "relative_rmse": 0.097674,
+        "max_abs_error": 0.02538
       }
     },
     "files": {
       "README.md": {
-        "bytes": 2236,
-        "sha256": "819a036f25ef6d11b3d7996f2dc7bce14eaa2ee706a6b75c740a78ed0006413a",
+        "bytes": 2241,
+        "sha256": "c3f957525b15d22d116350ffefa15fde6a55c0ce15c8c151d76c27617be23f41",
         "mb": 0.0022,
         "mib": 0.0021
       },
@@ -97,10 +97,10 @@
         "mib": 0.0006
       },
       "evaluation_report.md": {
-        "bytes": 7011,
-        "sha256": "32fcc45e38e03068893d4123b6b6ef40d04577ee4049c4c952e1ddc721125442",
-        "mb": 0.007,
-        "mib": 0.0067
+        "bytes": 4089,
+        "sha256": "8e58daa6621a573af2789f7c098aa1c63ce2677a68fc90358861358da68d2f38",
+        "mb": 0.0041,
+        "mib": 0.0039
       },
       "inference.py": {
         "bytes": 6618,
@@ -109,46 +109,46 @@
         "mib": 0.0063
       },
       "model_comparison.md": {
-        "bytes": 1712,
-        "sha256": "02ba1c35f649817c381f10460370fb68b61c293315e6ec7dbb1cff54735a4e7c",
-        "mb": 0.0017,
-        "mib": 0.0016
+        "bytes": 1106,
+        "sha256": "d6157ca06b448c2306eb69a80cad8c0018b506b2da3d070a3e83b1763cdf15a1",
+        "mb": 0.0011,
+        "mib": 0.0011
       },
       "model_fp16.safetensors": {
         "bytes": 5118480,
-        "sha256": "6d2c4d2fecc14c74b838e908c2c7089369439915d51ade79ae1c99b537927b6d",
+        "sha256": "34bde664091993f5f91a1022026690ee5118bb4e5191e0317308b9b541690eb9",
         "mb": 5.1185,
         "mib": 4.8814
       },
       "model_fp32.safetensors": {
         "bytes": 10233776,
-        "sha256": "85a6dfd7065dc95c018f5b364acb9c431985a39c60eea07b63ac3d57bb933c39",
+        "sha256": "54f4246f57350c5ff3378c966c3c50c60ac7a4c9d8df98ee8d5db4b7533addee",
         "mb": 10.2338,
         "mib": 9.7597
       },
       "model_int4.safetensors": {
         "bytes": 1451272,
-        "sha256": "b0ef17bea854ce8006d0dc12a88e0279842e66ed6112a3a4e42ce3a561b7df61",
+        "sha256": "fe152c025649a54482bcad1963851985b73ecd816abe3ff113a4af4a6943b9b5",
         "mb": 1.4513,
         "mib": 1.384
       },
       "model_int8.safetensors": {
         "bytes": 2600976,
-        "sha256": "e356461738aff94c9d922f0dbcfa3fd9e5e4608e5c4b310cbd342f5263af8654",
+        "sha256": "92637e845440ceeba27f8b8b6ec79fae576f2b8bec52ff62b413c609798825bb",
         "mb": 2.601,
         "mib": 2.4805
       },
       "provenance.md": {
-        "bytes": 1492,
-        "sha256": "1b75c0b8d79eeebb5296042d804234ca0ac1843f2c787f6992a267526ea76add",
+        "bytes": 1495,
+        "sha256": "b36a390319ed789cb6d6bfec0410246e4caa5210bf5ffce8b9a92e6ac802cafc",
         "mb": 0.0015,
         "mib": 0.0014
       },
       "tokenizer.json": {
-        "bytes": 265717,
-        "sha256": "d2d47152426e0a9b307eee230e833b7763f60b50ec7316a080d2906528162230",
-        "mb": 0.2657,
-        "mib": 0.2534
+        "bytes": 267003,
+        "sha256": "dd71a73463c5405689c0da4af5746d98c57a41402cc750ab1464ecca2e935a7d",
+        "mb": 0.267,
+        "mib": 0.2546
       },
       "manifest.json": {
         "bytes": null,
@@ -158,9 +158,9 @@
     },
     "total": {
       "files": 13,
-      "bytes": 19696246,
-      "mb": 19.6962,
-      "mib": 18.7838
+      "bytes": 19693867,
+      "mb": 19.6939,
+      "mib": 18.7815
     }
   },
   "under_50mb": {
@@ -170,21 +170,21 @@
     "int4": true
   },
   "environment": {
-    "python": "3.11.2",
-    "platform": "Linux-6.1.158+-x86_64-with-glibc2.36",
+    "python": "3.13.16",
+    "platform": "Linux-6.18.44-fc-v64-x86_64-with-glibc2.39",
     "machine": "x86_64",
     "cpu_count": 2,
-    "jax": "0.10.2",
+    "jax": "0.11.2",
     "jax_backend": "cpu",
     "jax_devices": [
       "cpu:0"
     ],
     "optax": "0.2.8",
-    "numpy": "2.4.6",
+    "numpy": "2.5.3",
     "tokenizers": "0.23.2",
     "safetensors": "0.8.0",
-    "git_commit": "8446a0303049c49cd9b3a671011c61b4e7fa9757",
+    "git_commit": "a1663ba474d61c82d9672a241cb584dc7e4b5344",
     "git_dirty": true
   },
-  "built_at": "2026-10-02T12:42:02"
+  "built_at": "2026-10-03T21:32:18"
 }

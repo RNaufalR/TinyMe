@@ -2,133 +2,166 @@
   "experiment": "EXP-002-CORRECTED-NANO",
   "split": "test",
   "dataset": "dataset_v2",
-  "dataset_fingerprint": "a8f5c37a251d1a4200bdd5392a7582b4500645bcb3e01de4ed8e41fb45f74b8d",
+  "dataset_fingerprint": "730f1dbdf104e23105cc4b62434a81de8bdb820e8bf03906f8f3c05ac360189f",
   "variants": {
     "fp32": {
       "model": "EXP-002-CORRECTED-NANO:fp32",
       "dataset_version": "dataset_v2",
       "split": "test",
       "overall": {
-        "domains_evaluated": 11,
+        "domains_evaluated": 12,
         "mean_accuracy": 0.0,
-        "total_samples": 998
+        "total_samples": 60
       },
       "domains": {
         "language": {
-          "samples": 18,
+          "samples": 1,
           "metric": "perplexity",
           "accuracy": null,
-          "perplexity": 259.2335,
+          "perplexity": 244.2414,
           "note": "perplexity on held-out text (never mixed into answer accuracy)"
         },
         "code_explanation": {
-          "samples": 96,
+          "samples": 5,
           "metric": "perplexity",
           "accuracy": null,
-          "perplexity": 321.6446,
+          "perplexity": 215.4699,
           "note": "perplexity on held-out text (never mixed into answer accuracy)"
         },
         "math": {
-          "samples": 178,
+          "samples": 4,
           "metric": "accuracy",
           "correct": 0,
-          "answered": 20,
+          "answered": 0,
           "accuracy": 0.0,
           "examples": [
             {
               "prompt_tail": "e grade-school mathematics step by step.\n<|user|>\nNatalia sold clips to 48 of her friends in April, and then she sold half as many clips in May. How many clips did Natalia sell altogether in April and May?\n<|assistant|>\n",
-              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
               "reference": "72",
               "correct": false
             },
             {
               "prompt_tail": "<|system|>\nYou are TinyMe. Solve grade-school mathematics step by step.\n<|user|>\nWeng earns $12 an hour for babysitting. Yesterday, she just did 50 minutes of babysitting. How much did she earn?\n<|assistant|>\n",
-              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
               "reference": "10",
               "correct": false
             },
             {
               "prompt_tail": ". Betty has only half of the money she needs. Her parents decided to give her $15 for that purpose, and her grandparents twice as much as her parents. How much more money does Betty need to buy the wallet?\n<|assistant|>\n",
-              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
               "reference": "5",
               "correct": false
             },
             {
               "prompt_tail": "ng a 120-page book. Yesterday, she was able to read 12 pages and today, she read twice as many pages as yesterday. If she wants to read half of the remaining pages tomorrow, how many pages should she read?\n<|assistant|>\n",
-              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
               "reference": "42",
               "correct": false
             }
           ]
         },
         "logic": {
-          "samples": 93,
+          "samples": 5,
           "metric": "accuracy",
           "correct": 0,
-          "answered": 93,
+          "answered": 0,
           "accuracy": 0.0,
           "examples": [
             {
-              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate logic expressions exactly.\n<|user|>\nEvaluate the boolean expression: (q or not s) or (not r and p)\nValues: q=false, s=false, r=false, p=true\n<|assistant|>\n",
-              "generation": "```\n```\n```\n```\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate logic expressions exactly.\n<|user|>\nEvaluate the boolean expression: (s and q) or (r or p)\nValues: s=true, q=false, r=true, p=false\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "true",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate logic expressions exactly.\n<|user|>\nEvaluate the boolean expression: (p xor r) or (not q and s)\nValues: p=false, r=false, q=false, s=true\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
               "reference": "false",
               "correct": false
             },
             {
-              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate logic expressions exactly.\n<|user|>\nEvaluate the boolean expression: (not s xor not r) or (q and not p)\nValues: s=true, r=false, q=true, p=false\n<|assistant|>\n",
-              "generation": "\n```\n```\n\n\n\n```\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate logic expressions exactly.\n<|user|>\nEvaluate the boolean expression: (not p or q) or (not r xor not s)\nValues: p=true, q=true, r=true, s=true\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
               "reference": "true",
               "correct": false
             },
             {
-              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate logic expressions exactly.\n<|user|>\nEvaluate the boolean expression: (not s xor r) or (not q xor p)\nValues: s=true, r=false, q=false, p=true\n<|assistant|>\n",
-              "generation": "\n```\n\n```\n```\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate logic expressions exactly.\n<|user|>\nEvaluate the boolean expression: (r xor s) or (not p and not q)\nValues: r=true, s=true, p=true, q=true\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
               "reference": "true",
+              "correct": false
+            }
+          ]
+        },
+        "algorithmic_reasoning": {
+          "samples": 5,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 0,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Trace algorithms step by step.\n<|user|>\nTrace binary search for 85 in the sorted list [15, 21, 30, 34, 65, 74, 85].\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "None",
               "correct": false
             },
             {
-              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate logic expressions exactly.\n<|user|>\nEvaluate the boolean expression: (s or q) or (r or not p)\nValues: s=false, q=false, r=false, p=true\n<|assistant|>\n",
-              "generation": "```\n```\n```\n```\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
-              "reference": "true",
+              "prompt_tail": "<|system|>\nYou are TinyMe. Trace algorithms step by step.\n<|user|>\nTrace binary search for 63 in the sorted list [19, 35, 63, 75, 78, 85, 86].\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "None",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Trace algorithms step by step.\n<|user|>\nTrace binary search for 25 in the sorted list [13, 25, 38, 43, 66, 72].\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "None",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Trace algorithms step by step.\n<|user|>\nTrace binary search for 80 in the sorted list [45, 50, 71, 80].\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "None",
               "correct": false
             }
           ]
         },
         "instruction_following": {
-          "samples": 42,
+          "samples": 5,
           "metric": "accuracy",
           "correct": 0,
-          "answered": 42,
+          "answered": 0,
           "accuracy": 0.0,
           "examples": [
             {
-              "prompt_tail": "stem|>\nYou are TinyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Replace every hyphen in the input with an underscore.\nInput: november-mike-kilo-juliet-echo-echo\n<|assistant|>\n",
-              "generation": "\n\n\n```\n\n\n\n```\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
-              "reference": "november_mike_kilo_juliet_echo_echo",
+              "prompt_tail": "<|system|>\nYou are TinyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Convert the word 'delta60' to uppercase.\nInput: delta60\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "DELTA60",
               "correct": false
             },
             {
-              "prompt_tail": "<|system|>\nYou are TinyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Replace every hyphen in the input with an underscore.\nInput: mike-echo-echo\n<|assistant|>\n",
-              "generation": "\n```\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
-              "reference": "mike_echo_echo",
+              "prompt_tail": "<|system|>\nYou are TinyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Convert the word 'quebec93' to uppercase.\nInput: quebec93\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "QUEBEC93",
               "correct": false
             },
             {
-              "prompt_tail": "<|system|>\nYou are TinyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Replace every hyphen in the input with an underscore.\nInput: echo-kilo-bravo-papa\n<|assistant|>\n",
-              "generation": "\n```\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
-              "reference": "echo_kilo_bravo_papa",
+              "prompt_tail": "<|system|>\nYou are TinyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Convert the word 'golf' to uppercase.\nInput: golf\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "GOLF",
               "correct": false
             },
             {
-              "prompt_tail": "<|system|>\nYou are TinyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Replace every hyphen in the input with an underscore.\nInput: mike-alpha-foxtrot-delta\n<|assistant|>\n",
-              "generation": "\n```\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
-              "reference": "mike_alpha_foxtrot_delta",
+              "prompt_tail": "<|system|>\nYou are TinyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Convert the word 'lima' to uppercase.\nInput: lima\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "LIMA",
               "correct": false
             }
           ]
         },
         "code_generation": {
-          "samples": 100,
+          "samples": 4,
           "metric": "execution_pass_rate",
           "parseable": 0,
           "executed": 0,
@@ -137,41 +170,41 @@
           "accuracy": 0.0,
           "examples": [
             {
-              "prompt_tail": "b) returning the greatest common divisor of two positive integers using the Euclidean algorithm.\n\nVerified examples:\n- gcd(257, 371)  ->  1\n- gcd(556, 468)  ->  4\n- gcd(195, 460)  ->  5\n<|assistant|>\n",
+              "prompt_tail": "<|system|>\nYou are TinyMe. Write correct Python that satisfies the tests.\n<|user|>\nWrite a function to find the longest chain which can be formed from the given set of pairs.\n<|assistant|>\n",
               "generated_code": "",
               "syntax_ok": false,
               "execution": {},
-              "reference_final": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a\n<|endcode|>",
+              "reference_final": "def max_chain_length(arr, n):\n    mcl = [1 for i in range(n)]\n    for i in range(1, n):\n        for j in range(0, i):\n            if (arr[i][0] > arr[j][1] and mcl[i] < mcl[j] + 1):\n                mc",
               "passed": false
             },
             {
-              "prompt_tail": " b) returning the greatest common divisor of two positive integers using the Euclidean algorithm.\n\nVerified examples:\n- gcd(567, 91)  ->  7\n- gcd(960, 745)  ->  5\n- gcd(515, 916)  ->  1\n<|assistant|>\n",
+              "prompt_tail": "<|system|>\nYou are TinyMe. Write correct Python that satisfies the tests.\n<|user|>\nWrite a python function to find the first repeated character in a given string.\n<|assistant|>\n",
               "generated_code": "",
               "syntax_ok": false,
               "execution": {},
-              "reference_final": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a\n<|endcode|>",
+              "reference_final": "def first_repeated_char(s):\n    for index, c in enumerate(s):\n        if s[:index + 1].count(c) > 1:\n            return c\n    return None\n<|endcode|>",
               "passed": false
             },
             {
-              "prompt_tail": " b) returning the greatest common divisor of two positive integers using the Euclidean algorithm.\n\nVerified examples:\n- gcd(889, 752)  ->  1\n- gcd(251, 611)  ->  1\n- gcd(96, 987)  ->  3\n<|assistant|>\n",
+              "prompt_tail": "<|system|>\nYou are TinyMe. Write correct Python that satisfies the tests.\n<|user|>\nWrite a function to get a lucid number smaller than or equal to n.\n<|assistant|>\n",
               "generated_code": "",
               "syntax_ok": false,
               "execution": {},
-              "reference_final": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a\n<|endcode|>",
+              "reference_final": "def get_ludic(n):\n    ludics = list(range(1, n + 1))\n    index = 1\n    while index != len(ludics):\n        first_ludic = ludics[index]\n        remove_index = index + first_ludic\n        while remove_i",
               "passed": false
             },
             {
-              "prompt_tail": ", b) returning the greatest common divisor of two positive integers using the Euclidean algorithm.\n\nVerified examples:\n- gcd(188, 84)  ->  4\n- gcd(767, 22)  ->  1\n- gcd(309, 143)  ->  1\n<|assistant|>\n",
+              "prompt_tail": "<|system|>\nYou are TinyMe. Write correct Python that satisfies the tests.\n<|user|>\nWrite a function to reverse words in a given string.\n<|assistant|>\n",
               "generated_code": "",
               "syntax_ok": false,
               "execution": {},
-              "reference_final": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a\n<|endcode|>",
+              "reference_final": "def reverse_words(s):\n    return ' '.join(reversed(s.split()))\n<|endcode|>",
               "passed": false
             }
           ]
         },
-        "debugging": {
-          "samples": 96,
+        "code_repair": {
+          "samples": 5,
           "metric": "execution_pass_rate",
           "parseable": 0,
           "executed": 0,
@@ -180,7 +213,7 @@
           "accuracy": 0.0,
           "examples": [
             {
-              "prompt_tail": "ied):\n- binary_search([14, 31, 65, 91], 31)  ->  1\n- binary_search([7, 17, 36, 53, 125, 149, 157, 191], 53)  ->  3\n- binary_search([11, 14, 21, 98, 130, 145, 146, 174, 192], 174)  ->  7\n<|assistant|>\n",
+              "prompt_tail": "fied):\n- binary_search([2, 47, 51, 124, 155], 47)  ->  1\n- binary_search([28, 31, 51, 79, 117, 136, 147, 161], 31)  ->  1\n- binary_search([6, 58, 66, 78, 124, 126, 140, 192], 66)  ->  2\n<|assistant|>\n",
               "generated_code": "",
               "syntax_ok": false,
               "execution": {},
@@ -188,7 +221,7 @@
               "passed": false
             },
             {
-              "prompt_tail": "ary_search([34, 68, 96, 129, 149, 176, 184], 68)  ->  1\n- binary_search([2, 8, 40, 123, 135, 158, 172, 187], 172)  ->  6\n- binary_search([0, 73, 105, 110, 116, 117, 123, 137], 0)  ->  0\n<|assistant|>\n",
+              "prompt_tail": "cted behaviour (verified):\n- binary_search([35, 71, 79, 87, 155, 171, 182, 193], 35)  ->  0\n- binary_search([69, 71, 116, 143], 69)  ->  0\n- binary_search([12, 36, 106, 118], 36)  ->  1\n<|assistant|>\n",
               "generated_code": "",
               "syntax_ok": false,
               "execution": {},
@@ -196,7 +229,7 @@
               "passed": false
             },
             {
-              "prompt_tail": "):\n- binary_search([19, 23, 32, 48, 91, 95, 106, 107, 163], 23)  ->  1\n- binary_search([2, 28, 65, 174, 188], 2)  ->  0\n- binary_search([7, 8, 11, 63, 79, 112, 129, 158, 182], 8)  ->  1\n<|assistant|>\n",
+              "prompt_tail": " behaviour (verified):\n- binary_search([2, 25, 54, 146, 171], 146)  ->  3\n- binary_search([38, 39, 78, 82, 109, 113, 177, 189], 82)  ->  3\n- binary_search([15, 34, 105, 138], 34)  ->  1\n<|assistant|>\n",
               "generated_code": "",
               "syntax_ok": false,
               "execution": {},
@@ -204,7 +237,7 @@
               "passed": false
             },
             {
-              "prompt_tail": "ected behaviour (verified):\n- binary_search([41, 61, 104, 110, 127, 184], 184)  ->  5\n- binary_search([6, 98, 172, 182, 190], 172)  ->  2\n- binary_search([22, 86, 155, 199], 199)  ->  3\n<|assistant|>\n",
+              "prompt_tail": "iour (verified):\n- binary_search([1, 65, 94, 128, 174, 190], 174)  ->  4\n- binary_search([99, 128, 138, 141], 99)  ->  0\n- binary_search([10, 26, 60, 93, 114, 150, 160, 170], 10)  ->  0\n<|assistant|>\n",
               "generated_code": "",
               "syntax_ok": false,
               "execution": {},
@@ -214,7 +247,7 @@
           ]
         },
         "code": {
-          "samples": 140,
+          "samples": 1,
           "metric": "execution_pass_rate",
           "parseable": 0,
           "executed": 0,
@@ -223,32 +256,8 @@
           "accuracy": 0.0,
           "examples": [
             {
-              "prompt_tail": "\n<|assistant|>\n",
-              "generated_code": "",
-              "syntax_ok": false,
-              "execution": {},
-              "reference_final": "",
-              "passed": false
-            },
-            {
-              "prompt_tail": "\n<|assistant|>\n",
-              "generated_code": "",
-              "syntax_ok": false,
-              "execution": {},
-              "reference_final": "",
-              "passed": false
-            },
-            {
-              "prompt_tail": "\n<|assistant|>\n",
-              "generated_code": "",
-              "syntax_ok": false,
-              "execution": {},
-              "reference_final": "",
-              "passed": false
-            },
-            {
-              "prompt_tail": "\n<|assistant|>\n",
-              "generated_code": "",
+              "prompt_tail": " IPV6_V6ONLY to 0\n            # silently has no effect, so check that it was actually cleared.\n            return sock.getsockopt(IPPROTO_IPV6, IPV6_V6ONLY) == 0\n    except error:\n        return False",
+              "generated_code": "if not _get_name is None:\n        # The file to the string.\n\n        # If a list of the Python the file, the\n    # 1:\n        # The default to the file.  The c-124.\n\n    # The file to the Python\n    # SA_rear-800000000000000000000000000000",
               "syntax_ok": false,
               "execution": {},
               "reference_final": "",
@@ -257,31 +266,31 @@
           ]
         },
         "tool_syntax": {
-          "samples": 47,
+          "samples": 5,
           "metric": "syntax_rate",
           "valid": 0,
           "accuracy": 0.0
         },
         "tool_selection": {
-          "samples": 47,
+          "samples": 5,
           "metric": "tool_name_accuracy",
           "correct": 0,
           "accuracy": 0.0
         },
         "tool_arguments": {
-          "samples": 47,
+          "samples": 5,
           "metric": "argument_match_accuracy",
           "correct": 0,
           "accuracy": 0.0
         },
         "tool_execution": {
-          "samples": 47,
+          "samples": 5,
           "metric": "tool_call_success_rate",
           "succeeded": 0,
           "accuracy": 0.0
         },
         "grounding": {
-          "samples": 47,
+          "samples": 5,
           "metric": "grounded_answer_accuracy",
           "correct": 0,
           "accuracy": 0.0,
@@ -290,61 +299,1157 @@
       },
       "examples": [
         {
-          "record_id": "9f9fd0473bf054bda5ef9e0c38ada625",
-          "expected_tool": "fetch",
-          "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+          "record_id": "f6a72a9eef3f5e0e9b820f5ea3025f08",
+          "expected_tool": "code",
+          "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
           "tool_name_ok": false,
           "arguments_ok": null,
           "executed_ok": null
         },
         {
-          "record_id": "f8789f17c5335eac9688849eb8828775",
-          "expected_tool": "fetch",
-          "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+          "record_id": "68467def36ae56f8b2d09f96a1193299",
+          "expected_tool": "code",
+          "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
           "tool_name_ok": false,
           "arguments_ok": null,
           "executed_ok": null
         },
         {
-          "record_id": "b9cf8b32737c58e682761017bdd58c1c",
-          "expected_tool": "fetch",
-          "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+          "record_id": "6699c742a81056d998c356557ead2f4a",
+          "expected_tool": "code",
+          "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
           "tool_name_ok": false,
           "arguments_ok": null,
           "executed_ok": null
         },
         {
-          "record_id": "6bff492906225b64b350621bd699d934",
-          "expected_tool": "fetch",
-          "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+          "record_id": "5b5c82e971be5165bfe5c74fbb338d57",
+          "expected_tool": "code",
+          "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
           "tool_name_ok": false,
           "arguments_ok": null,
           "executed_ok": null
         }
       ],
-      "started_at": "2026-10-02T04:49:22",
-      "duration_s": 52.62,
+      "started_at": "2026-10-03T21:22:39",
+      "duration_s": 366.67,
       "environment": {
-        "backend": "numpy",
+        "generation": {
+          "calls": 34,
+          "gen_tokens": 1680,
+          "seconds": 356.7,
+          "tokens_per_sec": 4.71,
+          "latency_mean_s": 10.4912,
+          "latency_p50_s": 3.7114,
+          "latency_p95_s": 66.5705
+        },
+        "backend": "jax",
         "isolation": {
           "capabilities": {
             "bwrap": false,
             "unshare_net": true,
             "unshare_mount": true,
             "unshare_user": true,
+            "unshare_pid": true,
             "rlimit": true,
             "platform": "linux",
-            "level": "namespace(net+mount)"
+            "level": "namespace(net+mount+pid)"
           },
           "enforced_by_default": "private network namespace + tmpfs over host home tree when the sandboxed code runs",
-          "honest_label": "namespace(net+mount)"
+          "honest_label": "namespace(net+mount+pid)"
         },
         "checkpoint": "EXP-002-CORRECTED-NANO/best",
         "checkpoint_bytes": 30703744,
-        "max_new_tokens": 64,
-        "max_samples": null,
-        "held_out_records": 810,
-        "started_at": "2026-10-02T04:50:14"
+        "max_new_tokens": 96,
+        "max_samples": 40,
+        "held_out_records": 40,
+        "started_at": "2026-10-03T21:28:45"
+      }
+    },
+    "fp16": {
+      "model": "EXP-002-CORRECTED-NANO:fp16",
+      "dataset_version": "dataset_v2",
+      "split": "test",
+      "overall": {
+        "domains_evaluated": 12,
+        "mean_accuracy": 0.0,
+        "total_samples": 60
+      },
+      "domains": {
+        "language": {
+          "samples": 1,
+          "metric": "perplexity",
+          "accuracy": null,
+          "perplexity": 244.2291,
+          "note": "perplexity on held-out text (never mixed into answer accuracy)"
+        },
+        "code_explanation": {
+          "samples": 5,
+          "metric": "perplexity",
+          "accuracy": null,
+          "perplexity": 215.4805,
+          "note": "perplexity on held-out text (never mixed into answer accuracy)"
+        },
+        "math": {
+          "samples": 4,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 0,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "e grade-school mathematics step by step.\n<|user|>\nNatalia sold clips to 48 of her friends in April, and then she sold half as many clips in May. How many clips did Natalia sell altogether in April and May?\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "72",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Solve grade-school mathematics step by step.\n<|user|>\nWeng earns $12 an hour for babysitting. Yesterday, she just did 50 minutes of babysitting. How much did she earn?\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "10",
+              "correct": false
+            },
+            {
+              "prompt_tail": ". Betty has only half of the money she needs. Her parents decided to give her $15 for that purpose, and her grandparents twice as much as her parents. How much more money does Betty need to buy the wallet?\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "5",
+              "correct": false
+            },
+            {
+              "prompt_tail": "ng a 120-page book. Yesterday, she was able to read 12 pages and today, she read twice as many pages as yesterday. If she wants to read half of the remaining pages tomorrow, how many pages should she read?\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "42",
+              "correct": false
+            }
+          ]
+        },
+        "logic": {
+          "samples": 5,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 0,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate logic expressions exactly.\n<|user|>\nEvaluate the boolean expression: (s and q) or (r or p)\nValues: s=true, q=false, r=true, p=false\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "true",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate logic expressions exactly.\n<|user|>\nEvaluate the boolean expression: (p xor r) or (not q and s)\nValues: p=false, r=false, q=false, s=true\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "false",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate logic expressions exactly.\n<|user|>\nEvaluate the boolean expression: (not p or q) or (not r xor not s)\nValues: p=true, q=true, r=true, s=true\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "true",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate logic expressions exactly.\n<|user|>\nEvaluate the boolean expression: (r xor s) or (not p and not q)\nValues: r=true, s=true, p=true, q=true\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "true",
+              "correct": false
+            }
+          ]
+        },
+        "algorithmic_reasoning": {
+          "samples": 5,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 0,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Trace algorithms step by step.\n<|user|>\nTrace binary search for 85 in the sorted list [15, 21, 30, 34, 65, 74, 85].\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "None",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Trace algorithms step by step.\n<|user|>\nTrace binary search for 63 in the sorted list [19, 35, 63, 75, 78, 85, 86].\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "None",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Trace algorithms step by step.\n<|user|>\nTrace binary search for 25 in the sorted list [13, 25, 38, 43, 66, 72].\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "None",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Trace algorithms step by step.\n<|user|>\nTrace binary search for 80 in the sorted list [45, 50, 71, 80].\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "None",
+              "correct": false
+            }
+          ]
+        },
+        "instruction_following": {
+          "samples": 5,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 0,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Convert the word 'delta60' to uppercase.\nInput: delta60\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "DELTA60",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Convert the word 'quebec93' to uppercase.\nInput: quebec93\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "QUEBEC93",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Convert the word 'golf' to uppercase.\nInput: golf\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "GOLF",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Convert the word 'lima' to uppercase.\nInput: lima\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "LIMA",
+              "correct": false
+            }
+          ]
+        },
+        "code_generation": {
+          "samples": 4,
+          "metric": "execution_pass_rate",
+          "parseable": 0,
+          "executed": 0,
+          "passed": 0,
+          "pass_rate_of_executed": null,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Write correct Python that satisfies the tests.\n<|user|>\nWrite a function to find the longest chain which can be formed from the given set of pairs.\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def max_chain_length(arr, n):\n    mcl = [1 for i in range(n)]\n    for i in range(1, n):\n        for j in range(0, i):\n            if (arr[i][0] > arr[j][1] and mcl[i] < mcl[j] + 1):\n                mc",
+              "passed": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Write correct Python that satisfies the tests.\n<|user|>\nWrite a python function to find the first repeated character in a given string.\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def first_repeated_char(s):\n    for index, c in enumerate(s):\n        if s[:index + 1].count(c) > 1:\n            return c\n    return None\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Write correct Python that satisfies the tests.\n<|user|>\nWrite a function to get a lucid number smaller than or equal to n.\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def get_ludic(n):\n    ludics = list(range(1, n + 1))\n    index = 1\n    while index != len(ludics):\n        first_ludic = ludics[index]\n        remove_index = index + first_ludic\n        while remove_i",
+              "passed": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Write correct Python that satisfies the tests.\n<|user|>\nWrite a function to reverse words in a given string.\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def reverse_words(s):\n    return ' '.join(reversed(s.split()))\n<|endcode|>",
+              "passed": false
+            }
+          ]
+        },
+        "code_repair": {
+          "samples": 5,
+          "metric": "execution_pass_rate",
+          "parseable": 0,
+          "executed": 0,
+          "passed": 0,
+          "pass_rate_of_executed": null,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "fied):\n- binary_search([2, 47, 51, 124, 155], 47)  ->  1\n- binary_search([28, 31, 51, 79, 117, 136, 147, 161], 31)  ->  1\n- binary_search([6, 58, 66, 78, 124, 126, 140, 192], 66)  ->  2\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def binary_search(a, x):\n    lo, hi = 0, len(a) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if a[mid] == x:\n            return mid\n        if a[mid] < x:\n            lo = mid + 1\n    ",
+              "passed": false
+            },
+            {
+              "prompt_tail": "cted behaviour (verified):\n- binary_search([35, 71, 79, 87, 155, 171, 182, 193], 35)  ->  0\n- binary_search([69, 71, 116, 143], 69)  ->  0\n- binary_search([12, 36, 106, 118], 36)  ->  1\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def binary_search(a, x):\n    lo, hi = 0, len(a) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if a[mid] == x:\n            return mid\n        if a[mid] < x:\n            lo = mid + 1\n    ",
+              "passed": false
+            },
+            {
+              "prompt_tail": " behaviour (verified):\n- binary_search([2, 25, 54, 146, 171], 146)  ->  3\n- binary_search([38, 39, 78, 82, 109, 113, 177, 189], 82)  ->  3\n- binary_search([15, 34, 105, 138], 34)  ->  1\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def binary_search(a, x):\n    lo, hi = 0, len(a) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if a[mid] == x:\n            return mid\n        if a[mid] < x:\n            lo = mid + 1\n    ",
+              "passed": false
+            },
+            {
+              "prompt_tail": "iour (verified):\n- binary_search([1, 65, 94, 128, 174, 190], 174)  ->  4\n- binary_search([99, 128, 138, 141], 99)  ->  0\n- binary_search([10, 26, 60, 93, 114, 150, 160, 170], 10)  ->  0\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def binary_search(a, x):\n    lo, hi = 0, len(a) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if a[mid] == x:\n            return mid\n        if a[mid] < x:\n            lo = mid + 1\n    ",
+              "passed": false
+            }
+          ]
+        },
+        "code": {
+          "samples": 1,
+          "metric": "execution_pass_rate",
+          "parseable": 0,
+          "executed": 0,
+          "passed": 0,
+          "pass_rate_of_executed": null,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": " IPV6_V6ONLY to 0\n            # silently has no effect, so check that it was actually cleared.\n            return sock.getsockopt(IPPROTO_IPV6, IPV6_V6ONLY) == 0\n    except error:\n        return False",
+              "generated_code": "if not _get_name is None:\n        # The file to the string.\n\n        # If a list of the Python the file, the\n    # 1:\n        # The default to the file.  The c-124.\n\n    # The file to the Python\n    # SA_rear-800000000000000000000000000000",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "",
+              "passed": false
+            }
+          ]
+        },
+        "tool_syntax": {
+          "samples": 5,
+          "metric": "syntax_rate",
+          "valid": 0,
+          "accuracy": 0.0
+        },
+        "tool_selection": {
+          "samples": 5,
+          "metric": "tool_name_accuracy",
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "tool_arguments": {
+          "samples": 5,
+          "metric": "argument_match_accuracy",
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "tool_execution": {
+          "samples": 5,
+          "metric": "tool_call_success_rate",
+          "succeeded": 0,
+          "accuracy": 0.0
+        },
+        "grounding": {
+          "samples": 5,
+          "metric": "grounded_answer_accuracy",
+          "correct": 0,
+          "accuracy": 0.0,
+          "note": "answer after feeding the real tool result back"
+        }
+      },
+      "examples": [
+        {
+          "record_id": "f6a72a9eef3f5e0e9b820f5ea3025f08",
+          "expected_tool": "code",
+          "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+          "tool_name_ok": false,
+          "arguments_ok": null,
+          "executed_ok": null
+        },
+        {
+          "record_id": "68467def36ae56f8b2d09f96a1193299",
+          "expected_tool": "code",
+          "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+          "tool_name_ok": false,
+          "arguments_ok": null,
+          "executed_ok": null
+        },
+        {
+          "record_id": "6699c742a81056d998c356557ead2f4a",
+          "expected_tool": "code",
+          "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+          "tool_name_ok": false,
+          "arguments_ok": null,
+          "executed_ok": null
+        },
+        {
+          "record_id": "5b5c82e971be5165bfe5c74fbb338d57",
+          "expected_tool": "code",
+          "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+          "tool_name_ok": false,
+          "arguments_ok": null,
+          "executed_ok": null
+        }
+      ],
+      "started_at": "2026-10-03T21:28:45",
+      "duration_s": 73.45,
+      "environment": {
+        "generation": {
+          "calls": 34,
+          "gen_tokens": 1680,
+          "seconds": 72.877,
+          "tokens_per_sec": 23.05,
+          "latency_mean_s": 2.1434,
+          "latency_p50_s": 2.1318,
+          "latency_p95_s": 2.3596
+        },
+        "backend": "jax",
+        "isolation": {
+          "capabilities": {
+            "bwrap": false,
+            "unshare_net": true,
+            "unshare_mount": true,
+            "unshare_user": true,
+            "unshare_pid": true,
+            "rlimit": true,
+            "platform": "linux",
+            "level": "namespace(net+mount+pid)"
+          },
+          "enforced_by_default": "private network namespace + tmpfs over host home tree when the sandboxed code runs",
+          "honest_label": "namespace(net+mount+pid)"
+        },
+        "checkpoint": "EXP-002-CORRECTED-NANO/best",
+        "checkpoint_bytes": 30703744,
+        "max_new_tokens": 96,
+        "max_samples": 40,
+        "held_out_records": 40,
+        "started_at": "2026-10-03T21:29:59"
+      }
+    },
+    "int8": {
+      "model": "EXP-002-CORRECTED-NANO:int8",
+      "dataset_version": "dataset_v2",
+      "split": "test",
+      "overall": {
+        "domains_evaluated": 12,
+        "mean_accuracy": 0.0,
+        "total_samples": 60
+      },
+      "domains": {
+        "language": {
+          "samples": 1,
+          "metric": "perplexity",
+          "accuracy": null,
+          "perplexity": 243.7096,
+          "note": "perplexity on held-out text (never mixed into answer accuracy)"
+        },
+        "code_explanation": {
+          "samples": 5,
+          "metric": "perplexity",
+          "accuracy": null,
+          "perplexity": 215.3977,
+          "note": "perplexity on held-out text (never mixed into answer accuracy)"
+        },
+        "math": {
+          "samples": 4,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 0,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "e grade-school mathematics step by step.\n<|user|>\nNatalia sold clips to 48 of her friends in April, and then she sold half as many clips in May. How many clips did Natalia sell altogether in April and May?\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "72",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Solve grade-school mathematics step by step.\n<|user|>\nWeng earns $12 an hour for babysitting. Yesterday, she just did 50 minutes of babysitting. How much did she earn?\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "10",
+              "correct": false
+            },
+            {
+              "prompt_tail": ". Betty has only half of the money she needs. Her parents decided to give her $15 for that purpose, and her grandparents twice as much as her parents. How much more money does Betty need to buy the wallet?\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "5",
+              "correct": false
+            },
+            {
+              "prompt_tail": "ng a 120-page book. Yesterday, she was able to read 12 pages and today, she read twice as many pages as yesterday. If she wants to read half of the remaining pages tomorrow, how many pages should she read?\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "42",
+              "correct": false
+            }
+          ]
+        },
+        "logic": {
+          "samples": 5,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 0,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate logic expressions exactly.\n<|user|>\nEvaluate the boolean expression: (s and q) or (r or p)\nValues: s=true, q=false, r=true, p=false\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "true",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate logic expressions exactly.\n<|user|>\nEvaluate the boolean expression: (p xor r) or (not q and s)\nValues: p=false, r=false, q=false, s=true\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "false",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate logic expressions exactly.\n<|user|>\nEvaluate the boolean expression: (not p or q) or (not r xor not s)\nValues: p=true, q=true, r=true, s=true\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "true",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate logic expressions exactly.\n<|user|>\nEvaluate the boolean expression: (r xor s) or (not p and not q)\nValues: r=true, s=true, p=true, q=true\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "true",
+              "correct": false
+            }
+          ]
+        },
+        "algorithmic_reasoning": {
+          "samples": 5,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 0,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Trace algorithms step by step.\n<|user|>\nTrace binary search for 85 in the sorted list [15, 21, 30, 34, 65, 74, 85].\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "None",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Trace algorithms step by step.\n<|user|>\nTrace binary search for 63 in the sorted list [19, 35, 63, 75, 78, 85, 86].\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "None",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Trace algorithms step by step.\n<|user|>\nTrace binary search for 25 in the sorted list [13, 25, 38, 43, 66, 72].\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "None",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Trace algorithms step by step.\n<|user|>\nTrace binary search for 80 in the sorted list [45, 50, 71, 80].\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "None",
+              "correct": false
+            }
+          ]
+        },
+        "instruction_following": {
+          "samples": 5,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 0,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Convert the word 'delta60' to uppercase.\nInput: delta60\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "DELTA60",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Convert the word 'quebec93' to uppercase.\nInput: quebec93\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "QUEBEC93",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Convert the word 'golf' to uppercase.\nInput: golf\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "GOLF",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Convert the word 'lima' to uppercase.\nInput: lima\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "LIMA",
+              "correct": false
+            }
+          ]
+        },
+        "code_generation": {
+          "samples": 4,
+          "metric": "execution_pass_rate",
+          "parseable": 0,
+          "executed": 0,
+          "passed": 0,
+          "pass_rate_of_executed": null,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Write correct Python that satisfies the tests.\n<|user|>\nWrite a function to find the longest chain which can be formed from the given set of pairs.\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def max_chain_length(arr, n):\n    mcl = [1 for i in range(n)]\n    for i in range(1, n):\n        for j in range(0, i):\n            if (arr[i][0] > arr[j][1] and mcl[i] < mcl[j] + 1):\n                mc",
+              "passed": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Write correct Python that satisfies the tests.\n<|user|>\nWrite a python function to find the first repeated character in a given string.\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def first_repeated_char(s):\n    for index, c in enumerate(s):\n        if s[:index + 1].count(c) > 1:\n            return c\n    return None\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Write correct Python that satisfies the tests.\n<|user|>\nWrite a function to get a lucid number smaller than or equal to n.\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def get_ludic(n):\n    ludics = list(range(1, n + 1))\n    index = 1\n    while index != len(ludics):\n        first_ludic = ludics[index]\n        remove_index = index + first_ludic\n        while remove_i",
+              "passed": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Write correct Python that satisfies the tests.\n<|user|>\nWrite a function to reverse words in a given string.\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def reverse_words(s):\n    return ' '.join(reversed(s.split()))\n<|endcode|>",
+              "passed": false
+            }
+          ]
+        },
+        "code_repair": {
+          "samples": 5,
+          "metric": "execution_pass_rate",
+          "parseable": 0,
+          "executed": 0,
+          "passed": 0,
+          "pass_rate_of_executed": null,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "fied):\n- binary_search([2, 47, 51, 124, 155], 47)  ->  1\n- binary_search([28, 31, 51, 79, 117, 136, 147, 161], 31)  ->  1\n- binary_search([6, 58, 66, 78, 124, 126, 140, 192], 66)  ->  2\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def binary_search(a, x):\n    lo, hi = 0, len(a) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if a[mid] == x:\n            return mid\n        if a[mid] < x:\n            lo = mid + 1\n    ",
+              "passed": false
+            },
+            {
+              "prompt_tail": "cted behaviour (verified):\n- binary_search([35, 71, 79, 87, 155, 171, 182, 193], 35)  ->  0\n- binary_search([69, 71, 116, 143], 69)  ->  0\n- binary_search([12, 36, 106, 118], 36)  ->  1\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def binary_search(a, x):\n    lo, hi = 0, len(a) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if a[mid] == x:\n            return mid\n        if a[mid] < x:\n            lo = mid + 1\n    ",
+              "passed": false
+            },
+            {
+              "prompt_tail": " behaviour (verified):\n- binary_search([2, 25, 54, 146, 171], 146)  ->  3\n- binary_search([38, 39, 78, 82, 109, 113, 177, 189], 82)  ->  3\n- binary_search([15, 34, 105, 138], 34)  ->  1\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def binary_search(a, x):\n    lo, hi = 0, len(a) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if a[mid] == x:\n            return mid\n        if a[mid] < x:\n            lo = mid + 1\n    ",
+              "passed": false
+            },
+            {
+              "prompt_tail": "iour (verified):\n- binary_search([1, 65, 94, 128, 174, 190], 174)  ->  4\n- binary_search([99, 128, 138, 141], 99)  ->  0\n- binary_search([10, 26, 60, 93, 114, 150, 160, 170], 10)  ->  0\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def binary_search(a, x):\n    lo, hi = 0, len(a) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if a[mid] == x:\n            return mid\n        if a[mid] < x:\n            lo = mid + 1\n    ",
+              "passed": false
+            }
+          ]
+        },
+        "code": {
+          "samples": 1,
+          "metric": "execution_pass_rate",
+          "parseable": 0,
+          "executed": 0,
+          "passed": 0,
+          "pass_rate_of_executed": null,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": " IPV6_V6ONLY to 0\n            # silently has no effect, so check that it was actually cleared.\n            return sock.getsockopt(IPPROTO_IPV6, IPV6_V6ONLY) == 0\n    except error:\n        return False",
+              "generated_code": "if not _get_name is None:\n        # The file to the string.\n\n        # If a list of the Python the\n    # The car-14.  The\n    # The default in the file, the\n    # SAS_rey to the\n    # 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "",
+              "passed": false
+            }
+          ]
+        },
+        "tool_syntax": {
+          "samples": 5,
+          "metric": "syntax_rate",
+          "valid": 0,
+          "accuracy": 0.0
+        },
+        "tool_selection": {
+          "samples": 5,
+          "metric": "tool_name_accuracy",
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "tool_arguments": {
+          "samples": 5,
+          "metric": "argument_match_accuracy",
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "tool_execution": {
+          "samples": 5,
+          "metric": "tool_call_success_rate",
+          "succeeded": 0,
+          "accuracy": 0.0
+        },
+        "grounding": {
+          "samples": 5,
+          "metric": "grounded_answer_accuracy",
+          "correct": 0,
+          "accuracy": 0.0,
+          "note": "answer after feeding the real tool result back"
+        }
+      },
+      "examples": [
+        {
+          "record_id": "f6a72a9eef3f5e0e9b820f5ea3025f08",
+          "expected_tool": "code",
+          "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+          "tool_name_ok": false,
+          "arguments_ok": null,
+          "executed_ok": null
+        },
+        {
+          "record_id": "68467def36ae56f8b2d09f96a1193299",
+          "expected_tool": "code",
+          "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+          "tool_name_ok": false,
+          "arguments_ok": null,
+          "executed_ok": null
+        },
+        {
+          "record_id": "6699c742a81056d998c356557ead2f4a",
+          "expected_tool": "code",
+          "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+          "tool_name_ok": false,
+          "arguments_ok": null,
+          "executed_ok": null
+        },
+        {
+          "record_id": "5b5c82e971be5165bfe5c74fbb338d57",
+          "expected_tool": "code",
+          "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+          "tool_name_ok": false,
+          "arguments_ok": null,
+          "executed_ok": null
+        }
+      ],
+      "started_at": "2026-10-03T21:29:59",
+      "duration_s": 66.07,
+      "environment": {
+        "generation": {
+          "calls": 34,
+          "gen_tokens": 1680,
+          "seconds": 65.684,
+          "tokens_per_sec": 25.58,
+          "latency_mean_s": 1.9319,
+          "latency_p50_s": 1.9169,
+          "latency_p95_s": 2.1041
+        },
+        "backend": "jax",
+        "isolation": {
+          "capabilities": {
+            "bwrap": false,
+            "unshare_net": true,
+            "unshare_mount": true,
+            "unshare_user": true,
+            "unshare_pid": true,
+            "rlimit": true,
+            "platform": "linux",
+            "level": "namespace(net+mount+pid)"
+          },
+          "enforced_by_default": "private network namespace + tmpfs over host home tree when the sandboxed code runs",
+          "honest_label": "namespace(net+mount+pid)"
+        },
+        "checkpoint": "EXP-002-CORRECTED-NANO/best",
+        "checkpoint_bytes": 30703744,
+        "max_new_tokens": 96,
+        "max_samples": 40,
+        "held_out_records": 40,
+        "started_at": "2026-10-03T21:31:05"
+      }
+    },
+    "int4": {
+      "model": "EXP-002-CORRECTED-NANO:int4",
+      "dataset_version": "dataset_v2",
+      "split": "test",
+      "overall": {
+        "domains_evaluated": 12,
+        "mean_accuracy": 0.0,
+        "total_samples": 60
+      },
+      "domains": {
+        "language": {
+          "samples": 1,
+          "metric": "perplexity",
+          "accuracy": null,
+          "perplexity": 257.8834,
+          "note": "perplexity on held-out text (never mixed into answer accuracy)"
+        },
+        "code_explanation": {
+          "samples": 5,
+          "metric": "perplexity",
+          "accuracy": null,
+          "perplexity": 234.5984,
+          "note": "perplexity on held-out text (never mixed into answer accuracy)"
+        },
+        "math": {
+          "samples": 4,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 0,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "e grade-school mathematics step by step.\n<|user|>\nNatalia sold clips to 48 of her friends in April, and then she sold half as many clips in May. How many clips did Natalia sell altogether in April and May?\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "72",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Solve grade-school mathematics step by step.\n<|user|>\nWeng earns $12 an hour for babysitting. Yesterday, she just did 50 minutes of babysitting. How much did she earn?\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "10",
+              "correct": false
+            },
+            {
+              "prompt_tail": ". Betty has only half of the money she needs. Her parents decided to give her $15 for that purpose, and her grandparents twice as much as her parents. How much more money does Betty need to buy the wallet?\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "5",
+              "correct": false
+            },
+            {
+              "prompt_tail": "ng a 120-page book. Yesterday, she was able to read 12 pages and today, she read twice as many pages as yesterday. If she wants to read half of the remaining pages tomorrow, how many pages should she read?\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "42",
+              "correct": false
+            }
+          ]
+        },
+        "logic": {
+          "samples": 5,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 0,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate logic expressions exactly.\n<|user|>\nEvaluate the boolean expression: (s and q) or (r or p)\nValues: s=true, q=false, r=true, p=false\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "true",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate logic expressions exactly.\n<|user|>\nEvaluate the boolean expression: (p xor r) or (not q and s)\nValues: p=false, r=false, q=false, s=true\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "false",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate logic expressions exactly.\n<|user|>\nEvaluate the boolean expression: (not p or q) or (not r xor not s)\nValues: p=true, q=true, r=true, s=true\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "true",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Evaluate logic expressions exactly.\n<|user|>\nEvaluate the boolean expression: (r xor s) or (not p and not q)\nValues: r=true, s=true, p=true, q=true\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "true",
+              "correct": false
+            }
+          ]
+        },
+        "algorithmic_reasoning": {
+          "samples": 5,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 0,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Trace algorithms step by step.\n<|user|>\nTrace binary search for 85 in the sorted list [15, 21, 30, 34, 65, 74, 85].\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "None",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Trace algorithms step by step.\n<|user|>\nTrace binary search for 63 in the sorted list [19, 35, 63, 75, 78, 85, 86].\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "None",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Trace algorithms step by step.\n<|user|>\nTrace binary search for 25 in the sorted list [13, 25, 38, 43, 66, 72].\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "None",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Trace algorithms step by step.\n<|user|>\nTrace binary search for 80 in the sorted list [45, 50, 71, 80].\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "None",
+              "correct": false
+            }
+          ]
+        },
+        "instruction_following": {
+          "samples": 5,
+          "metric": "accuracy",
+          "correct": 0,
+          "answered": 0,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Convert the word 'delta60' to uppercase.\nInput: delta60\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "DELTA60",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Convert the word 'quebec93' to uppercase.\nInput: quebec93\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "QUEBEC93",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Convert the word 'golf' to uppercase.\nInput: golf\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "GOLF",
+              "correct": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Follow the instruction exactly and answer with the result only.\n<|user|>\nInstruction: Convert the word 'lima' to uppercase.\nInput: lima\n<|assistant|>\n",
+              "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+              "reference": "LIMA",
+              "correct": false
+            }
+          ]
+        },
+        "code_generation": {
+          "samples": 4,
+          "metric": "execution_pass_rate",
+          "parseable": 0,
+          "executed": 0,
+          "passed": 0,
+          "pass_rate_of_executed": null,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Write correct Python that satisfies the tests.\n<|user|>\nWrite a function to find the longest chain which can be formed from the given set of pairs.\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def max_chain_length(arr, n):\n    mcl = [1 for i in range(n)]\n    for i in range(1, n):\n        for j in range(0, i):\n            if (arr[i][0] > arr[j][1] and mcl[i] < mcl[j] + 1):\n                mc",
+              "passed": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Write correct Python that satisfies the tests.\n<|user|>\nWrite a python function to find the first repeated character in a given string.\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def first_repeated_char(s):\n    for index, c in enumerate(s):\n        if s[:index + 1].count(c) > 1:\n            return c\n    return None\n<|endcode|>",
+              "passed": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Write correct Python that satisfies the tests.\n<|user|>\nWrite a function to get a lucid number smaller than or equal to n.\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def get_ludic(n):\n    ludics = list(range(1, n + 1))\n    index = 1\n    while index != len(ludics):\n        first_ludic = ludics[index]\n        remove_index = index + first_ludic\n        while remove_i",
+              "passed": false
+            },
+            {
+              "prompt_tail": "<|system|>\nYou are TinyMe. Write correct Python that satisfies the tests.\n<|user|>\nWrite a function to reverse words in a given string.\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def reverse_words(s):\n    return ' '.join(reversed(s.split()))\n<|endcode|>",
+              "passed": false
+            }
+          ]
+        },
+        "code_repair": {
+          "samples": 5,
+          "metric": "execution_pass_rate",
+          "parseable": 0,
+          "executed": 0,
+          "passed": 0,
+          "pass_rate_of_executed": null,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": "fied):\n- binary_search([2, 47, 51, 124, 155], 47)  ->  1\n- binary_search([28, 31, 51, 79, 117, 136, 147, 161], 31)  ->  1\n- binary_search([6, 58, 66, 78, 124, 126, 140, 192], 66)  ->  2\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def binary_search(a, x):\n    lo, hi = 0, len(a) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if a[mid] == x:\n            return mid\n        if a[mid] < x:\n            lo = mid + 1\n    ",
+              "passed": false
+            },
+            {
+              "prompt_tail": "cted behaviour (verified):\n- binary_search([35, 71, 79, 87, 155, 171, 182, 193], 35)  ->  0\n- binary_search([69, 71, 116, 143], 69)  ->  0\n- binary_search([12, 36, 106, 118], 36)  ->  1\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def binary_search(a, x):\n    lo, hi = 0, len(a) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if a[mid] == x:\n            return mid\n        if a[mid] < x:\n            lo = mid + 1\n    ",
+              "passed": false
+            },
+            {
+              "prompt_tail": " behaviour (verified):\n- binary_search([2, 25, 54, 146, 171], 146)  ->  3\n- binary_search([38, 39, 78, 82, 109, 113, 177, 189], 82)  ->  3\n- binary_search([15, 34, 105, 138], 34)  ->  1\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def binary_search(a, x):\n    lo, hi = 0, len(a) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if a[mid] == x:\n            return mid\n        if a[mid] < x:\n            lo = mid + 1\n    ",
+              "passed": false
+            },
+            {
+              "prompt_tail": "iour (verified):\n- binary_search([1, 65, 94, 128, 174, 190], 174)  ->  4\n- binary_search([99, 128, 138, 141], 99)  ->  0\n- binary_search([10, 26, 60, 93, 114, 150, 160, 170], 10)  ->  0\n<|assistant|>\n",
+              "generated_code": "",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "def binary_search(a, x):\n    lo, hi = 0, len(a) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if a[mid] == x:\n            return mid\n        if a[mid] < x:\n            lo = mid + 1\n    ",
+              "passed": false
+            }
+          ]
+        },
+        "code": {
+          "samples": 1,
+          "metric": "execution_pass_rate",
+          "parseable": 0,
+          "executed": 0,
+          "passed": 0,
+          "pass_rate_of_executed": null,
+          "accuracy": 0.0,
+          "examples": [
+            {
+              "prompt_tail": " IPV6_V6ONLY to 0\n            # silently has no effect, so check that it was actually cleared.\n            return sock.getsockopt(IPPROTO_IPV6, IPV6_V6ONLY) == 0\n    except error:\n        return False",
+              "generated_code": "if _get_name is not None:\n        if self.get_name:\n            return 1\n\n    def __init__(self, **_name):\n        self._get_name = _get_name\n        self._get_name = _get_name\n        self._get_name = _get_name\n        self._get_name = _get_name\n        self._get_name = _get_name\n        self._get_name = _",
+              "syntax_ok": false,
+              "execution": {},
+              "reference_final": "",
+              "passed": false
+            }
+          ]
+        },
+        "tool_syntax": {
+          "samples": 5,
+          "metric": "syntax_rate",
+          "valid": 0,
+          "accuracy": 0.0
+        },
+        "tool_selection": {
+          "samples": 5,
+          "metric": "tool_name_accuracy",
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "tool_arguments": {
+          "samples": 5,
+          "metric": "argument_match_accuracy",
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "tool_execution": {
+          "samples": 5,
+          "metric": "tool_call_success_rate",
+          "succeeded": 0,
+          "accuracy": 0.0
+        },
+        "grounding": {
+          "samples": 5,
+          "metric": "grounded_answer_accuracy",
+          "correct": 0,
+          "accuracy": 0.0,
+          "note": "answer after feeding the real tool result back"
+        }
+      },
+      "examples": [
+        {
+          "record_id": "f6a72a9eef3f5e0e9b820f5ea3025f08",
+          "expected_tool": "code",
+          "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+          "tool_name_ok": false,
+          "arguments_ok": null,
+          "executed_ok": null
+        },
+        {
+          "record_id": "68467def36ae56f8b2d09f96a1193299",
+          "expected_tool": "code",
+          "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+          "tool_name_ok": false,
+          "arguments_ok": null,
+          "executed_ok": null
+        },
+        {
+          "record_id": "6699c742a81056d998c356557ead2f4a",
+          "expected_tool": "code",
+          "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+          "tool_name_ok": false,
+          "arguments_ok": null,
+          "executed_ok": null
+        },
+        {
+          "record_id": "5b5c82e971be5165bfe5c74fbb338d57",
+          "expected_tool": "code",
+          "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+          "tool_name_ok": false,
+          "arguments_ok": null,
+          "executed_ok": null
+        }
+      ],
+      "started_at": "2026-10-03T21:31:05",
+      "duration_s": 64.89,
+      "environment": {
+        "generation": {
+          "calls": 34,
+          "gen_tokens": 1680,
+          "seconds": 64.448,
+          "tokens_per_sec": 26.07,
+          "latency_mean_s": 1.8955,
+          "latency_p50_s": 1.9084,
+          "latency_p95_s": 2.0206
+        },
+        "backend": "jax",
+        "isolation": {
+          "capabilities": {
+            "bwrap": false,
+            "unshare_net": true,
+            "unshare_mount": true,
+            "unshare_user": true,
+            "unshare_pid": true,
+            "rlimit": true,
+            "platform": "linux",
+            "level": "namespace(net+mount+pid)"
+          },
+          "enforced_by_default": "private network namespace + tmpfs over host home tree when the sandboxed code runs",
+          "honest_label": "namespace(net+mount+pid)"
+        },
+        "checkpoint": "EXP-002-CORRECTED-NANO/best",
+        "checkpoint_bytes": 30703744,
+        "max_new_tokens": 96,
+        "max_samples": 40,
+        "held_out_records": 40,
+        "started_at": "2026-10-03T21:32:10"
       }
     }
   }

@@ -7,8 +7,8 @@ reproducible study of how far a few million parameters get on verified
 data with a strict protocol.
 
 - Architecture: `nano` - 2,557,632 parameters (9.76 MB fp32)
-- Trained on `dataset_v3` (fingerprint `e6a905f467d8d0a91ebeb75d4c5586548bcec3cb0af03f6fbb75f6eec6a6c49a`), stage `sft`, step 600
-- Tokenizer: `tok-v2`, vocab 4096, sha256 `d2d47152426e0a9b...`
+- Trained on `dataset_v2` (fingerprint `730f1dbdf104e23105cc4b62434a81de8bdb820e8bf03906f8f3c05ac360189f`), stage `pretrain`, step 400
+- Tokenizer: `tok-v2`, vocab 4096, sha256 `dd71a73463c54056...`
 
 ## Files
 
@@ -18,7 +18,7 @@ data with a strict protocol.
 | `model_fp16.safetensors` | fp16 weights | 5,118,480 |
 | `model_int8.safetensors` | int8 weights | 2,600,976 |
 | `model_int4.safetensors` | int4 weights | 1,451,272 |
-| `tokenizer.json` | byte-level BPE used for training | 265,717 |
+| `tokenizer.json` | byte-level BPE used for training | 267,003 |
 | `config.json` | model config + token special ids | - |
 | `manifest.json` | hashes, fingerprints, measured sizes | - |
 | `checksums.txt` | sha256 of every file in this directory | - |
