@@ -146,7 +146,8 @@ def build_corpus(seed: int = 20261002, scale: float = 1.0,
                  stdlib_modules: int = 24, stdlib_files: int | None = None,
                  generator_set: str = "v2",
                  synthetic_counts_v3: dict[str, int] | None = None,
-                 scale_v3: float = 1.0) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+                 scale_v3: float = 1.0,
+                 synthetic_profile: str = "v5") -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     """Assemble the raw corpus (records + provenance).
 
     ``generator_set`` selects the synthetic block:

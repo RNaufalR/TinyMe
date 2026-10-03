@@ -1067,20 +1067,35 @@ def gen_tool_challenge(rng: random.Random, n: int) -> list[Any]:
 
 
 GENERATORS_V3: dict[str, tuple[Any, int, str]] = {
-    "copy_span": (gen_copy_span, 4000, "instruction"),  # v6 profile overrides below
+    "copy_span": (gen_copy_span, 4000, "instruction"),
     "no_tool": (gen_no_tool_v3, 6000, "instruction"),
     "tool_use": (gen_tool_use_v3, 9000, "tool"),
     "algorithm": (gen_algorithm_v3, 1600, "algorithm"),
 }
 
+#: v6 counts: the copy block (the transcription skill every tool family depends
+#: on) uses eight span kinds instead of four, and the tool block grows with it,
+#: because turn-level packing means every turn of every trajectory is trained on.
+GENERATORS_V6: dict[str, tuple[Any, int, str]] = {
+    "copy_span": (gen_copy_span_v6, 6000, "instruction"),
+    "no_tool": (gen_no_tool_v3, 8000, "instruction"),
+    "tool_use": (gen_tool_use_v3, 9000, "tool"),
+    "algorithm": (gen_algorithm_v3, 1600, "algorithm"),
+}
+
+
+def generators_for(profile: str) -> dict[str, tuple[Any, int, str]]:
+    return GENERATORS_V6 if profile == "v6" else GENERATORS_V3
+
 
 def generate_corpus_v3(seed: int = 20261003, counts: dict[str, int] | None = None,
-                       scale: float = 1.0) -> tuple[list[Any], list[dict[str, Any]]]:
-    """Generate the v3 blocks with the same duplicate-inflation guard as v2."""
+                       scale: float = 1.0, profile: str = "v5") -> tuple[list[Any], list[dict[str, Any]]]:
+    """Generate the v3/v6 blocks with the same duplicate-inflation guard as v2."""
+    set_profile(profile)
     rng = random.Random(seed)
     records: list[Any] = []
     provenance: list[dict[str, Any]] = []
-    for name, (fn, default, family) in GENERATORS_V3.items():
+    for name, (fn, default, family) in generators_for(profile).items():
         want = int(round((counts or {}).get(name, default) * scale))
         if want <= 0:
             continue
@@ -1102,7 +1117,7 @@ def generate_corpus_v3(seed: int = 20261003, counts: dict[str, int] | None = Non
             "license": "Synthetic-Verified", "license_url": "", "category_family": family,
             "records": len(unique), "verified": True,
             "verifier": "python_recomputation | subprocess_execution | index_containment",
-            "generator": f"synthetic_v3.{fn.__name__}", "seed": seed,
+            "generator": f"synthetic_v3.{fn.__name__}", "seed": seed, "profile": profile,
             "notes": ("capability-scaled generator: verbatim-copy invariant, independent "
                       "verification, duplicate inflation rejected"),
         })
