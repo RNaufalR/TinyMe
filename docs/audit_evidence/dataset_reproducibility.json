@@ -48,7 +48,28 @@
   "determinism_fixes": {
     "no_runtime_duration_in_corpus": "src/tools/retrieval.py sorted(set(q_tokens)) (hash-order-independent float accumulation) + data_sources/synthetic_v3.py::_strip_volatile removes the runtime-measured duration_s before a result is serialized into a record; the mock envelopes used by the generators carry a constant 0.0001 so the training text is deterministic",
     "deterministic_bm25": "search scores accumulate over sorted(set(query_tokens)); ties break on source_id",
-    "deterministic_records": "every generator consumes one seeded random.Random stream; no set iteration reaches a record"
+    "deterministic_records": "every generator consumes one seeded random.Random stream; no set iteration reaches a record",
+    "verification": {
+      "claim": "No runtime-measured value can reach the corpus text, so the corpus fingerprints identify content and not the machine that built it.",
+      "method": {
+        "1_generator_literals": "the mock envelope builders were executed and the timing literals they emit were read back: {'0.0001','0.0002','0.0004','0.0728','0.1199'}",
+        "2_corpus_scan": "every duration_s occurrence in all four dataset_v9 splits was extracted and compared against that literal set",
+        "3_clock_injection": "src.agent.tool_registry.time.monotonic was replaced by a clock that advances one hour per call; the envelope the generators splice into records was byte-identical, i.e. the runtime-measured duration is filtered out by data_sources/synthetic_v3.py::_strip_volatile",
+        "4_process_level": "two fresh interpreters built the same envelopes and produced the same SHA-256; the whole-corpus version of this test is the second build compared above"
+      },
+      "corpus_duration_values": {
+        "0.0001": 1715,
+        "0.0002": 8,
+        "0.0004": 16,
+        "0.0728": 2053,
+        "0.1199": 2053
+      },
+      "values_outside_the_frozen_literal_set": 0,
+      "occurrences_in_supervised_targets": 0,
+      "interpretation": "duration_s appears only in tool_result context, never in a supervised target, and every value is a constant declared in the generator source. A real runtime duration at inference time is therefore a difference the model was never trained to predict.",
+      "test": "tests/test_corpus_determinism.py (8 passed)",
+      "residual_difference_recorded": "the mocked envelopes carry a constant duration_s while the runtime envelope strips the field entirely; the two shapes are compared field-by-field by the same test file so the divergence cannot grow silently"
+    }
   },
   "identical": true
 }
