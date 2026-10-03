@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 """Quantize a checkpoint and measure the actual deployable artifact size.
 
+Only the **model parameters** are quantized — a training checkpoint also carries
+Adam moments (``opt/...``) which inference never loads; quantizing them inflated
+every reported size roughly threefold and produced files the engine could not
+read.
+
 Usage:
-    python scripts/quantize.py --experiment EXP-001 --checkpoint best --out release/
+    python scripts/quantize.py --experiment EXP-015-TOOL-SFT-V9 --checkpoint best --out release/
 """
 from __future__ import annotations
 
@@ -22,6 +27,45 @@ from src.quantization.quantize import (  # noqa: E402
 )
 from src.utils.io_utils import REPO_ROOT, human_bytes, write_json  # noqa: E402
 
+#: Tensor prefixes that are optimizer state (Adam moments), never model weights.
+OPTIMIZER_PREFIXES = ("opt/", "opt.", "optimizer/", "optimizer.")
+
+
+def _display(path: Path) -> str:
+    """Path relative to the repository when possible, absolute otherwise.
+
+    ``--out`` may point outside the checkout (a clean-room scratch directory),
+    and ``Path.relative_to`` raises there.
+    """
+    try:
+        return str(path.relative_to(REPO_ROOT))
+    except ValueError:
+        return str(path)
+
+
+def _split_params(flat: dict[str, np.ndarray], log) -> dict[str, np.ndarray]:
+    """Return only the parameter tensors of a saved checkpoint.
+
+    Two layouts are supported: the training format ``params/<tree path>`` plus
+    ``opt/<tree path>`` (what ``src.training.checkpoint.save_checkpoint`` writes)
+    and legacy files that store bare parameter names. A file that carries
+    optimizer state but neither layout is refused: quantizing an unknown layout
+    silently would ship a broken artifact.
+    """
+    params = {k: v for k, v in flat.items() if k.startswith("params/")}
+    if params:
+        dropped = [k for k in flat if k not in params]
+        log.info("checkpoint layout: params/* (%d tensors); dropped %d optimizer/non-parameter "
+                 "tensors", len(params), len(dropped))
+        return {k[len("params/"):]: v for k, v in params.items()}
+    optimiser = [k for k in flat if k.startswith(OPTIMIZER_PREFIXES)]
+    if optimiser:
+        log.error("checkpoint has %d optimizer tensors but no 'params/' prefix; refusing to "
+                  "quantize an unrecognised layout", len(optimiser))
+        raise SystemExit(1)
+    log.info("checkpoint layout: bare parameter tensors (%d)", len(flat))
+    return flat
+
 
 def main() -> int:
     ap = argparse.ArgumentParser()
@@ -38,23 +82,27 @@ def main() -> int:
     if not ckpt.exists():
         log.error("checkpoint not found: %s", ckpt)
         return 1
-    out_dir = REPO_ROOT / args.out
+    out_dir = Path(args.out) if Path(args.out).is_absolute() else REPO_ROOT / args.out
     out_dir.mkdir(parents=True, exist_ok=True)
 
     from safetensors.numpy import load_file, save_file
 
-    flat = {k: v.astype(np.float32) for k, v in load_file(str(ckpt)).items()}
+    raw = load_file(str(ckpt))
+    flat = {k: np.asarray(v, dtype=np.float32) for k, v in _split_params(raw, log).items()}
     n_params = sum(int(np.prod(v.shape)) for v in flat.values())
+    log.info("parameters: %d (%s tensors)", n_params, len(flat))
 
     results: dict = {
         "experiment": args.experiment, "checkpoint": args.checkpoint,
-        "architecture": args.arch, "parameter_count": n_params, "variants": {},
+        "architecture": args.arch, "parameter_count": n_params,
+        "source_checkpoint": _display(ckpt), "variants": {},
     }
 
     def record(name: str, path: Path) -> None:
+        size = path.stat().st_size
         results["variants"][name] = {
-            "file": str(path.relative_to(REPO_ROOT)), "bytes": path.stat().st_size,
-            "human": human_bytes(path.stat().st_size),
+            "file": _display(path), "bytes": size, "decimal_mb": round(size / 1e6, 3),
+            "mib": round(size / (1024 * 1024), 3), "human": human_bytes(size),
         }
 
     fp32_path = out_dir / "model_fp32.safetensors"

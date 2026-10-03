@@ -1089,7 +1089,8 @@ def _cited_artifacts(*fields: str) -> list[str]:
     return sorted(set(found))
 
 
-def strict_violations(rows) -> tuple[list[str], dict[str, tuple[bool, str]]]:
+def strict_violations(rows, dataset: str = "dataset_v9",
+                     seq_len: int = 512) -> tuple[list[str], dict[str, tuple[bool, str]]]:
     """Re-derive the verdict from artefacts, not from the table.
 
     Three independent conditions must hold, and each failure mode is reported
@@ -1116,7 +1117,7 @@ def strict_violations(rows) -> tuple[list[str], dict[str, tuple[bool, str]]]:
             violations.append(f"{rid}: cited artefact(s) missing: {missing[:3]}")
         if status == "VERIFIED" and not cmd.strip():
             violations.append(f"{rid}: VERIFIED without a reproduction command")
-    results = _checks()
+    results = _checks(dataset=dataset, seq_len=seq_len)
     for name, (ok, detail) in sorted(results.items()):
         if not ok:
             violations.append(f"check {name} failed: {detail}")
@@ -1133,7 +1134,7 @@ def main() -> int:
                          "passes on the real artefacts")
     ap.add_argument("--checks", default=None, nargs="?", const="all",
                     help="comma separated artefact audits to run (default: all)")
-    ap.add_argument("--dataset", default="dataset_v8", help="dataset version the checks audit")
+    ap.add_argument("--dataset", default="dataset_v9", help="dataset version the checks audit")
     ap.add_argument("--seq-len", type=int, default=512, help="packing width for the packing audit")
     ap.add_argument("--report", action="store_true", help="print the recomputed counts only")
     args = ap.parse_args()
@@ -1167,7 +1168,7 @@ def main() -> int:
     print(f"wrote {MATRIX.relative_to(ROOT)}: {counts}")
 
     if args.strict:
-        violations, results = strict_violations(rows)
+        violations, results = strict_violations(rows, dataset=args.dataset, seq_len=args.seq_len)
         passed = sum(1 for ok, _ in results.values() if ok)
         print(f"artefact checks: {passed}/{len(results)} PASS")
         if violations:

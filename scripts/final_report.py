@@ -33,9 +33,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-CURRENT_EXPERIMENT = "EXP-012-TOOL-SFT-V8"
-PRETRAIN_EXPERIMENT = "EXP-011-BASE-V8"
-DATASET = "dataset_v8"
+CURRENT_EXPERIMENT = "EXP-015-TOOL-SFT-V9"
+PRETRAIN_EXPERIMENT = "EXP-013-BASE-V9"
+DATASET = "dataset_v9"
 
 
 def _read_json(path: Path, default=None):

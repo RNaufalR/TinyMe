@@ -501,6 +501,22 @@ if not _FACT_POOL:                                       # pragma: no cover - de
 _TOOL_CTX = None
 
 
+#: Runtime-measured fields that must never enter a *corpus*: the same call would
+#: otherwise serialize a different transcript on every process, and the corpus
+#: fingerprint would stop identifying the corpus.
+_NON_REPRODUCIBLE_FIELDS = ("duration_s",)
+
+
+def _strip_volatile(payload: Any) -> Any:
+    """Recursively remove runtime-measured fields from a tool result envelope."""
+    if isinstance(payload, dict):
+        return {k: _strip_volatile(v) for k, v in payload.items()
+                if k not in _NON_REPRODUCIBLE_FIELDS}
+    if isinstance(payload, list):
+        return [_strip_volatile(v) for v in payload]
+    return payload
+
+
 def _envelope(name: str, **args: Any) -> str:
     """The exact ``<|tool_result|>`` payload the *runtime* renders for a call.
 
@@ -515,7 +531,7 @@ def _envelope(name: str, **args: Any) -> str:
     if _TOOL_CTX is None:
         _TOOL_CTX = ToolContext.create(with_workspace=False)
     result = ToolRegistry.default(context=_TOOL_CTX).call(name, args)
-    return json.dumps(result.to_dict(), ensure_ascii=False, sort_keys=True)
+    return json.dumps(_strip_volatile(result.to_dict()), ensure_ascii=False, sort_keys=True)
 
 
 def _retrieve(entry: dict[str, str], k: int = 3) -> tuple[str, str, str]:

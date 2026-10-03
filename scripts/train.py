@@ -30,6 +30,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from src.data.curriculum import record_filter as curriculum_filter  # noqa: E402
 from src.data.dataset_api import load_manifest, load_split, load_tokenizer  # noqa: E402
 from src.model import TinyMeConfig, count_parameters  # noqa: E402
 from src.training.checkpoint import environment_report, load_checkpoint  # noqa: E402
@@ -45,9 +46,12 @@ def main() -> int:
     ap.add_argument("--config", default=None, help="YAML base config")
     ap.add_argument("--experiment", required=True, help="experiment id (never reuse)")
     ap.add_argument("--experiment-name", default="")
-    ap.add_argument("--stage", default="pretrain", choices=["pretrain", "sft", "mixed"],
+    ap.add_argument("--stage", default="pretrain",
+                    choices=["pretrain", "sft", "mixed", "drill", "trajectory"],
                     help=("pretrain = plain documents, sft = structured (loss-masked) records, "
-                          "mixed = both shuffled together (curriculum-B control)"))
+                          "mixed = both shuffled together (curriculum-B control), "
+                          "drill / trajectory = the DEC-013 curriculum stages (single-turn "
+                          "drills, then multi-step tool trajectories)"))
     ap.add_argument("--arch", default=None, choices=["nano", "base", "medium"])
     ap.add_argument("--dataset", default=None)
     ap.add_argument("--seq-len", type=int, default=None)
@@ -95,10 +99,16 @@ def main() -> int:
         model_cfg = TinyMeConfig(**{**model_cfg.to_dict(), "vocab_size": args.vocab_size})
     model_cfg.vocab_size = int(tokenizer.vocab_size)
 
+    # Curriculum stages (DEC-013) select their records from the JSONL; the
+    # pretrain/sft/mixed stages keep using the packed shard families.
+    selector = (curriculum_filter(cfg.stage)
+                if cfg.stage in ("drill", "trajectory") else None)
     train_data, train_stats = load_split(cfg.dataset_version, "train", seq_len=cfg.seq_len,
-                                         tokenizer=tokenizer, stage=cfg.stage)
+                                         tokenizer=tokenizer, stage=cfg.stage,
+                                         record_filter=selector)
     val_data, val_stats = load_split(cfg.dataset_version, "validation", seq_len=cfg.seq_len,
-                                     tokenizer=tokenizer, stage=cfg.stage)
+                                     tokenizer=tokenizer, stage=cfg.stage,
+                                     record_filter=selector)
     if train_data["input_ids"].shape[0] == 0 or val_data["input_ids"].shape[0] == 0:
         log.error("empty split/stage (train=%s val=%s); nothing to do",
                   train_data["input_ids"].shape, val_data["input_ids"].shape)

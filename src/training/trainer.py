@@ -229,8 +229,33 @@ class Trainer:
         if extra:
             meta.update(extra)
         path = save_checkpoint(self.ckpt_dir, name, self.params, self.opt_state, meta)
+        # The inference loader resolves the architecture from ``config.json``
+        # next to the weights; without it a checkpoint silently loaded as the
+        # nano default, which is a wrong-model evaluation waiting to happen.
+        self._write_model_config()
         prune_checkpoints(self.ckpt_dir, keep_last=self.cfg.keep_last_checkpoints)
         return path
+
+    def _write_model_config(self) -> Path:
+        """Atomically (re)write the model configuration beside the checkpoints."""
+        import os
+        import tempfile
+
+        target = Path(self.ckpt_dir) / "config.json"
+        payload = {**self.model_cfg.to_dict(), "experiment_id": self.cfg.experiment_id,
+                   "dataset_version": self.cfg.dataset_version,
+                   "tokenizer_hash": self._fingerprints().get("tokenizer_hash", ""),
+                   "written_at": time.strftime("%Y-%m-%dT%H:%M:%S")}
+        payload = {k: (v if isinstance(v, (int, float, str, bool, type(None))) else
+                       (list(v) if isinstance(v, (list, tuple)) else str(v)))
+                   for k, v in payload.items()}
+        fd, tmp = tempfile.mkstemp(dir=str(self.ckpt_dir), prefix=".config.", suffix=".json")
+        with os.fdopen(fd, "w", encoding="utf-8") as fh:
+            json.dump(payload, fh, indent=2)
+            fh.flush()
+            os.fsync(fh.fileno())
+        os.replace(tmp, target)
+        return target
 
     def resume_from_checkpoint(self, name: str = "latest") -> bool:
         try:

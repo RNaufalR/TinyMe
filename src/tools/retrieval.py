@@ -67,7 +67,10 @@ class RetrievalIndex:
         for idx, counts in enumerate(self.doc_tokens):
             length = self.doc_len[idx]
             score = 0.0
-            for term in set(q_tokens):
+            # sorted(): a set's iteration order depends on hash randomisation, and the
+            # float accumulation below is order-sensitive — the same seed produced a
+            # different corpus on every process until this was deterministic.
+            for term in sorted(set(q_tokens)):
                 tf = counts.get(term, 0)
                 if not tf:
                     continue

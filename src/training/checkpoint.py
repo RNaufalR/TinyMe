@@ -203,8 +203,12 @@ def verify_checkpoint(directory: str | Path, name: str) -> dict[str, Any]:
     """Integrity + completeness report for one checkpoint."""
     directory = Path(directory)
     st_path, meta_path = directory / f"{name}.safetensors", directory / f"{name}.json"
-    report: dict[str, Any] = {"name": name, "exists": st_path.exists() and meta_path.exists()}
+    report: dict[str, Any] = {"name": name, "exists": st_path.exists() and meta_path.exists(),
+                              "ok": False}
     if not report["exists"]:
+        # A report without an explicit verdict is easy to misread as success:
+        # ``None`` is falsy but a caller that only checks the key's presence
+        # would proceed.  Always answer the question.
         report["errors"] = ["missing .safetensors or .json"]
         return report
     meta = json.loads(meta_path.read_text(encoding="utf-8"))

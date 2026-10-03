@@ -9,12 +9,12 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 import numpy as np
 
 from ..utils.io_utils import REPO_ROOT, read_json, read_jsonl, sha256_file
-from .sequence import IGNORE_INDEX, build_packed_batch
+from .sequence import IGNORE_INDEX, build_packed_batch, pack_records
 
 VERSIONS_DIR = REPO_ROOT / "datasets" / "versions"
 PROCESSED_DIR = REPO_ROOT / "datasets" / "processed"
@@ -83,7 +83,9 @@ def load_split_arrays(version: str, split: str, stage: str = "sft") -> dict[str,
 
 def load_split(version: str, split: str, seq_len: int = 256, tokenizer=None,
                max_records: int | None = None, mode: str = "packed",
-               stage: str = "sft") -> tuple[dict[str, np.ndarray], dict[str, Any]]:
+               stage: str = "sft",
+               record_filter: Callable[[dict[str, Any]], bool] | None = None,
+               ) -> tuple[dict[str, np.ndarray], dict[str, Any]]:
     """Build model tensors for ``split`` of ``version``.
 
     Returns ``(arrays, stats)`` where ``arrays`` holds ``input_ids``, ``labels``,
@@ -111,6 +113,33 @@ def load_split(version: str, split: str, seq_len: int = 256, tokenizer=None,
                      "active_target_tokens": int(data["loss_mask"].sum()),
                      "padding_ratio": round(float((~data["loss_mask"]).mean()), 6)}
             return data, stats
+    if record_filter is not None:
+        # Curriculum stage (DEC-013): select records from the raw JSONL and pack
+        # them in memory.  There is deliberately no shard fast-path here — a
+        # stale shard family must never be mistaken for a curriculum selection.
+        records = load_split_records(version, split)
+        selected = [r for r in records if record_filter(r)]
+        if not selected:
+            raise ValueError(
+                f"{version}/{split}: the curriculum filter selected no record "
+                f"(of {len(records)}) — refusing to train on an empty stage")
+        if max_records:
+            selected = selected[:max_records]
+        if tokenizer is None:
+            tokenizer = load_tokenizer(version)
+        # Use the *same* packer as the corpus builder (scripts/prepare_data_v2.py):
+        # it expands an over-long trajectory into one example per supervised turn
+        # instead of truncating it, so a curriculum stage sees exactly the records
+        # the pipeline packed — only the selection differs.
+        data, stats = pack_records(selected, tokenizer, seq_len)
+        stats.update({"split": split, "version": version, "stage": stage,
+                      "source": "jsonl(curriculum)", "n_records": len(selected),
+                      "n_records_available": len(records),
+                      "blocks": int(data["input_ids"].shape[0])})
+        if data["input_ids"].shape[0]:
+            stats["active_target_tokens"] = int(data["loss_mask"].sum())
+            stats["padding_ratio"] = round(float((~data["loss_mask"]).mean()), 6)
+        return data, stats
     try:
         data = load_split_arrays(version, split, stage)
         stats = {"split": split, "version": version, "stage": stage,

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # TinyMe — collect every artefact the final verification report cites.
 #
-#   bash scripts/collect_final_evidence.sh EXP-012-TOOL-SFT-V8 dataset_v8 [max_samples]
+#   bash scripts/collect_final_evidence.sh EXP-015-TOOL-SFT-V9 dataset_v9 [max_samples]
 #
 # The script is deliberately linear and loud: each stage writes its own log under
 # docs/audit_evidence/logs/ and the run aborts on the first non-zero exit.  There
@@ -12,7 +12,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 EXP="${1:?usage: collect_final_evidence.sh <experiment> [dataset] [max_samples]}"
-DATASET="${2:-dataset_v8}"
+DATASET="${2:-dataset_v9}"
 SAMPLES="${3:-300}"
 LOGDIR="docs/audit_evidence/logs"
 mkdir -p "$LOGDIR"
