@@ -14,6 +14,13 @@ Audit §17 requirements implemented here:
   (honest product description) and ``inference.py`` - a dependency-light entry
   point that runs with ``numpy`` + ``safetensors`` + ``tokenizers`` only, i.e.
   without the training environment;
+* a standalone ``local_model/`` package (``--local-model``) laid out so the
+  directory can be copied to a clean machine and run with
+  ``python inference.py --prompt "..."``: ``model/`` (every variant), the
+  tokenizer, the model config, a manifest with per-file bytes and SHA-256, a
+  checksums file, the entry point, a pinned ``requirements.txt`` and license
+  notes.  ``scripts/validate_local_model.py`` then *executes* that package in an
+  empty environment and records the raw transcript;
 * ``evaluation_report.md`` and ``model_comparison.md`` rendered from real
   evaluation JSON when it exists, and explicitly marked NOT MEASURED otherwise.
 

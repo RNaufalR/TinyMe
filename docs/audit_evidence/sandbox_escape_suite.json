@@ -1,0 +1,242 @@
+{
+  "date": "2026-10-03T07:00:01Z",
+  "wall_seconds": 5.563,
+  "isolation": {
+    "capabilities": {
+      "bwrap": false,
+      "unshare_net": true,
+      "unshare_mount": true,
+      "unshare_user": true,
+      "unshare_pid": true,
+      "rlimit": true,
+      "platform": "linux",
+      "level": "namespace(net+mount+pid)"
+    },
+    "enforced_by_default": "private network namespace + tmpfs over host home tree when the sandboxed code runs",
+    "honest_label": "namespace(net+mount+pid)"
+  },
+  "summary": {
+    "cases": 18,
+    "blocked_or_contained": 16,
+    "passed": 18,
+    "verdict": "PASS"
+  },
+  "probes": {
+    "network_egress": {
+      "expectation": "blocked",
+      "description": "socket.create_connection to 1.1.1.1:443 must fail",
+      "observed": "blocked",
+      "passed": true,
+      "ok": false,
+      "exit_code": 1,
+      "timed_out": false,
+      "stdout": "",
+      "stderr_tail": "\n    raise exceptions[0]\n  File \"/usr/lib/python3.11/socket.py\", line 836, in create_connection\n    sock.connect(sa)\nOSError: [Errno 101] Network is unreachable",
+      "error": null
+    },
+    "subprocess_spawn": {
+      "expectation": "allowed",
+      "description": "child processes are permitted but bounded by the process cap",
+      "observed": "allowed",
+      "passed": true,
+      "ok": true,
+      "exit_code": 0,
+      "timed_out": false,
+      "stdout": "spawned 0",
+      "stderr_tail": "",
+      "error": null
+    },
+    "read_host_repo": {
+      "expectation": "blocked",
+      "description": "/home/user (host home tree) must not be visible",
+      "observed": "blocked",
+      "passed": true,
+      "ok": true,
+      "exit_code": 0,
+      "timed_out": false,
+      "stdout": "HIDDEN",
+      "stderr_tail": "",
+      "error": null
+    },
+    "read_host_etc_passwd": {
+      "expectation": "visible",
+      "description": "/etc is shared: passwd is readable (non-secret, needed by the loader)",
+      "observed": "visible",
+      "passed": true,
+      "ok": true,
+      "exit_code": 0,
+      "timed_out": false,
+      "stdout": "True",
+      "stderr_tail": "",
+      "error": null
+    },
+    "read_env_secrets": {
+      "expectation": "blocked",
+      "description": "token environment variables must not leak into the sandbox",
+      "observed": "blocked",
+      "passed": true,
+      "ok": true,
+      "exit_code": 0,
+      "timed_out": false,
+      "stdout": "CLEAN",
+      "stderr_tail": "",
+      "error": null
+    },
+    "write_outside_workspace": {
+      "expectation": "blocked",
+      "description": "writes to the host home tree must fail",
+      "observed": "blocked",
+      "passed": true,
+      "ok": true,
+      "exit_code": 0,
+      "timed_out": false,
+      "stdout": "BLOCKED FileNotFoundError",
+      "stderr_tail": "",
+      "error": null
+    },
+    "fork_bomb_capped": {
+      "expectation": "blocked",
+      "description": "unbounded fork must be capped by RLIMIT_NPROC",
+      "observed": "blocked",
+      "passed": true,
+      "ok": true,
+      "exit_code": 0,
+      "timed_out": false,
+      "stdout": "capped_after 14 BlockingIOError\ncapped_after 11 BlockingIOError\ncapped_after 4 BlockingIOError\ncapped_after 12 BlockingIOError\ncapped_after 14 BlockingIOError\ncapped_after 6 BlockingIOError\ncapped_aft",
+      "stderr_tail": "",
+      "error": null
+    },
+    "cpu_burn": {
+      "expectation": "blocked",
+      "description": "infinite loop must be killed by the CPU/wall limit",
+      "observed": "blocked",
+      "passed": true,
+      "ok": false,
+      "exit_code": -9,
+      "timed_out": true,
+      "stdout": "",
+      "stderr_tail": "",
+      "error": null
+    },
+    "memory_bomb": {
+      "expectation": "blocked",
+      "description": "oversized allocation must fail under RLIMIT_AS",
+      "observed": "blocked",
+      "passed": true,
+      "ok": false,
+      "exit_code": 1,
+      "timed_out": false,
+      "stdout": "",
+      "stderr_tail": "t):\n  File \"/var/tmp/tinyme-sandbox/run-002b4984fdd4015a/main.py\", line 1, in <module>\n    x=bytearray(900*1024*1024)\n      ^^^^^^^^^^^^^^^^^^^^^^^^\nMemoryError",
+      "error": null
+    },
+    "output_flood": {
+      "expectation": "contained",
+      "description": "stdout must be truncated at max_output_bytes",
+      "observed": "contained",
+      "passed": true,
+      "ok": true,
+      "exit_code": 0,
+      "timed_out": false,
+      "stdout": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "stderr_tail": "",
+      "error": null
+    },
+    "file_flood": {
+      "expectation": "blocked",
+      "description": "oversized file must fail under RLIMIT_FSIZE",
+      "observed": "blocked",
+      "passed": true,
+      "ok": false,
+      "exit_code": 1,
+      "timed_out": false,
+      "stdout": "",
+      "stderr_tail": "/var/tmp/tinyme-sandbox/run-9678ac8c3d1e823c/main.py\", line 1, in <module>\n    open('big.bin','wb').write(b'B'*(3*1024*1024))\nOSError: [Errno 27] File too large",
+      "error": null
+    },
+    "absolute_path_write": {
+      "expectation": "contained",
+      "description": "writes stay inside /var/tmp/tinyme-sandbox, never in the repo",
+      "observed": "contained",
+      "passed": true,
+      "ok": true,
+      "exit_code": 0,
+      "timed_out": false,
+      "stdout": "",
+      "stderr_tail": "",
+      "error": null
+    },
+    "path_traversal_read": {
+      "expectation": "blocked",
+      "description": "relative traversal must not reach the host repo/home tree",
+      "observed": "blocked",
+      "passed": true,
+      "ok": true,
+      "exit_code": 0,
+      "timed_out": false,
+      "stdout": "blocked []",
+      "stderr_tail": "",
+      "error": null
+    },
+    "symlink_escape": {
+      "expectation": "blocked",
+      "description": "a symlink pointing at the host tree must not become a write path",
+      "observed": "blocked",
+      "passed": true,
+      "ok": true,
+      "exit_code": 0,
+      "timed_out": false,
+      "stdout": "BLOCKED FileNotFoundError",
+      "stderr_tail": "",
+      "error": null
+    },
+    "temp_dir_outside_run": {
+      "expectation": "contained",
+      "description": "writes to shared /tmp are either blocked or confined, never in the repo",
+      "observed": "contained",
+      "passed": true,
+      "ok": true,
+      "exit_code": 0,
+      "timed_out": false,
+      "stdout": "WROTE /var/tmp/tinyme-sandbox/run-0cb5f4b715403be2",
+      "stderr_tail": "",
+      "error": null
+    },
+    "descriptor_abuse": {
+      "expectation": "blocked",
+      "description": "opening unbounded file descriptors must fail under RLIMIT_NOFILE",
+      "observed": "blocked",
+      "passed": true,
+      "ok": true,
+      "exit_code": 0,
+      "timed_out": false,
+      "stdout": "soft_cap 64\nfd cap OSError\nopened 61",
+      "stderr_tail": "",
+      "error": null
+    },
+    "process_visibility": {
+      "expectation": "contained",
+      "description": "PID namespace hides the host process table when available",
+      "observed": "contained",
+      "passed": true,
+      "ok": true,
+      "exit_code": 0,
+      "timed_out": false,
+      "stdout": "process table isolated 0",
+      "stderr_tail": "",
+      "error": null
+    },
+    "workspace_confinement": {
+      "expectation": "blocked",
+      "description": "cwd is the run workspace; escaping via relative paths must fail",
+      "observed": "blocked",
+      "passed": true,
+      "ok": true,
+      "exit_code": 0,
+      "timed_out": false,
+      "stdout": "cwd /var/tmp/tinyme-sandbox/run-bf6fda1da714c06b\nBLOCKED PermissionError",
+      "stderr_tail": "",
+      "error": null
+    }
+  }
+}

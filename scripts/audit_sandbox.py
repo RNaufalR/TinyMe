@@ -27,6 +27,7 @@ if str(ROOT) not in sys.path:
 from src.sandbox import detected_summary, run_escape_suite  # noqa: E402
 
 OUT = ROOT / "docs" / "audit_evidence" / "sandbox_escape_suite.out.txt"
+JSON_OUT = ROOT / "docs" / "audit_evidence" / "sandbox_escape_suite.json"
 
 
 def main() -> int:
@@ -51,6 +52,12 @@ def main() -> int:
     lines += ["", f"summary: {json.dumps(summary)}"]
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    # Raw per-case records next to the human-readable table, so the numbers in
+    # docs/SANDBOX.md can be re-derived from an artefact rather than re-read.
+    raw = {"date": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+           "wall_seconds": round(time.time() - started, 3),
+           "isolation": caps, "summary": summary, "probes": probes}
+    JSON_OUT.write_text(json.dumps(raw, indent=2) + "\n", encoding="utf-8")
     print("\n".join(lines))
     return 0 if summary["verdict"] == "PASS" else 1
 

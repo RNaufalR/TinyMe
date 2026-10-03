@@ -96,7 +96,7 @@ def main() -> int:
     release = _read_json(ROOT / "release" / "manifest.json", {}) or {}
     local = _read_json(ROOT / "local_model" / "manifest.json", {}) or {}
     cleanroom = _read_json(ROOT / "docs" / "audit_evidence" / "local_model_validation.json", {}) or {}
-    sandbox = _read_json(ROOT / "docs" / "audit_evidence" / "sandbox_matrix.json", {}) or {}
+    sandbox = _read_json(ROOT / "docs" / "audit_evidence" / "sandbox_escape_suite.json", {}) or {}
     probe = _read_json(ROOT / "docs" / "audit_evidence" / "capability_probe.json", {}) or {}
     selftest = _read_json(ROOT / "docs" / "audit_evidence" / "tool_instrument_selftest.json", {}) or {}
     logs = [json.loads(l) for l in (ROOT / "EXPERIMENT_LOG.jsonl").read_text(encoding="utf-8").splitlines()
@@ -317,9 +317,10 @@ def main() -> int:
             f"blocked/contained: {sandbox.get('summary', {}).get('blocked_or_contained')} · "
             f"verdict {sandbox.get('summary', {}).get('verdict')}")
         add(f"- Isolation label (honest, not inflated): "
-            f"`{(sandbox.get('isolation') or {}).get('level', 'n/a')}` — namespace isolation, "
+            f"`{(sandbox.get('isolation') or {}).get('capabilities', {}).get('level', 'n/a')}` — namespace isolation, "
             "**not** a VM")
-        add(f"- Raw: `docs/audit_evidence/sandbox_matrix.json`")
+        add("- Raw: `docs/audit_evidence/sandbox_escape_suite.json` and "
+            "`docs/audit_evidence/sandbox_escape_suite.out.txt`")
     else:
         add("- NOT MEASURED")
     add("")

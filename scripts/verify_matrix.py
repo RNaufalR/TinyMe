@@ -225,8 +225,8 @@ ROWS: list[tuple[str, str, str, str, str, str, str, str]] = [
      "tests pass"),
     ("§32", "Harden the sandbox (18 executed cases)",
      "VERIFIED", "src/sandbox/*, scripts/audit_sandbox.py",
-     "python scripts/audit_sandbox.py --json docs/audit_evidence/sandbox_escape_suite.json",
-     "docs/audit_evidence/sandbox_escape_suite.out.txt",
+     "python scripts/audit_sandbox.py",
+     "docs/audit_evidence/sandbox_escape_suite.out.txt, docs/audit_evidence/sandbox_escape_suite.json",
      "each attack is a real program with an expected verdict stated in advance; per-case results reported",
      "18/18 executed; isolation labelled namespace-level, not VM-level"),
     ("§33", "Sandbox test matrix (>=14 security cases)",
@@ -298,9 +298,9 @@ ROWS: list[tuple[str, str, str, str, str, str, str, str]] = [
     ("§44", "Training tool calls with loss masks",
      "VERIFIED", "src/data/sequence.py, manifest loss_mask_semantics",
      "python -m pytest tests/test_loss_mask.py -q",
-     "tests/test_loss_mask.py; shard mask audit",
-     "hand-computed expected mask compared with the builder: call markers and body supervised, tool result not supervised",
-     "mask equals expectation; shard audit passes"),
+     "tests/test_loss_mask.py; docs/audit_evidence/checks/loss_mask_contract.json",
+     "token-level re-derivation that ignores the per-segment target flag: the tool_result token span is located in the built sequence and must be unsupervised, with the tool_call span supervised in the same records as a positive control",
+     "0 supervised tool_result payload tokens over 12 records; positive control 12/12"),
     ("§45", "Tool-use evaluation (independent A-H suite)",
      "EXECUTED", "src/evaluation/tool_cases.py, scripts/evaluate_tools.py, scripts/evaluate_release.py",
      "python scripts/evaluate_tools.py --experiment EXP-008-TOOL-SFT-V5 --checkpoint best --variants fp32",
@@ -921,6 +921,90 @@ def _checks(dataset: str = "dataset_v7", seq_len: int = 512) -> dict[str, tuple[
                 ).relative_to(ROOT))})
     except Exception as exc:                                   # pragma: no cover
         out["independent_suite"] = _evidence("independent_suite", False, f"{type(exc).__name__}: {exc}", {})
+
+    # ------------------------------------------------------- loss-mask contract
+    # §44/§9: the tool result is context the model reads, never text it is asked
+    # to reproduce.  The check does not trust the per-segment ``target`` flag.
+    # It encodes the tool_result segment with the shipped segment encoder to find
+    # the exact token span in the built sequence, then asserts that no position
+    # of that span is supervised.  The tool_call span must be supervised in the
+    # same records (positive control: the check can see supervision at all).
+    try:
+        import warnings
+
+        import numpy as np
+
+        from src.data.dataset_api import load_tokenizer
+        from src.data.sequence import build_sequence, encode_segment
+        from src.data.records import Segment
+
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", SyntaxWarning)
+            tokenizer = load_tokenizer(dataset)
+        candidates = []
+        with (ROOT / "datasets" / "versions" / dataset / "train.jsonl").open(encoding="utf-8") as fh:
+            for line in fh:
+                if not line.strip():
+                    continue
+                rec = json.loads(line)
+                segs = rec.get("segments") or []
+                if any(sg.get("role") == "tool_result" for sg in segs) and \
+                        any(sg.get("role") == "tool_call" for sg in segs):
+                    candidates.append(rec)
+                if len(candidates) >= 12:
+                    break
+        checked = violations = positive = 0
+        examples = []
+        for rec in candidates:
+            ex = build_sequence(rec, tokenizer, seq_len)
+            if ex is None:
+                continue
+            ids = np.asarray(ex.input_ids).tolist()
+            mask = np.asarray(ex.loss_mask).tolist()
+            result_seg = next(sg for sg in rec["segments"] if sg["role"] == "tool_result")
+            call_seg = next(sg for sg in rec["segments"] if sg["role"] == "tool_call")
+
+            def _locate(seg) -> list[int]:
+                seg_ids, _flags = encode_segment(
+                    Segment(role=seg["role"], text=seg["text"], target=seg.get("target")), tokenizer)
+                if len(seg_ids) < 4:
+                    return []
+                return [i for i in range(len(ids) - len(seg_ids) + 1)
+                        if ids[i:i + len(seg_ids)] == seg_ids]
+
+            payload_starts = _locate(result_seg)
+            if not payload_starts:
+                continue
+            checked += 1
+            payload_len = len(encode_segment(Segment(role="tool_result", text=result_seg["text"]),
+                                             tokenizer)[0])
+            # ``loss_mask[i]`` supervises the token at i+1 (that is what the loss
+            # predicts), so a token at index j is trained iff mask[j-1] is set.
+            # Only the payload's own tokens are asserted here: the control token
+            # that *follows* the payload legitimately opens a target segment.
+            bad = [j for start in payload_starts for j in range(start, start + payload_len)
+                   if j > 0 and mask[j - 1]]
+            violations += len(bad)
+            call_starts = _locate(call_seg)
+            call_len = len(encode_segment(Segment(role="tool_call", text=call_seg["text"]),
+                                          tokenizer)[0])
+            if any(mask[j - 1] for start in call_starts
+                   for j in range(start, start + call_len) if j > 0):
+                positive += 1
+            if len(examples) < 3:
+                examples.append({"record_id": rec.get("record_id"), "payload_positions": payload_starts[:3],
+                                 "supervised_positions_inside_payload": bad[:3]})
+        ok = checked >= 10 and violations == 0 and positive >= 10
+        out["loss_mask_contract"] = _evidence(
+            "loss_mask_contract", ok,
+            f"tool_result spans located in {checked} records, supervised payload tokens={violations}, "
+            f"records with a supervised tool_call span={positive} (positive control)",
+            {"dataset": dataset, "records_checked": checked, "violations": violations,
+             "positive_control_records": positive, "examples": examples,
+             "semantics": "tool_result payload must never be a training target"})
+    except Exception as exc:                                   # pragma: no cover
+        out["loss_mask_contract"] = _evidence("loss_mask_contract", False,
+                                             f"{type(exc).__name__}: {exc}", {})
 
     # ---------------------------------------------------- instrument self-test
     try:
