@@ -1,0 +1,25 @@
+Rows in scripts/verify_matrix.py whose cited artefacts are missing or are globs
+(measured 2026-10-03 08:20 with _cited_artifacts over ROWS):
+
+§3  VERIFIED  datasets/processed/dataset_v5/shards/*_index.json      -> glob; repoint to dataset_v8 literal
+§4  VERIFIED  experiments/*/metrics.jsonl                            -> glob; repoint to the candidate's metrics.jsonl
+§5  VERIFIED  datasets/processed/dataset_v5/shards/*.npy             -> glob; repoint to dataset_v8 literal
+§7  VERIFIED  experiments/EXP-008-TOOL-SFT-V5/{run_config.json       -> superseded experiment
+§12 VERIFIED  docs/audit_evidence/resume_probe.out.txt               -> generate raw artefact
+§16 VERIFIED  experiments/*/summary.json                            -> glob
+§17 VERIFIED  experiments/*/run_config.json                         -> glob
+§22 VERIFIED  datasets/processed/dataset_v5/shards/*_index.json     -> glob
+§24 EXECUTED  experiments/EXP-008-TOOL-SFT-V5/evaluation_tools_best.json -> superseded experiment
+§26 VERIFIED  experiments/*/evaluation_tools_best.json              -> glob
+§29 VERIFIED  docs/audit_evidence/retrieval_quality.out.txt          -> use checks/retrieval.json instead
+§36 EXECUTED  experiments/EXP-008-TOOL-SFT-V5/evaluation_test.json   -> superseded experiment
+§37 EXECUTED  experiments/*/evaluation_tools_best.json              -> glob
+§38 EXECUTED  experiments/EXP-008-TOOL-SFT-V5/evaluation_test_*.json -> superseded experiment
+§42 VERIFIED  docs/audit_evidence/pytest_full.out.txt               -> docs/audit_evidence/logs/pytest.log after the collector run
+§50 EXECUTED  experiments/EXP-008-TOOL-SFT-V5/{metrics.jsonl        -> superseded experiment
+§54 EXECUTED  experiments/*/summary.json                            -> glob
+§56 VERIFIED  experiments/<id>/run_config.json                      -> placeholder, not a path
+
+After collect_final_evidence.sh writes every artefact, rewrite each row to cite a
+literal file that exists, then re-run verify_matrix.py --strict (which fails on any
+row whose citation does not resolve, so this list must become empty).
