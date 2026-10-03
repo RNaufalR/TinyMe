@@ -1,0 +1,225 @@
+{
+  "probes": [
+    {
+      "tokenizer": "tok-v2-style (context merges)",
+      "needle": "4837",
+      "user_pieces": [
+        " 48",
+        "37"
+      ],
+      "argument_pieces": [
+        "4",
+        "837"
+      ],
+      "copy_safe": false
+    },
+    {
+      "tokenizer": "tok-v2-style (context merges)",
+      "needle": "988002",
+      "user_pieces": [
+        "9",
+        "88",
+        "002"
+      ],
+      "argument_pieces": [
+        "9",
+        "88",
+        "002"
+      ],
+      "copy_safe": true
+    },
+    {
+      "tokenizer": "tok-v2-style (context merges)",
+      "needle": "bandung",
+      "user_pieces": [
+        "b",
+        "a",
+        "n",
+        "d",
+        "u",
+        "n",
+        "g"
+      ],
+      "argument_pieces": [
+        "b",
+        "a",
+        "n",
+        "d",
+        "u",
+        "n",
+        "g"
+      ],
+      "copy_safe": true
+    },
+    {
+      "tokenizer": "tok-v3 (individual digits)",
+      "needle": "4837",
+      "user_pieces": [
+        "4",
+        "8",
+        "3",
+        "7"
+      ],
+      "argument_pieces": [
+        "4",
+        "8",
+        "3",
+        "7"
+      ],
+      "copy_safe": true
+    },
+    {
+      "tokenizer": "tok-v3 (individual digits)",
+      "needle": "988002",
+      "user_pieces": [
+        "9",
+        "8",
+        "8",
+        "0",
+        "0",
+        "2"
+      ],
+      "argument_pieces": [
+        "9",
+        "8",
+        "8",
+        "0",
+        "0",
+        "2"
+      ],
+      "copy_safe": true
+    },
+    {
+      "tokenizer": "tok-v3 (individual digits)",
+      "needle": "bandung",
+      "user_pieces": [
+        "b",
+        "a",
+        "n",
+        "d",
+        "u",
+        "n",
+        "g"
+      ],
+      "argument_pieces": [
+        "b",
+        "a",
+        "n",
+        "d",
+        "u",
+        "n",
+        "g"
+      ],
+      "copy_safe": true
+    },
+    {
+      "tokenizer": "dataset_v5/tokenizer.json",
+      "needle": "4837",
+      "user_pieces": [
+        "Compute",
+        " exactly",
+        ":",
+        "4",
+        "8",
+        "3",
+        "7",
+        " *",
+        "9",
+        "6",
+        "2",
+        " +",
+        "7",
+        "1"
+      ],
+      "argument_pieces": [
+        "\"",
+        "expression",
+        "\":",
+        " \"",
+        "4",
+        "8",
+        "3",
+        "7",
+        " *",
+        "9",
+        "6",
+        "2",
+        " +",
+        "7",
+        "1",
+        "\""
+      ],
+      "copy_safe": true
+    },
+    {
+      "tokenizer": "dataset_v5/tokenizer.json",
+      "needle": "988002",
+      "user_pieces": [
+        "Read",
+        " the",
+        " stored",
+        " source",
+        " FACT",
+        "-",
+        "9",
+        "8",
+        "8",
+        "0",
+        "0",
+        "2",
+        " about",
+        " population",
+        " of",
+        " jakarta",
+        "."
+      ],
+      "argument_pieces": [
+        "\"",
+        "source",
+        "_",
+        "id",
+        "\":",
+        " \"",
+        "FACT",
+        "-",
+        "9",
+        "8",
+        "8",
+        "0",
+        "0",
+        "2",
+        "\""
+      ],
+      "copy_safe": true
+    },
+    {
+      "tokenizer": "dataset_v5/tokenizer.json",
+      "needle": "bandung",
+      "user_pieces": [
+        "What",
+        " is",
+        " the",
+        " population",
+        " of",
+        " bandung",
+        "?"
+      ],
+      "argument_pieces": [
+        "\"",
+        "query",
+        "\":",
+        " \"",
+        "population",
+        " of",
+        " bandung",
+        "\""
+      ],
+      "copy_safe": true
+    }
+  ],
+  "verdict": {
+    "tok-v2-style (context merges)": "2/3 numeric spans are token-identical across contexts",
+    "tok-v3 (individual digits)": "3/3 numeric spans are token-identical across contexts",
+    "dataset_v5/tokenizer.json (tok-v3)": "3/3 numeric spans are token-identical across contexts"
+  }
+}

@@ -29,7 +29,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from data_sources import corpus_v2, synthetic_v2  # noqa: E402
+from data_sources import corpus_v2, synthetic_v2, synthetic_v3  # noqa: E402
 from src.data import preprocess as preprocess_mod  # noqa: E402
 from src.data.dedup import deduplicate  # noqa: E402
 from src.data.quality_filter import filter_record, score_record  # noqa: E402
@@ -64,7 +64,13 @@ def main() -> int:
     ap.add_argument("--no-hf", action="store_true", help="skip cached HF slices")
     ap.add_argument("--stdlib-files", type=int, default=480, help="stdlib files to scan")
     ap.add_argument("--challenge-size", type=int, default=60)
+    ap.add_argument("--tool-challenge-size", type=int, default=30)
     ap.add_argument("--shard-capacity", type=int, default=512)
+    ap.add_argument("--scale-v3", type=float, default=1.0,
+                    help="independent scale for the v3 capability block")
+    ap.add_argument("--generators", default="v2", choices=["v2", "v3"],
+                    help="synthetic generator block: v2 = dataset_v3 generators, "
+                         "v3 = capability-scaled generators (synthetic_v3)")
     ap.add_argument("--tokenizer-from", default=None,
                     help="freeze the tokenizer of an existing dataset version instead of "
                          "retraining it (keeps checkpoints embedding-compatible; the source "
@@ -80,9 +86,16 @@ def main() -> int:
 
     # ---------------------------------------------------------------- ingest
     records, provenance = corpus_v2.build_corpus(seed=args.seed, scale=args.scale, use_hf=not args.no_hf,
-                                                stdlib_files=args.stdlib_files)
+                                                stdlib_files=args.stdlib_files,
+                                                generator_set=args.generators,
+                                                scale_v3=args.scale_v3)
     challenge = [r.to_dict() for r in synthetic_v2.gen_challenge(__import__("random").Random(args.seed + 1),
                                                                  args.challenge_size)]
+    if args.generators == "v3":
+        # held-out tool templates (never present in train/validation/test): the
+        # capability challenge set (audit §3 "genuine held-out task templates")
+        challenge += [r.to_dict() for r in synthetic_v3.gen_tool_challenge(
+            __import__("random").Random(args.seed + 2), args.tool_challenge_size)]
     stats["ingest"] = {**corpus_v2.corpus_statistics(records),
                        "challenge_pool": len(challenge)}
 
@@ -259,13 +272,18 @@ def main() -> int:
     from src.data.dataset_api import shard_fingerprint
     manifest["shards_fingerprint"] = shard_fingerprint(shard_dir)
     write_json(manifest, version_dir / "manifest.json")
-    write_json(manifest, REPO_ROOT / "DATA_PROVENANCE.json")
-
-    # provenance + reports
+    # The repository-root provenance/report files describe the *shipped* dataset.
+    # A CI/unit fixture build (``--version ci_*``) is not the shipped dataset, so
+    # it must not overwrite them: a test run that clobbers the recorded
+    # provenance of the real corpus is a false-evidence defect (found during this
+    # audit by diffing the working tree after ``pytest``).
+    ship_reports = not args.version.startswith("ci_")
+    if ship_reports:
+        write_json(manifest, REPO_ROOT / "DATA_PROVENANCE.json")
+        write_json({"dataset_version": args.version, "created": manifest["created"],
+                    "sources": provenance}, REPO_ROOT / "docs" / "DATA_PROVENANCE.json")
     write_json({"dataset_version": args.version, "created": manifest["created"],
-                "sources": provenance}, REPO_ROOT / "docs" / "DATA_PROVENANCE.json")
-    write_json({"dataset_version": args.version, "created": manifest["created"],
-                "sources": provenance}, PROCESSED_DIR / "DATA_PROVENANCE.json")
+                "sources": provenance}, PROCESSED_DIR / f"DATA_PROVENANCE_{args.version}.json")
 
     report = {
         "tokenizer_version": TOKENIZER_VERSION,
@@ -291,12 +309,13 @@ def main() -> int:
                             sort_keys=True)]),
         },
     }
-    write_json(report, REPO_ROOT / "docs" / "TOKENIZER_METRICS.json")
-    write_tokenizer_report(report, REPO_ROOT / "docs" / "TOKENIZER_REPORT.md")
-    (REPO_ROOT / "docs" / "SPLIT_SUMMARY.md").write_text(split_summary_markdown(split_rep))
-
-    quality_md = _quality_report_markdown(args, manifest, stats)
-    (REPO_ROOT / "docs" / "DATA_QUALITY_REPORT.md").write_text(quality_md)
+    write_json(report, version_dir / "TOKENIZER_METRICS.json")
+    if ship_reports:
+        write_json(report, REPO_ROOT / "docs" / "TOKENIZER_METRICS.json")
+        write_tokenizer_report(report, REPO_ROOT / "docs" / "TOKENIZER_REPORT.md")
+        (REPO_ROOT / "docs" / "SPLIT_SUMMARY.md").write_text(split_summary_markdown(split_rep))
+        quality_md = _quality_report_markdown(args, manifest, stats)
+        (REPO_ROOT / "docs" / "DATA_QUALITY_REPORT.md").write_text(quality_md)
 
     log.info("DONE %.1fs | train=%d val=%d test=%d challenge=%d | active target tokens=%d | tokens.json=%s",
              time.time() - t0, len(by_split["train"]), len(by_split["validation"]),

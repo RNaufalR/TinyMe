@@ -1,20 +1,20 @@
 # TOKENIZER REPORT
 
 - **Algorithm:** byte-level BPE (`tokenizers`), ByteLevel pre-tokenizer/decoder
-- **Tokenizer version:** tok-v2
+- **Tokenizer version:** tok-v3
 - **Vocabulary size:** 4096
-- **Serialized `tokenizer.json` size:** 267,051 bytes (260.8 KiB) — **counts toward the <50 MB artifact**
+- **Serialized `tokenizer.json` size:** 266,659 bytes (260.4 KiB) — **counts toward the <50 MB artifact**
 - **Special tokens:** <|pad|>, <|bos|>, <|eos|>, <|unk|>, <|endoftext|>, <|system|>, <|user|>, <|assistant|>, <|thought|>, <|answer|>, <|code|>, <|endcode|>, <|tool_call|>, <|end_tool_call|>, <|tool_result|>, <|end_tool_result|>, <|final|>, <|endtool_call|>, <|endtool_result|>
 
 ## Per-domain efficiency
 
 | Domain | Samples | Total tokens | Tokens/sample | Chars/token | UNK rate |
 | :--- | ---: | ---: | ---: | ---: | ---: |
-| all_train | 1680 | 432773 | 257.603 | 3.7569 | 0.000000 |
-| code | 1487 | 394109 | 265.036 | 3.8148 | 0.000000 |
-| prose | 144 | 32074 | 222.736 | 3.2011 | 0.000000 |
-| math | 28 | 2312 | 82.571 | 3.0722 | 0.000000 |
-| tool_call_json | 1 | 21 | 21.0 | 3.1905 | 0.000000 |
+| all_train | 14787 | 3262472 | 220.631 | 3.1996 | 0.000000 |
+| code | 2000 | 351030 | 175.515 | 3.0842 | 0.000000 |
+| prose | 144 | 34034 | 236.347 | 3.0167 | 0.000000 |
+| math | 518 | 44955 | 86.786 | 3.1179 | 0.000000 |
+| tool_call_json | 1 | 17 | 17.0 | 3.9412 | 0.000000 |
 
 ## Interpretation
 

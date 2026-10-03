@@ -3,6 +3,16 @@
 Special tokens carry the structural grammar used across every task type:
 <|system|>, <|user|>, <|thought|>, <|answer|>, <|assistant|>, <|code|>, <|endcode|>.
 Byte-level pre-tokenization guarantees a 0% unknown-token rate.
+
+Digit policy (tok-v3, 2026-10-03)
+--------------------------------
+Every digit is a **single pre-token** (``pre_tokenizers.Digits(individual_digits=True)``)
+so a digit run is tokenised identically wherever it occurs.  This is a measured
+corrective change: with tok-v2 the same literal ``757`` tokenised as
+``[" 75", "7"]`` inside the user turn and as ``["7", "57"]`` inside a tool-call
+JSON argument, so "copy the operand into the argument" required *re-tokenising*
+the span rather than copying it.  ``docs/audit_evidence/tokenizer_digit_probe.*``
+records the before/after and the tool-copy failure it caused.
 """
 from __future__ import annotations
 
@@ -30,7 +40,11 @@ SPECIAL_TOKENS = [
     "<|final|>",
     "<|endtool_call|>", "<|endtool_result|>",
 ]
-TOKENIZER_VERSION = "tok-v2"
+TOKENIZER_VERSION = "tok-v3"
+
+#: tok-v3 tokenisation contract: digits never merge with each other or with
+#: adjacent characters, so token identity is context-independent for numbers.
+INDIVIDUAL_DIGITS = True
 
 
 class TinyMeTokenizer:
@@ -116,15 +130,30 @@ class TinyMeTokenizer:
         }
 
 
-def build_tokenizer(vocab_size: int = 4096) -> Tokenizer:
+def build_tokenizer(vocab_size: int = 4096, *, individual_digits: bool = INDIVIDUAL_DIGITS) -> Tokenizer:
+    """Build the BPE skeleton.
+
+    ``individual_digits`` (default, tok-v3) inserts a ``Digits`` pre-tokenizer so
+    every digit is its own pre-token; BPE then cannot merge digits together or
+    with surrounding characters, which makes numeric spans copyable by token
+    identity.  The tok-v1/v2 behaviour is still reachable with
+    ``individual_digits=False`` for historical reproduction.
+    """
     tok = Tokenizer(models.BPE(unk_token="<|unk|>"))
-    tok.pre_tokenizer = pre_tokenizers.ByteLevel(add_prefix_space=False)
+    if individual_digits:
+        tok.pre_tokenizer = pre_tokenizers.Sequence([
+            pre_tokenizers.Digits(individual_digits=True),
+            pre_tokenizers.ByteLevel(add_prefix_space=False),
+        ])
+    else:
+        tok.pre_tokenizer = pre_tokenizers.ByteLevel(add_prefix_space=False)
     tok.decoder = decoders.ByteLevel()
     return tok
 
 
 def train_tokenizer(texts: Iterable[str], vocab_size: int = 4096,
-                    min_frequency: int = 2, corpus_role: str = "train") -> TinyMeTokenizer:
+                    min_frequency: int = 2, corpus_role: str = "train",
+                    individual_digits: bool = INDIVIDUAL_DIGITS) -> TinyMeTokenizer:
     """Train a byte-level BPE tokenizer on the corpus.
 
     ``corpus_role`` documents which split the texts came from; corrective audit
@@ -135,8 +164,9 @@ def train_tokenizer(texts: Iterable[str], vocab_size: int = 4096,
         raise ValueError(f"tokenizer must be trained on the train split, got {corpus_role!r}")
     texts = list(texts)
     corpus_stats = {"corpus_role": corpus_role, "texts": len(texts),
-                    "chars": sum(len(t) for t in texts)}
-    tok = build_tokenizer(vocab_size)
+                    "chars": sum(len(t) for t in texts),
+                    "individual_digits": bool(individual_digits)}
+    tok = build_tokenizer(vocab_size, individual_digits=individual_digits)
     trainer = trainers.BpeTrainer(
         vocab_size=vocab_size,
         min_frequency=min_frequency,

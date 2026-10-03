@@ -25,6 +25,7 @@ from src.utils.io_utils import REPO_ROOT
 
 from . import stdlib_adapter, stdlib_v2
 from .synthetic_v2 import generate_corpus
+from .synthetic_v3 import generate_corpus_v3
 
 logger = logging.getLogger("tinyme.corpus")
 
@@ -142,8 +143,21 @@ def ingest_tinystories(limit: int = 40) -> tuple[list[TrainingRecord], list[dict
 def build_corpus(seed: int = 20261002, scale: float = 1.0,
                  synthetic_counts: dict[str, int] | None = None,
                  use_hf: bool = True, use_stdlib: bool = True,
-                 stdlib_modules: int = 24, stdlib_files: int | None = None) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-    """Assemble the raw corpus (records + provenance)."""
+                 stdlib_modules: int = 24, stdlib_files: int | None = None,
+                 generator_set: str = "v2",
+                 synthetic_counts_v3: dict[str, int] | None = None,
+                 scale_v3: float = 1.0) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Assemble the raw corpus (records + provenance).
+
+    ``generator_set`` selects the synthetic block:
+      * ``"v2"`` — the generators that produced ``dataset_v3`` (kept so that
+        dataset stays reproducible);
+      * ``"v3"`` — the capability-scaled generators
+        (:mod:`data_sources.synthetic_v3`) that add the transcription
+        curriculum, direct-answer arithmetic/text edits and an order-of-magnitude
+        larger tool-workflow block.  The v2 blocks are still assembled, so the
+        general-purpose domains do not regress.
+    """
     records: list[TrainingRecord] = []
     provenance: list[dict[str, Any]] = []
 
@@ -170,8 +184,25 @@ def build_corpus(seed: int = 20261002, scale: float = 1.0,
 
     syn_recs, syn_prov = generate_corpus(seed=seed, counts=synthetic_counts, scale=scale)
     # synthetic families are already set via template_id
+    if generator_set == "v3":
+        # The v2 tool block is superseded by the v3 runtime-backed generator: its
+        # search results are mocked (stale scores) and its "grounded" finals quote
+        # the query echo rather than the fetched passage, which is exactly the
+        # behaviour that made the model fail the independent tool suite.  Keeping
+        # both blocks would supervise contradictory targets.
+        dropped = [r for r in syn_recs if r.category == "tool_use"]
+        syn_recs = [r for r in syn_recs if r.category != "tool_use"]
+        logger.info("v3 build: dropped %d superseded v2 tool records", len(dropped))
     records.extend(syn_recs)
     provenance.extend(syn_prov)
+
+    if generator_set == "v3":
+        recs3, prov3 = generate_corpus_v3(seed=seed + 7, counts=synthetic_counts_v3,
+                                          scale=scale_v3)
+        records.extend(recs3)
+        provenance.extend(prov3)
+    elif generator_set != "v2":
+        raise ValueError(f"unknown generator_set {generator_set!r}")
 
     out = [r.to_dict() for r in records]
     logger.info("assembled %d raw records from %d provenance entries", len(out), len(provenance))

@@ -1,21 +1,21 @@
-# DATA QUALITY REPORT — ci_smoke
+# DATA QUALITY REPORT — dataset_v5
 
-- Raw records ingested: **2817**
-- After license check: **2757**
-- After content-aware preprocessing: **2755** (rejected: {'rejected:invalid_code': 2})
-- After quality/safety filter: **2755** (dropped: {})
-- After deduplication: **2167** (exact=311, normalized=2, minhash=275, code=0)
+- Raw records ingested: **22292**
+- After license check: **22202**
+- After content-aware preprocessing: **22200** (rejected: {'rejected:invalid_code': 2})
+- After quality/safety filter: **20910** (dropped: {'minified_or_generated': 1290})
+- After deduplication: **19441** (exact=424, normalized=156, minhash=888, code=1)
 - Malformed-code rate in the final corpus: **0.000000**
-- Verified records: **2094**
+- Verified records: **19398**
 
 ## Splits (group-aware, template families held out)
 
 | split | records | active target tokens | blocks |
 | :--- | ---: | ---: | ---: |
-| train | 1680 | 601383 | 9862 |
-| validation | 253 | 103989 | 1695 |
-| test | 234 | 76589 | 1255 |
-| challenge | 60 | 0 | 0 |
+| train | 14787 | 791339 | 6143 |
+| validation | 2389 | 155202 | 1283 |
+| test | 2265 | 102479 | 830 |
+| challenge | 90 | 3211 | 46 |
 
 ## Contamination gate
 
@@ -25,9 +25,9 @@ Checks performed: exact hash, normalized hash, MinHash/LSH similarity, code-AST 
 
 ## Tokenizer
 
-- Trained on the **train split only** (1680 texts).
-- Vocabulary: 4096; file 267051 bytes;
-  sha256 `644e9e1fa8f43f6a76e56a845cc38ab4…`
+- Trained on the **train split only** (14787 texts).
+- Vocabulary: 4096; file 266659 bytes;
+  sha256 `2ad26a6d685d58395ef4c983577cf61d…`
 
 ## Sources and licences
 
@@ -37,17 +37,21 @@ Checks performed: exact hash, normalized hash, MinHash/LSH similarity, code-AST 
 | mbpp | 15 |
 | python3.11-stdlib-extended | 2422 |
 | python_stdlib | 192 |
-| syn/algorithm_trace | 6 |
-| syn/arithmetic | 13 |
-| syn/boolean | 6 |
-| syn/code_explain | 6 |
-| syn/code_gen | 10 |
-| syn/code_repair | 7 |
-| syn/deduction | 4 |
-| syn/instruction | 10 |
-| syn/sequences | 6 |
-| syn/tool_use | 21 |
-| syn/word_problems | 9 |
+| syn/algorithm_trace | 120 |
+| syn/arithmetic | 259 |
+| syn/boolean | 120 |
+| syn/code_explain | 120 |
+| syn/code_gen | 200 |
+| syn/code_repair | 140 |
+| syn/deduction | 79 |
+| syn/instruction | 185 |
+| syn/sequences | 105 |
+| syn/tool_use | 327 |
+| syn/word_problems | 180 |
+| synv3/algorithm | 1600 |
+| synv3/copy_span | 3059 |
+| synv3/no_tool | 5572 |
+| synv3/tool_use | 7804 |
 | tinystories | 15 |
 
 | licence | records |
@@ -56,19 +60,19 @@ Checks performed: exact hash, normalized hash, MinHash/LSH similarity, code-AST 
 | CDLA-Sharing-1.0 | 15 |
 | MIT | 15 |
 | PSF-2.0 | 2024 |
-| Synthetic-Verified | 158 |
+| Synthetic-Verified | 17462 |
 
 ## Category distribution
 
 | category | records |
 | :--- | ---: |
-| algorithm | 6 |
-| code_explain | 466 |
-| code_gen | 33 |
-| code_repair | 15 |
-| instruction | 18 |
+| algorithm | 1720 |
+| code_explain | 566 |
+| code_gen | 223 |
+| code_repair | 148 |
+| instruction | 8487 |
 | language | 188 |
-| logic | 18 |
-| math | 55 |
+| logic | 207 |
+| math | 571 |
 | programming | 1399 |
-| tool_use | 29 |
+| tool_use | 6022 |

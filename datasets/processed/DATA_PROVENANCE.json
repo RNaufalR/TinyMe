@@ -1,12 +1,12 @@
 {
-  "dataset_version": "ci_smoke",
-  "created": "2026-10-02T14:14:40",
+  "dataset_version": "smoke_v3",
+  "created": "2026-10-03T00:13:02",
   "sources": [
     {
       "source": "python_stdlib",
       "dataset_or_repo_name": "CPython 3.11 standard library",
       "url": "https://github.com/python/cpython",
-      "retrieval_date": "2026-10-02",
+      "retrieval_date": "2026-10-03",
       "license": "PSF-2.0",
       "license_url": "https://docs.python.org/3/license.html",
       "source_type": "code + documentation",
@@ -32,7 +32,7 @@
       "url": "https://github.com/python/cpython",
       "license": "PSF-2.0",
       "license_url": "https://docs.python.org/3/license.html",
-      "retrieval_date": "2026-10-02",
+      "retrieval_date": "2026-10-03",
       "source_type": "code + documentation",
       "language": "python",
       "records": 2422,
@@ -51,62 +51,6 @@
       ],
       "inclusion_status": "INCLUDED",
       "inclusion_reason": "PSF-2.0 permits ML use; offline, deterministic, license-clean code corpus"
-    },
-    {
-      "source": "huggingface",
-      "source_id": "gsm8k",
-      "dataset_or_repo_name": "openai/gsm8k",
-      "url": "https://huggingface.co/datasets/openai/gsm8k",
-      "license": "MIT",
-      "license_url": "https://opensource.org/licenses/MIT",
-      "retrieval_date": "2026-10-01",
-      "source_type": "text + reasoning",
-      "records": 15,
-      "preprocessing_performed": [
-        "content_extraction",
-        "segment_split",
-        "quality_filter",
-        "dedup"
-      ],
-      "inclusion_status": "INCLUDED",
-      "inclusion_reason": "permissive licence (MIT); reference chain-of-thought supervision for arithmetic word problems"
-    },
-    {
-      "source": "huggingface",
-      "source_id": "mbpp",
-      "dataset_or_repo_name": "google-research/mbpp",
-      "url": "https://huggingface.co/datasets/google-research-datasets/mbpp",
-      "license": "CC-BY-4.0",
-      "license_url": "https://creativecommons.org/licenses/by/4.0/",
-      "retrieval_date": "2026-10-01",
-      "source_type": "code",
-      "records": 15,
-      "preprocessing_performed": [
-        "content_extraction",
-        "segment_split",
-        "python AST validation",
-        "dedup"
-      ],
-      "inclusion_status": "INCLUDED",
-      "inclusion_reason": "permissively licensed code dataset with executable tests"
-    },
-    {
-      "source": "huggingface",
-      "source_id": "tinystories",
-      "dataset_or_repo_name": "roneneldan/TinyStories",
-      "url": "https://huggingface.co/datasets/roneneldan/TinyStories",
-      "license": "CDLA-Sharing-1.0",
-      "license_url": "https://cdla.dev/sharing-1-0/",
-      "retrieval_date": "2026-10-01",
-      "source_type": "text",
-      "records": 15,
-      "preprocessing_performed": [
-        "content_extraction",
-        "quality_filter",
-        "dedup"
-      ],
-      "inclusion_status": "INCLUDED",
-      "inclusion_reason": "synthetic but well-formed English prose for language grounding"
     },
     {
       "requested": 13,
@@ -305,6 +249,60 @@
       "generator": "synthetic_v2.gen_tool_use",
       "seed": 20261002,
       "notes": "deterministic generator with independent verification; rejected samples are not emitted"
+    },
+    {
+      "requested": 200,
+      "emitted": 188,
+      "duplicates_dropped": 12,
+      "source": "synthetic",
+      "source_id": "synv3/copy_span",
+      "source_url": "local://data_sources/synthetic_v3.py",
+      "retrieval_date": "generated",
+      "license": "Synthetic-Verified",
+      "license_url": "",
+      "category_family": "instruction",
+      "records": 188,
+      "verified": true,
+      "verifier": "python_recomputation | subprocess_execution | index_containment",
+      "generator": "synthetic_v3.gen_copy_span",
+      "seed": 20261009,
+      "notes": "capability-scaled generator: verbatim-copy invariant, independent verification, duplicate inflation rejected"
+    },
+    {
+      "requested": 300,
+      "emitted": 300,
+      "duplicates_dropped": 0,
+      "source": "synthetic",
+      "source_id": "synv3/no_tool",
+      "source_url": "local://data_sources/synthetic_v3.py",
+      "retrieval_date": "generated",
+      "license": "Synthetic-Verified",
+      "license_url": "",
+      "category_family": "instruction",
+      "records": 300,
+      "verified": true,
+      "verifier": "python_recomputation | subprocess_execution | index_containment",
+      "generator": "synthetic_v3.gen_no_tool_v3",
+      "seed": 20261009,
+      "notes": "capability-scaled generator: verbatim-copy invariant, independent verification, duplicate inflation rejected"
+    },
+    {
+      "requested": 450,
+      "emitted": 352,
+      "duplicates_dropped": 98,
+      "source": "synthetic",
+      "source_id": "synv3/tool_use",
+      "source_url": "local://data_sources/synthetic_v3.py",
+      "retrieval_date": "generated",
+      "license": "Synthetic-Verified",
+      "license_url": "",
+      "category_family": "tool",
+      "records": 352,
+      "verified": true,
+      "verifier": "python_recomputation | subprocess_execution | index_containment",
+      "generator": "synthetic_v3.gen_tool_use_v3",
+      "seed": 20261009,
+      "notes": "capability-scaled generator: verbatim-copy invariant, independent verification, duplicate inflation rejected"
     }
   ]
 }

@@ -1,0 +1,35 @@
+
+
+
+
+
+
+==============================================================================
+tok-v2-style (context merges)
+==============================================================================
+  4837     user=[' 48', '37'] arg=['4', '837']  copy-safe=False
+  988002   user=['9', '88', '002'] arg=['9', '88', '002']  copy-safe=True
+  bandung  user=['b', 'a', 'n', 'd', 'u', 'n', 'g'] arg=['b', 'a', 'n', 'd', 'u', 'n', 'g']  copy-safe=True
+  -> 2/3 numeric spans are token-identical across contexts
+
+==============================================================================
+tok-v3 (individual digits)
+==============================================================================
+  4837     user=['4', '8', '3', '7'] arg=['4', '8', '3', '7']  copy-safe=True
+  988002   user=['9', '8', '8', '0', '0', '2'] arg=['9', '8', '8', '0', '0', '2']  copy-safe=True
+  bandung  user=['b', 'a', 'n', 'd', 'u', 'n', 'g'] arg=['b', 'a', 'n', 'd', 'u', 'n', 'g']  copy-safe=True
+  -> 3/3 numeric spans are token-identical across contexts
+
+==============================================================================
+frozen dataset_v5 tokenizer (tok-v3)
+==============================================================================
+  4837     user_digits=['4', '8', '3', '7', '9', '6', '2', '7', '1'] arg_digits=['4', '8', '3', '7', '9', '6', '2', '7', '1']  copy-safe=True
+  988002   user_digits=['9', '8', '8', '0', '0', '2'] arg_digits=['9', '8', '8', '0', '0', '2']  copy-safe=True
+  bandung  user_digits=[] arg_digits=[]  copy-safe=True
+  -> 3/3 numeric spans are token-identical across contexts
+
+summary
+  tok-v2-style (context merges): 2/3 numeric spans are token-identical across contexts
+  tok-v3 (individual digits): 3/3 numeric spans are token-identical across contexts
+  dataset_v5/tokenizer.json (tok-v3): 3/3 numeric spans are token-identical across contexts
+wrote /home/user/TinyMe/docs/audit_evidence/tokenizer_context_copy_probe.out.json
