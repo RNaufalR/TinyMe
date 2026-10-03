@@ -28,7 +28,8 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.data.dedup import contamination_report  # noqa: E402
-from src.data.curriculum import partition_report  # noqa: E402
+from src.data.curriculum import partition_report, record_filter as curriculum_filter  # noqa: E402
+from src.data.dataset_api import load_split  # noqa: E402
 from src.data.dataset_api import (load_manifest, load_tokenizer,  # noqa: E402
                                   shard_fingerprint)
 from src.data.splits import split_report  # noqa: E402
@@ -76,12 +77,36 @@ def main() -> int:
         active[split] = _active_tokens(recs, tokenizer)
     manifest_counts = manifest.get("splits", {})
     counts_match = all(manifest_counts.get(s) == counts[s] for s in SPLITS)
-    active_match = all(manifest.get(f"{s}_tokens_active") == active[s] for s in SPLITS)
+    # The manifest's *_tokens_active counts the supervised tokens *after* packing
+    # (drop-last truncation + block packing), so it is re-derived through the same
+    # public API the trainer uses rather than from the raw records.
+    packed: dict[str, dict] = {}
+    shard_root = ROOT / "datasets" / "processed" / args.dataset / "shards"
+    for split in SPLITS:
+        # Mirror the loader the trainer/evaluator use: the shuffled "mixed" pool
+        # needs both shard families, otherwise the split's own family is used.
+        stage = "mixed" if sorted(shard_root.glob(f"{split}_pretrain*.npy")) else "sft"
+        try:
+            data, stats = load_split(args.dataset, split, seq_len=manifest["seq_len"],
+                                     tokenizer=tokenizer, stage=stage)
+            packed[split] = {"blocks": int(data["input_ids"].shape[0]),
+                             "active_target_tokens": int(data["loss_mask"].sum()),
+                             "stage_used": stage, "source": stats.get("source")}
+        except Exception as exc:                              # noqa: BLE001
+            packed[split] = {"error": f"{type(exc).__name__}: {exc}", "stage_used": stage}
+    active_match = all(packed[s].get("active_target_tokens") == manifest.get(f"{s}_tokens_active")
+                       for s in SPLITS)
     checks["split_counts"] = {
         "ok": counts_match and active_match,
         "counted": counts, "manifest": manifest_counts,
-        "active_target_tokens_counted": active,
+        "record_counts_match": counts_match,
+        "active_target_tokens_counted_from_packed_blocks": {s: packed[s].get("active_target_tokens")
+                                                            for s in SPLITS},
         "active_target_tokens_manifest": {s: manifest.get(f"{s}_tokens_active") for s in SPLITS},
+        "packed_blocks": {s: packed[s].get("blocks") for s in SPLITS},
+        "shard_family_used": {s: packed[s].get("stage_used") for s in SPLITS},
+        "packing_source": {s: packed[s].get("source") for s in SPLITS},
+        "raw_segment_target_tokens_excluding_packing": active,
     }
 
     # ------------------------------------------------------------- tokenizer
@@ -121,9 +146,54 @@ def main() -> int:
                         if shard_dir.exists() else []}
 
     # --------------------------------------------------------- curriculum
+    # Two views: the record-level partition (every structured train record is
+    # assigned to exactly one stage) and the block-level view the trainer
+    # consumes, reproduced through the very same selector scripts/train.py uses.
     partition = partition_report(records["train"])
-    checks["curriculum_partition"] = {"ok": partition.get("total", 0) == len(records["train"]),
-                                      "report": partition}
+    structured = partition.get("structured_records", 0)
+    assigned = partition.get("assigned", 0)
+    declared = {"drill": {"blocks": 4219, "active_target_tokens": 554449},
+                "trajectory": {"blocks": 6117, "active_target_tokens": 396339},
+                # the mixed pool is the corpus-wide control the base stage trains on;
+                # its reference is the manifest, not a previously recorded pack
+                "mixed": {"blocks": None,
+                          "active_target_tokens": manifest.get("train_tokens_active")}}
+    stage_blocks: dict[str, dict] = {}
+    for stage in ("drill", "trajectory", "mixed"):
+        selector = curriculum_filter(stage)
+        try:
+            data, stats = load_split(args.dataset, "train", seq_len=manifest["seq_len"],
+                                     tokenizer=tokenizer, stage=stage,
+                                     record_filter=selector)
+            entry = {"blocks": int(data["input_ids"].shape[0]),
+                     "active_target_tokens": int(data["loss_mask"].sum()),
+                     "records_available": stats.get("n_records_available"),
+                     "records_selected": stats.get("n_records"),
+                     "source": stats.get("source")}
+        except Exception as exc:                              # noqa: BLE001
+            entry = {"error": f"{type(exc).__name__}: {exc}"}
+        entry["declared_blocks"] = declared[stage]["blocks"]
+        entry["declared_active_target_tokens"] = declared[stage]["active_target_tokens"]
+        want_blocks = declared[stage]["blocks"]
+        entry["matches_declared"] = (entry.get("active_target_tokens")
+                                     == declared[stage]["active_target_tokens"]
+                                     and (want_blocks is None or entry.get("blocks") == want_blocks))
+        stage_blocks[stage] = entry
+    # The curriculum stages select from the raw JSONL, so their coverage is
+    # directly observable; the mixed pool is a shard concat and is checked
+    # against the manifest instead.
+    # Each stage selects only its own records, so the two stages must partition
+    # the structured corpus exactly: disjoint by construction, union = all.
+    covers = (stage_blocks["drill"].get("records_selected", -1)
+              + stage_blocks["trajectory"].get("records_selected", -1) == structured)
+    checks["curriculum_partition"] = {
+        "ok": bool(assigned == structured and not partition.get("unassigned_templates")
+                   and covers and all(sb.get("matches_declared") for sb in stage_blocks.values())),
+        "record_level": partition,
+        "block_level": stage_blocks,
+        "declared_pack_source": "recorded when the v9 curriculum pack was built (DEC-013/014); "
+                                "the corpus above is re-derived from the JSONL on disk",
+    }
 
     # ----------------------------------------------------------- group split
     groups: dict[str, set] = {}

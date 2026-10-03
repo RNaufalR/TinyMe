@@ -1,0 +1,222 @@
+{
+  "dataset": "dataset_v9",
+  "ok": true,
+  "checks": {
+    "split_counts": {
+      "ok": true,
+      "counted": {
+        "train": 19791,
+        "validation": 2836,
+        "test": 3705,
+        "challenge": 90
+      },
+      "manifest": {
+        "train": 19791,
+        "validation": 2836,
+        "test": 3705,
+        "challenge": 90
+      },
+      "record_counts_match": true,
+      "active_target_tokens_counted_from_packed_blocks": {
+        "train": 1521617,
+        "validation": 191631,
+        "test": 200025,
+        "challenge": 5310
+      },
+      "active_target_tokens_manifest": {
+        "train": 1521617,
+        "validation": 191631,
+        "test": 200025,
+        "challenge": 5310
+      },
+      "packed_blocks": {
+        "train": 11677,
+        "validation": 2165,
+        "test": 2158,
+        "challenge": 55
+      },
+      "shard_family_used": {
+        "train": "mixed",
+        "validation": "mixed",
+        "test": "mixed",
+        "challenge": "sft"
+      },
+      "packing_source": {
+        "train": "shards(mixed)",
+        "validation": "shards(mixed)",
+        "test": "shards(mixed)",
+        "challenge": "shards"
+      },
+      "raw_segment_target_tokens_excluding_packing": {
+        "train": 1262299,
+        "validation": 167900,
+        "test": 173340,
+        "challenge": 4539
+      }
+    },
+    "tokenizer_hash": {
+      "ok": true,
+      "recomputed": "d6d8c73709fecf4ff3f32513660d4f6ffae5ac2eba2f9210eeb61fbe2df246c5",
+      "manifest": "d6d8c73709fecf4ff3f32513660d4f6ffae5ac2eba2f9210eeb61fbe2df246c5",
+      "vocab_size": 4096,
+      "manifest_vocab_size": 4096,
+      "trained_on": "train split only",
+      "vocab_match": true
+    },
+    "contamination": {
+      "ok": true,
+      "manifest_verdict": "PASS",
+      "recomputed_free": true,
+      "pairs": {
+        "train_vs_validation": {
+          "eval_samples": 2836,
+          "train_samples": 19791,
+          "exact_overlap": 0,
+          "normalized_overlap": 0,
+          "minhash_overlap": 0,
+          "code_shingle_overlap": 0,
+          "template_overlap": 0,
+          "contamination_free": true
+        },
+        "train_vs_test": {
+          "eval_samples": 3705,
+          "train_samples": 19791,
+          "exact_overlap": 0,
+          "normalized_overlap": 0,
+          "minhash_overlap": 0,
+          "code_shingle_overlap": 0,
+          "template_overlap": 0,
+          "contamination_free": true
+        },
+        "train_vs_challenge": {
+          "eval_samples": 90,
+          "train_samples": 19791,
+          "exact_overlap": 0,
+          "normalized_overlap": 0,
+          "minhash_overlap": 0,
+          "code_shingle_overlap": 0,
+          "template_overlap": 0,
+          "contamination_free": true
+        },
+        "validation_vs_test": {
+          "eval_samples": 3705,
+          "train_samples": 2836,
+          "exact_overlap": 0,
+          "normalized_overlap": 0,
+          "minhash_overlap": 0,
+          "code_shingle_overlap": 0,
+          "template_overlap": 0,
+          "contamination_free": true
+        },
+        "validation_vs_challenge": {
+          "eval_samples": 90,
+          "train_samples": 2836,
+          "exact_overlap": 0,
+          "normalized_overlap": 0,
+          "minhash_overlap": 0,
+          "code_shingle_overlap": 0,
+          "template_overlap": 0,
+          "contamination_free": true
+        }
+      }
+    },
+    "shards": {
+      "ok": true,
+      "recomputed": "74ae832d4140cdb5b331735211e2fe221d797adca64a13f7b133cfa49a8eb369",
+      "manifest": "74ae832d4140cdb5b331735211e2fe221d797adca64a13f7b133cfa49a8eb369",
+      "files": [
+        "challenge_sft_0000.npy",
+        "test_pretrain_0000.npy",
+        "test_sft_0000.npy",
+        "test_sft_0001.npy",
+        "test_sft_0002.npy",
+        "test_sft_0003.npy",
+        "test_sft_0004.npy",
+        "train_pretrain_0000.npy",
+        "train_pretrain_0001.npy",
+        "train_pretrain_0002.npy",
+        "train_sft_0000.npy",
+        "train_sft_0001.npy",
+        "train_sft_0002.npy",
+        "train_sft_0003.npy",
+        "train_sft_0004.npy",
+        "train_sft_0005.npy",
+        "train_sft_0006.npy",
+        "train_sft_0007.npy",
+        "train_sft_0008.npy",
+        "train_sft_0009.npy",
+        "train_sft_0010.npy",
+        "train_sft_0011.npy",
+        "train_sft_0012.npy",
+        "train_sft_0013.npy",
+        "train_sft_0014.npy",
+        "train_sft_0015.npy",
+        "train_sft_0016.npy",
+        "train_sft_0017.npy",
+        "train_sft_0018.npy",
+        "train_sft_0019.npy",
+        "train_sft_0020.npy",
+        "validation_pretrain_0000.npy",
+        "validation_sft_0000.npy",
+        "validation_sft_0001.npy",
+        "validation_sft_0002.npy",
+        "validation_sft_0003.npy",
+        "validation_sft_0004.npy"
+      ]
+    },
+    "curriculum_partition": {
+      "ok": true,
+      "record_level": {
+        "structured_records": 18185,
+        "drill": 15695,
+        "trajectory": 2490,
+        "assigned": 18185,
+        "unassigned_templates": {}
+      },
+      "block_level": {
+        "drill": {
+          "blocks": 4219,
+          "active_target_tokens": 554449,
+          "records_available": 19791,
+          "records_selected": 15695,
+          "source": "jsonl(curriculum)",
+          "declared_blocks": 4219,
+          "declared_active_target_tokens": 554449,
+          "matches_declared": true
+        },
+        "trajectory": {
+          "blocks": 6117,
+          "active_target_tokens": 396339,
+          "records_available": 19791,
+          "records_selected": 2490,
+          "source": "jsonl(curriculum)",
+          "declared_blocks": 6117,
+          "declared_active_target_tokens": 396339,
+          "matches_declared": true
+        },
+        "mixed": {
+          "blocks": 11677,
+          "active_target_tokens": 1521617,
+          "records_available": null,
+          "records_selected": null,
+          "source": "shards(mixed)",
+          "declared_blocks": null,
+          "declared_active_target_tokens": 1521617,
+          "matches_declared": true
+        }
+      },
+      "declared_pack_source": "recorded when the v9 curriculum pack was built (DEC-013/014); the corpus above is re-derived from the JSONL on disk"
+    },
+    "group_isolation": {
+      "ok": true,
+      "straddling_groups": [],
+      "n_groups": {
+        "train": 2020,
+        "validation": 25,
+        "test": 27,
+        "challenge": 11
+      }
+    }
+  },
+  "fingerprint": "7af8d4928071742aab3b8e2a09852ad285d2357ff46c6b419c4c83e7e7d2704e"
+}
