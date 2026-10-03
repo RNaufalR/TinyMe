@@ -54,6 +54,7 @@ echo "  checkpoint : $CKPT"
 echo "  commit     : $(git rev-parse HEAD)"
 echo "  dirty      : $(git status --porcelain | wc -l) file(s)"
 
+
 # 1 ── the 68-row matrix must re-derive as verified from artefacts
 step "matrix-strict" python3 scripts/verify_matrix.py --strict --dataset "$DATASET"
 
@@ -81,7 +82,13 @@ step "gguf-runtime" python3 scripts/verify_gguf.py --gguf release/tinyme-f16.ggu
     --reference checkpoints/"$EXP"/"$CKPT".safetensors \
     --out docs/audit_evidence/gguf_runtime_test.json
 
-# 8 ── fresh clone: the documented flow must work from GitHub alone
+# 8 ── GGUF parity at logit level: same tokens in, same distribution out
+step "gguf-logit-parity" python3 scripts/verify_gguf_logits.py \
+    --gguf release/tinyme-f16.gguf \
+    --reference checkpoints/"$EXP"/"$CKPT".safetensors \
+    --out docs/audit_evidence/gguf_logit_parity.json
+
+# 9 ── fresh clone: the documented flow must work from GitHub alone
 step "fresh-clone" bash scripts/fresh_clone_check.sh
 
 echo

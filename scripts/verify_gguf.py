@@ -291,45 +291,11 @@ def main() -> int:
         gens.append({"prompt": prompt[:60], "gguf": body[:200], "native": native[:200]})
     checks["generation"] = {"ok": all(g["gguf"].strip() for g in gens), "cases": gens}
 
-    # ------------------------------------------- greedy/argmax agreement (RoPE)
-    # The decisive RoPE check: llama.cpp's greedy next token is its argmax. If the
-    # rotation layout the exporter writes disagreed with the runtime's, the next
-    # token would not match the native engine's argmax. Random agreement for a
-    # 4096-token vocabulary is ~0, so this discriminates far more sharply than a
-    # perplexity aggregate.
-    if engine is not None:
-        prefixes = ["What is 21 + 34?", "Add 53 and 4699.", "The capital of Indonesia is",
-                    "def add(a, b):\n    return", "Repeat the token 4a26e73e exactly:",
-                    "Compute exactly: 4837 * 962", "The freezing point of water is",
-                    "Fetch source_id FACT-2082DD and", "Binary search runs in",
-                    "Population of Bandung is"]
-        agree, cases = 0, []
-        for prefix in prefixes:
-            proc = _run(runtime / "llama-cli",
-                        ["-m", str(gguf), "-p", prefix, "-n", "1", "--temp", "0",
-                         "--no-display-prompt", "--no-warmup", "-t", "2", "--ignore-eos",
-                         "--no-jinja"], timeout=900)
-            raw = proc.stdout.strip()
-            body = raw.split(prefix, 1)[-1] if prefix in raw else raw
-            body = body.split("[ Prompt:")[0].strip("\n> ")
-            gg_ids = tok.encode_ids(body) if body else []
-            native = engine.generate(prefix, max_new_tokens=1, temperature=0.0,
-                                     repetition_penalty=1.0)
-            native_ids = tok.encode_ids(native)
-            ok = bool(gg_ids) and bool(native_ids) and gg_ids[0] == native_ids[0]
-            agree += int(ok)
-            cases.append({"prefix": prefix[:40], "gguf_first_id": gg_ids[0] if gg_ids else None,
-                          "native_first_id": native_ids[0] if native_ids else None, "match": ok})
-        rate = agree / len(prefixes)
-        checks["greedy_agreement"] = {
-            "ok": rate >= 0.8,
-            "agreement": round(rate, 3), "matched": agree, "total": len(prefixes),
-            "chance_level": round(1 / max(tok.vocab_size, 1), 6),
-            "cases": cases,
-            "note": "the GGUF stores f16 weights while the native reference is f32, so a few "
-                    "disagreements are expected; systematic disagreement is the RoPE-layout "
-                    "signature",
-        }
+    # The RoPE layout is settled at logit level by scripts/verify_gguf_logits.py,
+    # which compares the full logit matrix against the native engine on an
+    # identical token window. An earlier greedy-continuation check lived here; it
+    # was removed because llama-cli prints nothing for a generated special token,
+    # so it silently measured the CLI's rendering rather than the model.
 
     # ----------------------------------------------------------- quant variants
     if not args.skip_quantize:

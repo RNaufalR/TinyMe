@@ -1,0 +1,460 @@
+{
+  "experiment": "EXP-012-TOOL-SFT-V8",
+  "variant": "fp32",
+  "source": "experiments/EXP-012-TOOL-SFT-V8/evaluation_tools_best.json",
+  "cases": 25,
+  "metrics": {
+    "cases": 25,
+    "tool_needed_accuracy": 0.6,
+    "tool_not_needed_accuracy": 1.0,
+    "tool_syntax_validity": 0.96,
+    "tool_name_accuracy": 0.6,
+    "argument_validity": 1.0,
+    "argument_accuracy": 1.0,
+    "execution_success": 0.6,
+    "multi_step_success": 0.0,
+    "error_recovery_success": 1.0,
+    "grounded_final_answer": 0.2,
+    "citation_validity": 0.0,
+    "task_completion": 0.08,
+    "by_family": {
+      "A": 0.0,
+      "B": 0.0,
+      "C": 0.0,
+      "D": 0.25,
+      "E": 0.0,
+      "F": 0.0,
+      "G": 0.3333
+    },
+    "needed_cases": 20,
+    "not_needed_cases": 5
+  },
+  "gate": {
+    "task_completion": {
+      "value": 0.08,
+      "threshold": 0.5,
+      "pass": false
+    },
+    "tool_syntax_validity": {
+      "value": 0.96,
+      "threshold": 0.9,
+      "pass": true
+    },
+    "argument_validity": {
+      "value": 1.0,
+      "threshold": 0.9,
+      "pass": true
+    },
+    "tool_not_needed_accuracy": {
+      "value": 1.0,
+      "threshold": 0.8,
+      "pass": true
+    },
+    "citation_validity": {
+      "value": 0.0,
+      "threshold": 0.8,
+      "pass": false
+    }
+  },
+  "gate_pass": false,
+  "gate_definition": "DECISIONS.md DEC-011",
+  "failure_stages": {
+    "no_tool_call": 7,
+    "not_grounded": 6,
+    "direct_answer_wrong": 5,
+    "invalid_citation": 5,
+    "protocol_error": 1,
+    "answer_wrong": 1
+  },
+  "by_family": {
+    "A": {
+      "cases": 5,
+      "passed": 0,
+      "tool_name_accuracy": 0.0,
+      "exec_success": 0.0,
+      "dominant_failure": "direct_answer_wrong"
+    },
+    "B": {
+      "cases": 5,
+      "passed": 0,
+      "tool_name_accuracy": 1.0,
+      "exec_success": 1.0,
+      "dominant_failure": "invalid_citation"
+    },
+    "C": {
+      "cases": 4,
+      "passed": 0,
+      "tool_name_accuracy": 0.0,
+      "exec_success": 0.0,
+      "dominant_failure": "no_tool_call"
+    },
+    "D": {
+      "cases": 4,
+      "passed": 1,
+      "tool_name_accuracy": 0.75,
+      "exec_success": 0.75,
+      "dominant_failure": "not_grounded"
+    },
+    "E": {
+      "cases": 2,
+      "passed": 0,
+      "tool_name_accuracy": 0.0,
+      "exec_success": 0.0,
+      "dominant_failure": "protocol_error"
+    },
+    "F": {
+      "cases": 2,
+      "passed": 0,
+      "tool_name_accuracy": 0.5,
+      "exec_success": 0.5,
+      "dominant_failure": "no_tool_call"
+    },
+    "G": {
+      "cases": 3,
+      "passed": 1,
+      "tool_name_accuracy": 1.0,
+      "exec_success": 1.0,
+      "dominant_failure": "not_grounded"
+    }
+  },
+  "per_case": [
+    {
+      "case_id": "A0",
+      "family": "A",
+      "tool_needed": false,
+      "correct": false,
+      "first_failure": "direct_answer_wrong",
+      "tools_used": [],
+      "stop_reason": "final",
+      "final": "The answer is 30.",
+      "expectation": "no tool call; direct correct answer",
+      "notes": "answerable without the runtime"
+    },
+    {
+      "case_id": "A1",
+      "family": "A",
+      "tool_needed": false,
+      "correct": false,
+      "first_failure": "direct_answer_wrong",
+      "tools_used": [],
+      "stop_reason": "final",
+      "final": "The answer is 8.",
+      "expectation": "no tool call; direct correct answer",
+      "notes": "answerable without the runtime"
+    },
+    {
+      "case_id": "A2",
+      "family": "A",
+      "tool_needed": false,
+      "correct": false,
+      "first_failure": "direct_answer_wrong",
+      "tools_used": [],
+      "stop_reason": "final",
+      "final": "The answer is 1.",
+      "expectation": "no tool call; direct correct answer",
+      "notes": "answerable without the runtime"
+    },
+    {
+      "case_id": "A3",
+      "family": "A",
+      "tool_needed": false,
+      "correct": false,
+      "first_failure": "direct_answer_wrong",
+      "tools_used": [],
+      "stop_reason": "final",
+      "final": "Result: 1",
+      "expectation": "no tool call; direct correct answer",
+      "notes": "answerable without the runtime"
+    },
+    {
+      "case_id": "A4",
+      "family": "A",
+      "tool_needed": false,
+      "correct": false,
+      "first_failure": "direct_answer_wrong",
+      "tools_used": [],
+      "stop_reason": "final",
+      "final": "The answer is 40.",
+      "expectation": "no tool call; direct correct answer",
+      "notes": "answerable without the runtime"
+    },
+    {
+      "case_id": "B0",
+      "family": "B",
+      "tool_needed": true,
+      "correct": false,
+      "first_failure": "invalid_citation",
+      "tools_used": [
+        "compute"
+      ],
+      "stop_reason": "final",
+      "final": "399 + 455 - 7 = 365 [calc-95737755]",
+      "expectation": "compute with valid args",
+      "notes": "mul_add shape; operands held out from training data"
+    },
+    {
+      "case_id": "B1",
+      "family": "B",
+      "tool_needed": true,
+      "correct": false,
+      "first_failure": "invalid_citation",
+      "tools_used": [
+        "compute"
+      ],
+      "stop_reason": "final",
+      "final": "39 - 2121 = 111 [calc-02222222]",
+      "expectation": "compute with valid args",
+      "notes": "mul_add shape; operands held out from training data"
+    },
+    {
+      "case_id": "B2",
+      "family": "B",
+      "tool_needed": true,
+      "correct": false,
+      "first_failure": "invalid_citation",
+      "tools_used": [
+        "compute"
+      ],
+      "stop_reason": "final",
+      "final": "39999 + 9966 = 9655 [calc-99977999]",
+      "expectation": "compute with valid args",
+      "notes": "add_mul shape; operands held out from training data"
+    },
+    {
+      "case_id": "B3",
+      "family": "B",
+      "tool_needed": true,
+      "correct": false,
+      "first_failure": "invalid_citation",
+      "tools_used": [
+        "compute"
+      ],
+      "stop_reason": "final",
+      "final": "39 - 5577 = 5253 [calc-35775552]",
+      "expectation": "compute with valid args",
+      "notes": "mul shape; operands held out from training data"
+    },
+    {
+      "case_id": "B4",
+      "family": "B",
+      "tool_needed": true,
+      "correct": false,
+      "first_failure": "invalid_citation",
+      "tools_used": [
+        "compute"
+      ],
+      "stop_reason": "final",
+      "final": "39 + 5222 = 2223 [calc-32222222]",
+      "expectation": "compute with valid args",
+      "notes": "add_sub shape; operands held out from training data"
+    },
+    {
+      "case_id": "C0",
+      "family": "C",
+      "tool_needed": true,
+      "correct": false,
+      "first_failure": "no_tool_call",
+      "tools_used": [],
+      "stop_reason": "final",
+      "final": "The answer is 3.",
+      "expectation": "search with valid args; grounded answer",
+      "notes": "requires the retrieval index"
+    },
+    {
+      "case_id": "C1",
+      "family": "C",
+      "tool_needed": true,
+      "correct": false,
+      "first_failure": "no_tool_call",
+      "tools_used": [],
+      "stop_reason": "final",
+      "final": "The answer is 1.",
+      "expectation": "search with valid args; grounded answer",
+      "notes": "requires the retrieval index"
+    },
+    {
+      "case_id": "C2",
+      "family": "C",
+      "tool_needed": true,
+      "correct": false,
+      "first_failure": "no_tool_call",
+      "tools_used": [],
+      "stop_reason": "final",
+      "final": "The answer is 1.",
+      "expectation": "search with valid args; grounded answer",
+      "notes": "requires the retrieval index"
+    },
+    {
+      "case_id": "C3",
+      "family": "C",
+      "tool_needed": true,
+      "correct": false,
+      "first_failure": "no_tool_call",
+      "tools_used": [],
+      "stop_reason": "final",
+      "final": "The answer is 1.",
+      "expectation": "search with valid args; grounded answer",
+      "notes": "requires the retrieval index"
+    },
+    {
+      "case_id": "D0",
+      "family": "D",
+      "tool_needed": true,
+      "correct": false,
+      "first_failure": "not_grounded",
+      "tools_used": [
+        "fetch",
+        "search",
+        "fetch"
+      ],
+      "stop_reason": "no_final_no_tool_call",
+      "final": "",
+      "expectation": "search then fetch; grounded answer",
+      "notes": "multi-step retrieval"
+    },
+    {
+      "case_id": "D1",
+      "family": "D",
+      "tool_needed": true,
+      "correct": false,
+      "first_failure": "not_grounded",
+      "tools_used": [
+        "fetch",
+        "search",
+        "fetch"
+      ],
+      "stop_reason": "no_final_no_tool_call",
+      "final": "",
+      "expectation": "search then fetch; grounded answer",
+      "notes": "multi-step retrieval"
+    },
+    {
+      "case_id": "D2",
+      "family": "D",
+      "tool_needed": true,
+      "correct": false,
+      "first_failure": "no_tool_call",
+      "tools_used": [],
+      "stop_reason": "no_final_no_tool_call",
+      "final": "",
+      "expectation": "search then fetch; grounded answer",
+      "notes": "multi-step retrieval"
+    },
+    {
+      "case_id": "D3",
+      "family": "D",
+      "tool_needed": true,
+      "correct": true,
+      "first_failure": "not_grounded",
+      "tools_used": [
+        "fetch",
+        "search",
+        "fetch",
+        "fetch"
+      ],
+      "stop_reason": "no_final_no_tool_call",
+      "final": "",
+      "expectation": "fetch with the given id",
+      "notes": ""
+    },
+    {
+      "case_id": "E0",
+      "family": "E",
+      "tool_needed": true,
+      "correct": false,
+      "first_failure": "protocol_error",
+      "tools_used": [],
+      "stop_reason": "protocol_error:call_not_json",
+      "final": "",
+      "expectation": "code tool executes; result interpreted",
+      "notes": ""
+    },
+    {
+      "case_id": "E1",
+      "family": "E",
+      "tool_needed": true,
+      "correct": false,
+      "first_failure": "no_tool_call",
+      "tools_used": [],
+      "stop_reason": "no_final_no_tool_call",
+      "final": "",
+      "expectation": "code tool executes; result interpreted",
+      "notes": ""
+    },
+    {
+      "case_id": "F0",
+      "family": "F",
+      "tool_needed": true,
+      "correct": false,
+      "first_failure": "no_tool_call",
+      "tools_used": [],
+      "stop_reason": "no_final_no_tool_call",
+      "final": "",
+      "expectation": "code tool runs a corrected implementation; tests pass",
+      "notes": "the repaired program must count duplicate words"
+    },
+    {
+      "case_id": "F1",
+      "family": "F",
+      "tool_needed": true,
+      "correct": false,
+      "first_failure": "answer_wrong",
+      "tools_used": [
+        "code",
+        "code",
+        "code"
+      ],
+      "stop_reason": "no_final_no_tool_call",
+      "final": "",
+      "expectation": "code tool runs a corrected implementation",
+      "notes": ""
+    },
+    {
+      "case_id": "G0",
+      "family": "G",
+      "tool_needed": true,
+      "correct": false,
+      "first_failure": "not_grounded",
+      "tools_used": [
+        "search",
+        "fetch"
+      ],
+      "stop_reason": "no_final_no_tool_call",
+      "final": "",
+      "expectation": "failed/empty call then a corrected successful call",
+      "notes": "typo query returns no results"
+    },
+    {
+      "case_id": "G1",
+      "family": "G",
+      "tool_needed": true,
+      "correct": true,
+      "first_failure": "not_grounded",
+      "tools_used": [
+        "fetch",
+        "search",
+        "fetch"
+      ],
+      "stop_reason": "no_final_no_tool_call",
+      "final": "",
+      "expectation": "invalid call then a corrected successful call",
+      "notes": "unknown source id must be recovered from"
+    },
+    {
+      "case_id": "G2",
+      "family": "G",
+      "tool_needed": true,
+      "correct": false,
+      "first_failure": "not_grounded",
+      "tools_used": [
+        "compute",
+        "search",
+        "fetch"
+      ],
+      "stop_reason": "no_final_no_tool_call",
+      "final": "",
+      "expectation": "error then corrected call",
+      "notes": ""
+    }
+  ]
+}
